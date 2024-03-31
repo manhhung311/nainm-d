@@ -1,10 +1,10 @@
 // @mui
-import { styled } from "@mui/material/styles";
+import { styled } from '@mui/material/styles';
 // components
-import Page from "../components/Page";
+import Page from '../components/Page';
 // ----------------------------------------------------------------------
-const RootStyle = styled("div")(() => ({
-  height: "100%",
+const RootStyle = styled('div')(() => ({
+  height: '100%',
 }));
 // ----------------------------------------------------------------------
 

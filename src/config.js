@@ -4,7 +4,7 @@
 // API
 // ----------------------------------------------------------------------
 
-export const HOST_API = process.env.REACT_APP_HOST_API_KEY || "";
+export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
 
 export const FIREBASE_API = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -62,9 +62,9 @@ export const ICON = {
 // ----------------------------------------------------------------------
 
 export const defaultSettings = {
-  themeMode: "light",
-  themeDirection: "ltr",
-  themeColorPresets: "default",
-  themeLayout: "horizontal",
+  themeMode: 'light',
+  themeDirection: 'ltr',
+  themeColorPresets: 'default',
+  themeLayout: 'horizontal',
   themeStretch: false,
 };

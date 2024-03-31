@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import LazyLoadImage from 'react-lazy-load-image-component';
 import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
@@ -54,7 +54,11 @@ export default function Image({ ratio, disabledEffect = false, effect = 'blur', 
         lineHeight: 0,
         display: 'block',
         overflow: 'hidden',
-        '& .wrapper': { width: 1, height: 1, backgroundSize: 'cover !important' },
+        '& .wrapper': {
+          width: 1,
+          height: 1,
+          backgroundSize: 'cover !important',
+        },
         ...sx,
       }}
     >
