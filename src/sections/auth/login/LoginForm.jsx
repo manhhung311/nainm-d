@@ -31,9 +31,8 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: 'demo1234',
-    remember: true,
+    email: '',
+    password: '',
   };
 
   const methods = useForm({
@@ -50,7 +49,6 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      console.log('data', data);
       await login(data.email, data.password);
     } catch (error) {
       console.error(error);

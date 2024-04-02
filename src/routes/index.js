@@ -9,7 +9,6 @@ import DashboardLayout from '../layouts/dashboard';
 import { PATH_AFTER_LOGIN } from './paths';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
-import { PATH_PAGE } from './paths';
 
 // ----------------------------------------------------------------------
 

@@ -19,11 +19,9 @@ export default function AuthGuard({ children }) {
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
 
-  console.log('isAuthenticated', isAuthenticated, isInitialized);
-
-  // if (!isInitialized) {
-  //   return <LoadingScreen />;
-  // }
+  if (!isInitialized) {
+    return <LoadingScreen />;
+  }
 
   if (!isAuthenticated) {
     if (pathname !== requestedLocation) {
