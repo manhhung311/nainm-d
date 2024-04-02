@@ -9,6 +9,7 @@ import DashboardLayout from '../layouts/dashboard';
 import { PATH_AFTER_LOGIN } from './paths';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
+import { PATH_PAGE } from './paths';
 
 // ----------------------------------------------------------------------
 
@@ -71,6 +72,7 @@ export default function Router() {
       element: <LogoOnlyLayout />,
       children: [
         { path: 'coming-soon', element: <ComingSoon /> },
+        { path: 'auth', element: <Login /> },
         { path: '404', element: <NotFound /> },
         { path: '*', element: <Navigate to="/404" replace /> },
       ],
