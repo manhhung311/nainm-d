@@ -6,7 +6,7 @@ import MainLayout from "../layouts/main";
 import LoadingScreen from "../components/LoadingScreen";
 import LogoOnlyLayout from "../layouts/LogoOnlyLayout";
 // import DashboardLayout from "../layouts/dashboard";
-import { PATH_AFTER_LOGIN } from "./paths";
+import { PATH_PAGE } from "./paths";
 
 // ----------------------------------------------------------------------
 
@@ -55,6 +55,7 @@ export default function Router() {
       element: <LogoOnlyLayout />,
       children: [
         { path: "coming-soon", element: <ComingSoon /> },
+        { path: "auth", element: <Login /> },
         { path: "404", element: <NotFound /> },
         { path: "*", element: <Navigate to="/404" replace /> },
       ],
@@ -72,6 +73,7 @@ export default function Router() {
 const HomePage = Loadable(lazy(() => import("../pages/Home")));
 const ComingSoon = Loadable(lazy(() => import("../pages/ComingSoon")));
 const NotFound = Loadable(lazy(() => import("../pages/Page404")));
+const Login = Loadable(lazy(() => import("../pages/Login/Login")));
 // const UserList = Loadable(
 //   lazy(() => import("../pages/dashboard/user/UserList"))
 // );
