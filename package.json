@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.9.10",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.3.4",
@@ -51,6 +52,7 @@
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
     "simplebar-react": "^3.2.4",
+    "stream-browserify": "^3.0.0",
     "stylis": "^4.3.1",
     "stylis-plugin-rtl": "^2.1.1",
     "uuid": "^9.0.1",

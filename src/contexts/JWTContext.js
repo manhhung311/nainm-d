@@ -1,9 +1,14 @@
 import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // utils
-import axios from '../utils/axios';
+import { loader } from 'graphql.macro';
+import { useLazyQuery } from '@apollo/client';
 import { isValidToken, setSession } from '../utils/jwt';
+import { SESSION_KEY } from '../constant';
 
+// ----------------------------------------------------------------------
+const LOGIN = loader('../graphql/queries/auth/login.graphql');
+const PROFILE = loader('../graphql/queries/user/me.graphql');
 // ----------------------------------------------------------------------
 
 const initialState = {
@@ -56,24 +61,60 @@ AuthProvider.propTypes = {
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const [loginFn] = useLazyQuery(LOGIN, {
+    onCompleted: async (res) => {
+      if (res) {
+        return res;
+      }
+      return null;
+    },
+  });
+
+  const [fetchProfile] = useLazyQuery(PROFILE, {
+    fetchPolicy: 'network-only',
+    onCompleted: async (res) => {
+      if (res) {
+        return res.userInfo;
+      }
+      return null;
+    },
+  });
+
   useEffect(() => {
     const initialize = async () => {
       try {
-        const accessToken = window.localStorage.getItem('accessToken');
+        const accessToken = window.localStorage.getItem(SESSION_KEY.ACCESS_TOKEN);
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get('/api/account/my-account');
-          const { user } = response.data;
-
-          dispatch({
-            type: 'INITIALIZE',
-            payload: {
-              isAuthenticated: true,
-              user,
-            },
-          });
+          const fetchedData = await fetchProfile();
+          const user = fetchedData.me ?? fetchedData?.data?.me;
+          console.log('user', user);
+          if (user) {
+            const currentUser = {
+              ...user,
+              id: `${user?.id}`,
+              role: user?.role,
+              phoneNumber: user?.phoneNumber,
+            };
+            dispatch({
+              type: 'INITIALIZE',
+              payload: {
+                isAuthenticated: true,
+                user: currentUser,
+              },
+            });
+          } else {
+            setSession(null);
+            dispatch({
+              type: 'INITIALIZE',
+              payload: {
+                isAuthenticated: false,
+                user: null,
+              },
+            });
+          }
         } else {
           dispatch({
             type: 'INITIALIZE',
@@ -95,23 +136,47 @@ function AuthProvider({ children }) {
       }
     };
 
-    initialize();
-  }, []);
+    initialize().catch((e) => {
+      console.error('error on loading: ', e);
+      setSession(null);
+      dispatch({ type: 'LOGOUT' });
+    });
+  }, [fetchProfile]);
 
   const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', {
-      email,
-      password,
-    });
-    const { accessToken, user } = response.data;
-
-    setSession(accessToken);
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        user,
+    const response = await loginFn({
+      variables: {
+        input: {
+          email,
+          password,
+        },
       },
+      fetchPolicy: 'cache-and-network',
+    }).catch((e) => {
+      throw e;
     });
+
+    console.log('response', response);
+    if (!response.error && response.data.login) {
+      const { token, user } = response.data.login;
+      const currentUser = {
+        ...user,
+        id: `${user?.id}`,
+        role: user?.role,
+        phoneNumber: user?.phoneNumber,
+      };
+      setSession(token);
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          isAuthenticated: true,
+          user: currentUser,
+        },
+      });
+    }
+    if (response.errors) {
+      throw response.error;
+    }
   };
   const logout = async () => {
     setSession(null);
