@@ -14,6 +14,7 @@ export default function HomePage() {
     <Page title="Trang chủ">
       <RootStyle>
 
+
         <HomeHero/>
       </RootStyle>
     </Page>
