@@ -17,7 +17,7 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const images = [
   {
     label: '1',
-    title: 'Artificial Muscle and Soft Roboticss',
+    title: 'Artificial Muscle and Soft Robotics',
     Content: 'We focus on the development of soft actuators and artificial muscle, which can be applied to intra/extra human body robotics, haptic-feedback systems, wearable power suits, and flexible and soft electronics.',
     imgPath: 'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
   },
