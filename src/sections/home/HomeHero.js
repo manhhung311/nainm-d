@@ -116,8 +116,7 @@ export default function HomeHero() {
                       sx={{ flexDirection: { xs: 'column-reverse', sm: 'row', md: 'row' } }}
                     >
                       <Grid item xs={12} sm={6} md={4}>
-                        <Image src={step.imgPath} alt={step.label} />
-                        {/* <img style={{ height: '400px', width: '100%' }} src={step.imgPath} alt={step.label} /> */}
+                        <img style={{ height:'340px', width: '100%' }} src={step.imgPath} alt={step.label} />
                       </Grid>
                       <Grid item xs={12} sm={6} md={8}>
                         <Typography

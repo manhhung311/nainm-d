@@ -32,16 +32,64 @@ const navConfig = [
     items: [
       // USER
       {
-        title: 'user',
+        title: 'User',
         path: PATH_DASHBOARD.user.root,
         icon: ICONS.user,
         children: [
-          { title: 'profile', path: PATH_DASHBOARD.user.profile },
-          { title: 'cards', path: PATH_DASHBOARD.user.cards },
           { title: 'list', path: PATH_DASHBOARD.user.list },
           { title: 'create', path: PATH_DASHBOARD.user.new },
-          { title: 'edit', path: PATH_DASHBOARD.user.demoEdit },
-          { title: 'account', path: PATH_DASHBOARD.user.account },
+          // { title: 'edit', path: PATH_DASHBOARD.user.edit },
+        ],
+      },
+      {
+        title: 'Publiction',
+        path: PATH_DASHBOARD.publication.root,
+        icon: ICONS.blog,
+        children: [
+          { title: 'list', path: PATH_DASHBOARD.publication.list },
+          { title: 'create', path: PATH_DASHBOARD.publication.new },
+          // { title: 'edit', path: PATH_DASHBOARD.user.edit },
+        ],
+      },
+      {
+        title: 'Research',
+        path: PATH_DASHBOARD.publication.root,
+        icon: ICONS.blog,
+        children: [
+          { title: 'list', path: PATH_DASHBOARD.research.list },
+          { title: 'create', path: PATH_DASHBOARD.research.new },
+          // { title: 'edit', path: PATH_DASHBOARD.user.edit },
+        ],
+      },
+      
+      {
+        title: 'Facility',
+        path: PATH_DASHBOARD.facility.root,
+        icon: ICONS.booking,
+        children: [
+          { title: 'list', path: PATH_DASHBOARD.facility.list },
+          { title: 'create', path: PATH_DASHBOARD.facility.new },
+          // { title: 'edit', path: PATH_DASHBOARD.user.edit },
+        ],
+      },
+      {
+        title: 'News',
+        path: PATH_DASHBOARD.news.root,
+        icon: ICONS.booking,
+        children: [
+          { title: 'list', path: PATH_DASHBOARD.news.list },
+          { title: 'create', path: PATH_DASHBOARD.news.new },
+          // { title: 'edit', path: PATH_DASHBOARD.user.edit },
+        ],
+      },
+      {
+        title: 'Drive',
+        path: PATH_DASHBOARD.drive.root,
+        icon: ICONS.booking,
+        children: [
+          { title: 'list', path: PATH_DASHBOARD.drive.list },
+          { title: 'create', path: PATH_DASHBOARD.drive.new },
+          // { title: 'edit', path: PATH_DASHBOARD.user.edit },
         ],
       },
     ],

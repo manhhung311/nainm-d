@@ -12,17 +12,17 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 // ----------------------------------------------------------------------
 
-export default function UserList() {
+export default function ResearchList() {
   const { pathname } = useLocation();
 
   const isDashboard = pathname.includes('dashboard');
   return (
-    <Page title="Danh sách người dùng">
+    <Page title="Vận hành">
       {isDashboard ? (
-        <h1>Quản lý người dùng</h1>
+        <h1>Vận hành</h1>
       ) : (
         <RootStyle>
-          <h1>Danh sách người dùng</h1>
+          <h1>Vận hành</h1>
         </RootStyle>
       )}
     </Page>

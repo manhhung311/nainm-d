@@ -17,8 +17,6 @@ NavListRoot.propTypes = {
 export function NavListRoot({ list, isCollapse }) {
   const { pathname } = useLocation();
 
-  console.log('list', list);
-
   const active = getActive(list.path, pathname);
 
   const [open, setOpen] = useState(active);
