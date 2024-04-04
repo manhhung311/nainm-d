@@ -53,7 +53,7 @@ const navConfig = [
       },
       {
         title: 'Research',
-        path: PATH_DASHBOARD.publication.root,
+        path: PATH_DASHBOARD.research.root,
         icon: ICONS.blog,
         children: [
           { title: 'list', path: PATH_DASHBOARD.research.list },
