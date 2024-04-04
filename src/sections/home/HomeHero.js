@@ -18,25 +18,29 @@ const images = [
   {
     label: '1',
     title: 'Artificial Muscle and Soft Robotics',
-    Content: 'We focus on the development of soft actuators and artificial muscle, which can be applied to intra/extra human body robotics, haptic-feedback systems, wearable power suits, and flexible and soft electronics.',
+    Content:
+      'We focus on the development of soft actuators and artificial muscle, which can be applied to intra/extra human body robotics, haptic-feedback systems, wearable power suits, and flexible and soft electronics.',
     imgPath: 'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
   },
   {
     label: '2',
     title: 'Energy Harvesting and Triboelectricity',
-    Content: 'We design energy harvesting systems and triboelectric nanogenerators (TENGs),which can produce electricity from mechanical kinetic energy.',
+    Content:
+      'We design energy harvesting systems and triboelectric nanogenerators (TENGs),which can produce electricity from mechanical kinetic energy.',
     imgPath: 'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
   },
   {
     label: '3',
     title: ' Energy Storage and Structural Battery',
-    Content: 'We develop structural battery possessing both load bearing capability and energy storage function.The structural batteries are crucial to the next-generation transportation vehicles such as UAV, UAM, and electrical vehicles.',
+    Content:
+      'We develop structural battery possessing both load bearing capability and energy storage function.The structural batteries are crucial to the next-generation transportation vehicles such as UAV, UAM, and electrical vehicles.',
     imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
   },
   {
     label: '4',
     title: 'Mechanical Metamaterial and Smart Structures',
-    Content: 'We investigate mechanical metamaterials and topological insulators,which show the unparalleled wave transmission and acoustic bandgap.',
+    Content:
+      'We investigate mechanical metamaterials and topological insulators,which show the unparalleled wave transmission and acoustic bandgap.',
     imgPath:
       'https://ghepanhpro.com/uploads/w450/2021/09/02/tao-khung-anh-xe-giay-online61306a9ad4e9d_f6f9f92616193460e8380b0a8bb630f7.jpg',
   },
@@ -112,9 +116,10 @@ export default function HomeHero() {
                       sx={{ flexDirection: { xs: 'column-reverse', sm: 'row', md: 'row' } }}
                     >
                       <Grid item xs={12} sm={6} md={4}>
-                        <img style={{ height: '400px', width: '100%' }} src={step.imgPath} alt={step.label} />
+                        <Image src={step.imgPath} alt={step.label} />
+                        {/* <img style={{ height: '400px', width: '100%' }} src={step.imgPath} alt={step.label} /> */}
                       </Grid>
-                      <Grid item xs={12} sm={6} md={8} >
+                      <Grid item xs={12} sm={6} md={8}>
                         <Typography
                           variant="h4"
                           gutterBottom
@@ -126,7 +131,6 @@ export default function HomeHero() {
                             fontSize: '0.1rem',
                             textAlign: 'center',
                             lineHeight: '50px',
-
                           }}
                         >
                           {step.label}
@@ -134,12 +138,17 @@ export default function HomeHero() {
                         <Typography variant="h3" color="#82f9d4">
                           {step.title}
                         </Typography>
-                        <Typography variant="subtitle1" color='#fff' >
+                        <Typography variant="subtitle1" color="#fff">
                           {step.Content}
                         </Typography>
-                        <Link to="/more-view" sx={{
-                          height: '50px',
-                        }}>More View</Link>
+                        <Link
+                          to="/more-view"
+                          sx={{
+                            height: '50px',
+                          }}
+                        >
+                          More View
+                        </Link>
                       </Grid>
                     </Grid>
                   ) : null}

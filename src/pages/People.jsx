@@ -2,10 +2,8 @@
 import { styled } from '@mui/material/styles';
 // components
 import Page from '../components/Page';
-import HomeHero from '../sections/home/HomeHero';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  // height: '100%',
   paddingTop: theme.spacing(8),
   [theme.breakpoints.up('md')]: {
     paddingTop: theme.spacing(11),
@@ -13,11 +11,11 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 // ----------------------------------------------------------------------
 
-export default function HomePage() {
+export default function People() {
   return (
-    <Page title="Trang chủ">
+    <Page title="Nhân sự">
       <RootStyle>
-        <HomeHero />
+        <h1>PEOPLE</h1>
       </RootStyle>
     </Page>
   );

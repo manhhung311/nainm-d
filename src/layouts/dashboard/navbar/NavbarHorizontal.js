@@ -28,6 +28,7 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 function NavbarHorizontal() {
+  console.log('NavbarHorizontal');
   return (
     <RootStyle>
       <Container maxWidth={false}>

@@ -79,7 +79,11 @@ export default function Router() {
     {
       path: '/',
       element: <MainLayout />,
-      children: [{ element: <HomePage />, index: true }],
+      children: [
+        { element: <HomePage />, index: true },
+        { path: 'people', element: <People /> },
+        { path: 'publication', element: <Publication /> },
+      ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
   ]);
@@ -89,6 +93,8 @@ export default function Router() {
 const Login = Loadable(lazy(() => import('../pages/auth/Login')));
 // MAIN
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
+const People = Loadable(lazy(() => import('../pages/People')));
+const Publication = Loadable(lazy(() => import('../pages/Publication')));
 const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/user/UserList')));

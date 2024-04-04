@@ -80,6 +80,7 @@ export default function MainHeader() {
           <Box sx={{ flexGrow: 1 }} />
 
           {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+          <Box sx={{ flexGrow: 0.5 }} />
           <LoginButton />
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
         </Container>

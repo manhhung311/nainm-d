@@ -134,7 +134,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
             display: 'flex',
             cursor: 'pointer',
             alignItems: 'center',
-            ...(isHome && { color: 'common.white' }),
+            ...(isHome && { color: 'text.primary' }),
             ...(isOffset && { color: 'text.primary' }),
             ...(isOpen && { opacity: 0.48 }),
           }}
@@ -142,7 +142,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
           {title}
           <Iconify
             icon={isOpen ? 'eva:arrow-ios-upward-fill' : 'eva:arrow-ios-downward-fill'}
-            sx={{ ml: 0.5, width: 16, height: 16 }}
+            sx={{ ml: 0.5, width: 30, height: 16 }}
           />
         </LinkStyle>
 
@@ -245,7 +245,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
       component={RouterLink}
       end={path === '/'}
       sx={{
-        ...(isHome && { color: 'common.white' }),
+        ...(isHome && { color: 'text.primary' }),
         ...(isOffset && { color: 'text.primary' }),
         '&.active': {
           color: 'primary.main',

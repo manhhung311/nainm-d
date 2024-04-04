@@ -1,6 +1,5 @@
-import { jwtDecode } from 'jwt-decode';
-//
-import axios from './axios';
+import  jwtDecode  from 'jwt-decode';
+import { sign, verify } from 'jsonwebtoken';
 
 // ----------------------------------------------------------------------
 
@@ -9,14 +8,11 @@ const isValidToken = (accessToken) => {
     return false;
   }
 
-  // ----------------------------------------------------------------------
-
   const decoded = jwtDecode(accessToken);
   const currentTime = Date.now() / 1000;
 
   return decoded.exp > currentTime;
 };
-
 //  const handleTokenExpired = (exp) => {
 //   let expiredTimer;
 
@@ -35,14 +31,14 @@ const isValidToken = (accessToken) => {
 const setSession = (accessToken) => {
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
-    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    // axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
     // This function below will handle when token is expired
     // const { exp } = jwtDecode(accessToken);
     // handleTokenExpired(exp);
   } else {
     localStorage.removeItem('accessToken');
-    delete axios.defaults.headers.common.Authorization;
+    // delete axios.defaults.headers.common.Authorization;
   }
 };
 
-export { isValidToken, setSession };
+export { isValidToken, setSession, verify, sign };

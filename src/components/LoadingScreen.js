@@ -29,7 +29,6 @@ LoadingScreen.propTypes = {
 };
 
 export default function LoadingScreen({ isDashboard, ...other }) {
-  console.log('heheh');
   return (
     <>
       <ProgressBar />

@@ -62,7 +62,7 @@ export default function MenuMobile({ isOffset, isHome, navConfig }) {
         onClick={handleDrawerOpen}
         sx={{
           ml: 1,
-          ...(isHome && { color: 'common.white' }),
+          ...(isHome && { color: 'text.primary' }),
           ...(isOffset && { color: 'text.primary' }),
         }}
       >
@@ -139,7 +139,7 @@ function MenuMobileItem({ item, isOpen, onOpen }) {
         },
       }}
     >
-      <ListItemIcon>{icon}</ListItemIcon>
+    
       <ListItemText disableTypography primary={title} />
     </ListItemStyle>
   );

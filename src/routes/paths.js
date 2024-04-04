@@ -34,6 +34,8 @@ export const PATH_PAGE = {
   page404: '/404',
   page500: '/500',
   components: '/components',
+  people: '/people',
+  publication: '/publication',
   op31: '/op31',
   op32: '/op32',
   op33: '/op33',

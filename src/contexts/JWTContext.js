@@ -84,11 +84,14 @@ function AuthProvider({ children }) {
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem(SESSION_KEY.ACCESS_TOKEN);
-
+        console.log('accessToken', accessToken);
+        
+        console.log('invalid', isValidToken(accessToken));
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
           const fetchedData = await fetchProfile();
+          console.log('fetchedData',fetchedData?.data?.me);
           const user = fetchedData.me ?? fetchedData?.data?.me;
           console.log('user', user);
           if (user) {
