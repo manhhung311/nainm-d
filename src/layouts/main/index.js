@@ -1,18 +1,18 @@
-import { useLocation, Outlet } from "react-router-dom";
+import { useLocation, Outlet } from 'react-router-dom';
 // @mui
-import { Box, Link, Container, Typography, Stack } from "@mui/material";
+import { Box, Link, Container, Typography, Stack } from '@mui/material';
 // components
-// import Logo from '../../components/Logo';
+import Logo from '../../components/Logo';
 //
-import MainFooter from "./MainFooter";
-import MainHeader from "./MainHeader";
+import MainFooter from './MainFooter';
+import MainHeader from './MainHeader';
 
 // ----------------------------------------------------------------------
 
 export default function MainLayout() {
   const { pathname } = useLocation();
 
-  const isHome = pathname === "/";
+  const isHome = pathname === '/';
 
   return (
     <Stack sx={{ minHeight: 1 }}>
@@ -28,21 +28,18 @@ export default function MainLayout() {
         <Box
           sx={{
             py: 5,
-            textAlign: "center",
-            position: "relative",
-            bgcolor: "background.default",
+            textAlign: 'center',
+            position: 'relative',
+            bgcolor: 'background.default',
           }}
         >
           <Container>
-            {/*<Logo sx={{ mb: 1, mx: 'auto' }} />*/}
+            <Logo sx={{ mb: 1, mx: 'auto' }} />
 
             <Typography variant="caption" component="p">
               © All rights reserved
               <br /> made by &nbsp;
-              <Link
-                target="_blank"
-                href="https://sinhvien.uneti.edu.vn/bang-tin.html/"
-              >
+              <Link target="_blank" href="https://sinhvien.uneti.edu.vn/bang-tin.html/">
                 DHTI15A4HN from UNETI
               </Link>
             </Typography>

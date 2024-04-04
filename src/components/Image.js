@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import LazyLoadImage from 'react-lazy-load-image-component';
 import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
@@ -54,7 +54,11 @@ export default function Image({ ratio, disabledEffect = false, effect = 'blur', 
         lineHeight: 0,
         display: 'block',
         overflow: 'hidden',
-        '& .wrapper': { width: 1, height: 1, backgroundSize: 'cover !important' },
+        '& .wrapper': {
+          width: 1,
+          height: 1,
+          backgroundSize: 'cover !important',
+        },
         ...sx,
       }}
     >
@@ -75,7 +79,7 @@ export default function Image({ ratio, disabledEffect = false, effect = 'blur', 
 function getRatio(ratio = '1/1') {
   return {
     '4/3': 'calc(100% / 4 * 3)',
-    '3/4': 'calc(100% / 3 * 4)',
+    '3/4': 'calc(100% / 4 * 4)',
     '6/4': 'calc(100% / 6 * 4)',
     '4/6': 'calc(100% / 4 * 6)',
     '16/9': 'calc(100% / 16 * 9)',

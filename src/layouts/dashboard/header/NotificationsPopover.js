@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { noCase } from 'change-case';
 import { useState } from 'react';
 // @mui
 import {
@@ -19,12 +18,12 @@ import {
 // utils
 import { fToNow } from '../../../utils/formatTime';
 // _mock_
-import { _notifications } from '../../../_mock';
 // components
 import Iconify from '../../../components/Iconify';
 import Scrollbar from '../../../components/Scrollbar';
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
+import { _notifications } from '../../../_mock/_others';
 
 // ----------------------------------------------------------------------
 
@@ -180,14 +179,7 @@ function NotificationItem({ notification }) {
 // ----------------------------------------------------------------------
 
 function renderContent(notification) {
-  const title = (
-    <Typography variant="subtitle2">
-      {notification.title}
-      <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-        &nbsp; {noCase(notification.description)}
-      </Typography>
-    </Typography>
-  );
+  const title = <Typography variant="subtitle2">{notification.title}</Typography>;
 
   if (notification.type === 'order_placed') {
     return {
