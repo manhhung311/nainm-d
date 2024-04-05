@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { Box, Grid, Typography, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-HomeMinimal.propTypes = {};
+HomeMinimal.propTypes = {
+
+};
 function HomeMinimal(props) {
-    const [data, setData] = useState([
+    const [data] = useState([
         {
             number: '30000000',
             name: 'H. Yoo†, M. Mahato†, J. -S. Kim, S. Oh, M. Garai, V. H. Nguyen, A. K. Taseer, M. -J. Lee, I. -K. Oh *',

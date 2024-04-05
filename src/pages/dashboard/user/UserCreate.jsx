@@ -2,6 +2,7 @@
 import { styled } from '@mui/material/styles';
 // components
 import Page from '../../../components/Page';
+import NewUser from '../../../sections/user/NewUser';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -11,7 +12,7 @@ const RootStyle = styled('div')(() => ({
 export default function UserCreate() {
   return (
     <Page title="Danh sách người dùng">
-      <h1>Tạo mới</h1>
+      <NewUser />
     </Page>
   );
 }

@@ -10,7 +10,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import { Link } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
-import Image from '../../components/Image';
+// import Image from '../../components/Image';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
