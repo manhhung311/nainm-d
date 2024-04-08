@@ -155,6 +155,7 @@ function HomeMinimal(props) {
                     <Grid item xs={0.5} md={1.57} />
                 </Grid>
             </Box>
+            
         </Box>
     );
 }
