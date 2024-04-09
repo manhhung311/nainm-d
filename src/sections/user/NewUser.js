@@ -1,21 +1,26 @@
-import { Box, Card, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, Card, Grid, Stack } from '@mui/material';
 // import TodoForm from 'src/pages/dashboard/user/TodoForm';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
+import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import FormProvider from '../../components/hook-form/FormProvider';
 import RHFTextField from '../../components/hook-form/RHFTextField';
-
-
+import { PATH_DASHBOARD } from '../../routes/paths';
 
 NewUser.propTypes = {
-    onSubmit: PropTypes.func,
+    isEdit: PropTypes.bool,
     currentUser: PropTypes.object,
 };
 export default function NewUser({ isEdit, currentUser }) {
+
+    console.log('currentUser', currentUser);
+    const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
     const NewUserSchema = Yup.object().shape({
         firstName: Yup.string().required('FirstName is required'),
         lastName: Yup.string().required('LastName is required'),
@@ -50,8 +55,14 @@ export default function NewUser({ isEdit, currentUser }) {
     } = methods;
 
     const onSubmit = (values) => {
-        reset();
-        console.log('Form sumit:', values);
+        try {
+            reset();
+            enqueueSnackbar(isEdit ? 'create success!' : 'Update success!');
+            navigate(PATH_DASHBOARD.user.list);
+            console.log('Form sumit:', values);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -63,13 +74,12 @@ export default function NewUser({ isEdit, currentUser }) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isEdit, currentUser]);
+
     return (
-
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-
             <Grid container spacing={2}>
                 <Grid item xs={1} md={2} />
-                <Grid item xs={12} md={8} >
+                <Grid item xs={12} md={8}>
                     <Card sx={{ p: 3 }}>
                         <Box
                             sx={{
@@ -78,8 +88,8 @@ export default function NewUser({ isEdit, currentUser }) {
                                 rowGap: 3,
                                 gridTemplateColumns: {
                                     xs: 'repeat(1, 1fr)',
-                                    sm: 'repeat(2, 1fr)'
-                                }
+                                    sm: 'repeat(2, 1fr)',
+                                },
                             }}
                         >
                             <RHFTextField name="firstName" label="First Name" />
@@ -100,6 +110,6 @@ export default function NewUser({ isEdit, currentUser }) {
                 </Grid>
                 <Grid item xs={1} md={2} />
             </Grid>
-        </FormProvider >
+        </FormProvider>
     );
 }

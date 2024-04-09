@@ -1,15 +1,15 @@
 // noinspection JSCheckFunctionSignatures
 
 import { sub } from 'date-fns';
-import { role } from './role';
-import { email } from './email';
+import { country, fullAddress } from './address';
 import { boolean } from './boolean';
 import { company } from './company';
+import { email } from './email';
+import { firstName, fullName, lastName } from './name';
+import { age, percent, price, rating } from './number';
 import { phoneNumber } from './phoneNumber';
-import { fullAddress, country } from './address';
-import { firstName, lastName, fullName } from './name';
-import { title, sentence, description, paperTitle, paperTitlePDF, paperTitleHDBDPDF } from './text';
-import { price, rating, age, percent } from './number';
+import { role } from './role';
+import { description, sentence, title } from './text';
 
 // ----------------------------------------------------------------------
 
@@ -50,18 +50,6 @@ const _mock = {
     PDF: (index) => `/static/mock-images/PDF/anhPDF_${index + 1}.jpg`,
     HDBHPDF: (index) => `/static/mock-images/sales-guide/HDBH_${index + 1}.jpg`,
     recruitment: (index) => `/static/mock-images/recruitments/anh_${index + 1}.jpg`,
-  },
-  papers: {
-    name: (index) => paperTitle[index],
-    file: (index) => `/static/mock-images/docs/hoa-don-${index + 1}.jpg`,
-  },
-  papersPDF: {
-    name: (index) => paperTitlePDF[index],
-    file: (index) => `/static/mock-images/PDF/HSNL-${index + 1}.jpg`,
-  },
-  paperHDBHPDF: {
-    name: (index) => paperTitleHDBDPDF[index],
-    file: (index) => `/static/mock-images/sales-guide/HDBH-${index + 1}.jpg`,
   },
 };
 
