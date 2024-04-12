@@ -14,6 +14,7 @@ const initialState = {
   onChangeMode: () => {},
   onToggleMode: () => {},
   onChangeDirection: () => {},
+  onChangeDirectionByLang: () => {},
   onChangeColor: () => {},
   onToggleStretch: () => {},
   onChangeLayout: () => {},

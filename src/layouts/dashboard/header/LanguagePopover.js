@@ -2,16 +2,16 @@ import { useState } from 'react';
 // @mui
 import { MenuItem, Stack } from '@mui/material';
 // hooks
-import useLocales from '../../../hooks/useLocales';
+import useLocales from '../../../locals/useLocals';
 // components
-import Image from '../../../components/Image';
+import Iconify from '../../../components/Iconify';
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
 
 // ----------------------------------------------------------------------
 
 export default function LanguagePopover() {
-  const { allLang, currentLang, onChangeLang } = useLocales();
+  const { allLangs, currentLang, onChangeLang } = useLocales();
 
   const [open, setOpen] = useState(null);
 
@@ -33,7 +33,7 @@ export default function LanguagePopover() {
           ...(open && { bgcolor: 'action.selected' }),
         }}
       >
-        <Image disabledEffect src={currentLang.icon} alt={currentLang.label} />
+        <Iconify icon={currentLang.icon} sx={{ borderRadius: 0.65, width: 32 }} />
       </IconButtonAnimate>
 
       <MenuPopover
@@ -52,7 +52,7 @@ export default function LanguagePopover() {
         }}
       >
         <Stack spacing={0.75}>
-          {allLang.map((option) => (
+          {allLangs.map((option) => (
             <MenuItem
               key={option.value}
               selected={option.value === currentLang.value}
@@ -61,7 +61,7 @@ export default function LanguagePopover() {
                 handleClose();
               }}
             >
-              <Image disabledEffect alt={option.label} src={option.icon} sx={{ width: 28, mr: 2 }} />
+              <Iconify icon={option.icon} sx={{ borderRadius: 0.65, width: 30 }} />
 
               {option.label}
             </MenuItem>
