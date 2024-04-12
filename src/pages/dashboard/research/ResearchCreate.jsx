@@ -8,7 +8,7 @@ const RootStyle = styled('div')(() => ({
 }));
 // ----------------------------------------------------------------------
 
-export default function PublictionCreate() {
+export default function ResearchCreate() {
   return (
     <Page title="Tạo công bố dự án nghiên cứ">
       <h1>Tạo mới dự án</h1>
