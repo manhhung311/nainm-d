@@ -10,6 +10,5 @@ export function isExternalLink(path) {
 }
 
 export function getActive(path, pathname) {
-  console.log('matchPath({ path, end: false }, pathname)', matchPath({ path, end: false }, pathname));
   return path ? !!matchPath({ path, end: false }, pathname) : false;
 }
