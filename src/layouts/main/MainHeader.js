@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 // @mui
+import { AppBar, Box, Container, Toolbar } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -9,13 +9,14 @@ import useResponsive from '../../hooks/useResponsive';
 import cssStyles from '../../utils/cssStyles';
 // config
 import { HEADER } from '../../config';
+// locals
+import LanguagePopover from '../dashboard/header/LanguagePopover';
 // components
-import Logo from '../../components/Logo';
-import Label from '../../components/Label';
-import MenuDesktop from './MenuDesktop';
-import navConfig from './MenuConfig';
-import MenuMobile from './MenuMobile';
 import LoginButton from '../../components/LoginButton';
+import Logo from '../../components/Logo';
+import navConfig from './MenuConfig';
+import MenuDesktop from './MenuDesktop';
+import MenuMobile from './MenuMobile';
 //
 
 // ----------------------------------------------------------------------
@@ -81,6 +82,7 @@ export default function MainHeader() {
 
           {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
           <Box sx={{ flexGrow: 0.5 }} />
+          <LanguagePopover />
           <LoginButton />
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
         </Container>
