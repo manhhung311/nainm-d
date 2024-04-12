@@ -69,7 +69,6 @@ export default function HomeHero() {
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
   const isDesktop = useResponsive('between', 'xs', 'xs', 'lg');
-  console.log('isMobile', isMobile);
 
   return (
     <Box
@@ -85,7 +84,7 @@ export default function HomeHero() {
           justifyContent: 'center',
           alignItems: 'center',
           height: '630px',
-          width: '90%',
+          width: '100%',
           maxWidth: '1680px',
           margin: '0 auto',
         }}
@@ -110,44 +109,66 @@ export default function HomeHero() {
                   {Math.abs(activeStep - index) <= 2 ? (
                     <Grid
                       container
-                      spacing={2}
+                      spacing={5}
                       alignItems="center"
                       justifyContent="center"
-                      sx={{ flexDirection: { xs: 'column-reverse', sm: 'row', md: 'row' } }}
+                      sx={{
+                        flexDirection: { xs: 'column-reverse', sm: 'row', md: 'row' },
+                        textAlign: { xs: 'center', sm: 'start', md: 'start' },
+                      }}
                     >
-                      <Grid item xs={12} sm={6} md={4}>
-                        <img style={{ height: '340px', width: '100%' }} src={step.imgPath} alt={step.label} />
+                      <Grid item xs={12} sm={6} md={6}>
+                        <img style={{ height: '100%', width: '100%' }} src={step.imgPath} alt={step.label} />
                       </Grid>
-                      <Grid item xs={12} sm={6} md={8}>
-                        <Typography
-                          variant="h4"
-                          gutterBottom
+                      <Grid item xs={12} sm={6} md={6}>
+                        <Grid
+                          container
+                          alignItems="center"
+                          justifyContent="center"
+                          spacing={2}
                           sx={{
-                            border: '1px solid #82f9d4',
-                            color: '#82f9d4',
-                            height: '50px',
-                            width: '50px',
-                            fontSize: '0.1rem',
-                            textAlign: 'center',
-                            lineHeight: '50px',
+                            flexDirection: { xs: 'column', sm: 'row', md: 'row' },
+                            textAlign: { xs: 'center', sm: 'start', md: 'start' },
                           }}
                         >
-                          {step.label}
-                        </Typography>
-                        <Typography variant="h3" color="#82f9d4">
-                          {step.title}
-                        </Typography>
-                        <Typography variant="subtitle1" color="#fff">
-                          {step.Content}
-                        </Typography>
-                        <Link
-                          to="/more-view"
-                          sx={{
-                            height: '50px',
-                          }}
-                        >
-                          More View
-                        </Link>
+                          <Grid item xs={12}>
+                            <Typography
+                              variant="h4"
+                              gutterBottom
+                              sx={{
+                                border: '1px solid #82f9d4',
+                                color: '#82f9d4',
+                                height: '50px',
+                                width: '50px',
+                                fontSize: '0.95rem',
+                                textAlign: 'center',
+                                lineHeight: '50px',
+                              }}
+                            >
+                              {step.label}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant="h3" color="#82f9d4">
+                              {step.title}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Typography variant="subtitle1" color="#fff">
+                              {step.Content}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Link
+                              to="/more-view"
+                              sx={{
+                                height: '50px',
+                              }}
+                            >
+                              More View
+                            </Link>
+                          </Grid>
+                        </Grid>
                       </Grid>
                     </Grid>
                   ) : null}
@@ -167,7 +188,7 @@ export default function HomeHero() {
       {!isDesktop && (
         <Box
           sx={{
-            backgroundColor: '#696969',
+            backgroundColor: '#111135',
             width: '100%',
             height: '22.2%',
             color: '#fff',
@@ -202,7 +223,7 @@ export default function HomeHero() {
                 onClick={() => handleItemClick(0)} // Chuyển đến hình ảnh 2 khi click vào mục "Energy Harvesting and Triboelectricity"
                 sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem' }}>01</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>01</Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Articial Muscle and Soft Robottics
@@ -215,7 +236,7 @@ export default function HomeHero() {
                 onClick={() => handleItemClick(1)} // Chuyển đến hình ảnh 3 khi click vào mục "Energy Storage and Structural Battery"
                 sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem' }}>02</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>02</Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Energy Harvesting and Triboelectricity
@@ -228,7 +249,7 @@ export default function HomeHero() {
                 onClick={() => handleItemClick(2)} // Chuyển đến hình ảnh 4 khi click vào mục "Mechnical Metamaterial and Smart Structures"
                 sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem' }}>03</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>03</Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Energy Storage and Structural Battery
@@ -241,7 +262,7 @@ export default function HomeHero() {
                 onClick={() => handleItemClick(3)} // Chuyển đến hình ảnh 5 khi click vào mục "Mechnical Metamaterial and Smart Structures"
                 sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem' }}>04</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>04</Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Mechnical Metamaterial and Smart Structures

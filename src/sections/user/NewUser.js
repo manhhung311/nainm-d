@@ -58,7 +58,7 @@ export default function NewUser({ isEdit, currentUser }) {
         try {
             reset();
             enqueueSnackbar(isEdit ? 'create success!' : 'Update success!');
-            navigate(PATH_DASHBOARD.user.list);
+            navigate(PATH_DASHBOARD.user.list); // khi bấm tạo mới thành công thì nó chuyển đến userlist
             console.log('Form sumit:', values);
         } catch (error) {
             console.log(error);

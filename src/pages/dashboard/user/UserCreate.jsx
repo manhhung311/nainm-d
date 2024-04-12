@@ -19,7 +19,7 @@ export default function UserCreate() {
   console.log('_userList', _userList);
   console.log('name', id);
   // Sử dụng paramCase chính xác
-  const currentUser = _userList.find((user) => user.id === id); // tìm trong userlist có ì nào bằng id paramCase vừa tìm không
+  const currentUser = _userList.find((user) => user.id === id); // tìm trong userlist có id nào bằng id paramCase vừa tìm không
 
   return (
     <Page title="Danh sách người dùng">
