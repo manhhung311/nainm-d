@@ -36,7 +36,7 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 // sections
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
-
+import useLocales from '../../../locals/useLocals';
 // ----------------------------------------------------------------------
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
 
@@ -83,6 +83,8 @@ export default function UserList() {
     onChangePage,
     onChangeRowsPerPage,
   } = useTable();
+
+  const { t } = useLocales();
 
   const { themeStretch } = useSettings();
 

@@ -1,0 +1,17 @@
+{
+  "user": "User List",
+  "list": "list",
+  "edit": "edit",
+  "details": "details",
+  "checkout": "checkout",
+  "management": "management",
+  "home": {
+    "title": "Home",
+    "arrIteam": {
+      "Artificial": "Artificial Muscle and Soft Robotics"
+    }
+  },
+  "demo": {
+    "title": "English"
+  }
+}
