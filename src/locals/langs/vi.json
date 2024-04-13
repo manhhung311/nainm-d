@@ -1,0 +1,16 @@
+{
+  "user": "người dùng",
+  "list": "danh sách",
+  "edit": "chỉnh sửa",
+  "details": "chi tiết",
+  "management": "quản lý",
+  "home": {
+    "title": "Trang chủ",
+    "arrIteam": {
+      "Artificial": "Cơ bắp nhân tạo và Robot mềm"
+    }
+  },
+  "demo": {
+    "title": "Việt Nam"
+  }
+}
