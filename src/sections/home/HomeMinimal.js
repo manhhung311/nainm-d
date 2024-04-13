@@ -53,6 +53,7 @@ function HomeMinimal(props) {
       <Box sx={{ height: '100%', py: 10 }}>
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item xs={0.5} md={1.57} />
+
           <Grid item xs={11} md={8.86} sx={{ height: '63px' }}>
             <Typography variant="h3" gutterBottom sx={{ color: '#3459c1', height: '63px' }}>
               Recent Publication
