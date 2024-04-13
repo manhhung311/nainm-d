@@ -3,7 +3,9 @@ import { Autocomplete, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import _mock from '../../_mock'; // Import _mock
+import { useLocation } from 'react-router-dom'; // Import _mock
+import _mock from '../../_mock';
+import useLocales from '../../locals/useLocals';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(5),
@@ -20,12 +22,14 @@ const options = [
 ];
 
 export default function ResearchMain() {
+  const { pathname } = useLocation();
+  const { t } = useLocales();
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
         <Grid item xs={12}>
           <Typography variant="h4">
-            {_mock.text.title(0)} {/* Lấy tiêu đề từ _mock */}
+            {t('research.title')} {/* Lấy tiêu đề từ _mock */}
           </Typography>
         </Grid>
         <Grid item xs={12} md={3}>
@@ -48,15 +52,53 @@ export default function ResearchMain() {
           <Typography variant="body1">1. {_mock.text.description(1)}</Typography>
           <Typography variant="body1">2. {_mock.text.description(2)}</Typography>
         </Grid>
-        <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', paddingBottom: '0' }}>
-          <img src={_mock.image.cover(0)} alt="Ảnh mô tả" style={{ width: '100%' }} />
+        <Grid item xs={12}>
+          <Box style={{ paddingTop: '0' }}>
+            <img src={_mock.image.cover(0)} alt="Ảnh mô tả" style={{ width: '100%' }} />
+          </Box>
+          <Box style={{ backgroundColor: '#111A51', color: '#ffff' }}>
+            <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
+              {_mock.text.sentence(2)}
+            </Typography>
+          </Box>
         </Grid>
-        <Grid item xs={12} style={{ backgroundColor: '#111A51', color: '#ffff' }}>
-          <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
-            {_mock.text.sentence(2)}
-          </Typography>
+        <Grid item xs={12}>
+          <Box>
+            <img src={_mock.image.cover(1)} alt="Ảnh mô tả" style={{ width: '100%' }} />
+          </Box>
+          <Box style={{ backgroundColor: '#111A51', color: '#ffff' }}>
+            <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
+              {_mock.text.sentence(2)}
+            </Typography>
+          </Box>
         </Grid>
-        <Grid item xs={12} />
+        <Grid item xs={12}>
+          <Typography variant="subtitle1">{_mock.text.title(7)}</Typography>
+          <Typography variant="body1">1. {_mock.text.description(3)}</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Box>
+            <img src={_mock.image.cover(2)} alt="Ảnh mô tả" style={{ width: '100%' }} />
+          </Box>
+          <Box style={{ backgroundColor: '#111A51', color: '#ffff' }}>
+            <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
+              {_mock.text.sentence(3)}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box>
+            <Typography variant="body1">2. {_mock.text.description(3)}</Typography>
+          </Box>
+          <Box>
+            <img src={_mock.image.cover(3)} alt="Ảnh mô tả" style={{ width: '100%' }} />
+          </Box>
+          <Box style={{ backgroundColor: '#111A51', color: '#ffff' }}>
+            <Typography variant="subtitle2" style={{ textAlign: 'center' }}>
+              {_mock.text.sentence(4)}
+            </Typography>
+          </Box>
+        </Grid>
       </Grid>
     </RootStyle>
   );
