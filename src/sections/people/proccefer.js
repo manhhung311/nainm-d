@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Button, Stack, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Grid, Button, Stack, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
 import HubIcon from '@mui/icons-material/Hub';
 import { Link as RouterLink } from 'react-router-dom';
@@ -7,10 +7,28 @@ import FitbitSharpIcon from '@mui/icons-material/FitbitSharp';
 import GrainSharpIcon from '@mui/icons-material/GrainSharp';
 import BlurOnSharpIcon from '@mui/icons-material/BlurOnSharp';
 import isString from 'lodash/isString';
+import { InlineIcon } from '@iconify/react';
 import Image from '../../components/Image';
+import _mock from '../../_mock';
+import { _peopleData } from '../../_mock/_user';
+import Iconify from '../../components/Iconify';
 
 export default function Proccefer() {
+  const IconText = [
+    <ListItem>
+      <ListItemIcon>
+        <FitbitSharpIcon sx={{ mr: 1, color: '#00FA9A' }} />
+      </ListItemIcon>
+    </ListItem>,
+    <ListItem>
+      <ListItemIcon>
+        <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
+      </ListItemIcon>
+    </ListItem>,
+  ];
+
   return (
+    // {IconText.map((item, index) => ())}
     <Box sx={{ p: 1 }}>
       <Grid container>
         <Grid item xs={12} md={3}>
@@ -30,9 +48,7 @@ export default function Proccefer() {
             </Box>
             <Box sx={{ p: 3, pl: { xs: 2, md: 6 } }}>
               <ul type="none">
-                <li>
-                  ★ Director, National Creative Research Initiative for Functionally Antagonistic Nano-Engineering
-                </li>
+                <li>★ {_mock.text.title(0)}</li>
                 <li>★ Director, Soft Robotics & Intelligent Materials Lab</li>
               </ul>
             </Box>
@@ -103,142 +119,26 @@ export default function Proccefer() {
       </Grid>
       <Grid container>
         <Grid item xs={12} sm={8} md={9} lg={10}>
-          <Box sx={{ pt: 6 }}>
-            <ListItem>
-              <ListItemIcon>
-                <FitbitSharpIcon sx={{ mr: 1, color: '#00FA9A' }} />
-                <h3>EDUCATION</h3>
-              </ListItemIcon>
-            </ListItem>
-            <List sx={{ ml: { xs: 0.5, md: 4 } }}>
+          {_peopleData.map((item, index) => (
+            <Box sx={{ pt: 5 }} key={index}>
               <ListItem>
                 <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
+                  <FitbitSharpIcon sx={{ mr: 1, color: '#00FA9A' }} />
+                  <Typography variant="h6">{item.title}</Typography>
                 </ListItemIcon>
-                <ListItemText primary="Ph.D. KAIST, Mechanical Engineering, Aug. 2001" />
               </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="M.S. KAIST, Aerospace Engineering, Feb. 1997" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="B.S. Inha University, Aerospace Engineering, Feb. 1995" />
-              </ListItem>
-            </List>
-          </Box>
-          <Box>
-            <ListItem>
-              <ListItemIcon>
-                <FitbitSharpIcon sx={{ mr: 1, color: '#00FA9A' }} />
-                <h3>WORK EXPERIENCE</h3>
-              </ListItemIcon>
-            </ListItem>
-            <List sx={{ ml: { xs: 0.5, md: 4 } }}>
-              <ListItem>
-                <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Korea Advanced Institute of Science and Technology, Daejeon, Republic of Korea" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Full Professor (March. 2015 ~ Present)" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Department of Mechanical Engineering, School of Mechanical and Aerospace Engineering" />
-              </ListItem>
-            </List>
-            <List sx={{ ml: { xs: 0.5, md: 4 } }}>
-              <ListItem>
-                <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Korea Advanced Institute of Science and Technology, Daejeon, Republic of Korea" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Associate Professor (Aug. 2010 ~ Feb. 2015)" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Graduate School of Ocean Systems Engineering, School of Mechanical, Aerospace and Systems Engineering" />
-              </ListItem>
-            </List>
-            <List sx={{ ml: { xs: 0.5, md: 4 } }}>
-              <ListItem>
-                <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Chonnam National University, Gwangju, Republic of Korea" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Assistant Professor (Feb. 2004 – Mar. 2008)" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Associate Professor (Apr. 2008 – Aug. 2010)" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="School of Mechanical Systems Engineering" />
-              </ListItem>
-            </List>
-            <List sx={{ ml: { xs: 0.5, md: 4 } }}>
-              <ListItem>
-                <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="LG Electronics Co.,LTD., Seoul, Republic of Korea" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Senior Researcher(Aug. 2001 – Feb. 2004)" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="LG Digital Appliance Research Laboratory" />
-              </ListItem>
-            </List>
-            <List sx={{ ml: { xs: 0.5, md: 4 } }}>
-              <ListItem>
-                <ListItemIcon>
-                  <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Stanford University, Stanford, California, USA" />
-              </ListItem>
-              <ListItem sx={{ ml: 2 }}>
-                <ListItemIcon>
-                  <BlurOnSharpIcon sx={{ fontSize: 'small', color: '#66CDAA' }} />
-                </ListItemIcon>
-                <ListItemText primary="Visiting Scholar(Dec. 2006 – Dec. 2007), Department of Aerospace Engineering" />
-              </ListItem>
-            </List>
-          </Box>
+              <List sx={{ ml: { xs: 0.5, md: 4 } }}>
+                {item.data.map((data, idx) => (
+                  <ListItem key={idx}>
+                    <ListItemIcon>
+                      <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
+                    </ListItemIcon>
+                    <Typography variant="body1">{data}</Typography>
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          ))}
         </Grid>
       </Grid>
     </Box>

@@ -5,7 +5,8 @@ import React from 'react';
 import Page from '../components/Page';
 
 import Proccefer from '../sections/people/proccefer';
-import Iconify from '../components/Iconify';
+
+import useLocales from '../locals/useLocals';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(8),
@@ -16,8 +17,9 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function People() {
+  const { t } = useLocales();
   return (
-    <Page title="Nhân sự">
+    <Page title={t('people.page')}>
       <RootStyle>
         <h1>PEOPLE</h1>
         <Proccefer />

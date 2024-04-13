@@ -1,46 +1,12 @@
 // ----------------------------------------------------------------------
 
 export const title = [
-  'Apply These 7 Secret Techniques To Improve Event',
-  'Believing These 7 Myths About Event Keeps You From Growing',
-  "Don't Waste Time! 7 Facts Until You Reach Your Event",
-  'How 7 Things Will Change The Way You Approach Event',
-  "Event Awards: 7 Reasons Why They Don't Work & What You Can Do About It",
-  "Event Doesn't Have To Be Hard. Read These 7 Tips",
-  'Event Is Your Worst Enemy. 7 Ways To Defeat It',
-  'Event On A Budget: 7 Tips From The Great Depression',
-  'Knowing These 7 Secrets Will Make Your Event Look Amazing',
-  'Master The Art Of Event With These 7 Tips',
-  'My Life, My Job, My Career: How 7 Simple Event Helped Me Succeed',
-  'Take Advantage Of Event - Read These 7 Tips',
-  'The Next 7 Things You Should Do For Event Success',
-  'The Time Is Running Out! Think About These 7 Ways To Change Your Event',
-  'The 7 Best Things About Event',
-  'The 7 Biggest Event Mistakes You Can Easily Avoid',
-  'The 7 Most Successful Event Companies In Region',
-  'Think Your Event Is Safe? 7 Ways You Can Lose It Today',
-  "Thinking About Event? 7 Reasons Why It's Time To Stop!",
-  '7 Places To Get Deals On Event',
-  'Best Event Android Apps',
-  'Best Event Tips You Will Read This Year',
-  'Best 30 Tips For Event',
-  'Should Fixing Event Take 30 Steps?',
-  'The A - Z Of Event',
-  'The Next 30 Things To Immediately Do About Event',
-  'The Ultimate Guide To Event',
-  'Top 30 Funny Event Quotes',
-  'Top 30 Quotes On Event',
-  'Top 7 Lessons About Event To Learn Before You Hit 30',
-  'Top 7 Ways To Buy A Used Event',
-  '30 Best Ways To Sell Event',
-  '30 Ideas For Event',
-  '30 Lessons About Event You Need To Learn Before You Hit 40',
-  '30 Methods Of Event Domination',
-  '30 Things To Do Immediately About Event',
-  '30 Tips To Grow Your Event',
-  '30 Ways To Avoid Event Burnout',
-  '30 Ways To Improve Event',
-  'How To Make More Event By Doing Less'
+  'Director, National Creative Research Initiative for Functionally Antagonistic Nano-Engineering',
+  'Director, Soft Robotics & Intelligent Materials Lab.',
+  'Full Professor, Ph.D.',
+  'Department of Mechanical Engineering',
+  'School of Mechanical and Aerospace Engineering',
+  'Korea Advanced Institute of Science and Technology (KAIST)',
 ];
 
 export const sentence = [
@@ -83,7 +49,7 @@ export const sentence = [
   'Mollitia inventore recusandae provident aut.',
   'Numquam ullam beatae possimus.',
   'Fuga velit cupiditate ex culpa odio aut ut.',
-  'Vero corrupti nam voluptatum excepturi est et.'
+  'Vero corrupti nam voluptatum excepturi est et.',
 ];
 
 export const description = [
@@ -126,5 +92,5 @@ export const description = [
   'Modi quia laboriosam qui ad aut. Fugit quisquam earum distinctio officia est fugit quos. Iure repellat distinctio veritatis voluptate amet ratione repudiandae.',
   'Impedit perferendis vel quis ratione. Id aut id officia. Illum fuga saepe provident voluptate eligendi provident. Et nostrum maxime magni. Nobis cumque id magni in iste earum.',
   'Dolor numquam maiores praesentium dolorem nihil minus praesentium rem dolorem. Est rerum placeat. Numquam sed magni aliquam laborum enim facere ducimus.',
-  'In sint enim nam et itaque et qui. Molestiae a iusto quidem quia temporibus id quia eaque eius. Quis quia consectetur saepe vero et molestias. Rem minima accusamus vitae adipisci molestiae unde voluptate consequatur molestiae. Rerum exercitationem quisquam vitae.'
+  'In sint enim nam et itaque et qui. Molestiae a iusto quidem quia temporibus id quia eaque eius. Quis quia consectetur saepe vero et molestias. Rem minima accusamus vitae adipisci molestiae unde voluptate consequatur molestiae. Rerum exercitationem quisquam vitae.',
 ];
