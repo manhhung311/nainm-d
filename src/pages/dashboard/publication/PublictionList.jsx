@@ -1,16 +1,17 @@
 // @mui
-import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import { Typography } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { styled } from '@mui/material/styles';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { useLocation } from 'react-router';
+import useLocales from '../../../locals/useLocals';
 import Publiction from '../../../sections/publication/Publication';
 
 // components
 import Page from '../../../components/Page';
+// import { useState } from 'react';
+// import SwipeableViews from 'react-swipeable-views';
+// import { autoPlay } from 'react-swipeable-views-utils';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
@@ -20,24 +21,43 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 // ----------------------------------------------------------------------
+// const autoSwipe = autoPlay(SwipeableViews);
+
+const images = [
+  {
+    img: 'https://static.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png',
+  },
+  {
+    img: 'https://static1.srcdn.com/wordpress/wp-content/uploads/naruto.jpg',
+  },
+];
 
 export default function PublictionList() {
   const { pathname } = useLocation();
-
+  const { t } = useLocales();
   const isDashboard = pathname.includes('dashboard');
+  // const { movePicture, setMovePicture } = React.useState();
+  // const maxSteps = images.length;
+
+  // const clickNext = ()=>{
+  //   setMovePicture((nextPciture)=>nextPicture+1)
+  // }
+  // const clickBack = () => {
+  //   setMovePicture((nextPciture)=>nextPicture+1)
+  // }
+
   return (
-    <Page title="Dự án nghiên cứu">
+    <Page title={t('publication.publication')}>
       {isDashboard ? (
         <>
-          <h1>Dự án nghiên cứu</h1>
+          <h1>{t('publication.publication')}</h1>
           <Publiction />
         </>
       ) : (
         <RootStyle>
-          <h1>Dự án nghiên cứu</h1>
-          <Publiction 
-          />
-          
+          <h1>{t('publication.publication')}</h1>
+
+          <Publiction />
         </RootStyle>
       )}
     </Page>
