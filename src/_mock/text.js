@@ -11,6 +11,9 @@ export const title = [
   'Approach',
   'Selected Publications',
   'What is soft robotics?',
+  'Approach',
+  'Selected Publications',
+  'What is soft robotics?',
 ];
 
 export const sentence = [
