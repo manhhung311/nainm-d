@@ -2,6 +2,8 @@
 import { styled } from '@mui/material/styles';
 // components
 import Page from '../../../components/Page';
+
+import ResearchNewPostForm from '../../../sections/@dashboard/research/ResearchNewPostForm';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -11,7 +13,9 @@ const RootStyle = styled('div')(() => ({
 export default function ResearchCreate() {
   return (
     <Page title="Tạo công bố dự án nghiên cứ">
-      <h1>Tạo mới dự án</h1>
+      <RootStyle>
+        <ResearchNewPostForm />
+      </RootStyle>
     </Page>
   );
 }
