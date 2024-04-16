@@ -11,6 +11,7 @@ import { _researchData } from '../../_mock/_research';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import Image from '../../components/Image';
+import useAuth from '../../hooks/useAuth';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(5),
@@ -20,6 +21,11 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function ResearchMain() {
   const { pathname } = useLocation();
   const { t } = useLocales();
+
+  const { user } = useAuth();
+
+  console.log('user', user);
+
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
   const options = [
     { label: _mock.text.title(1), id: 1 }, // Lấy tiêu đề từ _mock

@@ -21,7 +21,7 @@ export default function ResearchList() {
   return (
     <Page title="Vận hành">
       {isDashboard ? (
-        <h1>Vận hành</h1>
+        <ResearchMain />
       ) : (
         <RootStyle>
           <ResearchMain />
