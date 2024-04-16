@@ -1,6 +1,13 @@
-// @mui
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+// @mu
+import Box from '@mui/material/Box';
+import MobileStepper from '@mui/material/MobileStepper';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
 import { styled } from '@mui/material/styles';
 import React from 'react';
 import { useLocation } from 'react-router';
@@ -22,7 +29,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 // ----------------------------------------------------------------------
 // const autoSwipe = autoPlay(SwipeableViews);
-
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const images = [
   {
     img: 'https://static.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png',

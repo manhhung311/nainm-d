@@ -1,3 +1,6 @@
+// highlight
+import './utils/highlight';
+import 'react-quill/dist/quill.snow.css';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
