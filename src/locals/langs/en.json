@@ -5,6 +5,9 @@
   "details": "details",
   "checkout": "checkout",
   "management": "management",
+  "research": {
+    "title": "Research"
+  },
   "home": {
     "title": "Home",
     "arrIteam": {
