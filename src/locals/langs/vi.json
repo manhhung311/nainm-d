@@ -1,5 +1,20 @@
 {
-  "user": "người dùng",
+  "user": {
+    "pageList": "Danh Sách Người Dùng",
+    "pageCreate": "Tạo Mới Người Dùng",
+    "pageUpdate": "Cập Nhật Người Dùng",
+    "pageNew": "Người Dùng Mới",
+    "Management": "Quản Lý",
+    "User": "Người Dùng",
+    "List": "Danh Sách",
+    "Name": "Họ Tên ",
+    "Role": "Vai Trò",
+    "PhoneNumber": "Số Điện Thoại",
+    "Status": "Trạng Thái",
+    "Search": "Tìm Kiếm Người Dùng",
+    "Dense": "Thu Gọn",
+    "Delete": "Xóa"
+  },
   "list": "danh sách",
   "edit": "chỉnh sửa",
   "details": "chi tiết",
