@@ -20,11 +20,22 @@
   "details": "details",
   "checkout": "checkout",
   "management": "management",
+  "research": {
+    "title": "Research"
+  },
   "home": {
     "title": "Home",
     "arrIteam": {
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
+  },
+  "publication":{
+    "publication":"Publication"
+  },
+  "people": {
+    "page": "People",
+    "tab1": "PROCCEFER",
+    "tab2": "STUDENT"
   },
   "demo": {
     "title": "English"
