@@ -17,6 +17,11 @@
   "publication":{
     "publication":"Publication"
   },
+  "people": {
+    "page": "People",
+    "tab1": "PROCCEFER",
+    "tab2": "STUDENT"
+  },
   "demo": {
     "title": "English"
   }
