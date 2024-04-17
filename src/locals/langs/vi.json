@@ -4,11 +4,17 @@
   "edit": "chỉnh sửa",
   "details": "chi tiết",
   "management": "quản lý",
+  "research": {
+    "title": "Nghiên cứu"
+  },
   "home": {
     "title": "Trang chủ",
     "arrIteam": {
       "Artificial": "Cơ bắp nhân tạo và Robot mềm"
     }
+  },
+  "publication":{
+    "publication":"Dự án nghiên cứu"
   },
   "people": {
     "page": "Nhân sự",

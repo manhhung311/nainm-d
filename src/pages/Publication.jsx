@@ -16,6 +16,7 @@ export default function Publication() {
     <Page title="Công bố khoa học">
       <RootStyle>
         <h1>Publication</h1>
+    
       </RootStyle>
     </Page>
   );
