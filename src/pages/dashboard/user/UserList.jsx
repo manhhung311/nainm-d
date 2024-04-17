@@ -37,14 +37,16 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
 import useLocales from '../../../locals/useLocals';
+
 // ----------------------------------------------------------------------
+
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
 
 const ROLE_OPTIONS = [
   'all',
   'ux designer',
-  'full stack designer',
-  'backend developer',
+  ' stacfullk designer',
+  'backend dveeloper',
   'project manager',
   'leader',
   'ui designer',
@@ -139,14 +141,14 @@ export default function UserList() {
     (!dataFiltered.length && !!filterStatus);
 
   return (
-    <Page title="User: List">
+    <Page title={t('user.pageList')}>
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="User List"
+          heading={t('user.pageList')}
           links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'List' },
+            { name: t('user.Management'), href: PATH_DASHBOARD.root },
+            { name: t('user.User'), href: PATH_DASHBOARD.user.root },
+            { name: t('user.List') },
           ]}
           action={
             <Button
@@ -155,7 +157,7 @@ export default function UserList() {
               to={PATH_DASHBOARD.user.new}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
-              New User
+              {t('user.pageNew')}
             </Button>
           }
         />
@@ -198,7 +200,7 @@ export default function UserList() {
                     )
                   }
                   actions={
-                    <Tooltip title="Delete">
+                    <Tooltip title={t('user.Delete')}>
                       <IconButton color="primary" onClick={() => handleDeleteRows(selected)}>
                         <Iconify icon={'eva:trash-2-outline'} />
                       </IconButton>
@@ -256,7 +258,7 @@ export default function UserList() {
 
             <FormControlLabel
               control={<Switch checked={dense} onChange={onChangeDense} />}
-              label="Dense"
+              label={t('user.Dense')}
               sx={{ px: 3, py: 1.5, top: 0, position: { md: 'absolute' } }}
             />
           </Box>
