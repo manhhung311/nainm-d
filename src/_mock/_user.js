@@ -134,10 +134,11 @@ export const _userList = [...Array(24)].map((_, index) => ({
   role: _mock.role(index),
 }));
 
+
 export const titlePeole = [
   'EDUCATION',
   'WORK EXPERIENCE',
-  'PROFESSIONAL MEMBERSHIP & DIRECTORSHIP',
+  'PROFESSIONAL MEMBERSHIP',
   'JOURNAL EDITORIAL BOARD',
   'AWARDS AND HONORS',
 ];
@@ -212,6 +213,7 @@ export const dataPeole = [
     'Best Paper Award in M.S. thesis, Mechanical Engineering, KAIST, March 1997',
   ],
 ];
+
 
 export const _peopleData = [...Array(titlePeole.length)].map((_, index) => ({
   id: _mock.id(index),

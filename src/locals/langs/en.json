@@ -12,7 +12,9 @@
     }
   },
   "people": {
-    "page": "People"
+    "page": "People",
+    "tab1": "PROCCEFER",
+    "tab2": "STUDENT"
   },
   "demo": {
     "title": "English"

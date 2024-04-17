@@ -11,7 +11,9 @@
     }
   },
   "people": {
-    "page": "Nhân sự"
+    "page": "Nhân sự",
+    "tab1": "GIÁO SƯ",
+    "tab2": "TEAM LAB"
   },
   "demo": {
     "title": "Việt Nam"

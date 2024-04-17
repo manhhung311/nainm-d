@@ -7,6 +7,9 @@ export const title = [
   'Department of Mechanical Engineering',
   'School of Mechanical and Aerospace Engineering',
   'Korea Advanced Institute of Science and Technology (KAIST)',
+  'Text',
+  'Text1',
+  'mail@gmail.com',
 ];
 
 export const sentence = [
