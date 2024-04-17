@@ -1,15 +1,41 @@
 {
-  "user": "User List",
+  "user": {
+    "pageList": "User List",
+    "pageCreate": "User Create",
+    "pageUpdate": "User Update",
+    "pageNew": "New User",
+    "Management": "Management",
+    "User": "User",
+    "List": "List",
+    "Name": "Name ",
+    "Role": "Role",
+    "PhoneNumber": "Phone Number",
+    "Status": "Status",
+    "Search": "Search User",
+    "Dense": "Dense",
+    "Delete": "Delete"
+  },
   "list": "list",
   "edit": "edit",
   "details": "details",
   "checkout": "checkout",
   "management": "management",
+  "research": {
+    "title": "Research"
+  },
   "home": {
     "title": "Home",
     "arrIteam": {
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
+  },
+  "publication":{
+    "publication":"Publication"
+  },
+  "people": {
+    "page": "People",
+    "tab1": "PROCCEFER",
+    "tab2": "STUDENT"
   },
   "demo": {
     "title": "English"
