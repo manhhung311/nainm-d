@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 Image.propTypes = {
   disabledEffect: PropTypes.bool,
   effect: PropTypes.string,
-  ratio: PropTypes.oneOf(['4/3', '3/4', '6/4', '4/6', '16/9', '9/16', '21/9', '9/21', '1/1', '24/9', '28/9']),
+  ratio: PropTypes.oneOf(['4/3', '4/5', '3/4', '6/4', '4/6', '16/9', '9/16', '21/9', '9/21', '1/1', '24/9', '28/9']),
   sx: PropTypes.object,
 };
 
@@ -88,6 +88,7 @@ function getRatio(ratio = '1/1') {
     '24/9': 'calc(100% / 24 * 9)',
     '28/9': 'calc(100% / 28 * 9)',
     '9/21': 'calc(100% / 9 * 21)',
+    '4/5': 'calc(100% / 4 * 5)',
     '1/1': '100%',
   }[ratio];
 }
