@@ -54,7 +54,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/user/list" replace />, index: true },
             { path: 'list', element: <UserList /> },
             { path: 'new', element: <UserCreate /> },
-            { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <UserCreate /> },
           ],
         },
         {
