@@ -11,6 +11,9 @@
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
   },
+  "facility" :{
+    "title" : "Facility"
+},
   "demo": {
     "title": "English"
   }
