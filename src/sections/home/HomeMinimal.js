@@ -98,46 +98,48 @@ function HomeMinimal(props) {
       <Box sx={{ py: 10, mb: 20 }}>
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item xs={0.5} md={1.57} />
-          <Grid item xs={11} md={8.86}>
+          <Grid spacing={2} item xs={11} md={8.86}>
             <Typography variant="h3" gutterBottom sx={{ color: '#3459c1', height: '63px' }}>
               Recent Publication
             </Typography>
 
-            <Grid container spacing={2} flexDirection={{ xs: 'column-reverse', md: 'row' }}>
+            <Grid container spacing={2}>
               <Grid item xs={12} md={7} sx={{ backgroundColor: '#F6F6F7', padding: 5 }}>
-                <Typography variant="subtitle2" sx={{ color: '#878787' }}>
-                  {displayedData.number}
-                </Typography>
-                <Typography variant="body1">{displayedData.name}</Typography>
-                <Typography variant="subtitle2">{displayedData.content}</Typography>
-                <Box sx={{ display: 'flex' }}>
-                  <Link sx={{ color: '#3549c1', fontSize: '90px' }} to="/">
-                    {displayedData.link}
-                  </Link>
-                  <Typography variant="subtitle2" sx={{ paddingLeft: '4px' }}>
-                    {displayedData.if}
+                <Stack sx={{ display: 'block', background: 'red' }}>
+                  <Typography variant="subtitle2" sx={{ color: '#878787' }}>
+                    {displayedData.number}
                   </Typography>
-                </Box>
-                <Grid container spacing={2} alignItems="center" justifyContent="center" sx={{ paddingTop: '20px' }}>
-                  <Grid item xs={3} md={3.75} />
+                  <Typography variant="body1" item>
+                    {displayedData.name}
+                  </Typography>
+                  <Typography variant="subtitle2">{displayedData.content}</Typography>
+                  <Box sx={{ display: 'flex' }}>
+                    <Link sx={{ color: '#3549c1', fontSize: '90px' }} to="/">
+                      {displayedData.link}
+                    </Link>
+                    <Typography variant="subtitle2">{displayedData.if}</Typography>
+                  </Box>
+                </Stack>
+                <Grid container spacing={2} alignItems="center" justifyContent="center">
                   <Grid item xs={6} md={4.5}>
-                    <img
+                    {/* <img
                       src={displayedData.imgPath}
                       alt="Publication"
                       style={{
                         maxHeight: '243px',
                         width: '100%',
-                        objectFit: 'cover',
                       }}
-                    />
+                    /> */}
                   </Grid>
                   <Grid item xs={3} md={3.75} />
                 </Grid>
               </Grid>
-              <Grid item xs={12} md={5} sx={{ padding: '2px', backgroundColor: '#ffff', cursor: 'pointer' }}>
+              <Grid xs={12} md={5} sx={{ backgroundColor: '#ffff', cursor: 'pointer' }}>
                 <Grid container spacing={0} sx={{ flexDirection: { xs: 'row', sm: 'row', md: 'column' } }}>
                   {data.map((item, index) => (
                     <Grid
+                      spacing={2}
+                      z
                       item
                       xs={12}
                       md={12}
