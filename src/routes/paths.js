@@ -87,6 +87,12 @@ export const PATH_DASHBOARD = {
     list: '/dashboard/drive/list',
     // edit: (name) => `dashboard/user/${name}/edit`,
   },
+  profile: {
+    root: '/dashboard/profile',
+    new: '/dashboard/profile/new',
+    list: '/dashboard/profile/list',
+    // edit: (name) => `dashboard/user/${name}/edit`,
+  },
 };
 
 export const PATH_AFTER_LOGIN = PATH_DASHBOARD.user.root; // as '/dashboard'

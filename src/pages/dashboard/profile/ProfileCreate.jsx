@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Button, Grid, Typography } from '@mui/material';
 // components
-
-import Page from '../components/Page';
-import Proccefer from '../sections/people/proccefer';
-import Student from '../sections/people/student';
-
-import useLocales from '../locals/useLocals';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import Page from '../../../components/Page';
+// eslint-disable-next-line import/no-duplicates
+import ProNewPostForm from '../../../sections/@dashboard/profile/ProfileNewPostForm';
+import useLocales from '../../../locals/useLocals';
 // ----------------------------------------------------------------------
-const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
-  [theme.breakpoints.up('xs')]: {
-    padding: theme.spacing(11, 1),
-  },
+const RootStyle = styled('div')(() => ({
+  height: '100%',
 }));
 // ----------------------------------------------------------------------
-export default function People() {
-  const { t } = useLocales();
+
+export default function ProfileCreate() {
   const [currentTab, setCurrentTab] = useState(1);
+
+  const { t } = useLocales();
 
   const handleTabClick = (tabIndex) => {
     setCurrentTab(tabIndex);
   };
   return (
-    <Page title={t('people.page')}>
+    <Page title={t('profile.page')}>
       <RootStyle>
         <Box>
           <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1 }}>
             <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
               <Button
-                sx={{width: '100%', height: '100%',borderRadius: 0 }}
+                sx={{width: '100%', height: '100%',borderRadius: 20 }}
                 size="large"
                 variant="outlined"
                 style={
@@ -42,12 +39,12 @@ export default function People() {
                 onClick={() => handleTabClick(1)}
                 className={currentTab === 1 ? 'active' : ''}
               >
-                <Typography variant="h5">{t('people.tab1')}</Typography>
+                <Typography variant="h5">{t('profile.tab1')}</Typography>
               </Button>
             </Grid>
             <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
               <Button
-                sx={{width: '100%', height: '100%',borderRadius: 0 }}
+                sx={{width: '100%', height: '100%',borderRadius: 20 }}
                 size="large"
                 variant="outlined"
                 style={
@@ -58,22 +55,24 @@ export default function People() {
                 onClick={() => handleTabClick(2)}
                 className={currentTab === 2 ? 'active' : ''}
               >
-                <Typography variant="h5">{t('people.tab2')}</Typography>
+                <Typography variant="h5">{t('profile.tab2')}</Typography>
               </Button>
             </Grid>
           </Grid>
           {currentTab === 1 && (
             <Box>
-              <Proccefer />
+              <Typography sx={{justifyContent: 'center', display: 'flex',pb:3 }} variant='h6'>{t('profile.post1')}</Typography>
+              <ProNewPostForm/>
             </Box>
           )}
           {currentTab === 2 && (
             <Box>
-              <Student />
+              <Typography sx={{justifyContent: 'center', display: 'flex',pb:3}} variant='h6'>{t('profile.post2')}</Typography>
+              <ProNewPostForm/>
             </Box>
           )}
         </Box>
-      </RootStyle>
+    </RootStyle>
     </Page>
   );
 }
