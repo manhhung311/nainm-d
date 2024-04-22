@@ -36,6 +36,7 @@ export default function ResearchMain() {
   ];
 
   console.log('_researchData', _researchData);
+  const x = 'https://www.youtube.com/watch?v=ufYmo2z_Hls';
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -103,7 +104,7 @@ export default function ResearchMain() {
           {isMobile ? (
             <ReactPlayer controls url="https://www.youtube.com/watch?v=a8a9uO1Rpjs&t=2s" width="100%" />
           ) : (
-            <ReactPlayer controls url="https://www.youtube.com/watch?v=a8a9uO1Rpjs&t=2s" width="80%" />
+            <ReactPlayer controls url={x} width="80%" />
           )}
         </Grid>
       </Grid>

@@ -72,7 +72,7 @@ export default function ResearchNewPostForm() {
   return (
     <>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3}>
@@ -85,15 +85,12 @@ export default function ResearchNewPostForm() {
                   <RHFEditor name="content" />
                 </div>
               </Stack>
+              <Stack direction="row" spacing={1.5} sx={{ mt: 3, justifyContent: 'end'}}>
+                <LoadingButton type="submit" variant="contained"  loading={isSubmitting}>
+                  Post
+                </LoadingButton>
+              </Stack>
             </Card>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
-              <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
-                Post
-              </LoadingButton>
-            </Stack>
           </Grid>
         </Grid>
       </FormProvider>
