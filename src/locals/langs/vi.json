@@ -48,6 +48,9 @@
     "tab1": "GIÁO SƯ",
     "tab2": "TEAM LAB"
   },
+  "facility" :{
+      "title" : "Thiết bị"
+  },
   "demo": {
     "title": "Việt Nam"
   }

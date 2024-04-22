@@ -41,6 +41,7 @@
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
   },
+
   "publication":{
     "publication":"Publication"
   },
@@ -48,6 +49,9 @@
     "page": "People",
     "tab1": "PROCCEFER",
     "tab2": "STUDENT"
+  },
+  "facility" :{
+    "title" : "Facility"
   },
   "demo": {
     "title": "English"
