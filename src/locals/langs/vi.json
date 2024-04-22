@@ -17,11 +17,13 @@
     "List": "Danh Sách",
     "Name": "Họ Tên ",
     "Role": "Vai Trò",
+    "Email": "Email",
     "PhoneNumber": "Số Điện Thoại",
     "Status": "Trạng Thái",
     "Search": "Tìm Kiếm Người Dùng",
     "Dense": "Thu Gọn",
-    "Delete": "Xóa"
+    "Delete": "Xóa",
+    "": ""
   },
   "list": "danh sách",
   "edit": "chỉnh sửa",
@@ -40,8 +42,8 @@
       "Artificial": "Cơ bắp nhân tạo và Robot mềm"
     }
   },
-  "publication":{
-    "publication":"Dự án nghiên cứu"
+  "publication": {
+    "publication": "Dự án nghiên cứu"
   },
   "people": {
     "page": "Nhân sự",
