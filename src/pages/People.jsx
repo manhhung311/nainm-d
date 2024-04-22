@@ -26,54 +26,52 @@ export default function People() {
   };
   return (
     <Page title={t('people.page')}>
-      <RootStyle>
-        <Box>
-          <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1 }}>
-            <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-              <Button
-                sx={{width: '100%', height: '100%',borderRadius: 0 }}
-                size="large"
-                variant="outlined"
-                style={
-                  currentTab === 1
-                    ? { backgroundColor: '#4BD578', color: '#fff'}
-                    : { backgroundColor: '#fff', color: '#000' }
-                }
-                onClick={() => handleTabClick(1)}
-                className={currentTab === 1 ? 'active' : ''}
-              >
-                <Typography variant="h5">{t('people.tab1')}</Typography>
-              </Button>
-            </Grid>
-            <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-              <Button
-                sx={{width: '100%', height: '100%',borderRadius: 0 }}
-                size="large"
-                variant="outlined"
-                style={
-                  currentTab === 2
-                    ? { backgroundColor: '#4BD578', color: '#fff' }
-                    : { backgroundColor: '#fff', color: '#000' }
-                }
-                onClick={() => handleTabClick(2)}
-                className={currentTab === 2 ? 'active' : ''}
-              >
-                <Typography variant="h5">{t('people.tab2')}</Typography>
-              </Button>
-            </Grid>
+      <Box>
+        <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1 }}>
+          <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            <Button
+              sx={{ width: '100%', height: '100%', borderRadius: 0 }}
+              size="large"
+              variant="outlined"
+              style={
+                currentTab === 1
+                  ? { backgroundColor: '#4BD578', color: '#fff' }
+                  : { backgroundColor: '#fff', color: '#000' }
+              }
+              onClick={() => handleTabClick(1)}
+              className={currentTab === 1 ? 'active' : ''}
+            >
+              <Typography variant="h5">{t('people.tab1')}</Typography>
+            </Button>
           </Grid>
-          {currentTab === 1 && (
-            <Box>
-              <Proccefer />
-            </Box>
-          )}
-          {currentTab === 2 && (
-            <Box>
-              <Student />
-            </Box>
-          )}
-        </Box>
-      </RootStyle>
+          <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            <Button
+              sx={{ width: '100%', height: '100%', borderRadius: 0 }}
+              size="large"
+              variant="outlined"
+              style={
+                currentTab === 2
+                  ? { backgroundColor: '#4BD578', color: '#fff' }
+                  : { backgroundColor: '#fff', color: '#000' }
+              }
+              onClick={() => handleTabClick(2)}
+              className={currentTab === 2 ? 'active' : ''}
+            >
+              <Typography variant="h5">{t('people.tab2')}</Typography>
+            </Button>
+          </Grid>
+        </Grid>
+        {currentTab === 1 && (
+          <Box>
+            <Proccefer />
+          </Box>
+        )}
+        {currentTab === 2 && (
+          <Box>
+            <Student />
+          </Box>
+        )}
+      </Box>
     </Page>
   );
 }

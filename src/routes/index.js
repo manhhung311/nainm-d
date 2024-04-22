@@ -129,7 +129,7 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
-        { path: 'people', element: <People /> },
+        { path: 'people', element: <ProfileList /> },
         { path: 'publication', element: <PublicationList /> },
         { path: 'research', element: <ResearchList /> },
         { path: 'facility', element: <FacilityList /> },
