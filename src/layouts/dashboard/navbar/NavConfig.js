@@ -92,6 +92,16 @@ const navConfig = [
           // { title: 'edit', path: PATH_DASHBOARD.user.edit },
         ],
       },
+      {
+        title: 'Profile',
+        path: PATH_DASHBOARD.drive.root,
+        icon: ICONS.booking,
+        children: [
+          { title: 'list', path: PATH_DASHBOARD.profile.list },
+          { title: 'create', path: PATH_DASHBOARD.profile.new },
+          // { title: 'edit', path: PATH_DASHBOARD.user.edit },
+        ],
+      },
     ],
   },
 ];

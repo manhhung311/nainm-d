@@ -61,73 +61,65 @@ export default function Proccefer() {
                 <Typography>★ {_mock.text.title(4)}</Typography>
                 <Typography>★ {_mock.text.title(5)}</Typography>
               </Box>
-              <Grid container>
-                <Grid item xs={12} sm={4} md={3} lg={2}>
-                  <Button
-                    sx={{
-                      width: 170,
-                      ml: { xs: 1, md: 6 },
-                      mt: { xs: 0, md: 6, mt: 4 },
-                      mb: { xs: 0, md: 1 },
-                      bgcolor: '#00FA9A',
-                      borderRadius: 20,
-                    }}
-                    target="_blank"
-                    variant="contained"
-                    endIcon={<LaunchIcon />}
-                    component={RouterLink}
-                    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                  >
-                    Google Scholar
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9} lg={10}>
-                  <Button
-                    sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }}
-                    variant="textlink"
-                    target="_blank"
-                    component={RouterLink}
-                    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                  >
-                    http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ
-                  </Button>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs={12} sm={4} md={3} lg={2}>
-                  <Button
-                    sx={{ width: 170, ml: { xs: 1, md: 6 }, mt: 2, borderRadius: 20 }}
-                    target="_blank"
-                    variant="contained"
-                    endIcon={<LaunchIcon />}
-                    component={RouterLink}
-                    href="http://www.researcherid.com/rid/B-7121-2011"
-                    to="http://www.researcherid.com/rid/B-7121-2011"
-                  >
-                    Rearcher ID
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9} lg={10}>
-                  <Button
-                    sx={{ ml: { xs: 1, md: 6 }, mt: 2 }}
-                    target="_blank"
-                    variant="textlink"
-                    component={RouterLink}
-                    href="http://www.researcherid.com/rid/B-7121-2011"
-                    to="http://www.researcherid.com/rid/B-7121-2011"
-                  >
-                    http://www.researcherid.com/rid/B-7121-2011
-                  </Button>
-                </Grid>
-              </Grid>
+              <Stack>
+                <Button
+                  sx={{
+                    width: 170,
+                    ml: { xs: 1, md: 6 },
+                    mt: { xs: 0, md: 6, mt: 4 },
+                    mb: { xs: 0, md: 1 },
+                    bgcolor: '#00FA9A',
+                    borderRadius: 20,
+                  }}
+                  target="_blank"
+                  variant="contained"
+                  endIcon={<LaunchIcon />}
+                  component={RouterLink}
+                  href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                  to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                >
+                  Google Scholar
+                </Button>
+                <Button
+                  sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }}
+                  variant="textlink"
+                  target="_blank"
+                  component={RouterLink}
+                  href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                  to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                >
+                  http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ
+                </Button>
+              </Stack>
+              <Stack>
+                <Button
+                  sx={{ width: 170, ml: { xs: 1, md: 6 }, mt: 2, borderRadius: 20 }}
+                  target="_blank"
+                  variant="contained"
+                  endIcon={<LaunchIcon />}
+                  component={RouterLink}
+                  href="http://www.researcherid.com/rid/B-7121-2011"
+                  to="http://www.researcherid.com/rid/B-7121-2011"
+                >
+                  Rearcher ID
+                </Button>
+            <Button
+              sx={{ ml: { xs: 1, md: 6 }, mt: 2 }}
+              target="_blank"
+              variant="textlink"
+              component={RouterLink}
+              href="http://www.researcherid.com/rid/B-7121-2011"
+              to="http://www.researcherid.com/rid/B-7121-2011"
+            >
+              http://www.researcherid.com/rid/B-7121-2011
+            </Button>
+              </Stack>
             </Box>
           </Grid>
         ): (
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={9} >
             <Box>
-              <Box sx={{ pb: 2, ml: { xs: 8, md: 6 } }}>
+              <Box sx={{ pb: 2, ml: { xs: 10, md: 6 } }}>
                 <h2>BÙI XUÂN TIẾN</h2>
               </Box>
               <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
@@ -140,67 +132,59 @@ export default function Proccefer() {
                 <Typography>★ {_mock.text.title(4)}</Typography>
                 <Typography>★ {_mock.text.title(5)}</Typography>
               </Box>
-              <Grid container>
-                <Grid item xs={12} sm={4} md={3} lg={2}>
-                  <Button
-                    sx={{
-                      width: 170,
-                      ml: { xs: 1, md: 6 },
-                      mt: { xs: 0, md: 6, mt: 4 },
-                      mb: { xs: 0, md: 1 },
-                      bgcolor: '#00FA9A',
-                      borderRadius: 20,
-                    }}
-                    target="_blank"
-                    variant="contained"
-                    endIcon={<LaunchIcon />}
-                    component={RouterLink}
-                    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                  >
-                    Google Scholar
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9} lg={10}>
-                  <Button
-                    sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }}
-                    variant="textlink"
-                    target="_blank"
-                    component={RouterLink}
-                    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
-                  >
-                    http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ
-                  </Button>
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item xs={12} sm={4} md={3} lg={2}>
-                  <Button
-                    sx={{ width: 170, ml: { xs: 1, md: 6 }, mt: 2, borderRadius: 20 }}
-                    target="_blank"
-                    variant="contained"
-                    endIcon={<LaunchIcon />}
-                    component={RouterLink}
-                    href="http://www.researcherid.com/rid/B-7121-2011"
-                    to="http://www.researcherid.com/rid/B-7121-2011"
-                  >
-                    Rearcher ID
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9} lg={10}>
-                  <Button
-                    sx={{ ml: { xs: 1, md: 6 }, mt: 2 }}
-                    target="_blank"
-                    variant="textlink"
-                    component={RouterLink}
-                    href="http://www.researcherid.com/rid/B-7121-2011"
-                    to="http://www.researcherid.com/rid/B-7121-2011"
-                  >
-                    http://www.researcherid.com/rid/B-7121-2011
-                  </Button>
-                </Grid>
-              </Grid>
+              <Stack direction="row">
+                <Button
+                  sx={{
+                    width: 170,
+                    ml: { xs: 1, md: 6 },
+                    mt: { xs: 0, md: 6, mt: 4 },
+                    mb: { xs: 0, md: 1 },
+                    bgcolor: '#00FA9A',
+                    borderRadius: 20,
+                  }}
+                  target="_blank"
+                  variant="contained"
+                  endIcon={<LaunchIcon />}
+                  component={RouterLink}
+                  href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                  to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                >
+                  Google Scholar
+                </Button>
+                <Button
+                  sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }}
+                  variant="textlink"
+                  target="_blank"
+                  component={RouterLink}
+                  href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                  to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ"
+                >
+                  http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ
+                </Button>
+              </Stack>
+              <Stack direction="row">
+                <Button
+                  sx={{ width: 170, ml: { xs: 1, md: 6 }, mt: 2, borderRadius: 20 }}
+                  target="_blank"
+                  variant="contained"
+                  endIcon={<LaunchIcon />}
+                  component={RouterLink}
+                  href="http://www.researcherid.com/rid/B-7121-2011"
+                  to="http://www.researcherid.com/rid/B-7121-2011"
+                >
+                  Rearcher ID
+                </Button>
+                <Button
+                  sx={{ ml: { xs: 1, md: 6 }, mt: 2 }}
+                  target="_blank"
+                  variant="textlink"
+                  component={RouterLink}
+                  href="http://www.researcherid.com/rid/B-7121-2011"
+                  to="http://www.researcherid.com/rid/B-7121-2011"
+                >
+                  http://www.researcherid.com/rid/B-7121-2011
+                </Button>
+              </Stack>
             </Box>
           </Grid>
         )}

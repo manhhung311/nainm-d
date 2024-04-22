@@ -39,5 +39,14 @@
   },
   "demo": {
     "title": "English"
+  },
+  "profile": {
+    "page": "Create Profile",
+    "tab1": "VIETNAMESE",
+    "tab2": "ENGLISH",
+    "post1": "Post VietNamese",
+    "post2": "Post English",
+    "anh": "Avatar",
+    "content": "Content"
   }
 }
