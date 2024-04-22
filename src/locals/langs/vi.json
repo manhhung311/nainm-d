@@ -51,5 +51,14 @@
     "post2": "Tạo Hồ Sơ Tiếng Anh",
     "anh": "Ảnh Đại Diện",
     "content": "Thông Tin Cá Nhân"
+  },
+  "news": {
+    "page": "Tạo Mới Tin Tức",
+    "tab1": "TIẾNG VIỆT",
+    "tab2": "TIẾNG ANH",
+    "post1": "Tạo Tin Tức Tiếng Việt",
+    "post2": "Tạo Tin Tức Tiếng Anh",
+    "anh": "Ảnh",
+    "content": "Nội dung"
   }
 }

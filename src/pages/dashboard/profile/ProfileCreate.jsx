@@ -3,14 +3,11 @@ import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 // components
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
 import Page from '../../../components/Page';
 // eslint-disable-next-line import/no-duplicates
 import ProNewPostForm from '../../../sections/@dashboard/profile/ProfileNewPostForm';
 import useLocales from '../../../locals/useLocals';
-import { PATH_DASHBOARD } from '../../../routes/paths';
-import Iconify from '../../../components/Iconify';
-import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',

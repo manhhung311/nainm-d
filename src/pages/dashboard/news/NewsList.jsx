@@ -2,12 +2,14 @@
 import { styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 // components
+import React from 'react';
 import Page from '../../../components/Page';
+import NewsMain from '../../../sections/news/newsmain';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(8),
   [theme.breakpoints.up('md')]: {
-    paddingTop: theme.spacing(11),
+    padding: theme.spacing(11, 10),
   },
 }));
 // ----------------------------------------------------------------------
@@ -17,12 +19,12 @@ export default function NewsList() {
 
   const isDashboard = pathname.includes('dashboard');
   return (
-    <Page title="Tin Tức">
+    <Page title="Vận hành">
       {isDashboard ? (
-        <h1>Danh sách tin tức</h1>
+        <NewsMain />
       ) : (
         <RootStyle>
-          <h1>Danh sách tin tức</h1>
+          <NewsMain />
         </RootStyle>
       )}
     </Page>
