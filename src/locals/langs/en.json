@@ -1,4 +1,12 @@
 {
+  "menu": {
+    "People": "People",
+    "Research": "Research",
+    "Publication": "Publication",
+    "Facility" : "Facility",
+    "News": "News",
+    "Login": "Login"
+  },
   "user": {
     "pageList": "User List",
     "pageCreate": "User Create",
@@ -21,7 +29,11 @@
   "checkout": "checkout",
   "management": "management",
   "research": {
-    "title": "Research"
+    "title": "Research",
+    "tab1": "VIETNAMESE",
+    "tab2": "ENGLISH",
+    "post1": "RESEARCH",
+    "post2": "RESEARCH"
   },
   "home": {
     "title": "Home",
@@ -29,6 +41,7 @@
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
   },
+
   "publication":{
     "publication":"Publication"
   },
@@ -37,7 +50,28 @@
     "tab1": "PROCCEFER",
     "tab2": "STUDENT"
   },
+  "facility" :{
+    "title" : "Facility"
+  },
   "demo": {
     "title": "English"
+  },
+  "profile": {
+    "page": "Create Profile",
+    "tab1": "VIETNAMESE",
+    "tab2": "ENGLISH",
+    "post1": "Post VietNamese",
+    "post2": "Post English",
+    "anh": "Avatar",
+    "content": "Content"
+  },
+  "news": {
+    "page": "Create News",
+    "tab1": "VIETNAMESE",
+    "tab2": "ENGLISH",
+    "post1": "Post VietNamese",
+    "post2": "Post English",
+    "anh": "Avatar",
+    "content": "Content"
   }
 }

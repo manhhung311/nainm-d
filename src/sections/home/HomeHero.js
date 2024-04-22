@@ -1,4 +1,5 @@
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -6,11 +7,11 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Link } from 'react-router-dom';
+import Image from '../../components/Image';
 import useResponsive from '../../hooks/useResponsive';
-// import Image from '../../components/Image';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -41,8 +42,7 @@ const images = [
     title: 'Mechanical Metamaterial and Smart Structures',
     Content:
       'We investigate mechanical metamaterials and topological insulators,which show the unparalleled wave transmission and acoustic bandgap.',
-    imgPath:
-      'https://ghepanhpro.com/uploads/w450/2021/09/02/tao-khung-anh-xe-giay-online61306a9ad4e9d_f6f9f92616193460e8380b0a8bb630f7.jpg',
+    imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
   },
 ];
 
@@ -118,7 +118,7 @@ export default function HomeHero() {
                       }}
                     >
                       <Grid item xs={12} sm={6} md={6}>
-                        <img style={{ height: '100%', width: '100%' }} src={step.imgPath} alt={step.label} />
+                        <Image style={{ height: '100%', width: '100%' }} src={step.imgPath} alt={step.label} />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
                         <Grid
@@ -162,10 +162,28 @@ export default function HomeHero() {
                             <Link
                               to="/more-view"
                               sx={{
-                                height: '50px',
+                                textDecoration: 'none',
+                                color: '#fff',
+                                '&:hover': {
+                                  textDecoration: 'none',
+                                  color: '#fff',
+                                },
                               }}
                             >
-                              More View
+                              <Typography
+                                sx={{
+                                  height: '80%',
+                                  width: '140px',
+                                  color: '#fff',
+                                  display: 'flex', // Sử dụng flexbox
+                                  alignItems: 'center', // Căn chỉnh theo chiều dọc
+                                  border: '1px solid #fff',
+                                  padding: '4px 8px', // Khoảng cách viền và chữ
+                                }}
+                              >
+                                More View
+                                <ArrowRightAltIcon sx={{ marginLeft: '8px' }} />
+                              </Typography>
                             </Link>
                           </Grid>
                         </Grid>
@@ -200,30 +218,16 @@ export default function HomeHero() {
           }}
         >
           <Grid container spacing={0} alignItems="center" justifyContent="center">
-            <Grid item xs={1} md={0.5} />
+            <Grid item xs={1} md={1} />
 
-            <Grid item xs={12} md={2.2} sx={{ alignSelf: 'center', textAlign: 'center', alignItems: 'center' }}>
-              <Box
-                onClick={() => handleItemClick(4)} // Chuyển đến hình ảnh 1 khi click vào mục "Articial Muscle and Soft Robottics"
-                sx={{
-                  maxWidth: '210px',
-                  color: '#fff',
-                  alignSelf: 'center',
-                  textAlign: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography variant="h4" gutterBottom sx={{ cursor: 'pointer' }}>
-                  Lab Overview
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={2.2}>
+            <Grid item xs={12} md={2.5}>
               <Box
                 onClick={() => handleItemClick(0)} // Chuyển đến hình ảnh 2 khi click vào mục "Energy Harvesting and Triboelectricity"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
+                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>01</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-3px', marginRight: '2px' }}>
+                  01
+                </Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Articial Muscle and Soft Robottics
@@ -231,12 +235,14 @@ export default function HomeHero() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} md={2.2}>
+            <Grid item xs={12} md={2.5}>
               <Box
                 onClick={() => handleItemClick(1)} // Chuyển đến hình ảnh 3 khi click vào mục "Energy Storage and Structural Battery"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
+                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>02</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px', marginRight: '6px' }}>
+                  02
+                </Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Energy Harvesting and Triboelectricity
@@ -244,12 +250,14 @@ export default function HomeHero() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} md={2.2}>
+            <Grid item xs={12} md={2.5}>
               <Box
                 onClick={() => handleItemClick(2)} // Chuyển đến hình ảnh 4 khi click vào mục "Mechnical Metamaterial and Smart Structures"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
+                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>03</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px', marginRight: '6px' }}>
+                  03
+                </Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Energy Storage and Structural Battery
@@ -257,12 +265,14 @@ export default function HomeHero() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} md={2.2}>
+            <Grid item xs={12} md={2.5}>
               <Box
                 onClick={() => handleItemClick(3)} // Chuyển đến hình ảnh 5 khi click vào mục "Mechnical Metamaterial and Smart Structures"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff' }}
+                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
               >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px' }}>04</Box>
+                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-3px', marginRight: '8px' }}>
+                  04
+                </Box>
                 <Box>
                   <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
                     Mechnical Metamaterial and Smart Structures
@@ -270,7 +280,7 @@ export default function HomeHero() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={1} md={0.5} />
+            <Grid item xs={1} md={0} />
           </Grid>
         </Box>
       )}

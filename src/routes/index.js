@@ -102,6 +102,15 @@ export default function Router() {
             // { path: ':name/edit', element: <UserUpdate /> },
           ],
         },
+        {
+          path: 'profile',
+          children: [
+            { element: <Navigate to="/dashboard/profile/list" replace />, index: true },
+            { path: 'list', element: <ProfileList /> },
+            { path: 'new', element: <ProfileCreate /> },
+            // { path: ':name/edit', element: <UserUpdate /> },
+          ],
+        },
       ],
     },
     // Main Routes
@@ -120,7 +129,7 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
-        { path: 'people', element: <People /> },
+        { path: 'people', element: <ProfileList /> },
         { path: 'publication', element: <PublicationList /> },
         { path: 'research', element: <ResearchList /> },
         { path: 'facility', element: <FacilityList /> },
@@ -151,6 +160,9 @@ const NewsCreate = Loadable(lazy(() => import('../pages/dashboard/news/NewsCreat
 
 const DriveList = Loadable(lazy(() => import('../pages/dashboard/driver/DriverList')));
 const DriveCreate = Loadable(lazy(() => import('../pages/dashboard/driver/DriverCreate')));
+
+const ProfileList = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileList')));
+const ProfileCreate = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileCreate')));
 
 /// / OTHERS
 const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));
