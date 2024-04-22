@@ -3,7 +3,19 @@ import PropTypes from 'prop-types';
 import { Box, Grid, Typography, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-HomeMinimal.propTypes = {};
+HomeMinimal.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      number: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      if: PropTypes.string.isRequired,
+      imgPath: PropTypes.string.isRequired,
+    })
+  ),
+};
+
 function HomeMinimal(props) {
   const [data] = useState([
     {
@@ -86,25 +98,17 @@ function HomeMinimal(props) {
       <Box sx={{ py: 10, mb: 20 }}>
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <Grid item xs={0.5} md={1.57} />
-          <Grid spacing={2} item xs={11} md={8.86}>
+          <Grid item xs={11} md={8.86}>
             <Typography variant="h3" gutterBottom sx={{ color: '#3459c1', height: '63px' }}>
               Recent Publication
             </Typography>
 
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justifyContent="center"
-              flexDirection={{ xs: 'column-reverse', md: 'row' }}
-            >
+            <Grid container spacing={2} flexDirection={{ xs: 'column-reverse', md: 'row' }}>
               <Grid item xs={12} md={7} sx={{ backgroundColor: '#F6F6F7', padding: 5 }}>
                 <Typography variant="subtitle2" sx={{ color: '#878787' }}>
                   {displayedData.number}
                 </Typography>
-                <Typography variant="body1" item>
-                  {displayedData.name}
-                </Typography>
+                <Typography variant="body1">{displayedData.name}</Typography>
                 <Typography variant="subtitle2">{displayedData.content}</Typography>
                 <Box sx={{ display: 'flex' }}>
                   <Link sx={{ color: '#3549c1', fontSize: '90px' }} to="/">
@@ -130,11 +134,10 @@ function HomeMinimal(props) {
                   <Grid item xs={3} md={3.75} />
                 </Grid>
               </Grid>
-              <Grid xs={12} md={5} sx={{ padding: '2px', backgroundColor: '#ffff', cursor: 'pointer' }}>
+              <Grid item xs={12} md={5} sx={{ padding: '2px', backgroundColor: '#ffff', cursor: 'pointer' }}>
                 <Grid container spacing={0} sx={{ flexDirection: { xs: 'row', sm: 'row', md: 'column' } }}>
                   {data.map((item, index) => (
                     <Grid
-                      spacing={2}
                       item
                       xs={12}
                       md={12}
