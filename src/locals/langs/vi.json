@@ -1,4 +1,12 @@
 {
+  "menu": {
+    "People": "Nhân sự",
+    "Research": "Nghiên cứu",
+    "Publication": "Công bố khoa học",
+    "Facility" : "Thiết bị",
+    "News": "Tin tức",
+    "Login": "Đăng nhập"
+  },
   "user": {
     "pageList": "Danh Sách Người Dùng",
     "pageCreate": "Tạo Mới Người Dùng",
@@ -39,6 +47,9 @@
     "page": "Nhân sự",
     "tab1": "GIÁO SƯ",
     "tab2": "TEAM LAB"
+  },
+  "facility" :{
+      "title" : "Thiết bị"
   },
   "demo": {
     "title": "Việt Nam"

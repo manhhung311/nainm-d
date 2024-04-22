@@ -1,4 +1,12 @@
 {
+  "menu": {
+    "People": "People",
+    "Research": "Research",
+    "Publication": "Publication",
+    "Facility" : "Facility",
+    "News": "News",
+    "Login": "Login"
+  },
   "user": {
     "pageList": "User List",
     "pageCreate": "User Create",
@@ -33,6 +41,7 @@
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
   },
+
   "publication":{
     "publication":"Publication"
   },
@@ -40,6 +49,9 @@
     "page": "People",
     "tab1": "PROCCEFER",
     "tab2": "STUDENT"
+  },
+  "facility" :{
+    "title" : "Facility"
   },
   "demo": {
     "title": "English"
