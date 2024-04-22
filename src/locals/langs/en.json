@@ -9,11 +9,13 @@
     "List": "List",
     "Name": "Name ",
     "Role": "Role",
+    "Email": "Email",
     "PhoneNumber": "Phone Number",
     "Status": "Status",
     "Search": "Search User",
     "Dense": "Dense",
-    "Delete": "Delete"
+    "Delete": "Delete",
+    "": ""
   },
   "list": "list",
   "edit": "edit",
@@ -29,8 +31,8 @@
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
   },
-  "publication":{
-    "publication":"Publication"
+  "publication": {
+    "publication": "Publication"
   },
   "people": {
     "page": "People",

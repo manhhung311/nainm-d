@@ -20,6 +20,7 @@ const visuallyHidden = {
 
 TableHeadCustom.propTypes = {
   onSort: PropTypes.func,
+  changeLanguageFunc: PropTypes.func,
   orderBy: PropTypes.string,
   headLabel: PropTypes.array,
   rowCount: PropTypes.number,
@@ -37,21 +38,12 @@ export default function TableHeadCustom({
   numSelected = 0,
   onSort,
   onSelectAllRows,
+  changeLanguageFunc,
   sx,
 }) {
   return (
     <TableHead sx={sx}>
       <TableRow>
-        {onSelectAllRows && (
-          <TableCell padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={rowCount > 0 && numSelected === rowCount}
-              onChange={(event) => onSelectAllRows(event.target.checked)}
-            />
-          </TableCell>
-        )}
-
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -67,7 +59,7 @@ export default function TableHeadCustom({
                 onClick={() => onSort(headCell.id)}
                 sx={{ textTransform: 'capitalize' }}
               >
-                {headCell.label}
+                {changeLanguageFunc(`user.${headCell.label}`)}
 
                 {orderBy === headCell.id ? (
                   <Box sx={{ ...visuallyHidden }}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</Box>

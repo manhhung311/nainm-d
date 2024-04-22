@@ -18,15 +18,14 @@ import {
   TablePagination,
   FormControlLabel,
 } from '@mui/material';
-// router
+// routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
-
-// hook
+// hooks
 import useTabs from '../../../hooks/useTabs';
 import useSettings from '../../../hooks/useSettings';
 import useTable, { getComparator, emptyRows } from '../../../hooks/useTable';
-// _mock
-import { _userList } from '../../../_mock/_user';
+// _mock_
+import { _userList } from '../../../_mock';
 // components
 import Page from '../../../components/Page';
 import Iconify from '../../../components/Iconify';
@@ -36,8 +35,7 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 // sections
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
-import useLocales from '../../../locals/useLocals';
-
+import { useLocales } from '../../../locals';
 // ----------------------------------------------------------------------
 
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
@@ -45,8 +43,8 @@ const STATUS_OPTIONS = ['all', 'active', 'banned'];
 const ROLE_OPTIONS = [
   'all',
   'ux designer',
-  ' stacfullk designer',
-  'backend dveeloper',
+  'full stack designer',
+  'backend developer',
   'project manager',
   'leader',
   'ui designer',
@@ -57,10 +55,9 @@ const ROLE_OPTIONS = [
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', align: 'left' },
-  { id: 'e-mail', label: 'e-mail', align: 'left' },
+  { id: 'E-mail', label: 'Email', align: 'left' },
   { id: 'role', label: 'Role', align: 'left' },
-  { id: 'phone number', label: 'phone number', align: 'center' },
-  { id: 'status', label: 'Status', align: 'left' },
+  { id: 'PhoneNumber', label: 'PhoneNumber', align: 'center' },
   { id: '' },
 ];
 
@@ -140,6 +137,8 @@ export default function UserList() {
     (!dataFiltered.length && !!filterRole) ||
     (!dataFiltered.length && !!filterStatus);
 
+  console.log('dataFiltered', dataFiltered);
+
   return (
     <Page title={t('user.pageList')}>
       <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -163,21 +162,6 @@ export default function UserList() {
         />
 
         <Card>
-          <Tabs
-            allowScrollButtonsMobile
-            variant="scrollable"
-            scrollButtons="auto"
-            value={filterStatus}
-            onChange={onChangeFilterStatus}
-            sx={{ px: 2, bgcolor: 'background.neutral' }}
-          >
-            {STATUS_OPTIONS.map((tab) => (
-              <Tab disableRipple key={tab} label={tab} value={tab} />
-            ))}
-          </Tabs>
-
-          <Divider />
-
           <UserTableToolbar
             filterName={filterName}
             filterRole={filterRole}
@@ -200,7 +184,7 @@ export default function UserList() {
                     )
                   }
                   actions={
-                    <Tooltip title={t('user.Delete')}>
+                    <Tooltip title="Delete">
                       <IconButton color="primary" onClick={() => handleDeleteRows(selected)}>
                         <Iconify icon={'eva:trash-2-outline'} />
                       </IconButton>
@@ -213,6 +197,7 @@ export default function UserList() {
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}
+                  changeLanguageFunc={t}
                   headLabel={TABLE_HEAD}
                   rowCount={tableData.length}
                   numSelected={selected.length}
@@ -258,7 +243,7 @@ export default function UserList() {
 
             <FormControlLabel
               control={<Switch checked={dense} onChange={onChangeDense} />}
-              label={t('user.Dense')}
+              label="Dense"
               sx={{ px: 3, py: 1.5, top: 0, position: { md: 'absolute' } }}
             />
           </Box>
@@ -267,8 +252,6 @@ export default function UserList() {
     </Page>
   );
 }
-
-//--------------------------------------------------------------------------
 
 function applySortFilter({ tableData, comparator, filterName, filterStatus, filterRole }) {
   const stabilizedThis = tableData.map((el, index) => [el, index]);
