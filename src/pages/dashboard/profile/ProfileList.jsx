@@ -8,8 +8,8 @@ import People from '../../People';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(8),
-  [theme.breakpoints.up('md')]: {
-    paddingTop: theme.spacing(11),
+  [theme.breakpoints.up('xs')]: {
+    padding: theme.spacing(10, 1),
   },
 }));
 // ----------------------------------------------------------------------
