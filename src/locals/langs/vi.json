@@ -20,7 +20,11 @@
   "details": "chi tiết",
   "management": "quản lý",
   "research": {
-    "title": "Nghiên cứu"
+    "title": "Nghiên cứu",
+    "tab1": "Việt Nam",
+    "tab2": "Tiếng Anh",
+    "post1": "NGHIÊN CỨU",
+    "post2": "NGHIÊN CỨU"
   },
   "home": {
     "title": "Trang chủ",
