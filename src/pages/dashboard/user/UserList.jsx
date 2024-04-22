@@ -137,8 +137,6 @@ export default function UserList() {
     (!dataFiltered.length && !!filterRole) ||
     (!dataFiltered.length && !!filterStatus);
 
-  console.log('dataFiltered', dataFiltered);
-
   return (
     <Page title={t('user.pageList')}>
       <Container maxWidth={themeStretch ? false : 'lg'}>
