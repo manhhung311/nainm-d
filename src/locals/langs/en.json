@@ -1,4 +1,12 @@
 {
+  "menu": {
+    "People": "People",
+    "Research": "Research",
+    "Publication": "Publication",
+    "Facility" : "Facility",
+    "News": "News",
+    "Login": "Login"
+  },
   "user": {
     "pageList": "User List",
     "pageCreate": "User Create",

@@ -85,11 +85,13 @@ export default function ResearchNewPostForm() {
                   <RHFEditor name="content" />
                 </div>
               </Stack>
-              <Stack direction="row" spacing={1.5} sx={{ mt: 3, justifyContent: 'end'}}>
-                <LoadingButton type="submit" variant="contained"  loading={isSubmitting}>
-                  Post
-                </LoadingButton>
-              </Stack>
+              <Grid item xs={12}>
+                <Stack direction="row" spacing={1.5} sx={{ mt: 3, justifyContent: 'end' }}>
+                  <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+                    Post
+                  </LoadingButton>
+                </Stack>
+              </Grid>
             </Card>
           </Grid>
         </Grid>
