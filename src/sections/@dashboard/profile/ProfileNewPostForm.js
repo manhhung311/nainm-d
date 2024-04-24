@@ -10,8 +10,10 @@ import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
 import { Grid, Card, Stack, Typography } from '@mui/material';
 // routes
-import {  RHFEditor, FormProvider, RHFUploadSingleFile } from '../../../components/hook-form';
+import { loader } from 'graphql.macro';
+import { RHFEditor, FormProvider, RHFUploadSingleFile } from '../../../components/hook-form';
 import useLocales from '../../../locals/useLocals';
+
 //
 
 // ----------------------------------------------------------------------
@@ -23,16 +25,14 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
+const CREATE_PROFILE = loader('../../../graphql/mutations/collections/createCollection.graphql');
 
 export default function ProNewPostForm() {
   const navigate = useNavigate();
 
   const { t } = useLocales();
 
-
   const { enqueueSnackbar } = useSnackbar();
-
-
 
   const NewBlogSchema = Yup.object().shape({
     title: Yup.string().required('Title is required'),
@@ -45,13 +45,6 @@ export default function ProNewPostForm() {
     title: '',
     description: '',
     content: '',
-    cover: null,
-    tags: ['Logan'],
-    publish: true,
-    comments: true,
-    metaTitle: '',
-    metaDescription: '',
-    metaKeywords: ['Logan'],
   };
 
   const methods = useForm({
@@ -63,9 +56,8 @@ export default function ProNewPostForm() {
     reset,
     setValue,
     handleSubmit,
-    formState: { isSubmitting, },
+    formState: { isSubmitting },
   } = methods;
-
 
   const onSubmit = async () => {
     try {
@@ -93,11 +85,10 @@ export default function ProNewPostForm() {
     [setValue]
   );
 
-
   return (
     <>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={3} sx={{justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+        <Grid container spacing={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3}>

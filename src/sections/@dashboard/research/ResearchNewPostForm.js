@@ -86,8 +86,8 @@ export default function ResearchNewPostForm() {
                 </div>
               </Stack>
               <Grid item xs={12}>
-                <Stack direction="row" spacing={1.5} sx={{ mt: 3, justifyContent: 'end' }}>
-                  <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+                <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
+                  <LoadingButton fullWidth type="submit" variant="contained" size="large" loading={isSubmitting}>
                     Post
                   </LoadingButton>
                 </Stack>
