@@ -1,4 +1,12 @@
 {
+  "menu": {
+    "People": "People",
+    "Research": "Research",
+    "Publication": "Publication",
+    "Facility" : "Facility",
+    "News": "News",
+    "Login": "Login"
+  },
   "user": {
     "pageList": "User List",
     "pageCreate": "User Create",
@@ -9,11 +17,13 @@
     "List": "List",
     "Name": "Name ",
     "Role": "Role",
+    "Email": "Email",
     "PhoneNumber": "Phone Number",
     "Status": "Status",
     "Search": "Search User",
     "Dense": "Dense",
-    "Delete": "Delete"
+    "Delete": "Delete",
+    "": ""
   },
   "list": "list",
   "edit": "edit",
@@ -21,7 +31,11 @@
   "checkout": "checkout",
   "management": "management",
   "research": {
-    "title": "Research"
+    "title": "Research",
+    "tab1": "VIETNAMESE",
+    "tab2": "ENGLISH",
+    "post1": "RESEARCH",
+    "post2": "RESEARCH"
   },
   "home": {
     "title": "Home",
@@ -29,13 +43,16 @@
       "Artificial": "Artificial Muscle and Soft Robotics"
     }
   },
-  "publication":{
-    "publication":"Publication"
+  "publication": {
+    "publication": "Publication"
   },
   "people": {
     "page": "People",
     "tab1": "PROCCEFER",
     "tab2": "STUDENT"
+  },
+  "facility" :{
+    "title" : "Facility"
   },
   "demo": {
     "title": "English"

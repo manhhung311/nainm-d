@@ -1,4 +1,12 @@
 {
+  "menu": {
+    "People": "Nhân sự",
+    "Research": "Nghiên cứu",
+    "Publication": "Công bố khoa học",
+    "Facility" : "Thiết bị",
+    "News": "Tin tức",
+    "Login": "Đăng nhập"
+  },
   "user": {
     "pageList": "Danh Sách Người Dùng",
     "pageCreate": "Tạo Mới Người Dùng",
@@ -9,18 +17,24 @@
     "List": "Danh Sách",
     "Name": "Họ Tên ",
     "Role": "Vai Trò",
+    "Email": "Email",
     "PhoneNumber": "Số Điện Thoại",
     "Status": "Trạng Thái",
     "Search": "Tìm Kiếm Người Dùng",
     "Dense": "Thu Gọn",
-    "Delete": "Xóa"
+    "Delete": "Xóa",
+    "": ""
   },
   "list": "danh sách",
   "edit": "chỉnh sửa",
   "details": "chi tiết",
   "management": "quản lý",
   "research": {
-    "title": "Nghiên cứu"
+    "title": "Nghiên cứu",
+    "tab1": "Việt Nam",
+    "tab2": "Tiếng Anh",
+    "post1": "NGHIÊN CỨU",
+    "post2": "NGHIÊN CỨU"
   },
   "home": {
     "title": "Trang chủ",
@@ -28,13 +42,16 @@
       "Artificial": "Cơ bắp nhân tạo và Robot mềm"
     }
   },
-  "publication":{
-    "publication":"Dự án nghiên cứu"
+  "publication": {
+    "publication": "Dự án nghiên cứu"
   },
   "people": {
     "page": "Nhân sự",
     "tab1": "GIÁO SƯ",
     "tab2": "TEAM LAB"
+  },
+  "facility" :{
+      "title" : "Thiết bị"
   },
   "demo": {
     "title": "Việt Nam"

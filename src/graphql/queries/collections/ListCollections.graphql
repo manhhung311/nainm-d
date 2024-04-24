@@ -1,0 +1,14 @@
+query DetailCollection($input :collections_find!) {
+    collections(input: $input) {
+        id
+        title
+        description
+        collection_English
+        collection_Vietnamese
+        status_collection
+        type_collection
+        user_update
+        updatedAt
+        createdAt
+    }
+}
