@@ -218,7 +218,7 @@ export default function HomeHero() {
           }}
         >
           <Grid container spacing={0} alignItems="center" justifyContent="center">
-            <Grid item xs={1} md={1} />
+            <Grid item xs={1} md={1.2} />
 
             <Grid item xs={12} md={2.5}>
               <Box
