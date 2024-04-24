@@ -6,7 +6,6 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import Page from '../../../components/Page';
 import NewsNewPostForm from '../../../sections/@dashboard/news/NewsPostForm';
 import useLocales from '../../../locals/useLocals';
-import ProNewPostForm from '../../../sections/@dashboard/profile/ProfileNewPostForm';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
