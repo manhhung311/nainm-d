@@ -2,6 +2,30 @@
 
 schema {
     query: Query
+    mutation: Mutation
+}
+
+type Collection {
+    collection_English: String
+    collection_Vietnamese: String
+    createdAt: String
+    description: String
+    id: ID!
+    status_collection: Int!
+    title: String
+    type_collection: Int!
+    updatedAt: String
+    user_update: Int!
+}
+
+type Mutation {
+    ChangePassword(input: changePasswordInput!): SuccessResponse!
+    create_collection(input: create_collection!): SuccessResponse!
+    edit_collection(input: edit_collection!): SuccessResponse!
+    edit_status(input: edit_status!): SuccessResponse!
+    register(input: CreateUserInput!): User!
+    upRoleUser(input: upRoleUser!): SuccessResponse!
+    updateUser(input: UpdateUserInput!): SuccessResponse!
 }
 
 type PageInfo {
@@ -10,21 +34,30 @@ type PageInfo {
 }
 
 type Query {
+    collection(id: ID!): Collection!
+    collections(input: collections_find!): [Collection]
     greeting: String!
     login(input: UserLoginInput!): UserLoginResponse!
     me: User!
+    user(id: ID!): User!
     users: [User]
 }
 
 type User {
-    createdAt: Date
+    avartaURL: String
+    createdAt: String!
     email: String!
-    firstName: String!
+    firstName: String
     id: Int!
-    lastName: String!
-    phoneNumber: Int
+    lastName: String
+    phoneNumber: String
     role: Int!
-    updatedAt: Date
+    status: Boolean!
+    type_user: Int!
+    updatedAt: String!
+    userName: String!
+    user_information_English: String
+    user_information_Vietnamese: String
 }
 
 type UserLoginResponse {
@@ -44,6 +77,17 @@ scalar JSON
 
 scalar Upload
 
+input CreateUserInput {
+    avartaURL: Upload!
+    email: String!
+    firstName: String!
+    lastName: String!
+    password: String!
+    role: Int!
+    type_user: Int!
+    userName: String!
+}
+
 input PaginationInput {
     after: Cursor
     before: Cursor
@@ -51,7 +95,58 @@ input PaginationInput {
     last: Int
 }
 
+input UpdateUserInput {
+    avartaURL: Upload
+    email: String
+    firstName: String
+    id: Int!
+    lastName: String
+    phoneNumber: String
+    status: Boolean
+    userName: String
+    user_information_English: String
+    user_information_Vietnamese: String
+}
+
 input UserLoginInput {
     email: String!
     password: String!
+}
+
+input changePasswordInput {
+    PassWordNewUser: String!
+    id: Int!
+}
+
+input collections_find {
+    status_collection: Int!
+    type_collection: Int!
+}
+
+input create_collection {
+    collection_English: String
+    collection_Vietnamese: String
+    description: String
+    status_collection: Int!
+    title: String
+    type_collection: Int!
+    user_update: Int!
+}
+
+input edit_collection {
+    collection_English: String
+    collection_Vietnamese: String
+    description: String
+    id: ID!
+    title: String
+}
+
+input edit_status {
+    id_collection: Int!
+    status: Int!
+}
+
+input upRoleUser {
+    Role: Int!
+    id: Int!
 }
