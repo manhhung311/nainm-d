@@ -26,7 +26,7 @@ export default function ProfileCreate() {
     <Page title={t('profile.page')}>
       <RootStyle>
         <Box>
-          <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1 }}>
+          <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 4, mt: 1 }}>
             <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
               <Button
                 sx={{ width: '100%', height: '100%', borderRadius: 2 }}

@@ -6,7 +6,6 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import Page from '../../../components/Page';
 import NewsNewPostForm from '../../../sections/@dashboard/news/NewsPostForm';
 import useLocales from '../../../locals/useLocals';
-import ProNewPostForm from '../../../sections/@dashboard/profile/ProfileNewPostForm';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -25,7 +24,7 @@ export default function NewsCreate() {
     <Page title={t('news.page')}>
       <RootStyle>
         <Box>
-          <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1 }}>
+          <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 4, mt: 1 }}>
             <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
               <Button
                 sx={{ width: '100%', height: '100%', borderRadius: 2 }}

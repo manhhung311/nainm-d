@@ -1,17 +1,15 @@
 import * as Yup from 'yup';
-import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
 // form
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
-import { Grid, Card, Stack, Typography } from '@mui/material';
+import { Card, Grid, Stack, Typography } from '@mui/material';
 // routes
-import { RHFEditor, FormProvider, RHFUploadSingleFile, RHFTextField } from '../../../components/hook-form';
-import useLocales from '../../../locals/useLocals';
+// components
+import { FormProvider, RHFEditor, RHFTextField } from '../../../components/hook-form';
 //
 
 // ----------------------------------------------------------------------
@@ -25,9 +23,7 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function NewsNewPostForm() {
-  const navigate = useNavigate();
-
-  const { t } = useLocales();
+  // const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -58,7 +54,6 @@ export default function NewsNewPostForm() {
 
   const {
     reset,
-    setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
@@ -68,26 +63,11 @@ export default function NewsNewPostForm() {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       enqueueSnackbar('Post success!');
+      // navigate(PATH_DASHBOARD.blog.posts);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
-
-      if (file) {
-        setValue(
-          'cover',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-    },
-    [setValue]
-  );
 
   return (
     <>
@@ -96,21 +76,22 @@ export default function NewsNewPostForm() {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3}>
-                <div>
-                  <LabelStyle>{t('news.anh')}</LabelStyle>
-                  <RHFUploadSingleFile name="cover" accept="image/*" maxSize={3145728} onDrop={handleDrop} />
-                </div>
                 <RHFTextField name="title" label="Post Title" />
+
+                <RHFTextField name="description" label="Description" multiline rows={3} />
+
                 <div>
-                  <LabelStyle>{t('news.content')}</LabelStyle>
+                  <LabelStyle>Content</LabelStyle>
                   <RHFEditor name="content" />
                 </div>
               </Stack>
-              <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
-                <LoadingButton fullWidth type="submit" variant="contained" size="large" loading={isSubmitting}>
-                  Post
-                </LoadingButton>
-              </Stack>
+              <Grid item xs={12}>
+                <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
+                  <LoadingButton fullWidth type="submit" variant="contained" size="large" loading={isSubmitting}>
+                    Post
+                  </LoadingButton>
+                </Stack>
+              </Grid>
             </Card>
           </Grid>
         </Grid>
