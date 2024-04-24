@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -18,6 +18,8 @@ import {
   TablePagination,
   FormControlLabel,
 } from '@mui/material';
+import { loader } from 'graphql.macro';
+import { useMutation, useQuery } from '@apollo/client';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
@@ -36,8 +38,10 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
 import { useLocales } from '../../../locals';
+
 // ----------------------------------------------------------------------
 
+const ListUsers = loader('../../../graphql/queries/user/ListUsers.graphql');
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
 
 const ROLE_OPTIONS = [
@@ -58,7 +62,7 @@ const TABLE_HEAD = [
   { id: 'E-mail', label: 'Email', align: 'left' },
   { id: 'role', label: 'Role', align: 'left' },
   { id: 'PhoneNumber', label: 'PhoneNumber', align: 'center' },
-  { id: '' },
+  { id: '', label: '' },
 ];
 
 // ----------------------------------------------------------------------
@@ -89,13 +93,21 @@ export default function UserList() {
 
   const navigate = useNavigate();
 
-  const [tableData, setTableData] = useState(_userList);
+  const [tableData, setTableData] = useState([]);
 
   const [filterName, setFilterName] = useState('');
 
   const [filterRole, setFilterRole] = useState('all');
 
   const { currentTab: filterStatus, onChangeTab: onChangeFilterStatus } = useTabs('all');
+
+  const { data: allUsers } = useQuery(ListUsers);
+
+  useEffect(() => {
+    if (allUsers) {
+      setTableData(allUsers.users);
+    }
+  }, [allUsers]);
 
   const handleFilterName = (filterName) => {
     setFilterName(filterName);

@@ -11,14 +11,14 @@ export const RoleArr = [
 ];
 
 export const Role = {
-  director: 'Director',
   admin: 'Admin',
   manager: 'Manager',
-  accountant: 'Accountant',
-  sales: 'Sales',
-  transporterManager: 'TransporterManager',
-  driver: 'Driver',
-  assistantDriver: 'AssistantDriver',
+  user: 'User',
+};
+export const RoleId = {
+  admin: 0,
+  manager: 1,
+  user: 2,
 };
 
 export const RoleNumberList = {
@@ -41,4 +41,16 @@ export const VietnameseRoleName = {
   transporterManager: 'Điều vận',
   driver: 'Lái xe',
   assistantDriver: 'Phụ xe',
+};
+export const roleChangeNumber = (roleType) => {
+  switch (roleType) {
+    case RoleId.admin:
+      return Role.admin;
+    case RoleId.manager:
+      return Role.manager;
+    case RoleId.user:
+      return Role.user;
+    default:
+      return '';
+  }
 };
