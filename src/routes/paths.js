@@ -79,7 +79,7 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/news',
     new: '/dashboard/news/new',
     list: '/dashboard/news/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+    edit: (id) => `/dashboard/news/${id}/edit`,
   },
   drive: {
     root: '/dashboard/drive',

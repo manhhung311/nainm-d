@@ -90,7 +90,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/news/list" replace />, index: true },
             { path: 'list', element: <NewsList /> },
             { path: 'new', element: <NewsCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <NewsCreate /> },
           ],
         },
         {
