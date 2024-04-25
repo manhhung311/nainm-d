@@ -20,7 +20,7 @@ export default function FacilityList() {
   return (
     <Page title="Tài nguyên">
       {isDashboard ? (
-        <h1>Danh sách thiết bị</h1>
+        <FacilityMain/>
       ) : (
         <RootStyle>
           <FacilityMain/>

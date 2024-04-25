@@ -33,8 +33,15 @@
     "title": "Nghiên cứu",
     "tab1": "Việt Nam",
     "tab2": "Tiếng Anh",
-    "post1": "NGHIÊN CỨU",
-    "post2": "NGHIÊN CỨU"
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh"
+  },
+  "facility": {
+    "title": "Thiết bị",
+    "tab1": "Việt Nam",
+    "tab2": "Tiếng Anh",
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh"
   },
   "home": {
     "title": "Trang chủ",
@@ -49,9 +56,6 @@
     "page": "Nhân sự",
     "tab1": "GIÁO SƯ",
     "tab2": "TEAM LAB"
-  },
-  "facility" :{
-      "title" : "Thiết bị"
   },
   "demo": {
     "title": "Việt Nam"
