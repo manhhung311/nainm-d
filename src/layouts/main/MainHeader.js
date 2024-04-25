@@ -76,7 +76,7 @@ export default function MainHeader() {
             justifyContent: 'space-between',
           }}
         >
-          <Logo />
+          <Logo headerHeight={HEADER.MAIN_DESKTOP_HEIGHT} />
 
           <Box sx={{ flexGrow: 1 }} />
 

@@ -25,7 +25,7 @@ export default function Publiction() {
   const isDashboard = pathname.includes('dashboard');
   return (
     <>
-      <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
+      <Card sx={{ my: 2, padding: 2, backgroundColor: '#010923' }}>
         <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
