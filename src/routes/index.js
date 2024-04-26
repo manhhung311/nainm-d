@@ -64,6 +64,7 @@ export default function Router() {
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <PublicationCreate />}
           ],
         },
         {
