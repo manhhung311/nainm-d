@@ -1,3 +1,3 @@
-mutation EditCollection($input: edit_collection!) {
+mutation edit_collection($input: Edit_collection!) {
     edit_collection(input: $input)
 }

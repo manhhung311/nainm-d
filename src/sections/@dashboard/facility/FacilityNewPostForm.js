@@ -1,41 +1,34 @@
-import { useSnackbar } from 'notistack';
 import * as Yup from 'yup';
-
+import { useSnackbar } from 'notistack';
+// form
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 // @mui
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import { LoadingButton } from '@mui/lab';
+import { Button, Card, Grid, Typography } from '@mui/material';
+// routes
+// components
 import PropTypes from 'prop-types';
-import { Card, Grid, Stack, Typography, Button, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { FormProvider } from '../../components/hook-form';
-import { TypeCollection } from '../../constant';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import useLocales from '../../locals/useLocals';
-import PublicationPostEnglishStack from './PublicationPostEnglishStack';
-import PublicationPostVNStack from './PublicationPostVNStack';
+import { FormProvider } from '../../../components/hook-form';
+import { TypeCollection } from '../../../constant';
+import { PATH_DASHBOARD } from '../../../routes/paths';
+import useLocales from '../../../locals/useLocals';
+import FacilityPostVNStack from './FacilityPostVNStack';
+import FacilityPostEnglishStack from './FacilityPostEnglishStack';
 
-const CREATED_PUBLICATION = loader('../../graphql/mutations/collections/createCollection.graphql');
-const UPDATE_PUBLICATION = loader('../../graphql/mutations/collections/editCollection.graphql');
+// ----------------------------------------------------------------------
+const CREATE_FACILITY = loader('../../../graphql/mutations/collections/createCollection.graphql');
+const UPDATE_FACILITY = loader('../../../graphql/mutations/collections/editCollection.graphql');
 
-PublicationNewForm.propTypes = {
+FacilityNewPostForm.propTypes = {
   isEdit: PropTypes.bool,
   dataPostUpdate: PropTypes.object,
 };
 
-const LabelStyle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(1),
-}));
-
-export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
+export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -95,13 +88,21 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, dataPostUpdate]);
 
-  const [createdPubForm] = useMutation(CREATED_PUBLICATION, {
+  const [createNewFn] = useMutation(CREATE_FACILITY, {
     variables: {
       input: {},
     },
+    // refetchQueries: () => [
+    //   {
+    //     query: LIST_ALL_NEWS,
+    //     variables: {
+    //       input: {},
+    //     },
+    //   },
+    // ],
   });
 
-  const [updatePubForm] = useMutation(UPDATE_PUBLICATION, {
+  const [updateFacilityFn] = useMutation(UPDATE_FACILITY, {
     onCompleted: async (res) => {
       if (res) {
         return res;
@@ -113,11 +114,11 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
   const onSubmit = async () => {
     try {
       if (!isEdit) {
-        await createdPubForm({
+        await createNewFn({
           variables: {
             input: {
               // check chuẩn kiểu dữ liệu của input
-              type_collection: TypeCollection.Publication,
+              type_collection: TypeCollection.Facility,
               title: values?.title,
               collection_Vietnamese: values?.content,
               description: values?.description,
@@ -128,7 +129,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
           },
         });
       } else {
-        await updatePubForm({
+        await updateFacilityFn({
           variables: {
             input: {
               // check chuẩn kiểu dữ liệu của input
@@ -145,7 +146,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
       }
       reset();
       enqueueSnackbar(isEdit ? 'Sửa bài thành công!' : 'Đăng bài thành công!');
-      navigate(PATH_DASHBOARD.news.list);
+      navigate(PATH_DASHBOARD.facility.list);
     } catch (error) {
       enqueueSnackbar(isEdit ? 'Sửa bài không thành công!' : 'Đăng bài không thành công!', { variant: 'error' });
     }
@@ -157,11 +158,11 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitting, values]);
-  console.log('values?.title', values?.title);
 
   const handleTabClick = (tabIndex) => {
     setCurrentTab(tabIndex);
   };
+
   return (
     <>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -178,7 +179,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
               }
               className={currentTab === 1 ? 'active' : ''}
             >
-              <Typography variant="h5">{t('news.tab1')}</Typography>
+              <Typography variant="h5">{t('facility.tab1')}</Typography>
             </Button>
           </Grid>
           <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
@@ -193,7 +194,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
               }
               className={currentTab === 2 ? 'active' : ''}
             >
-              <Typography variant="h5">{t('news.tab2')}</Typography>
+              <Typography variant="h5">{t('facility.tab2')}</Typography>
             </Button>
           </Grid>
         </Grid>
@@ -201,9 +202,9 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <PublicationPostVNStack onNext={handleTabClick} />
+                <FacilityPostVNStack onNext={handleTabClick} />
               ) : (
-                <PublicationPostEnglishStack onBack={handleTabClick} />
+                <FacilityPostEnglishStack onBack={handleTabClick} />
               )}
             </Card>
           </Grid>

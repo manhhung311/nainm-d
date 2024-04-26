@@ -34,8 +34,14 @@ export const PATH_PAGE = {
   people: '/people',
   publication: '/publication',
   research: '/research',
-  facility: '/facility',
-  news: '/news',
+  facility: {
+    list: '/facility',
+    detail: (id) => `/facility/${id}/detail`,
+  },
+  news: {
+    list: `news`,
+    detail: (id) => `${id}/detail`,
+  },
   dashboard: {
     root: ROOTS_DASHBOARD,
     user: {
@@ -55,31 +61,36 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/user',
     new: '/dashboard/user/new',
     list: '/dashboard/user/list',
+    edit: (id) => `${ROOTS_DASHBOARD}/user/${id}/edit`,
+
     // edit: (name) => `dashboard/user/${name}/edit`,
   },
   publication: {
     root: '/dashboard/publication',
     new: '/dashboard/publication/new',
     list: '/dashboard/publication/list',
+    edit: (id) => `/dashboard/publication/${id}/edit`,
     // edit: (name) => `dashboard/user/${name}/edit`,
   },
   research: {
     root: '/dashboard/research',
     new: '/dashboard/research/new',
     list: '/dashboard/research/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+    edit: (id) => `/dashboard/research/${id}/edit`,
   },
   facility: {
     root: '/dashboard/facility',
     new: '/dashboard/facility/new',
     list: '/dashboard/facility/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+
+    edit: (id) => `dashboard/facility/${id}/edit`,
   },
   news: {
     root: '/dashboard/news',
     new: '/dashboard/news/new',
     list: '/dashboard/news/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+    edit: (id) => `/dashboard/news/${id}/edit`,
+    detail: (id) => `/dashboard/news/${id}/detail`,
   },
   drive: {
     root: '/dashboard/drive',

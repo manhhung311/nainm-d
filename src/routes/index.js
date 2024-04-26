@@ -9,6 +9,7 @@ import DashboardLayout from '../layouts/dashboard';
 import { PATH_AFTER_LOGIN } from './paths';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
+import NewsDetail from '../sections/@dashboard/news/NewsDetail';
 
 // ----------------------------------------------------------------------
 
@@ -64,6 +65,7 @@ export default function Router() {
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <PublicationCreate />}
           ],
         },
         {
@@ -72,7 +74,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/research/list" replace />, index: true },
             { path: 'list', element: <ResearchList /> },
             { path: 'new', element: <ResearchCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <ResearchCreate /> },
           ],
         },
         {
@@ -81,7 +83,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/facility/list" replace />, index: true },
             { path: 'list', element: <FacilityList /> },
             { path: 'new', element: <FacilityCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <FacilityCreate /> },
           ],
         },
         {
@@ -90,7 +92,8 @@ export default function Router() {
             { element: <Navigate to="/dashboard/news/list" replace />, index: true },
             { path: 'list', element: <NewsList /> },
             { path: 'new', element: <NewsCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <NewsCreate /> },
+            { path: ':id/detail', element: <NewsDetail /> },
           ],
         },
         {
@@ -129,11 +132,27 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
+        {
+          path: 'news',
+          children: [
+            // { element: <Navigate to="/news" replace />, index: true },
+            { path: '/news', element: <NewsList /> },
+            { path: ':id/detail', element: <NewsDetail /> },
+            // { path: ':name/edit', element: <UserUpdate /> },
+          ],
+        },
         { path: 'people', element: <ProfileList /> },
         { path: 'publication', element: <PublicationList /> },
         { path: 'research', element: <ResearchList /> },
         { path: 'facility', element: <FacilityList /> },
         { path: 'news', element: <NewsList /> },
+      ],
+    },
+    {
+      path: '/facility',
+      element: <MainLayout />,
+      children: [
+        { path: ':id/detail', element: <FacilityDetail /> },
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -154,6 +173,7 @@ const ResearchCreate = Loadable(lazy(() => import('../pages/dashboard/research/R
 
 const FacilityList = Loadable(lazy(() => import('../pages/dashboard/facility/FacilityList')));
 const FacilityCreate = Loadable(lazy(() => import('../pages/dashboard/facility/FacilityCreate')));
+const FacilityDetail = Loadable(lazy(() => import('../pages/dashboard/facility/FacilityDetail')));
 
 const NewsList = Loadable(lazy(() => import('../pages/dashboard/news/NewsList')));
 const NewsCreate = Loadable(lazy(() => import('../pages/dashboard/news/NewsCreate')));

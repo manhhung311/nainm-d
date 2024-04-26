@@ -1,3 +1,15 @@
-mutation CreateCollection($input: create_collection!) {
-    create_collection(input: $input)
+mutation create_collection($input: Create_collection!) {
+    create_collection(input: $input){
+        id
+        type_collection
+        status_collection
+        user_update
+        collection_Vietnamese
+        collection_English
+        createdAt
+        updatedAt
+        title
+        description
+
+    }
 }

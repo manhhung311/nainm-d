@@ -1,18 +1,13 @@
 import React from 'react';
-import { Box, Grid, Button, Stack, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Box, Button, Grid, List, ListItem, ListItemIcon, Stack, Typography } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
-import HubIcon from '@mui/icons-material/Hub';
 import { Link as RouterLink } from 'react-router-dom';
 import FitbitSharpIcon from '@mui/icons-material/FitbitSharp';
 import GrainSharpIcon from '@mui/icons-material/GrainSharp';
-import BlurOnSharpIcon from '@mui/icons-material/BlurOnSharp';
-import isString from 'lodash/isString';
-import { InlineIcon } from '@iconify/react';
 import Image from '../../components/Image';
 import _mock from '../../_mock';
 import { _peopleData } from '../../_mock/_user';
 import useResponsive from '../../hooks/useResponsive';
-
 
 
 export default function Proccefer() {

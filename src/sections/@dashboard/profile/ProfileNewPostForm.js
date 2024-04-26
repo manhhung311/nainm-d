@@ -1,120 +1,211 @@
 import * as Yup from 'yup';
-import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
 // form
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 // @mui
-import { LoadingButton } from '@mui/lab';
-import { styled } from '@mui/material/styles';
-import { Grid, Card, Stack, Typography } from '@mui/material';
+import { Button, Card, Grid, Typography } from '@mui/material';
 // routes
-import {  RHFEditor, FormProvider, RHFUploadSingleFile } from '../../../components/hook-form';
+// components
+import PropTypes from 'prop-types';
+import { loader } from 'graphql.macro';
+import React, { useEffect, useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
+import { FormProvider } from '../../../components/hook-form';
+import { TypeCollection } from '../../../constant';
+import { PATH_DASHBOARD } from '../../../routes/paths';
 import useLocales from '../../../locals/useLocals';
-//
+import ProfilePostVNStack from './ProfilePostVNStack';
+import ProfilePostEnglishStack from './ProfilePostEnglishStack';
 
 // ----------------------------------------------------------------------
+const CREATE_NEWS = loader('../../../graphql/mutations/collections/createCollection.graphql');
+const UPDATE_NEWS = loader('../../../graphql/mutations/collections/editCollection.graphql');
 
-const LabelStyle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(1),
-}));
+ProfileNewPostForm.propTypes = {
+  isEdit: PropTypes.bool,
+  dataPostUpdate: PropTypes.object,
+};
 
-// ----------------------------------------------------------------------
-
-export default function ProNewPostForm() {
+export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
-
-  const { t } = useLocales();
-
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const [currentTab, setCurrentTab] = useState(1);
 
+  const { t } = useLocales();
 
-  const NewBlogSchema = Yup.object().shape({
-    title: Yup.string().required('Title is required'),
-    description: Yup.string().required('Description is required'),
-    content: Yup.string().min(1000).required('Content is required'),
-    cover: Yup.mixed().required('Cover is required'),
-  });
+  const NewQuotationSchema = Yup.object()
+    .shape({
+      title: Yup.string().max(200, 'Tiêu đề có số kí tự tối đa là 200 kí tự!'),
+      titleEnglish: Yup.string().max(200, 'Tiêu đề có số kí tự tối đa là 200 kí tự!'),
+    })
+    .test('titleEnglish', null, (obj) => {
+      if (obj.title.length !== 0 || obj.titleEnglish.length !== 0) {
+        return true;
+      }
+
+      return new Yup.ValidationError(
+        'Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh!',
+        null,
+        'titleEnglish'
+      );
+    });
 
   const defaultValues = {
-    title: '',
-    description: '',
-    content: '',
-    cover: null,
-    tags: ['Logan'],
-    publish: true,
-    comments: true,
-    metaTitle: '',
-    metaDescription: '',
-    metaKeywords: ['Logan'],
+    id: dataPostUpdate?.id || null,
+    title: dataPostUpdate?.title || '',
+    description: dataPostUpdate?.description || '',
+    content: dataPostUpdate?.collection_Vietnamese || '',
+    titleEnglish: dataPostUpdate?.title_english || '',
+    descriptionEnglish: dataPostUpdate?.description_english || '',
+    contentEnglish: dataPostUpdate?.collection_English || '',
   };
 
   const methods = useForm({
-    resolver: yupResolver(NewBlogSchema),
+    resolver: yupResolver(NewQuotationSchema),
     defaultValues,
   });
 
   const {
     reset,
-    setValue,
     handleSubmit,
-    formState: { isSubmitting, },
+    watch,
+    formState: { isSubmitting },
   } = methods;
 
+  const values = watch();
+
+  useEffect(() => {
+    if (isEdit && dataPostUpdate) {
+      reset(defaultValues);
+    }
+    if (!isEdit) {
+      reset(defaultValues);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEdit, dataPostUpdate]);
+
+  const [createNewFn] = useMutation(CREATE_NEWS, {
+    variables: {
+      input: {},
+    },
+    // refetchQueries: () => [
+    //   {
+    //     query: LIST_ALL_NEWS,
+    //     variables: {
+    //       input: {},
+    //     },
+    //   },
+    // ],
+  });
+
+  const [updateNewsFn] = useMutation(UPDATE_NEWS, {
+    onCompleted: async (res) => {
+      if (res) {
+        return res;
+      }
+      return null;
+    },
+  });
 
   const onSubmit = async () => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (!isEdit) {
+        await createNewFn({
+          variables: {
+            input: {
+              // check chuẩn kiểu dữ liệu của input
+              type_collection: TypeCollection.News,
+              title: values?.title,
+              collection_Vietnamese: values?.content,
+              description: values?.description,
+              title_english: values?.titleEnglish,
+              collection_English: values?.contentEnglish,
+              description_english: values?.descriptionEnglish,
+            },
+          },
+        });
+      } else {
+        await updateNewsFn({
+          variables: {
+            input: {
+              // check chuẩn kiểu dữ liệu của input
+              id: Number(values?.id),
+              title: values?.title,
+              collection_Vietnamese: values?.content,
+              description: values?.description,
+              title_english: values?.titleEnglish,
+              collection_English: values?.contentEnglish,
+              description_english: values?.descriptionEnglish,
+            },
+          },
+        });
+      }
       reset();
-      enqueueSnackbar('Post success!');
+      enqueueSnackbar(isEdit ? 'Sửa bài thành công!' : 'Đăng bài thành công!');
+      navigate(PATH_DASHBOARD.profile.list);
     } catch (error) {
-      console.error(error);
+      enqueueSnackbar(isEdit ? 'Sửa bài không thành công!' : 'Đăng bài không thành công!', { variant: 'error' });
     }
   };
 
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
+  useEffect(() => {
+    if (isSubmitting && values?.title === '' && values?.titleEnglish === '') {
+      enqueueSnackbar('Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh', { variant: 'error' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitting, values]);
 
-      if (file) {
-        setValue(
-          'cover',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-    },
-    [setValue]
-  );
-
+  const handleTabClick = (tabIndex) => {
+    setCurrentTab(tabIndex);
+  };
 
   return (
     <>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={3} sx={{justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+        <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 4, mt: 1 }}>
+          <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            <Button
+              sx={{ width: '100%', height: '100%', borderRadius: 2 }}
+              size="large"
+              variant="outlined"
+              style={
+                currentTab === 1
+                  ? { backgroundColor: '#4BD578', color: '#fff' }
+                  : { backgroundColor: '#fff', color: '#000' }
+              }
+              className={currentTab === 1 ? 'active' : ''}
+            >
+              <Typography variant="h5">{t('news.tab1')}</Typography>
+            </Button>
+          </Grid>
+          <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            <Button
+              sx={{ width: '100%', height: '100%', borderRadius: 2 }}
+              size="large"
+              variant="outlined"
+              style={
+                currentTab === 2
+                  ? { backgroundColor: '#4BD578', color: '#fff' }
+                  : { backgroundColor: '#fff', color: '#000' }
+              }
+              className={currentTab === 2 ? 'active' : ''}
+            >
+              <Typography variant="h5">{t('news.tab2')}</Typography>
+            </Button>
+          </Grid>
+        </Grid>
+        <Grid container spacing={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
-              <Stack spacing={3}>
-                <div>
-                  <LabelStyle>{t('profile.anh')}</LabelStyle>
-                  <RHFUploadSingleFile name="cover" accept="image/*" maxSize={3145728} onDrop={handleDrop} />
-                </div>
-                <div>
-                  <LabelStyle>{t('profile.content')}</LabelStyle>
-                  <RHFEditor name="content" />
-                </div>
-              </Stack>
-              <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
-                <LoadingButton fullWidth type="submit" variant="contained" size="large" loading={isSubmitting}>
-                  Post
-                </LoadingButton>
-              </Stack>
+              {currentTab === 1 ? (
+                <ProfilePostVNStack onNext={handleTabClick} />
+              ) : (
+                <ProfilePostEnglishStack onBack={handleTabClick} />
+              )}
             </Card>
           </Grid>
         </Grid>
