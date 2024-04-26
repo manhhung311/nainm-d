@@ -35,7 +35,10 @@ export const PATH_PAGE = {
   publication: '/publication',
   research: '/research',
   facility: '/facility',
-  news: '/news',
+  news: {
+    list: `news`,
+    detail: (id) => `${id}/detail`,
+  },
   dashboard: {
     root: ROOTS_DASHBOARD,
     user: {
@@ -80,6 +83,7 @@ export const PATH_DASHBOARD = {
     new: '/dashboard/news/new',
     list: '/dashboard/news/list',
     edit: (id) => `/dashboard/news/${id}/edit`,
+    detail: (id) => `/news/${id}/edit`,
   },
   drive: {
     root: '/dashboard/drive',

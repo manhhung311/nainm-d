@@ -1,9 +1,9 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Link, Stack, Typography } from '@mui/material';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { useLocation } from 'react-router-dom';
 import useLocales from '../../locals/useLocals';
 import _mock from '../../_mock';
 import { _newsData } from '../../_mock/_news';
@@ -11,6 +11,7 @@ import useResponsive from '../../hooks/useResponsive';
 import Image from '../../components/Image';
 import useAuth from '../../hooks/useAuth';
 import { fDate } from '../../utils/formatTime';
+import { PATH_PAGE } from '../../routes/paths';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(5),
@@ -23,8 +24,7 @@ export default function NewsMain() {
 
   const { user } = useAuth();
 
-  console.log('user', user);
-  console.log('time', _mock.time(1));
+  console.log('PATH_PAGE.news.detail(1)', PATH_PAGE.news.detail(1));
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
@@ -55,12 +55,11 @@ export default function NewsMain() {
                   </Box>
                 </Box>
                 <Box style={{ width: '100%', justifyContent: 'center', alignItems: 'center', minHeight: '100px' }}>
-                  <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
-                    {_mock.text.sentence(index)}
-                  </Typography>
-                  <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
-                    {fDate(_mock.time(index))}
-                  </Typography>
+                  <Link to={`${1}/detail`} color="inherit" component={RouterLink}>
+                    <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                      {_mock.text.sentence(index)}
+                    </Typography>
+                  </Link>
                 </Box>
               </Grid>
             ) : (
@@ -80,12 +79,11 @@ export default function NewsMain() {
                     flexDirection: 'column',
                   }}
                 >
-                  <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
-                    {_mock.text.sentence(index)}
-                  </Typography>
-                  <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
-                    {fDate(_mock.time(index))}
-                  </Typography>
+                  <Link to={`${1}/detail`} color="inherit" component={RouterLink}>
+                    <Typography variant="subtitle1" style={{ textAlign: 'center' }}>
+                      {_mock.text.sentence(index)}
+                    </Typography>
+                  </Link>
                 </Stack>
               </Grid>
             )}

@@ -63,17 +63,20 @@
     "tab2": "ENGLISH",
     "post1": "Post VietNamese",
     "post2": "Post English",
-    "anh": "Avatar",
-    "content": "Content"
+    "tiep" : "Continue",
+    "trolai": "Back",
+    "post": "Post"
   },
   "news": {
     "title": "News",
     "page": "Create News",
+    "page1": "Detail News",
     "tab1": "VIETNAMESE",
     "tab2": "ENGLISH",
     "post1": "Post VietNamese",
     "post2": "Post English",
-    "anh": "Avatar",
-    "content": "Content"
+    "tiep" : "Continue",
+    "trolai": "Back",
+    "post": "Post"
   }
 }

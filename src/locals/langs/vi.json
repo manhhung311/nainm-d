@@ -57,22 +57,25 @@
     "title": "Việt Nam"
   },
   "profile": {
-    "page": "Tạo Hồ Sơ",
+    "page": "Tạo Mới Hồ Sơ",
     "tab1": "TIẾNG VIỆT",
     "tab2": "TIẾNG ANH",
     "post1": "Tạo Hồ Sơ Tiếng Việt",
     "post2": "Tạo Hồ Sơ Tiếng Anh",
-    "anh": "Ảnh Đại Diện",
-    "content": "Thông Tin Cá Nhân"
+    "tiep" : "Tiếp tục",
+    "trolai": "Trở lại",
+    "post": "Đăng"
   },
   "news": {
     "title": "Tin Tức",
     "page": "Tạo Mới Tin Tức",
+    "page1": "Chi Tiết Tin Tức",
     "tab1": "TIẾNG VIỆT",
     "tab2": "TIẾNG ANH",
     "post1": "Tạo Tin Tức Tiếng Việt",
     "post2": "Tạo Tin Tức Tiếng Anh",
-    "anh": "Ảnh",
-    "content": "Nội dung"
+    "tiep" : "Tiếp tục",
+    "trolai": "Trở lại",
+    "post": "Đăng"
   }
 }

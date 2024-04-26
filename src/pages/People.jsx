@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // @mui
-import { styled } from '@mui/material/styles';
+
 import { Box, Button, Grid, Typography } from '@mui/material';
 // components
 
@@ -10,12 +10,6 @@ import Student from '../sections/people/student';
 
 import useLocales from '../locals/useLocals';
 // ----------------------------------------------------------------------
-const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
-  [theme.breakpoints.up('xs')]: {
-    padding: theme.spacing(11, 1),
-  },
-}));
 // ----------------------------------------------------------------------
 export default function People() {
   const { t } = useLocales();

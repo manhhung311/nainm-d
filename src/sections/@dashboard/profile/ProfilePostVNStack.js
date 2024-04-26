@@ -20,11 +20,11 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-NewsPostVNStack.propTypes = {
+ProfilePostVNStack.propTypes = {
   onNext: PropTypes.func,
 };
 
-export default function NewsPostVNStack({ onNext }) {
+export default function ProfilePostVNStack({ onNext }) {
   const { t } = useLocales();
 
   return (
@@ -42,7 +42,7 @@ export default function NewsPostVNStack({ onNext }) {
       <Grid item xs={12}>
         <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
           <Button fullWidth variant="contained" size="medium" onClick={() => onNext(2)}>
-            {t('news.tiep')}
+            {t('profile.tiep')}
           </Button>
         </Stack>
       </Grid>

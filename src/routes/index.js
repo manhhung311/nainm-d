@@ -9,6 +9,7 @@ import DashboardLayout from '../layouts/dashboard';
 import { PATH_AFTER_LOGIN } from './paths';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
+import NewsDetail from '../sections/@dashboard/news/NewsDetail';
 
 // ----------------------------------------------------------------------
 
@@ -91,6 +92,7 @@ export default function Router() {
             { path: 'list', element: <NewsList /> },
             { path: 'new', element: <NewsCreate /> },
             { path: ':id/edit', element: <NewsCreate /> },
+            { path: ':id/detail', element: <NewsDetail /> },
           ],
         },
         {
@@ -129,6 +131,15 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
+        {
+          path: 'news',
+          children: [
+            // { element: <Navigate to="/news" replace />, index: true },
+            { path: '/news', element: <NewsList /> },
+            { path: ':id/detail', element: <NewsDetail /> },
+            // { path: ':name/edit', element: <UserUpdate /> },
+          ],
+        },
         { path: 'people', element: <ProfileList /> },
         { path: 'publication', element: <PublicationList /> },
         { path: 'research', element: <ResearchList /> },

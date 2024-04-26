@@ -22,17 +22,16 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-NewsPostEnglishStack.propTypes = {
+ProfilePostEnglishStack.propTypes = {
   onBack: PropTypes.func,
 };
 
-export default function NewsPostEnglishStack({ onBack }) {
+export default function ProfilePostEnglishStack({ onBack }) {
+  const { t } = useLocales();
+
   const {
     formState: { isSubmitting },
   } = useFormContext();
-
-  const { t } = useLocales();
-
   return (
     <>
       <Stack spacing={3}>
@@ -48,10 +47,10 @@ export default function NewsPostEnglishStack({ onBack }) {
       <Grid item xs={12}>
         <Stack direction="row" justifyContent="space-around" spacing={1.5} sx={{ mt: 3 }}>
           <Button fullWidth variant="contained" size="medium" onClick={() => onBack(1)}>
-            {t('news.trolai')}
+            {t('profile.trolai')}
           </Button>
           <LoadingButton fullWidth type="submit" variant="contained" size="medium" loading={isSubmitting}>
-            {t('news.post')}
+            {t('profile.post')}
           </LoadingButton>
         </Stack>
       </Grid>
