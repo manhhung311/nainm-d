@@ -34,7 +34,10 @@ export const PATH_PAGE = {
   people: '/people',
   publication: '/publication',
   research: '/research',
-  facility: '/facility',
+  facility:{
+    list:  '/facility',
+    detail: (id) => `/facility/${id}/detail`,
+  },
   news: {
     list: `news`,
     detail: (id) => `${id}/detail`,
@@ -70,13 +73,14 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/research',
     new: '/dashboard/research/new',
     list: '/dashboard/research/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+    edit: (id) => `/dashboard/research/${id}/edit`,
   },
   facility: {
     root: '/dashboard/facility',
     new: '/dashboard/facility/new',
     list: '/dashboard/facility/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+
+    edit: (id) => `dashboard/facility/${id}/edit`,
   },
   news: {
     root: '/dashboard/news',

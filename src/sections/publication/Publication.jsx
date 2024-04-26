@@ -25,11 +25,16 @@ export default function Publiction() {
   const isDashboard = pathname.includes('dashboard');
   return (
     <>
-      <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
+      <Card sx={{ my: 2, padding: 2, backgroundColor: '#010923' }}>
         <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>210.</item>
               </Grid>
               <Grid item xs={11}>
@@ -57,10 +62,15 @@ export default function Publiction() {
       </Card>
 
       <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid container spacing={0} >
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1}  sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>211.</item>
               </Grid>
               <Grid item xs={11}>
@@ -87,11 +97,16 @@ export default function Publiction() {
         </Grid>
       </Card>
 
-      <Card sx={{ my: 2,  padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid container spacing={0} >
+      <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>212.</item>
               </Grid>
               <Grid item xs={11}>
@@ -118,11 +133,16 @@ export default function Publiction() {
         </Grid>
       </Card>
 
-      <Card sx={{ my: 2,  padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid container spacing={0} >
+      <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>213.</item>
               </Grid>
               <Grid item xs={11}>
@@ -149,11 +169,16 @@ export default function Publiction() {
         </Grid>
       </Card>
 
-      <Card sx={{ my: 2,  padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid container spacing={0} >
+      <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>214.</item>
               </Grid>
               <Grid item xs={11}>
@@ -180,11 +205,16 @@ export default function Publiction() {
         </Grid>
       </Card>
 
-      <Card sx={{ my: 2,  padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid container spacing={0} >
+      <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>215.</item>
               </Grid>
               <Grid item xs={11}>
@@ -212,10 +242,15 @@ export default function Publiction() {
       </Card>
 
       <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid container spacing={0} >
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>216.</item>
               </Grid>
               <Grid item xs={11}>
@@ -243,10 +278,15 @@ export default function Publiction() {
       </Card>
 
       <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid container spacing={0} >
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
                 <item>217.</item>
               </Grid>
               <Grid item xs={11}>
@@ -274,15 +314,16 @@ export default function Publiction() {
       </Card>
 
       <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
-        <Grid
-          container
-          spacing={0}
-         
-        >
+        <Grid container spacing={0}>
           <Grid item xs={10}>
             <Grid container spacing={0}>
-              <Grid item xs={4} md={1} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}>
-                  <item>218.</item>
+              <Grid
+                item
+                xs={4}
+                md={1}
+                sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+              >
+                <item>218.</item>
               </Grid>
               <Grid item xs={11}>
                 <item>

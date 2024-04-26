@@ -16,20 +16,19 @@ import { FormProvider } from '../../../components/hook-form';
 import { TypeCollection } from '../../../constant';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import useLocales from '../../../locals/useLocals';
-import ResearchPostVNStack from './ResearchPostVNStack';
-import ResearchPostEnglishStack from './ResearchPostEnglishStack';
+import FacilityPostVNStack from './FacilityPostVNStack';
+import FacilityPostEnglishStack from './FacilityPostEnglishStack';
 
 // ----------------------------------------------------------------------
-const CREATE_RESEARCH = loader('../../../graphql/mutations/collections/createCollection.graphql');
-const UPDATE_RESEARCH = loader('../../../graphql/mutations/collections/editCollection.graphql');
+const CREATE_FACILITY = loader('../../../graphql/mutations/collections/createCollection.graphql');
+const UPDATE_FACILITY = loader('../../../graphql/mutations/collections/editCollection.graphql');
 
-ResearchNewPostForm.propTypes = {
+FacilityNewPostForm.propTypes = {
   isEdit: PropTypes.bool,
   dataPostUpdate: PropTypes.object,
 };
-export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
-  // const navigate = useNavigate();
 
+export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -89,7 +88,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, dataPostUpdate]);
 
-  const [createResearchFn] = useMutation(CREATE_RESEARCH, {
+  const [createNewFn] = useMutation(CREATE_FACILITY, {
     variables: {
       input: {},
     },
@@ -103,7 +102,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
     // ],
   });
 
-  const [updateResearchFn] = useMutation(UPDATE_RESEARCH, {
+  const [updateFacilityFn] = useMutation(UPDATE_FACILITY, {
     onCompleted: async (res) => {
       if (res) {
         return res;
@@ -115,11 +114,11 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
   const onSubmit = async () => {
     try {
       if (!isEdit) {
-        await createResearchFn({
+        await createNewFn({
           variables: {
             input: {
               // check chuẩn kiểu dữ liệu của input
-              type_collection: TypeCollection.Research,
+              type_collection: TypeCollection.Facility,
               title: values?.title,
               collection_Vietnamese: values?.content,
               description: values?.description,
@@ -130,7 +129,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
           },
         });
       } else {
-        await updateResearchFn({
+        await updateFacilityFn({
           variables: {
             input: {
               // check chuẩn kiểu dữ liệu của input
@@ -147,7 +146,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
       }
       reset();
       enqueueSnackbar(isEdit ? 'Sửa bài thành công!' : 'Đăng bài thành công!');
-      navigate(PATH_DASHBOARD.research.list);
+      navigate(PATH_DASHBOARD.facility.list);
     } catch (error) {
       enqueueSnackbar(isEdit ? 'Sửa bài không thành công!' : 'Đăng bài không thành công!', { variant: 'error' });
     }
@@ -180,7 +179,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
               }
               className={currentTab === 1 ? 'active' : ''}
             >
-              <Typography variant="h5">{t('research.tab1')}</Typography>
+              <Typography variant="h5">{t('facility.tab1')}</Typography>
             </Button>
           </Grid>
           <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
@@ -195,7 +194,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
               }
               className={currentTab === 2 ? 'active' : ''}
             >
-              <Typography variant="h5">{t('research.tab2')}</Typography>
+              <Typography variant="h5">{t('facility.tab2')}</Typography>
             </Button>
           </Grid>
         </Grid>
@@ -203,9 +202,9 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <ResearchPostVNStack onNext={handleTabClick} />
+                <FacilityPostVNStack onNext={handleTabClick} />
               ) : (
-                <ResearchPostEnglishStack onBack={handleTabClick} />
+                <FacilityPostEnglishStack onBack={handleTabClick} />
               )}
             </Card>
           </Grid>
