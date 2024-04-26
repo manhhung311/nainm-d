@@ -12,8 +12,10 @@ Logo.propTypes = {
 
 export default function Logo({ disabledLink = false, sx, headerHeight }) {
   const logo = (
-    <Box sx={{width: 125, height: headerHeight, ...sx}}>
-      <img src='/logo.png' alt="Logo" />
+    <Box
+      sx={{ width: 110, height: headerHeight, ...sx, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+    >
+      <img src="/logo.png" alt="Logo" />
     </Box>
   );
 
