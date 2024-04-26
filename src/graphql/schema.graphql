@@ -23,6 +23,7 @@ type Collection {
 type Mutation {
     ChangePassword(input: changePasswordInput!): SuccessResponse!
     create_collection(input: Create_collection!): Collection!
+    deleteCollection(id: ID!): SuccessResponse!
     editStatusUser(input: editStatusUser!): SuccessResponse!
     edit_collection(input: Edit_collection!): SuccessResponse!
     register(input: CreateUserInput!): User!
@@ -42,7 +43,7 @@ type Query {
     login(input: UserLoginInput!): UserLoginResponse!
     me: User!
     publicCollection(id: ID!): Collection!
-    publicCollections(type_collection: Int!): [Collection]
+    publicCollections(input: publicCollections!): [Collection]
     publicUser(id: ID!): User!
     publicUsers: [User]
     user(id: ID!): User!
@@ -154,6 +155,11 @@ input changePasswordInput {
 input editStatusUser {
     id: Int!
     status: Boolean!
+}
+
+input publicCollections {
+    stand_out: Boolean
+    type_collection: Int!
 }
 
 input upRoleUser {

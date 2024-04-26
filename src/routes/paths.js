@@ -34,8 +34,8 @@ export const PATH_PAGE = {
   people: '/people',
   publication: '/publication',
   research: '/research',
-  facility:{
-    list:  '/facility',
+  facility: {
+    list: '/facility',
     detail: (id) => `/facility/${id}/detail`,
   },
   news: {
@@ -90,7 +90,7 @@ export const PATH_DASHBOARD = {
     new: '/dashboard/news/new',
     list: '/dashboard/news/list',
     edit: (id) => `/dashboard/news/${id}/edit`,
-    detail: (id) => `/news/${id}/edit`,
+    detail: (id) => `/dashboard/news/${id}/detail`,
   },
   drive: {
     root: '/dashboard/drive',
