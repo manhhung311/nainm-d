@@ -102,6 +102,12 @@ export default function NewUser({ isEdit, currentUser }) {
       reset(defaultValues);
     }
   }, [currentUser, defaultValues, reset]);
+  useEffect(() => {
+    // Nếu isEdit là false thì reset form về defaultValues
+    if (!isEdit) {
+      reset(defaultValues);
+    }
+  }, [isEdit, defaultValues, reset]);
 
   const onSubmit = async (values) => {
     try {

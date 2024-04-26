@@ -17,9 +17,7 @@ const RootStyle = styled('div')(() => ({
 export default function UserCreate() {
   const { pathname } = useLocation(); // đọc đường dẫn pathname là cái đường dẫn
   const [currentUser, setCurrentUser] = useState({});
-
   const { id } = useParams(); // để đọc cái id trên thanh công cụ
-
   const isEdit = pathname.includes('edit'); // nếu đường dẫn đó có chữ edit thì isEdit bằng true thì là vào trang edit
   const { data: allGetUser } = useQuery(GET_USER_INFO, {
     variables: {

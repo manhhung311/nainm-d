@@ -1,17 +1,22 @@
+import { useQuery } from '@apollo/client';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
+import { loader } from 'graphql.macro';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import Image from '../../components/Image';
+import TypeCollection from '../../constant/utilities';
 import useResponsive from '../../hooks/useResponsive';
+
+const Publication = loader('../../graphql/queries/collections/Publication.graphql');
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -48,7 +53,7 @@ const images = [
 
 export default function HomeHero() {
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
 
   const handleNext = () => {
@@ -69,7 +74,25 @@ export default function HomeHero() {
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
   const isDesktop = useResponsive('between', 'xs', 'xs', 'lg');
+  const [data, setData] = useState([]);
 
+  const { data: publication } = useQuery(Publication, {
+    variables: {
+      type_collection: 1,
+    },
+  });
+
+  console.log('data', data);
+  useEffect(() => {
+    if (publication) {
+      setData(publication?.publicCollections);
+    }
+  }, [publication]);
+  const newImages = data.map((item) => ({
+    title: item.title,
+    Content: item.description, // Trường 'description' sẽ lấy giá trị từ trường 'Content' của mỗi phần tử trong mảng 'images'
+  }));
+  console.log('newImages', newImages);
   return (
     <Box
       style={{
@@ -148,16 +171,20 @@ export default function HomeHero() {
                               {step.label}
                             </Typography>
                           </Grid>
-                          <Grid item xs={12}>
-                            <Typography variant="h3" color="#82f9d4">
-                              {step.title}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={12}>
-                            <Typography variant="subtitle1" color="#fff">
-                              {step.Content}
-                            </Typography>
-                          </Grid>
+                          {data.map((item, index) => (
+                            <Grid item xs={12} key={index}>
+                              <Typography variant="h3" color="#82f9d4">
+                                {item.title}
+                              </Typography>
+                            </Grid>
+                          ))}
+                          {data.map((item, index) => (
+                            <Grid item xs={12} key={index}>
+                              <Typography variant="subtitle1" color="#fff">
+                                {item.description}
+                              </Typography>
+                            </Grid>
+                          ))}
                           <Grid item xs={12}>
                             <Link
                               to="/more-view"
