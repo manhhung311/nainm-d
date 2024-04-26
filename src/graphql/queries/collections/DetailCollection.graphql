@@ -12,5 +12,5 @@ query Query($id: ID!) {
         description
         description_english
         title_english
-        }
+    }
 }

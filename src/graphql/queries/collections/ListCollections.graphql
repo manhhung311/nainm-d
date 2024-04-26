@@ -1,5 +1,5 @@
-query Query($type_collection :Int!) {
-    publicCollections(type_collection: $type_collection){
+query Query($input: Collections_find!) {
+    collections(input: $input) {
         id
         type_collection
         status_collection
