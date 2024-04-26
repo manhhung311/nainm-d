@@ -61,6 +61,8 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/user',
     new: '/dashboard/user/new',
     list: '/dashboard/user/list',
+    edit: (id) => `${ROOTS_DASHBOARD}/user/${id}/edit`,
+
     // edit: (name) => `dashboard/user/${name}/edit`,
   },
   publication: {
