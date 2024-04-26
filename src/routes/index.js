@@ -64,7 +64,8 @@ export default function Router() {
             { element: <Navigate to="/dashboard/publication/list" replace />, index: true },
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
-            { path: ':id/edit', element: <PublicationCreate /> },
+            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <PublicationCreate />}
           ],
         },
         {
