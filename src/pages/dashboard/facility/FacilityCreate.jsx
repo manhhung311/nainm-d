@@ -1,79 +1,49 @@
 // @mui
 import { styled } from '@mui/material/styles';
 // components
-import { useState } from 'react';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
+import { loader } from 'graphql.macro';
+import { useQuery } from '@apollo/client';
+import { useLocation, useParams } from 'react-router-dom';
 import Page from '../../../components/Page';
-import { useLocales } from '../../../locals';
 import FacilityNewPostForm from '../../../sections/@dashboard/facility/FacilityNewPostForm';
+import useLocales from '../../../locals/useLocals';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
 }));
 // ----------------------------------------------------------------------
+const DETAIL_COLLECTION = loader('../../../graphql/queries/collections/DetailCollection.graphql');
 
-export default function PublictionCreate() {
-  const [currentTab, setCurrentTab] = useState(1);
+export default function FacilityCreate() {
+  const { pathname } = useLocation();
+
+  const [postUpdate, setPostUpdate] = useState();
+
+  const { id: idFacility } = useParams();
+
+  const { data: detailCollection } = useQuery(DETAIL_COLLECTION, {
+    variables: {
+      id: idFacility,
+    },
+  });
+
+  useEffect(() => {
+    if (detailCollection) {
+      setPostUpdate(detailCollection?.collection);
+    }
+  }, [idFacility, detailCollection]);
+
+  const isEdit = pathname.includes('edit');
 
   const { t } = useLocales();
 
-  const handleTabClick = (tabIndex) => {
-    setCurrentTab(tabIndex);
-  };
   return (
-    <Page title="Tạo mới thiết bị">
+    <Page title={t('facility.page')}>
       <RootStyle>
         <Box>
-          <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ mb: 4, mt: 1 }}>
-            <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-              <Button
-                sx={{ width: '100%', height: '100%', borderRadius: 2 }}
-                size="large"
-                variant="outlined"
-                style={
-                  currentTab === 1
-                    ? { backgroundColor: '#4BD578', color: '#fff' }
-                    : { backgroundColor: '#fff', color: '#000' }
-                }
-                onClick={() => handleTabClick(1)}
-                className={currentTab === 1 ? 'active' : ''}
-              >
-                <Typography variant="h5">{t('facility.tab1')}</Typography>
-              </Button>
-            </Grid>
-            <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-              <Button
-                sx={{ width: '100%', height: '100%', borderRadius: 2 }}
-                size="large"
-                variant="outlined"
-                style={
-                  currentTab === 2
-                    ? { backgroundColor: '#4BD578', color: '#fff' }
-                    : { backgroundColor: '#fff', color: '#000' }
-                }
-                onClick={() => handleTabClick(2)}
-                className={currentTab === 2 ? 'active' : ''}
-              >
-                <Typography variant="h5">{t('facility.tab2')}</Typography>
-              </Button>
-            </Grid>
-          </Grid>
-          {currentTab === 1 && (
-            <Box>
-              <Typography sx={{ justifyContent: 'center', display: 'flex', pb: 3 }} variant="h6">
-                {t('facility.post1')}
-              </Typography>
-              <FacilityNewPostForm />
-            </Box>
-          )}
-          {currentTab === 2 && (
-            <Box>
-              <Typography sx={{ justifyContent: 'center', display: 'flex', pb: 3 }} variant="h6">
-                {t('facility.post2')}
-              </Typography>
-              <FacilityNewPostForm />
-            </Box>
-          )}
+          <FacilityNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
         </Box>
       </RootStyle>
     </Page>

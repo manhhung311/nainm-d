@@ -1,3 +1,3 @@
 export * from './keyword';
 export * from './role';
-// export * from './utilities';
+export * from './utilities';
