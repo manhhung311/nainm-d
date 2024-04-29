@@ -1,87 +1,154 @@
-import React from 'react';
-import { Link, Stack, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink, useLocation } from 'react-router-dom'; // Import _mock
-import _mock from '../../_mock';
-import { _facilityData } from '../../_mock/_facility';
+import { loader } from 'graphql.macro';
+import { useQuery } from '@apollo/client';
+import Label from '../../components/Label';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
-import Image from '../../components/Image';
-import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
+import useAuth from '../../hooks/useAuth';
+import { PATH_DASHBOARD } from '../../routes/paths';
+import Iconify from '../../components/Iconify';
+import { TypeCollection } from '../../constant';
+import useTabs from '../../hooks/useTabs';
+import FacilityPostCard from './FacilityCard';
 
 const RootStyle = styled('div')(({ theme }) => ({
-  padding: theme.spacing(5),
+  padding: theme.spacing(2),
   borderRadius: Number(theme.shape.borderRadius) * 2,
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(5),
+  },
 }));
+const TABS = [
+  {
+    value: 1,
+    label: 'Công bố',
+    color: 'success',
+  },
+  {
+    value: 0,
+    label: 'Chờ Duyệt',
+    color: 'info',
+  },
+  {
+    value: 2,
+    label: 'Ẩn',
+    color: 'default',
+  },
+];
+const LIST_ALL_FACILITY = loader('../../graphql/queries/collections/ListCollections.graphql');
 
 export default function FacilityMain() {
-  const { pathname } = useLocation();
   const { t } = useLocales();
+
+  const { user } = useAuth();
+
+  const [facility, setFacility] = useState([]);
+
+  const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
+
+  const { data: getAllPosts } = useQuery(LIST_ALL_FACILITY, {
+    variables: {
+      input: {
+        status_collection: filterStatus,
+        type_collection: TypeCollection.Facility,
+      },
+    },
+  });
+  useEffect(() => {
+    if (getAllPosts) {
+      setFacility(getAllPosts?.collections);
+    }
+  }, [getAllPosts]);
+
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
-          <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-            <Typography variant="h4"> {t('facility.title')}</Typography>
-          </Grid>
-        ) : (
-          <Grid item xs={12}>
-            <Typography variant="h4">{t('facility.title')}</Typography>
-          </Grid>
-        )}
-        {_facilityData.map((item, index) => (
-          <Grid item xs={6} md={4} key={index}>
-            {item.data.map((data, idx) => (
-              <Typography variant="body1" key={idx}>
-                {data}
-              </Typography>
-            ))}
-            {isMobile ? (
-              <Grid item xs={6} md={4} sx={{ p: 0, border: 1, borderColor: '#D9D9D9', marginBottom: 5 }}>
-                <Box style={{ paddingTop: '0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Box style={{ width: '100%' }}>
-                    <Image alt="avatar" src={'/logo.png'} />
-                  </Box>
-                </Box>
-                <Link to={PATH_PAGE.facility.detail(index)} color="inherit" component={RouterLink}>
-                  <Stack style={{ width: '100%', justifyContent: 'center', alignItems: 'center', minHeight: '60px' }}>
-                    <Typography variant="caption" style={{ textAlign: 'center' }}>
-                      {_mock.text.sentence(index)}
-                    </Typography>
-                  </Stack>
-                </Link>
-              </Grid>
-            ) : (
-              <Grid item xs={6} md={4} sx={{ p: 0, border: 1, borderColor: '#D9D9D9', marginBottom: 5 }}>
-                <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Box style={{ width: 'auto' }}>
-                    <Image alt="avatar" src={'/logo.png'} />
-                  </Box>
-                </Box>
-                <Link to={PATH_PAGE.facility.detail(index)} color="inherit" component={RouterLink}>
-                  <Stack
-                    style={{
-                      width: '100%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      minHeight: '50px',
-                      flexDirection: 'column',
-                    }}
+          <>
+            <Grid item xs={7}>
+              <Typography variant="h4">{t('facility.title')}</Typography>
+            </Grid>
+            <Grid item xs={5}>
+              <Stack>
+                {user && (
+                  <Button
+                    variant="contained"
+                    component={RouterLink}
+                    to={PATH_DASHBOARD.facility.new}
+                    startIcon={<Iconify icon={'eva:plus-fill'} />}
                   >
-                    <Typography variant="caption" style={{ textAlign: 'center' }}>
-                      {_mock.text.sentence(index)}
-                    </Typography>
-                  </Stack>
-                </Link>
-              </Grid>
-            )}
-          </Grid>
+                    Tạo mới
+                  </Button>
+                )}
+              </Stack>
+            </Grid>
+          </>
+        ) : (
+          <>
+            <Grid item xs={10}>
+              <Typography variant="h4">{t('facility.title')}</Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Stack>
+                {user && (
+                  <Button
+                    variant="contained"
+                    component={RouterLink}
+                    to={PATH_DASHBOARD.facility.new}
+                    startIcon={<Iconify icon={'eva:plus-fill'} />}
+                  >
+                    Tạo mới
+                  </Button>
+                )}
+              </Stack>
+            </Grid>
+          </>
+        )}
+      </Grid>
+
+      <Tabs
+        allowScrollButtonsMobile
+        variant="scrollable"
+        scrollButtons="auto"
+        value={filterStatus}
+        onChange={onFilterStatus}
+        sx={{ mb: { xs: 3, md: 5 } }}
+      >
+        {TABS.map((tab, idx) => (
+          <Tab
+            disableRipple
+            key={idx + 1}
+            value={tab.value}
+            label={
+              <Stack spacing={1} direction="row" alignItems="center">
+                <div>{tab.label}</div> <Label color={tab.color}> </Label>
+              </Stack>
+            }
+          />
         ))}
+      </Tabs>
+
+      {facility.length === 0 && (
+        <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
+          <Typography textAlign={'center'} variant="h6">
+            Chưa có bài viết nào
+          </Typography>
+        </Card>
+      )}
+
+      <Grid container spacing={3}>
+        {facility.length > 0 &&
+          facility.map((post, index) => (
+            <Grid key={post?.id} item xs={12} sm={6} md={4}>
+              <FacilityPostCard post={post} index={index} />
+            </Grid>
+          ))}
       </Grid>
     </RootStyle>
   );

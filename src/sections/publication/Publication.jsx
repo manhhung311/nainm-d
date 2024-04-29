@@ -18,9 +18,10 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
+  padding: theme.spacing(2),
+  borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
-    paddingTop: theme.spacing(11),
+    padding: theme.spacing(5),
   },
 }));
 // ----------------------------------------------------------------------
@@ -66,65 +67,66 @@ export default function Publiction() {
   }, [collection]);
 
   return (
-    <>
-      {info.map((item, index) => (
-        <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
-          <Grid container spacing={0}>
-            <Grid item xs={10}>
-              <Grid container spacing={0}>
-                <Grid
-                  item
-                  xs={4}
-                  md={1}
-                  sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
-                >
-                  <item>{item.id}</item>
-                </Grid>
-                <Grid item xs={11}>
-                  <item>
-                    <Typography variant="subtitle2">{item.title}</Typography>
-                    <Typography>{item.description}</Typography>
-                  </item>
+    <RootStyle>
+      <>
+        {info.map((item, index) => (
+          <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
+            <Grid container spacing={0}>
+              <Grid item xs={10}>
+                <Grid container spacing={0}>
+                  <Grid
+                    item
+                    xs={4}
+                    md={1}
+                    sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
+                  >
+                    <item>{item.id}</item>
+                  </Grid>
+                  <Grid item xs={11}>
+                    <item>
+                      <Typography variant="subtitle2">{item.title}</Typography>
+                      <Typography>{item.description}</Typography>
+                    </item>
+                  </Grid>
                 </Grid>
               </Grid>
+              <Grid item xs={4} sx={{ my: 2 }} md={1}>
+                <item>
+                  <Button
+                    id="demo-positioned-button"
+                    aria-controls={open ? 'demo-positioned-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                    style={{ color: '#333' }}
+                  >
+                    <MoreVertOutlinedIcon />
+                  </Button>
+                  <Menu
+                    id="demo-positioned-menu"
+                    aria-labelledby="demo-positioned-button"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'left',
+                    }}
+                  >
+                    <MenuItem onClick={handleClose}>View</MenuItem>
+                    <MenuItem onClick={() => handleEditBlog(item.id)}>Edit</MenuItem>
+                    <MenuItem onClick={handleClose}>Delete</MenuItem>
+                  </Menu>
+                </item>
+              </Grid>
             </Grid>
-            <Grid item xs={4} sx={{ my: 2 }} md={1}>
-              <item>
-                <Button
-                  id="demo-positioned-button"
-                  aria-controls={open ? 'demo-positioned-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  style={{ color: '#333' }}
-                >
-                  <MoreVertOutlinedIcon />
-                </Button>
-                <Menu
-                  id="demo-positioned-menu"
-                  aria-labelledby="demo-positioned-button"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                >
-                  <MenuItem onClick={handleClose}>View</MenuItem>
-                  <MenuItem onClick={()=>handleEditBlog(item.id)}>Edit</MenuItem>
-                  <MenuItem onClick={handleClose}>Delete</MenuItem>
-                </Menu>
-              </item>
-            </Grid>
-          </Grid>
-        </Card>
-      ))}
-      
-    </>
+          </Card>
+        ))}
+      </>
+    </RootStyle>
   );
 }

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Autocomplete, Link, TextField, Typography } from '@mui/material';
+import { Autocomplete, TextField, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom'; // Import _mock
-import isString from 'lodash/isString';
 import ReactPlayer from 'react-player';
 import _mock from '../../_mock';
 import { _researchData } from '../../_mock/_research';
@@ -14,8 +13,11 @@ import Image from '../../components/Image';
 import useAuth from '../../hooks/useAuth';
 
 const RootStyle = styled('div')(({ theme }) => ({
-  padding: theme.spacing(5),
+  padding: theme.spacing(2),
   borderRadius: Number(theme.shape.borderRadius) * 2,
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(5),
+  },
 }));
 
 export default function ResearchMain() {
@@ -23,10 +25,6 @@ export default function ResearchMain() {
   const { t } = useLocales();
 
   const { user } = useAuth();
-
-  console.log('user', user);
-
-  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
   const options = [
     { label: _mock.text.title(1), id: 1 }, // Lấy tiêu đề từ _mock
     { label: _mock.text.title(2), id: 2 },
@@ -34,6 +32,9 @@ export default function ResearchMain() {
     { label: _mock.text.title(4), id: 4 },
     { label: _mock.text.title(5), id: 5 },
   ];
+  console.log('user', user);
+
+  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   console.log('_researchData', _researchData);
   const x = 'https://www.youtube.com/watch?v=ufYmo2z_Hls';
