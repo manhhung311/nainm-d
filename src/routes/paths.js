@@ -76,6 +76,7 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/research',
     new: '/dashboard/research/new',
     list: '/dashboard/research/list',
+    detail: (id) => `/dashboard/research/${id}/detail`,
     edit: (id) => `/dashboard/research/${id}/edit`,
   },
   facility: {

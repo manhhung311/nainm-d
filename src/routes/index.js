@@ -144,7 +144,7 @@ export default function Router() {
         },
         { path: 'people', element: <ProfileList /> },
         { path: 'publication', element: <PublicationList /> },
-        { path: 'research', element: <ResearchList /> },
+        { path: '/research', element: <ResearchList /> },
         {
           path: 'facility',
           children: [
