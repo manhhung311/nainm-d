@@ -3,9 +3,23 @@
     "People": "Nhân sự",
     "Research": "Nghiên cứu",
     "Publication": "Công bố khoa học",
-    "Facility" : "Thiết bị",
+    "Facility": "Thiết bị",
     "News": "Tin tức",
     "Login": "Đăng nhập"
+  },
+  "navTitle": {
+    "management": "Quản lý",
+    "User": "Người dùng",
+    "Publication": "Công bố khoa học",
+    "Research": "Nghiên cứu",
+    "Facility": "Thiết bị",
+    "News": "Tin tức",
+    "Drive": "Drive",
+    "People": "Nhân sự"
+  },
+  "navItem": {
+    "list": "Danh Sách",
+    "create": "Tạo mới"
   },
   "user": {
     "pageList": "Danh Sách Người Dùng",
@@ -33,8 +47,15 @@
     "title": "Nghiên cứu",
     "tab1": "Việt Nam",
     "tab2": "Tiếng Anh",
-    "post1": "NGHIÊN CỨU",
-    "post2": "NGHIÊN CỨU"
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh"
+  },
+  "facility": {
+    "title": "Thiết bị",
+    "tab1": "Việt Nam",
+    "tab2": "Tiếng Anh",
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh"
   },
   "home": {
     "title": "Trang chủ",
@@ -50,28 +71,29 @@
     "tab1": "GIÁO SƯ",
     "tab2": "TEAM LAB"
   },
-  "facility" :{
-      "title" : "Thiết bị"
-  },
   "demo": {
     "title": "Việt Nam"
   },
   "profile": {
-    "page": "Tạo Hồ Sơ",
+    "page": "Tạo Mới Hồ Sơ",
     "tab1": "TIẾNG VIỆT",
     "tab2": "TIẾNG ANH",
     "post1": "Tạo Hồ Sơ Tiếng Việt",
     "post2": "Tạo Hồ Sơ Tiếng Anh",
-    "anh": "Ảnh Đại Diện",
-    "content": "Thông Tin Cá Nhân"
+    "tiep": "Tiếp tục",
+    "trolai": "Trở lại",
+    "post": "Đăng"
   },
   "news": {
+    "title": "Tin Tức",
     "page": "Tạo Mới Tin Tức",
+    "page1": "Chi Tiết Tin Tức",
     "tab1": "TIẾNG VIỆT",
     "tab2": "TIẾNG ANH",
     "post1": "Tạo Tin Tức Tiếng Việt",
     "post2": "Tạo Tin Tức Tiếng Anh",
-    "anh": "Ảnh",
-    "content": "Nội dung"
+    "tiep": "Tiếp tục",
+    "trolai": "Trở lại",
+    "post": "Đăng"
   }
 }

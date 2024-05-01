@@ -1,10 +1,16 @@
-query DetailCollection($id: ID!) {
+query Query($id: ID!) {
     collection(id: $id) {
         id
+        type_collection
+        status_collection
+        user_update
+        collection_Vietnamese
+        collection_English
+        createdAt
+        updatedAt
         title
         description
-
-        updatedAt
-        createdAt
+        description_english
+        title_english
     }
 }

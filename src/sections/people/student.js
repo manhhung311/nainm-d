@@ -1,11 +1,20 @@
 import { Box, Grid, Typography, Divider } from '@mui/material';
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import Image from '../../components/Image';
 import { _studentData } from '../../_mock/_student';
-
+// ----------------------------------------------------------------------
+const RootStyle = styled('div')(({ theme }) => ({
+  paddingTop: theme.spacing(8),
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(8, 5),
+  },
+}));
+// ----------------------------------------------------------------------
 export default function Student() {
   console.log('_studentData', _studentData);
   return (
+    <RootStyle>
     <Box>
       {_studentData.map((item, index) => (
         <div key={index}>
@@ -24,5 +33,6 @@ export default function Student() {
         </div>
       ))}
     </Box>
+    </RootStyle>
   );
 }

@@ -10,7 +10,7 @@ const RootStyle = styled('div')(() => ({
 
 export default function UserUpdate() {
   return (
-    <Page title="Danh sách người dùng">
+    <Page title="Cập nhật người dùng">
       <h1>Cập nhật</h1>
     </Page>
   );
