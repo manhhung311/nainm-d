@@ -3,9 +3,23 @@
     "People": "Nhân sự",
     "Research": "Nghiên cứu",
     "Publication": "Công bố khoa học",
-    "Facility" : "Thiết bị",
+    "Facility": "Thiết bị",
     "News": "Tin tức",
     "Login": "Đăng nhập"
+  },
+  "navTitle": {
+    "management": "Quản lý",
+    "User": "Người dùng",
+    "Publication": "Công bố khoa học",
+    "Research": "Nghiên cứu",
+    "Facility": "Thiết bị",
+    "News": "Tin tức",
+    "Drive": "Drive",
+    "People": "Nhân sự"
+  },
+  "navItem": {
+    "list": "Danh Sách",
+    "create": "Tạo mới"
   },
   "user": {
     "pageList": "Danh Sách Người Dùng",
@@ -66,7 +80,7 @@
     "tab2": "TIẾNG ANH",
     "post1": "Tạo Hồ Sơ Tiếng Việt",
     "post2": "Tạo Hồ Sơ Tiếng Anh",
-    "tiep" : "Tiếp tục",
+    "tiep": "Tiếp tục",
     "trolai": "Trở lại",
     "post": "Đăng"
   },
@@ -78,7 +92,7 @@
     "tab2": "TIẾNG ANH",
     "post1": "Tạo Tin Tức Tiếng Việt",
     "post2": "Tạo Tin Tức Tiếng Anh",
-    "tiep" : "Tiếp tục",
+    "tiep": "Tiếp tục",
     "trolai": "Trở lại",
     "post": "Đăng"
   }

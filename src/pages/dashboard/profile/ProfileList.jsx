@@ -7,9 +7,9 @@ import Student from '../../../sections/people/student';
 import People from '../../People';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
-  [theme.breakpoints.up('xs')]: {
-    padding: theme.spacing(10, 1),
+  paddingTop: theme.spacing(10),
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(10, 5),
   },
 }));
 // ----------------------------------------------------------------------

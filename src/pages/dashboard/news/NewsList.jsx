@@ -8,9 +8,9 @@ import NewsMain from '../../../sections/news/newsmain';
 import useLocales from '../../../locals/useLocals';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
+  paddingTop: theme.spacing(10),
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(11, 10),
+    padding: theme.spacing(10, 5),
   },
 }));
 // ----------------------------------------------------------------------
