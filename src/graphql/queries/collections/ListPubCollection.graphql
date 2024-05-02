@@ -1,0 +1,16 @@
+query Query($input  :publicCollections!) {
+    publicCollections(input: $input){
+        id
+        type_collection
+        status_collection
+        user_update
+        collection_Vietnamese
+        collection_English
+        createdAt
+        updatedAt
+        title
+        description
+        description_english
+        title_english
+    }
+}

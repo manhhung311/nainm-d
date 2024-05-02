@@ -10,6 +10,7 @@ import { PATH_AFTER_LOGIN } from './paths';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
 import NewsDetail from '../sections/@dashboard/news/NewsDetail';
+import PublicationDetail from '../sections/publication/PublicationDetail';
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +66,8 @@ export default function Router() {
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
-            { path: ':id/edit', element: <PublicationCreate />}
+            { path: ':id/edit', element: <PublicationCreate />},
+            { path: ':id/detail', element: <PublicationDetail /> }
           ],
         },
         {

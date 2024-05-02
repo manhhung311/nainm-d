@@ -24,10 +24,9 @@ import Page from '../../../components/Page';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
-  [theme.breakpoints.up('xs')]: {
-    padding: theme.spacing(10, 8),
-  },
+  padding: theme.spacing(5),
+  borderRadius: Number(theme.shape.borderRadius) * 2,
+  
 }));
 // ----------------------------------------------------------------------
 // const autoSwipe = autoPlay(SwipeableViews);
@@ -47,32 +46,14 @@ export default function PublictionList() {
   return (
     <Page title={t('publication.publication')}>
       {isDashboard ? (
-        <>
-          <h1>{t('publication.publication')}</h1>
-          <Autocomplete 
-  disablePortal
-  id="combo-box-demo"
-  options={top100Films}
-
-  sx={{ width: 300,my:2 }}
-  renderInput={(params) => <TextField {...params} label="Search" />}
-/>
+        <RootStyle>
           <Publiction />
-        </>
+          </RootStyle>
       ) : (
         <RootStyle>
-          <h1>{t('publication.publication')}</h1>
-          <Autocomplete 
-  disablePortal
-  id="combo-box-demo"
-  options={top100Films}
-
-  sx={{ width: 300,my:2 }}
-  renderInput={(params) => <TextField {...params} label="Search" />}
-/>
-        
+          
           <Publiction />
-        </RootStyle>
+          </RootStyle>
       )}
     </Page>
   );

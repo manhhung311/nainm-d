@@ -52,7 +52,9 @@
     }
   },
   "publication": {
-    "publication": "Publication"
+    "publication": "Publication",
+    "page1": "Detail Publication ",
+    "title": "Publication"
   },
   "people": {
     "page": "People",
@@ -68,7 +70,7 @@
     "tab2": "ENGLISH",
     "post1": "Post VietNamese",
     "post2": "Post English",
-    "tiep" : "Continue",
+    "tiep": "Continue",
     "trolai": "Back",
     "post": "Post"
   },
@@ -80,7 +82,7 @@
     "tab2": "ENGLISH",
     "post1": "Post VietNamese",
     "post2": "Post English",
-    "tiep" : "Continue",
+    "tiep": "Continue",
     "trolai": "Back",
     "post": "Post"
   }
