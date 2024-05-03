@@ -42,7 +42,7 @@ const navConfig = [
         ],
       },
       {
-        title: 'Publiction',
+        title: 'Publication',
         path: PATH_DASHBOARD.publication.root,
         icon: ICONS.blog,
         children: [
@@ -61,7 +61,7 @@ const navConfig = [
           // { title: 'edit', path: PATH_DASHBOARD.user.edit },
         ],
       },
-      
+
       {
         title: 'Facility',
         path: PATH_DASHBOARD.facility.root,
@@ -93,7 +93,7 @@ const navConfig = [
         ],
       },
       {
-        title: 'Profile',
+        title: 'People',
         path: PATH_DASHBOARD.drive.root,
         icon: ICONS.booking,
         children: [

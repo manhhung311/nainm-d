@@ -1,0 +1,18 @@
+query Query($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    createdAt
+    updatedAt
+    role
+    phoneNumber
+    status
+    type_user
+    avartaURL
+    userName
+    user_information_Vietnamese
+    user_information_English
+  }
+}

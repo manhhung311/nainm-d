@@ -3,9 +3,23 @@
     "People": "People",
     "Research": "Research",
     "Publication": "Publication",
-    "Facility" : "Facility",
+    "Facility": "Facility",
     "News": "News",
     "Login": "Login"
+  },
+  "navTitle": {
+    "management": "management",
+    "User": "User",
+    "Publication": "Publiction",
+    "Research": "Research",
+    "Facility": "Facility",
+    "News": "News",
+    "Drive": "Drive",
+    "People": "People"
+  },
+  "navItem": {
+    "list": "List",
+    "create": "Create"
   },
   "user": {
     "pageList": "User List",
@@ -34,8 +48,16 @@
     "title": "Research",
     "tab1": "VIETNAMESE",
     "tab2": "ENGLISH",
-    "post1": "RESEARCH",
-    "post2": "RESEARCH"
+    "post1": "Create VietNamese",
+    "post2": "Create English"
+  },
+  "facility": {
+    "title": "Facility",
+    "tab1": "VIETNAMESE",
+    "tab2": "ENGLISH",
+    "post1": "Create VietNamese",
+    "post2": "Create English",
+    "content": "Content"
   },
   "home": {
     "title": "Home",
@@ -51,9 +73,6 @@
     "tab1": "PROCCEFER",
     "tab2": "STUDENT"
   },
-  "facility" :{
-    "title" : "Facility"
-  },
   "demo": {
     "title": "English"
   },
@@ -63,7 +82,7 @@
     "tab2": "ENGLISH",
     "post1": "Post VietNamese",
     "post2": "Post English",
-    "tiep" : "Continue",
+    "tiep": "Continue",
     "trolai": "Back",
     "post": "Post"
   },
@@ -75,7 +94,7 @@
     "tab2": "ENGLISH",
     "post1": "Post VietNamese",
     "post2": "Post English",
-    "tiep" : "Continue",
+    "tiep": "Continue",
     "trolai": "Back",
     "post": "Post"
   }

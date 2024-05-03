@@ -65,6 +65,7 @@ export default function Router() {
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <PublicationCreate /> },
           ],
         },
         {
@@ -73,7 +74,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/research/list" replace />, index: true },
             { path: 'list', element: <ResearchList /> },
             { path: 'new', element: <ResearchCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <ResearchCreate /> },
           ],
         },
         {
@@ -82,7 +83,8 @@ export default function Router() {
             { element: <Navigate to="/dashboard/facility/list" replace />, index: true },
             { path: 'list', element: <FacilityList /> },
             { path: 'new', element: <FacilityCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <FacilityCreate /> },
+            { path: ':id/detail', element: <FacilityDetail /> },
           ],
         },
         {
@@ -142,8 +144,15 @@ export default function Router() {
         },
         { path: 'people', element: <ProfileList /> },
         { path: 'publication', element: <PublicationList /> },
-        { path: 'research', element: <ResearchList /> },
-        { path: 'facility', element: <FacilityList /> },
+        { path: '/research', element: <ResearchList /> },
+        {
+          path: 'facility',
+          children: [
+            { path: '/facility', element: <FacilityList /> },
+            { path: ':id/detail', element: <FacilityDetail /> },
+          ],
+        },
+
         { path: 'news', element: <NewsList /> },
       ],
     },
@@ -165,6 +174,7 @@ const ResearchCreate = Loadable(lazy(() => import('../pages/dashboard/research/R
 
 const FacilityList = Loadable(lazy(() => import('../pages/dashboard/facility/FacilityList')));
 const FacilityCreate = Loadable(lazy(() => import('../pages/dashboard/facility/FacilityCreate')));
+const FacilityDetail = Loadable(lazy(() => import('../sections/@dashboard/facility/FacilityDetail')));
 
 const NewsList = Loadable(lazy(() => import('../pages/dashboard/news/NewsList')));
 const NewsCreate = Loadable(lazy(() => import('../pages/dashboard/news/NewsCreate')));
