@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import FormProvider from '../../components/hook-form/FormProvider';
 import RHFSelect from '../../components/hook-form/RHFSelect';
 import RHFTextField from '../../components/hook-form/RHFTextField';
-import { RHFUploadAvatar } from '../../components/hook-form/RHFUpload';
+import { RHFUploadAvatar } from '../../components/hook-form';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import useAuth from '../../hooks/useAuth';
 
@@ -30,10 +30,10 @@ const Roles = [
   { value: 1, label: 'Quản lí nội dung' },
   { value: 2, label: 'Người dùng' },
 ];
-const Status = [
-  { value: 1, label: 'Hoạt động' },
-  { value: 0, label: 'Đã khóa' },
-];
+// const Status = [
+//   { value: 1, label: 'Hoạt động' },
+//   { value: 0, label: 'Đã khóa' },
+// ];
 const TypeUser = [
   { value: 0, label: 'Giáo sư' },
   { value: 1, label: 'Sinh viên' },
@@ -144,7 +144,7 @@ export default function NewUser({ isEdit, currentUser }) {
               avartaURL: uploadFile, // Sửa thành avartaURL
               phoneNumber: values?.phoneNumber,
               userName: values?.userName,
-              status: values?.status === 1,
+              // status: values?.status === 1,
             },
           },
         });
@@ -280,20 +280,20 @@ export default function NewUser({ isEdit, currentUser }) {
                   <RHFTextField name="email" label="Email Address" />
                   <RHFTextField name="userName" label="userName" />
                   <RHFTextField name="phoneNumber" label="Phone Number" />
-                  <RHFSelect
-                    label="Trạng thái tài khoản"
-                    name="status"
-                    onChange={(event) => {
-                      setValue('status', event.target.value);
-                    }}
-                    InputLabelProps={{ shrink: true }}
-                  >
-                    {Status.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </RHFSelect>
+                  {/* <RHFSelect */}
+                  {/*  label="Trạng thái tài khoản" */}
+                  {/*  name="status" */}
+                  {/*  onChange={(event) => { */}
+                  {/*    setValue('status', event.target.value); */}
+                  {/*  }} */}
+                  {/*  InputLabelProps={{ shrink: true }} */}
+                  {/* > */}
+                  {/*  {Status.map((option) => ( */}
+                  {/*    <option key={option.value} value={option.value}> */}
+                  {/*      {option.label} */}
+                  {/*    </option> */}
+                  {/*  ))} */}
+                  {/* </RHFSelect> */}
                 </Box>
               )}
               <Stack alignItems="flex-end" sx={{ mt: 3 }}>

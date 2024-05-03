@@ -5,11 +5,12 @@ import { useLocation } from 'react-router-dom';
 import React from 'react';
 import Page from '../../../components/Page';
 import NewsMain from '../../../sections/news/newsmain';
+import useLocales from '../../../locals/useLocals';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
+  paddingTop: theme.spacing(10),
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(11, 10),
+    padding: theme.spacing(10, 5),
   },
 }));
 // ----------------------------------------------------------------------
@@ -17,9 +18,11 @@ const RootStyle = styled('div')(({ theme }) => ({
 export default function NewsList() {
   const { pathname } = useLocation();
 
+  const { t } = useLocales();
+
   const isDashboard = pathname.includes('dashboard');
   return (
-    <Page title="Vận hành">
+    <Page title={t('news.title')}>
       {isDashboard ? (
         <NewsMain />
       ) : (
