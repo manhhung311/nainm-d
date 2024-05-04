@@ -46,7 +46,7 @@ function ScrollToTopButton() {
       {isVisible && (
         <IconButton
           onClick={scrollToTop}
-          style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: '99', backgroundColor: '#3DD274' }}
+          style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: '99', bgcolor: 'transparent' }}
         >
           <KeyboardArrowUpIcon />
         </IconButton>
@@ -73,22 +73,37 @@ export default function MainFooter() {
                   <Grid xs={12}>
                     <Logo sx={{ mb: 1, mx: 'auto' }} />
                   </Grid>
-
-                  <Grid xs={12}>
-                    <Typography variant="button" component="p">
-                      Đại học Bách Khoa – ĐHQG.HCM (HCMUT)
-                    </Typography>
-                    <Typography variant="button" component="p">
-                      Đại chỉ: 268 Lý Thường Kiệt, Phường 14, Quận 10, Tp.Hồ Chí Minh
-                    </Typography>
-                    <Typography variant="button" component="p">
-                      Tel: 0917-xxx-xxx (TS.Bùi Văn Tiến) _ 0989-xxx-xxx (Lab)
-                    </Typography>
-                    <Typography variant="button" component="p">
-                      Email: Naimnlab@hcmut.edu.vn
-                    </Typography>
-                    <ScrollToTopButton />
-                  </Grid>
+                    <Grid xs={12}>
+                      <Typography
+                        variant="button"
+                        component="p"
+                        style={{ display: 'flex', justifyContent: 'center', whiteSpace: 'nowrap',fontSize: 11 }}
+                      >
+                        Đại học Bách Khoa – ĐHQG.HCM (HCMUT)
+                      </Typography>
+                      <Typography
+                        variant="button"
+                        component="p"
+                        style={{ display: 'flex', justifyContent: 'center', whiteSpace: 'nowrap',fontSize: 11 }}
+                      >
+                        Đại chỉ: 268 Lý Thường Kiệt, Phường 14, Quận 10, Tp.Hồ Chí Minh
+                      </Typography>
+                      <Typography
+                        variant="button"
+                        component="p"
+                        style={{ display: 'flex', justifyContent: 'center', whiteSpace: 'nowrap',fontSize: 11 }}
+                      >
+                        Tel: 0917-xxx-xxx (TS.Bùi Văn Tiến) _ 0989-xxx-xxx (Lab)
+                      </Typography>
+                      <Typography
+                        variant="button"
+                        component="p"
+                        style={{ display: 'flex', justifyContent: 'center', whiteSpace: 'nowrap',fontSize: 11 }}
+                      >
+                        Email: Naimnlab@hcmut.edu.vn
+                      </Typography>
+                      <ScrollToTopButton />
+                    </Grid>
                 </>
               ) : (
                 <>

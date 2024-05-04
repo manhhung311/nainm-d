@@ -24,16 +24,18 @@ import useResponsive from '../../hooks/useResponsive';
 import Label from '../../components/Label';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
-import useLocales from '../../locals/useLocals'
+import useLocales from '../../locals/useLocals';
+import PublicationPostCard from './PublicationCard';
 
 // components
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(10),
+  paddingTop: theme.spacing(2),
+  borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing( 7),
+    padding: theme.spacing(5),
   },
 }));
 // ----------------------------------------------------------------------
@@ -68,18 +70,7 @@ export default function Publiction() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleEditBlog = (id) => {
-    navigate(PATH_DASHBOARD.publication.edit(id));
-  };
-  const handleDetailPublication = (id) => {
-    navigate(PATH_DASHBOARD.publication.detail(id));
-  };
+  
   const { pathname } = useLocation();
 
   const isDashboard = pathname.includes('dashboard');
@@ -92,7 +83,7 @@ export default function Publiction() {
       },
     },
   });
-  console.log('collection', collection);
+
   useEffect(() => {
     if (collection) {
       setInfo(collection?.collections);
@@ -106,35 +97,34 @@ export default function Publiction() {
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
           <>
-          <Grid item xs={7}>
-            <Typography variant="h4">{t('publication.publication')}</Typography>
-          </Grid>
+            <Grid item xs={7}>
+              <Typography variant="h4">{t('publication.publication')}</Typography>
+            </Grid>
 
-          <Grid item xs={5}>
-            <Stack>
-              {user && (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.research.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  Tạo mới
-                </Button>
-              )}
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-          <Autocomplete 
-  disablePortal
-  id="combo-box-demo"
-  options={top100Films}
-
-  sx={{ width: 300,my:2 }}
-  renderInput={(params) => <TextField {...params} label="Search" />}
-/>
-          </Grid>
-        </>
+            <Grid item xs={5}>
+              <Stack>
+                {user && (
+                  <Button
+                    variant="contained"
+                    component={RouterLink}
+                    to={PATH_DASHBOARD.research.new}
+                    startIcon={<Iconify icon={'eva:plus-fill'} />}
+                  >
+                    Tạo mới
+                  </Button>
+                )}
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={top100Films}
+                fullWidth
+                renderInput={(params) => <TextField {...params} label="Search" />}
+              />
+            </Grid>
+          </>
         ) : (
           <>
             <Grid item xs={10}>
@@ -155,17 +145,15 @@ export default function Publiction() {
               </Stack>
             </Grid>
             <Grid item xs={12} md={3}>
-            <Autocomplete 
-  disablePortal
-  id="combo-box-demo"
-  options={top100Films}
-
-  sx={{ width: 300,my:2 }}
-  renderInput={(params) => <TextField {...params} label="Search" />}
-/>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={top100Films}
+                fullWidth
+                renderInput={(params) => <TextField {...params} label="Search" />}
+              />
             </Grid>
           </>
-          
         )}
       </Grid>
       <Tabs
@@ -189,63 +177,23 @@ export default function Publiction() {
           />
         ))}
       </Tabs>
-      {info.map((item, index) => (
-        <Card sx={{ my: 2, padding: 2, backgroundColor: '#e0e0e0' }}>
-          <Grid container spacing={0}>
-            <Grid item xs={10}>
-              <Grid container spacing={0}>
-                <Grid
-                  item
-                  xs={4}
-                  md={1}
-                  sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', textAlign: 'center' }}
-                >
-                  <item>{item.id}</item>
-                </Grid>
-                <Grid item xs={11}>
-                  <item>
-                    <Typography variant="subtitle2">{item.title}</Typography>
-                    <Typography>{item.description}</Typography>
-                  </item>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={4} sx={{ my: 2 }} md={1}>
-              <item>
-                <Button
-                  id="demo-positioned-button"
-                  aria-controls={open ? 'demo-positioned-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  style={{ color: '#333' }}
-                >
-                  <MoreVertOutlinedIcon />
-                </Button>
-                <Menu
-                  id="demo-positioned-menu"
-                  aria-labelledby="demo-positioned-button"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                >
-                  <MenuItem onClick={() => handleDetailPublication(item.id)}>Detail</MenuItem>
-                  <MenuItem onClick={() => handleEditBlog(item.id)}>Edit</MenuItem>
-                  <MenuItem onClick={handleClose}>Delete</MenuItem>
-                </Menu>
-              </item>
-            </Grid>
-          </Grid>
+     
+      {info.length === 0 && (
+        <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
+          <Typography textAlign={'center'} variant="h6">
+            Chưa có bài viết nào
+          </Typography>
         </Card>
-      ))}
+      )}
+
+      <Grid container spacing={3}>
+        {info.length > 0 &&
+          info.map((post, index) => (
+            <Grid key={post?.id} item xs={12} sm={6} md={4}>
+              <PublicationPostCard post={post} index={index} />
+            </Grid>
+          ))}
+      </Grid>
     </RootStyle>
   );
 }

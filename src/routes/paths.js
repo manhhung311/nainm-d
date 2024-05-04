@@ -36,7 +36,7 @@ export const PATH_PAGE = {
   research: '/research',
   facility: {
     list: '/facility',
-    detail: (id) => `/facility/${id}/detail`,
+    detail: (id) => `${id}/detail`,
   },
   news: {
     list: `news`,
@@ -77,14 +77,15 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/research',
     new: '/dashboard/research/new',
     list: '/dashboard/research/list',
+    detail: (id) => `/dashboard/research/${id}/detail`,
     edit: (id) => `/dashboard/research/${id}/edit`,
   },
   facility: {
     root: '/dashboard/facility',
     new: '/dashboard/facility/new',
     list: '/dashboard/facility/list',
-
-    edit: (id) => `dashboard/facility/${id}/edit`,
+    detail: (id) => `/dashboard/facility/${id}/detail`,
+    edit: (id) => `/dashboard/facility/${id}/edit`,
   },
   news: {
     root: '/dashboard/news',

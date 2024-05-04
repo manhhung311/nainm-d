@@ -16,8 +16,11 @@ import useTabs from '../../hooks/useTabs';
 import NewsCard from './NewsCard';
 
 const RootStyle = styled('div')(({ theme }) => ({
-  padding: theme.spacing(5),
+  padding: theme.spacing(2),
   borderRadius: Number(theme.shape.borderRadius) * 2,
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(5),
+  },
 }));
 
 const TABS = [

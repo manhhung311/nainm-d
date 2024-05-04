@@ -6,9 +6,9 @@ import Page from '../../../components/Page';
 import FacilityMain from '../../../sections/facility/FacilityMain';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
+  paddingTop: theme.spacing(10),
   [theme.breakpoints.up('md')]: {
-    paddingTop: theme.spacing(11),
+    padding: theme.spacing(10, 5),
   },
 }));
 // ----------------------------------------------------------------------
@@ -20,10 +20,10 @@ export default function FacilityList() {
   return (
     <Page title="Tài nguyên">
       {isDashboard ? (
-        <FacilityMain/>
+          <FacilityMain />
       ) : (
         <RootStyle>
-          <FacilityMain/>
+          <FacilityMain />
         </RootStyle>
       )}
     </Page>

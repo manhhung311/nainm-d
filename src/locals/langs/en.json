@@ -7,6 +7,20 @@
     "News": "News",
     "Login": "Login"
   },
+  "navTitle": {
+    "management": "management",
+    "User": "User",
+    "Publication": "Publiction",
+    "Research": "Research",
+    "Facility": "Facility",
+    "News": "News",
+    "Drive": "Drive",
+    "People": "People"
+  },
+  "navItem": {
+    "list": "List",
+    "create": "Create"
+  },
   "user": {
     "pageList": "User List",
     "pageCreate": "User Create",

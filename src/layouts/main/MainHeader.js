@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 // @mui
-import { AppBar, Box, Container, Toolbar } from '@mui/material';
+import { AppBar, Box, Grid, Toolbar } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
@@ -67,27 +67,39 @@ export default function MainHeader() {
             ...cssStyles(theme).bgBlur(),
             height: { md: HEADER.MAIN_DESKTOP_HEIGHT - 16 },
           }),
+          padding: theme.spacing(0, 2),
+          [theme.breakpoints.up('md')]: {
+            padding: theme.spacing(0, 10),
+          },
+          margin: '0 0',
         }}
       >
-        <Container
+        <Grid
+          container
+          spacing={0}
           sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
-          <Logo headerHeight={HEADER.MAIN_DESKTOP_HEIGHT} />
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
-          <Box sx={{ flexGrow: 0.5 }} />
-          <LanguagePopover />
-          <LoginButton />
-          {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
-        </Container>
+          <Grid item xs={5} md={2} sx={{ justifyContent: 'start', alignItems: 'center', display: 'flex' }}>
+            <Logo headerHeight={HEADER.MAIN_DESKTOP_HEIGHT} />
+          </Grid>
+          <Grid item xs={1} md={8} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            <Box sx={{ flexGrow: 1 }} />
+            {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+            <Box sx={{ flexGrow: 0.5 }} />
+          </Grid>
+          <Grid item xs={5} md={2} sx={{ justifyContent: 'end', alignItems: 'center', display: 'flex' }}>
+            <Box sx={{ justifyContent: 'end', alignItems: 'center',display: 'flex' }}>
+              <LanguagePopover />
+              <LoginButton/>
+                {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig}/>}
+            </Box>
+          </Grid>
+        </Grid>
       </ToolbarStyle>
-
       {isOffset && <ToolbarShadowStyle />}
     </AppBar>
   );
