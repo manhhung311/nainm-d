@@ -11,6 +11,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
+import Image from '../../components/Image';
 
 import SvgIconStyle from '../../components/SvgIconStyle';
 
@@ -37,15 +38,13 @@ export default function BlogPostCard({ post, index, handleDeleteNews }) {
   return (
     <Card>
       <Box sx={{ position: 'relative' }}>
-        <SvgIconStyle
-          src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"
+        <Image
+          src="/logo.png"
+          alt=""
           sx={{
-            width: 80,
-            height: 36,
-            zIndex: 9,
-            bottom: -15,
             position: 'absolute',
             color: 'background.paper',
+            opacity: 0.015,
           }}
         />
       </Box>

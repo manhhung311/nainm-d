@@ -68,6 +68,8 @@ export default function NewsMain() {
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
+  console.log('news', news);
+
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -106,29 +108,31 @@ export default function NewsMain() {
         )}
       </Grid>
 
-      <Tabs
-        allowScrollButtonsMobile
-        variant="scrollable"
-        scrollButtons="auto"
-        value={filterStatus}
-        onChange={onFilterStatus}
-        sx={{ mb: { xs: 3, md: 5 } }}
-      >
-        {TABS.map((tab, idx) => (
-          <Tab
-            disableRipple
-            key={idx + 1}
-            value={tab.value}
-            label={
-              <Stack spacing={1} direction="row" alignItems="center">
-                <div>{tab.label}</div> <Label color={tab.color}> </Label>
-              </Stack>
-            }
-          />
-        ))}
-      </Tabs>
+      {user && (
+        <Tabs
+          allowScrollButtonsMobile
+          variant="scrollable"
+          scrollButtons="auto"
+          value={filterStatus}
+          onChange={onFilterStatus}
+          sx={{ mb: { xs: 3, md: 5 } }}
+        >
+          {TABS.map((tab, idx) => (
+            <Tab
+              disableRipple
+              key={idx + 1}
+              value={tab.value}
+              label={
+                <Stack spacing={1} direction="row" alignItems="center">
+                  <div>{tab.label}</div> <Label color={tab.color}> </Label>
+                </Stack>
+              }
+            />
+          ))}
+        </Tabs>
+      )}
 
-      {news.length === 0 && (
+      {!news && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
             Chưa có bài viết nào
@@ -137,7 +141,7 @@ export default function NewsMain() {
       )}
 
       <Grid container spacing={3}>
-        {news.length > 0 &&
+        {news?.length > 0 &&
           news.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
               <NewsCard post={post} index={index} />
