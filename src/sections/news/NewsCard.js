@@ -13,8 +13,6 @@ import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
 import Image from '../../components/Image';
 
-import SvgIconStyle from '../../components/SvgIconStyle';
-
 // ----------------------------------------------------------------------
 
 BlogPostCard.propTypes = {

@@ -1,7 +1,6 @@
 query ListUser {
     users{
         id
-        userName
         user_information_Vietnamese
         user_information_English
         type_user
