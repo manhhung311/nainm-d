@@ -18,7 +18,6 @@ import useSettings from '../../../hooks/useSettings';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 import useLocales from '../../../locals/useLocals';
 
-
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -53,7 +52,6 @@ export default function PublictionCreate() {
   return (
     <Page title="Blog: New Post">
       <Container maxWidth={themeStretch ? false : 'lg'}>
-
         <PublicationNewForm isEdit={isEdit} dataPostUpdate={postUpdate} />
       </Container>
     </Page>

@@ -29,12 +29,11 @@ export default function PublictionList() {
       {isDashboard ? (
         <>
           <Publiction />
-          </>
+        </>
       ) : (
         <RootStyle>
-          
           <Publiction />
-          </RootStyle>
+        </RootStyle>
       )}
     </Page>
   );

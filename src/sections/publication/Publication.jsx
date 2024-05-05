@@ -1,6 +1,5 @@
 // @mui
-import { useQuery } from '@apollo/client';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
+import { useMutation, useQuery } from '@apollo/client';
 import { Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -10,18 +9,16 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
-import Label from '../../components/Label';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
@@ -62,20 +59,24 @@ const top100Films = [
   { label: 'Pulp Fiction', id: 2 },
 ];
 const LIST_ALL_PUBLICATION = loader('../../graphql/queries/collections/ListCollections.graphql');
+const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
+const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
 
 export default function Publiction() {
-  const navigate = useNavigate();
-  const { t } = useLocales();
-  const { user } = useAuth();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
-  
-  const { pathname } = useLocation();
+  const { t, currentLang } = useLocales();
 
-  const isDashboard = pathname.includes('dashboard');
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { user } = useAuth();
+
+  const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
+
+  // const { pathname } = useLocation();
+  // const isDashboard = pathname.includes('dashboard');
+
   const [info, setInfo] = useState([]);
-  const { data: collection } = useQuery(LIST_ALL_PUBLICATION, {
+
+  const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
     variables: {
       input: {
         status_collection: filterStatus,
@@ -90,7 +91,61 @@ export default function Publiction() {
     }
   }, [collection]);
 
+  const dataFiltered = applySortFilter({
+    tableData: info,
+    filterLanguage: currentLang.value,
+  });
+
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+
+  const [deleteCollection] = useMutation(DELETE_COLLECTION, {
+    onCompleted: () => {
+      enqueueSnackbar('Xóa tin tức thành công', {
+        variant: 'success',
+      });
+    },
+
+    onError: (error) => {
+      enqueueSnackbar(`Xóa tin tức không thành công. Nguyên nhân: ${error.message}`, {
+        variant: 'error',
+      });
+    },
+  });
+
+  const [editStatusCollection] = useMutation(EDIT_STATUS_COLLECTION, {
+    onCompleted: () => {
+      enqueueSnackbar('Cập nhật trạng thái thành công!', {
+        variant: 'success',
+      });
+    },
+    onError: (error) => {
+      enqueueSnackbar(`Cập nhật trạng thái không thành công!. Nguyên nhân: ${error.message}`, {
+        variant: 'error',
+      });
+    },
+  });
+
+  const handleDeleteCollection = async (idCollection) => {
+    await deleteCollection({
+      variables: {
+        id: Number(idCollection),
+      },
+    });
+    await refetch();
+  };
+
+  const handleEditStatusCollection = async (id, statusId) => {
+    await editStatusCollection({
+      variables: {
+        input: {
+          id,
+          status: statusId,
+        },
+      },
+    });
+
+    await refetch();
+  };
 
   return (
     <RootStyle>
@@ -171,14 +226,14 @@ export default function Publiction() {
             value={tab.value}
             label={
               <Stack spacing={1} direction="row" alignItems="center">
-                <div>{tab.label}</div> <Label color={tab.color}> </Label>
+                <div>{tab.label}</div>
               </Stack>
             }
           />
         ))}
       </Tabs>
-     
-      {info.length === 0 && (
+
+      {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
             Chưa có bài viết nào
@@ -187,13 +242,29 @@ export default function Publiction() {
       )}
 
       <Grid container spacing={3}>
-        {info.length > 0 &&
-          info.map((post, index) => (
+        {dataFiltered.length > 0 &&
+          dataFiltered.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
-              <PublicationPostCard post={post} index={index} />
+              <PublicationPostCard
+                post={post}
+                index={index}
+                handleDeletePublication={handleDeleteCollection}
+                onEditStatusCollection={handleEditStatusCollection}
+                currentLang={currentLang.value}
+              />
             </Grid>
           ))}
       </Grid>
     </RootStyle>
   );
+}
+
+function applySortFilter({ tableData, filterLanguage }) {
+  if (filterLanguage === 'en') {
+    tableData = tableData.filter((item) => item.title_english !== '');
+  }
+  if (filterLanguage === 'vi') {
+    tableData = tableData.filter((item) => item.title !== '');
+  }
+  return tableData;
 }
