@@ -23,6 +23,7 @@ const UPDATE_USER = loader('../..//graphql/mutations/users/updateUser.graphql');
 NewUser.propTypes = {
   isEdit: PropTypes.bool,
   currentUser: PropTypes.object,
+  id: PropTypes.number,
 };
 
 const Roles = [
@@ -68,6 +69,7 @@ export default function NewUser({ isEdit, currentUser }) {
 
   const defaultValues = useMemo(
     () => ({
+      id: currentUser?.id || null,
       firstName: currentUser?.firstName || '',
       email: currentUser?.email || '',
       password: currentUser?.password || '',
@@ -138,7 +140,7 @@ export default function NewUser({ isEdit, currentUser }) {
         const response = await updateUser({
           variables: {
             input: {
-              id: Number(user?.id), // Thêm trường id
+              id: Number(values?.id), // Thêm trường id
               firstName: values?.firstName,
               lastName: values?.lastName,
               avartaURL: uploadFile, // Sửa thành avartaURL
@@ -153,6 +155,8 @@ export default function NewUser({ isEdit, currentUser }) {
           enqueueSnackbar('Cập nhật thông tin thành công ', {
             variant: 'success',
           });
+          reset();
+          navigate(PATH_DASHBOARD.user.list);
         }
       }
     } catch (error) {

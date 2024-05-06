@@ -56,6 +56,7 @@ export default function Router() {
             { path: 'list', element: <UserList /> },
             { path: 'new', element: <UserCreate /> },
             { path: ':id/edit', element: <UserCreate /> },
+            { path: 'profile', element: <ProfileEdit /> },
           ],
         },
         {
@@ -191,3 +192,4 @@ const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/user/UserList')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/user/UserCreate')));
 const UserUpdate = Loadable(lazy(() => import('../pages/dashboard/user/UserUpdate')));
+const ProfileEdit = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileEdit')));
