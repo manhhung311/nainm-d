@@ -20,41 +20,9 @@ const Publication = loader('../../graphql/queries/collections/Publication.graphq
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const images = [
-  {
-    label: '1',
-    title: 'Artificial Muscle and Soft Robotics',
-    Content:
-      'We focus on the development of soft actuators and artificial muscle, which can be applied to intra/extra human body robotics, haptic-feedback systems, wearable power suits, and flexible and soft electronics.',
-    imgPath: 'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: '2',
-    title: 'Energy Harvesting and Triboelectricity',
-    Content:
-      'We design energy harvesting systems and triboelectric nanogenerators (TENGs),which can produce electricity from mechanical kinetic energy.',
-    imgPath: 'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: '3',
-    title: ' Energy Storage and Structural Battery',
-    Content:
-      'We develop structural battery possessing both load bearing capability and energy storage function.The structural batteries are crucial to the next-generation transportation vehicles such as UAV, UAM, and electrical vehicles.',
-    imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-  },
-  {
-    label: '4',
-    title: 'Mechanical Metamaterial and Smart Structures',
-    Content:
-      'We investigate mechanical metamaterials and topological insulators,which show the unparalleled wave transmission and acoustic bandgap.',
-    imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-  },
-];
-
 export default function HomeHero() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
-  const maxSteps = images.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -89,9 +57,12 @@ export default function HomeHero() {
     }
   }, [publication]);
   const newImages = data.map((item) => ({
+    id: item.id,
     title: item.title,
-    Content: item.description, // Trường 'description' sẽ lấy giá trị từ trường 'Content' của mỗi phần tử trong mảng 'images'
+    content: item.description, // Trường 'description' sẽ lấy giá trị từ trường 'Content' của mỗi phần tử trong mảng 'images'
+    imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
   }));
+  const maxSteps = newImages.length;
   console.log('newImages', newImages);
   return (
     <Box
@@ -127,7 +98,7 @@ export default function HomeHero() {
               onChangeIndex={handleStepChange}
               enableMouseEvents
             >
-              {images.map((step, index) => (
+              {newImages.map((step, index) => (
                 <Box key={step.label} sx={{ mx: 1 }}>
                   {Math.abs(activeStep - index) <= 2 ? (
                     <Grid
@@ -171,20 +142,19 @@ export default function HomeHero() {
                               {step.label}
                             </Typography>
                           </Grid>
-                          {data.map((item, index) => (
-                            <Grid item xs={12} key={index}>
-                              <Typography variant="h3" color="#82f9d4">
-                                {item.title}
-                              </Typography>
-                            </Grid>
-                          ))}
-                          {data.map((item, index) => (
-                            <Grid item xs={12} key={index}>
-                              <Typography variant="subtitle1" color="#fff">
-                                {item.description}
-                              </Typography>
-                            </Grid>
-                          ))}
+
+                          <Grid item xs={12} key={index}>
+                            <Typography variant="h3" color="#82f9d4">
+                              {step.title}
+                            </Typography>
+                          </Grid>
+
+                          <Grid item xs={12} key={index}>
+                            <Typography variant="subtitle1" color="#fff">
+                              {step.description}
+                            </Typography>
+                          </Grid>
+
                           <Grid item xs={12}>
                             <Link
                               to="/more-view"
@@ -230,87 +200,6 @@ export default function HomeHero() {
           )}
         </Grid>
       </Box>
-      {!isDesktop && (
-        <Box
-          sx={{
-            backgroundColor: '#111135',
-            width: '100%',
-            height: '22.2%',
-            color: '#fff',
-            alignSelf: 'center',
-            textAlign: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-            display: 'flex',
-          }}
-        >
-          <Grid container spacing={0} alignItems="center" justifyContent="center">
-            <Grid item xs={1} md={1.2} />
-
-            <Grid item xs={12} md={2.5}>
-              <Box
-                onClick={() => handleItemClick(0)} // Chuyển đến hình ảnh 2 khi click vào mục "Energy Harvesting and Triboelectricity"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
-              >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-3px', marginRight: '2px' }}>
-                  01
-                </Box>
-                <Box>
-                  <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
-                    Articial Muscle and Soft Robottics
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={2.5}>
-              <Box
-                onClick={() => handleItemClick(1)} // Chuyển đến hình ảnh 3 khi click vào mục "Energy Storage and Structural Battery"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
-              >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px', marginRight: '6px' }}>
-                  02
-                </Box>
-                <Box>
-                  <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
-                    Energy Harvesting and Triboelectricity
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={2.5}>
-              <Box
-                onClick={() => handleItemClick(2)} // Chuyển đến hình ảnh 4 khi click vào mục "Mechnical Metamaterial and Smart Structures"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
-              >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-4px', marginRight: '6px' }}>
-                  03
-                </Box>
-                <Box>
-                  <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
-                    Energy Storage and Structural Battery
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={2.5}>
-              <Box
-                onClick={() => handleItemClick(3)} // Chuyển đến hình ảnh 5 khi click vào mục "Mechnical Metamaterial and Smart Structures"
-                sx={{ maxWidth: '210px', display: 'flex', color: '#fff', textAlign: 'start' }}
-              >
-                <Box sx={{ width: '48px', height: '27px', fontSize: '1.5rem', marginTop: '-3px', marginRight: '8px' }}>
-                  04
-                </Box>
-                <Box>
-                  <Typography variant="h7" gutterBottom sx={{ cursor: 'pointer' }}>
-                    Mechnical Metamaterial and Smart Structures
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={1} md={0} />
-          </Grid>
-        </Box>
-      )}
     </Box>
   );
 }

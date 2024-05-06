@@ -4,7 +4,12 @@ export const TypeCollection = {
   Facility: 2,
   News: 3,
 };
-
+export const Publication = {
+  Research: 0,
+  Publication: 1,
+  Facility: 2,
+  News: 3,
+};
 export const StatusCollection = {
   Public: 1,
   Draft: 0,
