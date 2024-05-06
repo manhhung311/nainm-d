@@ -10,6 +10,7 @@ import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
 import { StatusCollection } from '../../constant';
+import useLocales from '../../locals/useLocals';
 
 PublicationPostCard.propTypes = {
   post: PropTypes.object.isRequired,
@@ -91,7 +92,7 @@ export function PostContent({
   const linkTo = PATH_DASHBOARD.publication.detail(id);
 
   const latestPostLarge = index === 0;
-
+  const { t } = useLocales();
   return (
     <CardContent
       sx={{
@@ -129,7 +130,7 @@ export function PostContent({
                     sx={{ color: 'success.main' }}
                   >
                     <Iconify icon={'heroicons-solid:check'} />
-                    Duyệt
+                    {t('card.Examine')}
                   </MenuItem>
                 )}
 
@@ -143,7 +144,7 @@ export function PostContent({
                       // sx={{ color: 'success.main' }}
                     >
                       <Iconify icon={'dashicons:hidden'} />
-                      Ẩn
+                      {t('card.hidden')}
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
@@ -153,7 +154,7 @@ export function PostContent({
                       sx={{ color: 'warning.main' }}
                     >
                       <Iconify icon={'material-symbols:draft-outline'} />
-                      Nháp
+                      {t('card.Draft')}
                     </MenuItem>
                   </>
                 )}
@@ -167,7 +168,7 @@ export function PostContent({
                     sx={{ color: 'success.main' }}
                   >
                     <Iconify icon={'heroicons-solid:check'} />
-                    Công bố
+                    {t('card.publish')}
                   </MenuItem>
                 )}
 
@@ -179,7 +180,7 @@ export function PostContent({
                   sx={{ color: 'error.main' }}
                 >
                   <Iconify icon={'eva:trash-2-outline'} />
-                  Xóa
+                  {t('card.Erase')}
                 </MenuItem>
 
                 <MenuItem
@@ -189,7 +190,7 @@ export function PostContent({
                   }}
                 >
                   <Iconify icon={'eva:edit-fill'} />
-                  Sửa thông tin
+                  {t('card.Edit information')}
                 </MenuItem>
               </>
             }

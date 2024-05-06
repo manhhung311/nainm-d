@@ -71,12 +71,14 @@
   "details": "details",
   "checkout": "checkout",
   "management": "management",
+
   "research": {
     "title": "Research",
     "tab1": "VIETNAMESE",
     "tab2": "ENGLISH",
     "post1": "Create VietNamese",
-    "post2": "Create English"
+    "post2": "Create English",
+    "page1": "Detail Research"
   },
   "facility": {
     "title": "Facility",

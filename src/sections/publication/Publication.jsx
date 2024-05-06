@@ -40,17 +40,17 @@ const RootStyle = styled('div')(({ theme }) => ({
 const TABS = [
   {
     value: 1,
-    label: 'Công bố',
+    label: 'publish',
     color: 'success',
   },
   {
     value: 0,
-    label: 'Chờ Duyệt',
+    label: 'waitForApproval',
     color: 'info',
   },
   {
     value: 2,
-    label: 'Ẩn',
+    label: 'hidden',
     color: 'default',
   },
 ];
@@ -100,13 +100,13 @@ export default function Publiction() {
 
   const [deleteCollection] = useMutation(DELETE_COLLECTION, {
     onCompleted: () => {
-      enqueueSnackbar('Xóa tin tức thành công', {
+      enqueueSnackbar(t('message.Successful deletion of news'), {
         variant: 'success',
       });
     },
 
     onError: (error) => {
-      enqueueSnackbar(`Xóa tin tức không thành công. Nguyên nhân: ${error.message}`, {
+      enqueueSnackbar(`${t('message.Deleting news failed. Cause')} ${error.message}`, {
         variant: 'error',
       });
     },
@@ -114,12 +114,12 @@ export default function Publiction() {
 
   const [editStatusCollection] = useMutation(EDIT_STATUS_COLLECTION, {
     onCompleted: () => {
-      enqueueSnackbar('Cập nhật trạng thái thành công!', {
+      enqueueSnackbar(t('message.Successful status update!'), {
         variant: 'success',
       });
     },
     onError: (error) => {
-      enqueueSnackbar(`Cập nhật trạng thái không thành công!. Nguyên nhân: ${error.message}`, {
+      enqueueSnackbar(`${t('Status update failed!. Cause:')} ${error.message}`, {
         variant: 'error',
       });
     },
@@ -165,7 +165,7 @@ export default function Publiction() {
                     to={PATH_DASHBOARD.research.new}
                     startIcon={<Iconify icon={'eva:plus-fill'} />}
                   >
-                    Tạo mới
+                    {t('navItem.create')}
                   </Button>
                 )}
               </Stack>
@@ -194,7 +194,7 @@ export default function Publiction() {
                     to={PATH_DASHBOARD.publication.new}
                     startIcon={<Iconify icon={'eva:plus-fill'} />}
                   >
-                    Tạo mới
+                    {t('navItem.create')}
                   </Button>
                 )}
               </Stack>
@@ -226,7 +226,7 @@ export default function Publiction() {
             value={tab.value}
             label={
               <Stack spacing={1} direction="row" alignItems="center">
-                <div>{tab.label}</div>
+                <div>{t(`card.${tab.label}`)}</div>
               </Stack>
             }
           />
@@ -236,7 +236,7 @@ export default function Publiction() {
       {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
-            Chưa có bài viết nào
+            {t('card.noPostsYet')}
           </Typography>
         </Card>
       )}
