@@ -24,25 +24,23 @@ export default function ProfileEdit() {
     },
   ];
   return (
-    <Card>
-      <Page title="User: Profile">
-        <Tabs
-          allowScrollButtonsMobile
-          variant="scrollable"
-          scrollButtons="auto"
-          value={currentTab}
-          onChange={onChangeTab}
-        >
-          {PROFILE_TABS.map((tab) => (
-            <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.value} />
-          ))}
-        </Tabs>
+    <Page title="User: Profile">
+      <Tabs
+        allowScrollButtonsMobile
+        variant="scrollable"
+        scrollButtons="auto"
+        value={currentTab}
+        onChange={onChangeTab}
+      >
+        {PROFILE_TABS.map((tab) => (
+          <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.value} />
+        ))}
+      </Tabs>
 
-        {PROFILE_TABS.map((tab) => {
-          const isMatched = tab.value === currentTab;
-          return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-        })}
-      </Page>
-    </Card>
+      {PROFILE_TABS.map((tab) => {
+        const isMatched = tab.value === currentTab;
+        return isMatched && <Box key={tab.value}>{tab.component}</Box>;
+      })}
+    </Page>
   );
 }
