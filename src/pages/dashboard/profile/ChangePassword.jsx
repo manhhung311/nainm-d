@@ -14,8 +14,7 @@ import FormProvider from '../../../components/hook-form/FormProvider';
 import RHFTextField from '../../../components/hook-form/RHFTextField';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
-const CREATE_USER = loader('../../../graphql/mutations/users/createdUsers.graphql');
-const UPDATE_USER = loader('../../../graphql/mutations/users/updateUser.graphql');
+const CHANGE_PASSWORD = loader('../../../graphql/mutations/users/changePassword.graphql');
 
 // import TodoForm from 'src/pages/dashboard/user/TodoForm';
 ChangePassword.propTypes = {
@@ -36,10 +35,9 @@ export default function ChangePassword({ isEdit, currentUser }) {
       oldPassWord: '',
       newPassWord: '',
     }),
-    [currentUser]
+    []
   );
-  const [createNewuser] = useMutation(CREATE_USER);
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [createNewuser] = useMutation(CHANGE_PASSWORD);
 
   const [uploadFile, setUploadFile] = useState(null);
   const navigate = useNavigate();

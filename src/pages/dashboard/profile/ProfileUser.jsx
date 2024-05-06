@@ -12,19 +12,20 @@ import * as Yup from 'yup';
 import { RHFUploadAvatar } from '../../../components/hook-form';
 import FormProvider from '../../../components/hook-form/FormProvider';
 import RHFTextField from '../../../components/hook-form/RHFTextField';
+import useAuth from '../../../hooks/useAuth';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
-const CREATE_USER = loader('../../../graphql/mutations/users/createdUsers.graphql');
-const UPDATE_USER = loader('../../../graphql/mutations/users/updateUser.graphql');
+const PROFILE_USER = loader('../../../graphql/mutations/users/updUserForUser.graphql');
 
 // import TodoForm from 'src/pages/dashboard/user/TodoForm';
 ProfileUser.propTypes = {
   isEdit: PropTypes.bool,
   currentUser: PropTypes.object,
-  id: PropTypes.number,
 };
 
 export default function ProfileUser({ isEdit, currentUser }) {
+  const { user } = useAuth();
+  console.log('user', user);
   const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
 
   const UpdateUserSchema = Yup.object().shape({
@@ -33,15 +34,14 @@ export default function ProfileUser({ isEdit, currentUser }) {
   });
   const defaultValues = useMemo(
     () => ({
-      firstName: currentUser?.firstName || '',
-      lastName: currentUser?.lastName || '',
-      phoneNumber: currentUser?.phoneNumber || '',
-      avatarUrl: currentUser?.avatarUrl || '', // Kiểm tra và gán giá trị mặc định
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      phoneNumber: user?.phoneNumber || '',
+      avatarUrl: user?.avatarUrl || '', // Kiểm tra và gán giá trị mặc định
     }),
-    [currentUser]
+    [user]
   );
-  const [createNewuser] = useMutation(CREATE_USER);
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [createNewuser] = useMutation(PROFILE_USER); // gọi API
 
   const [uploadFile, setUploadFile] = useState(null);
   const navigate = useNavigate();
