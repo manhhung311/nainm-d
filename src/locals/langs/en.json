@@ -32,7 +32,21 @@
     "content": "Content"
   },
   "card" : {
-    "publish" : "Publish"
+    "publish" : "Publish",
+    "waitForApproval": "Wait for approval",
+    "hidden" : "Hidden",
+    "createNew" : "Create new",
+    "noPostsYet": "No posts yet",
+    "Examine" : "Examine",
+    "Erase": "Erase",
+    "Draft": "Draft",
+    "Edit information": "Edit information"
+  },
+  "message": {
+    "Successful deletion of news": "Successful deletion of news",
+    "Deleting news failed. Cause" : "Deleting news failed. Cause",
+    "Successful status update!": "Successful status update!",
+    "Status update failed!. Cause:": "Status update failed!. Cause:"
   },
   "user": {
     "pageList": "User List",
