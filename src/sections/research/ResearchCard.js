@@ -9,44 +9,29 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
-
-import SvgIconStyle from '../../components/SvgIconStyle';
+import { StatusCollection } from '../../constant';
 
 // ----------------------------------------------------------------------
 
 ResearchPostCard.propTypes = {
   post: PropTypes.object.isRequired,
-  index: PropTypes.number,
   handleDeleteResearch: PropTypes.func,
+  onEditStatusCollection: PropTypes.func,
+  currentLang: PropTypes.string,
 };
 
-export default function ResearchPostCard({ post, handleDeleteResearch }) {
-
-
+export default function ResearchPostCard({ post, handleDeleteResearch, onEditStatusCollection, currentLang }) {
   const {
     title,
     title_english: titleEnglish,
     description,
     description_english: descriptionEnglish,
+    status_collection: statusCollection,
     id,
   } = post;
 
   return (
     <Card>
-      <Box sx={{ position: 'relative' }}>
-        <SvgIconStyle
-          src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"
-          sx={{
-            width: 80,
-            height: 36,
-            zIndex: 9,
-            bottom: -15,
-            position: 'absolute',
-            color: 'background.paper',
-          }}
-        />
-      </Box>
-
       <PostContent
         id={id}
         title={title}
@@ -54,6 +39,9 @@ export default function ResearchPostCard({ post, handleDeleteResearch }) {
         description={description}
         descriptionEnglish={descriptionEnglish}
         handleDeleteResearch={handleDeleteResearch}
+        statusCollection={statusCollection}
+        onEditStatusCollection={onEditStatusCollection}
+        currentLang={currentLang}
       />
     </Card>
   );
@@ -70,15 +58,24 @@ PostContent.propTypes = {
   id: PropTypes.number,
   handleDeleteResearch: PropTypes.func,
   createdAt: PropTypes.string,
+  currentLang: PropTypes.string,
+  statusCollection: PropTypes.number,
+  onEditStatusCollection: PropTypes.func,
 };
 
 export function PostContent({
-                              title,
-                              index,
-                              id,
-                              handleDeleteResearch,
-                              description,
-                            }) {
+  title,
+  index,
+  id,
+  handleDeleteResearch,
+  onEditStatusCollection,
+  description,
+  currentLang,
+  statusCollection,
+  titleEnglish,
+  createdAt,
+  descriptionEnglish,
+}) {
   const isDesktop = useResponsive('up', 'md');
   const [openMenu, setOpenMenuActions] = useState(null);
   const navigate = useNavigate();
@@ -126,15 +123,57 @@ export function PostContent({
             onClose={handleCloseMenu}
             actions={
               <>
-                <MenuItem
-                  onClick={() => {
-                    handleCloseMenu();
-                    handleDeleteResearch(id);
-                  }}
-                  sx={{ color: 'success' }}
-                >
-                  Duyệt
-                </MenuItem>
+                {statusCollection === StatusCollection.Draft && (
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseMenu();
+                      onEditStatusCollection(id, StatusCollection.Public);
+                    }}
+                    sx={{ color: 'success.main' }}
+                  >
+                    <Iconify icon={'heroicons-solid:check'} />
+                    Duyệt
+                  </MenuItem>
+                )}
+
+                {statusCollection === StatusCollection.Public && (
+                  <>
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Hidden);
+                      }}
+                      // sx={{ color: 'success.main' }}
+                    >
+                      <Iconify icon={'dashicons:hidden'} />
+                      Ẩn
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Draft);
+                      }}
+                      sx={{ color: 'warning.main' }}
+                    >
+                      <Iconify icon={'material-symbols:draft-outline'} />
+                      Nháp
+                    </MenuItem>
+                  </>
+                )}
+
+                {statusCollection === StatusCollection.Hidden && (
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseMenu();
+                      onEditStatusCollection(id, StatusCollection.Public);
+                    }}
+                    sx={{ color: 'success.main' }}
+                  >
+                    <Iconify icon={'heroicons-solid:check'} />
+                    Công bố
+                  </MenuItem>
+                )}
+
                 <MenuItem
                   onClick={() => {
                     handleCloseMenu();
@@ -177,11 +216,11 @@ export function PostContent({
       <Stack spacing={1} flexGrow={1}>
         <Link to={linkTo} color="inherit" component={RouterLink}>
           <TextMaxLine variant={isDesktop ? 'h5' : 'subtitle2'} line={2} persistent>
-            {title}
+            {currentLang === 'vi' ? title : titleEnglish}
           </TextMaxLine>
         </Link>
         <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}>
-          {description}
+          {currentLang === 'vi' ? description : descriptionEnglish}
         </TextMaxLine>
       </Stack>
 

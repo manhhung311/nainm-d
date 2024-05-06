@@ -1,12 +1,17 @@
 query getCurrentUser {
   me {
     id
-    email
     firstName
     lastName
-    createdAt
-    updatedAt
     role
     phoneNumber
+    email
+    type_user
+    avartaURL
+    status
+    createdAt
+    updatedAt
+    user_information_Vietnamese
+    user_information_English
   }
 }

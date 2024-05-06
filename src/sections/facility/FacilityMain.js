@@ -4,8 +4,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
-import { useQuery } from '@apollo/client';
-import Label from '../../components/Label';
+import { useMutation, useQuery } from '@apollo/client';
+import { useSnackbar } from 'notistack';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import useAuth from '../../hooks/useAuth';
@@ -40,9 +40,13 @@ const TABS = [
   },
 ];
 const LIST_ALL_FACILITY = loader('../../graphql/queries/collections/ListCollections.graphql');
+const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
+const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
 
 export default function FacilityMain() {
-  const { t } = useLocales();
+  const { t, currentLang } = useLocales();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const { user } = useAuth();
 
@@ -50,7 +54,7 @@ export default function FacilityMain() {
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
-  const { data: getAllPosts } = useQuery(LIST_ALL_FACILITY, {
+  const { data: getAllPosts, refetch } = useQuery(LIST_ALL_FACILITY, {
     variables: {
       input: {
         status_collection: filterStatus,
@@ -64,7 +68,61 @@ export default function FacilityMain() {
     }
   }, [getAllPosts]);
 
+  const dataFiltered = applySortFilter({
+    tableData: facility,
+    filterLanguage: currentLang.value,
+  });
+
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+
+  const [deleteCollection] = useMutation(DELETE_COLLECTION, {
+    onCompleted: () => {
+      enqueueSnackbar('Xóa tin tức thành công', {
+        variant: 'success',
+      });
+    },
+
+    onError: (error) => {
+      enqueueSnackbar(`Xóa tin tức không thành công. Nguyên nhân: ${error.message}`, {
+        variant: 'error',
+      });
+    },
+  });
+
+  const [editStatusCollection] = useMutation(EDIT_STATUS_COLLECTION, {
+    onCompleted: () => {
+      enqueueSnackbar('Cập nhật trạng thái thành công!', {
+        variant: 'success',
+      });
+    },
+    onError: (error) => {
+      enqueueSnackbar(`Cập nhật trạng thái không thành công!. Nguyên nhân: ${error.message}`, {
+        variant: 'error',
+      });
+    },
+  });
+
+  const handleDeleteCollection = async (idCollection) => {
+    await deleteCollection({
+      variables: {
+        id: Number(idCollection),
+      },
+    });
+    await refetch();
+  };
+
+  const handleEditStatusCollection = async (id, statusId) => {
+    await editStatusCollection({
+      variables: {
+        input: {
+          id,
+          status: statusId,
+        },
+      },
+    });
+
+    await refetch();
+  };
 
   return (
     <RootStyle>
@@ -127,14 +185,14 @@ export default function FacilityMain() {
             value={tab.value}
             label={
               <Stack spacing={1} direction="row" alignItems="center">
-                <div>{tab.label}</div> <Label color={tab.color}> </Label>
+                <div>{tab.label}</div>
               </Stack>
             }
           />
         ))}
       </Tabs>
 
-      {facility.length === 0 && (
+      {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
             Chưa có bài viết nào
@@ -143,13 +201,29 @@ export default function FacilityMain() {
       )}
 
       <Grid container spacing={3}>
-        {facility.length > 0 &&
-          facility.map((post, index) => (
+        {dataFiltered.length > 0 &&
+          dataFiltered.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
-              <FacilityPostCard post={post} index={index} />
+              <FacilityPostCard
+                post={post}
+                index={index}
+                handleDeleteFacility={handleDeleteCollection}
+                onEditStatusCollection={handleEditStatusCollection}
+                currentLang={currentLang.value}
+              />
             </Grid>
           ))}
       </Grid>
     </RootStyle>
   );
+}
+
+function applySortFilter({ tableData, filterLanguage }) {
+  if (filterLanguage === 'en') {
+    tableData = tableData.filter((item) => item.title_english !== '');
+  }
+  if (filterLanguage === 'vi') {
+    tableData = tableData.filter((item) => item.title !== '');
+  }
+  return tableData;
 }

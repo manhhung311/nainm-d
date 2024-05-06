@@ -4,7 +4,6 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Box, Card, CardContent, Link, MenuItem, Stack, Typography } from '@mui/material';
 // routes
 import { useState } from 'react';
-import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
@@ -12,16 +11,14 @@ import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
 import { StatusCollection } from '../../constant';
 
-// ----------------------------------------------------------------------
-
-BlogPostCard.propTypes = {
+PublicationPostCard.propTypes = {
   post: PropTypes.object.isRequired,
-  handleDeleteNews: PropTypes.func,
+  handleDeletePublication: PropTypes.func,
   onEditStatusCollection: PropTypes.func,
   currentLang: PropTypes.string,
 };
 
-export default function BlogPostCard({ post, handleDeleteNews, onEditStatusCollection, currentLang }) {
+export default function PublicationPostCard({ post, handleDeletePublication, currentLang, onEditStatusCollection }) {
   const {
     title,
     title_english: titleEnglish,
@@ -39,8 +36,8 @@ export default function BlogPostCard({ post, handleDeleteNews, onEditStatusColle
         titleEnglish={titleEnglish}
         description={description}
         descriptionEnglish={descriptionEnglish}
+        handleDeletePublication={handleDeletePublication}
         statusCollection={statusCollection}
-        handleDeleteNews={handleDeleteNews}
         onEditStatusCollection={onEditStatusCollection}
         currentLang={currentLang}
       />
@@ -48,27 +45,25 @@ export default function BlogPostCard({ post, handleDeleteNews, onEditStatusColle
   );
 }
 
-// ----------------------------------------------------------------------
-
 PostContent.propTypes = {
   index: PropTypes.number,
   title: PropTypes.string,
   titleEnglish: PropTypes.string,
   description: PropTypes.string,
   descriptionEnglish: PropTypes.string,
+  id: PropTypes.number,
+  handleDeletePublication: PropTypes.func,
+  createdAt: PropTypes.string,
   currentLang: PropTypes.string,
   statusCollection: PropTypes.number,
-  id: PropTypes.number,
-  handleDeleteNews: PropTypes.func,
   onEditStatusCollection: PropTypes.func,
-  createdAt: PropTypes.string,
 };
 
 export function PostContent({
   title,
   index,
   id,
-  handleDeleteNews,
+  handleDeletePublication,
   onEditStatusCollection,
   description,
   currentLang,
@@ -81,8 +76,8 @@ export function PostContent({
   const [openMenu, setOpenMenuActions] = useState(null);
   const navigate = useNavigate();
 
-  const handleEditBlog = (id) => {
-    navigate(PATH_DASHBOARD.news.edit(id));
+  const handleEditPublication = (id) => {
+    navigate(PATH_DASHBOARD.publication.edit(id));
   };
 
   const handleOpenMenu = (event) => {
@@ -92,7 +87,8 @@ export function PostContent({
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
-  const linkTo = PATH_DASHBOARD.news.detail(id);
+
+  const linkTo = PATH_DASHBOARD.publication.detail(id);
 
   const latestPostLarge = index === 0;
 
@@ -178,7 +174,7 @@ export function PostContent({
                 <MenuItem
                   onClick={() => {
                     handleCloseMenu();
-                    handleDeleteNews(id);
+                    handleDeletePublication(id);
                   }}
                   sx={{ color: 'error.main' }}
                 >
@@ -188,7 +184,7 @@ export function PostContent({
 
                 <MenuItem
                   onClick={() => {
-                    handleEditBlog(id);
+                    handleEditPublication(id);
                     handleCloseMenu();
                   }}
                 >
@@ -212,9 +208,7 @@ export function PostContent({
             color: 'common.white',
           }),
         }}
-      >
-        {/* {fddMMYYYYWithSlash(createdAt)} */}26/04/2024
-      </Typography>
+      />
 
       <Stack spacing={1} flexGrow={1}>
         <Link to={linkTo} color="inherit" component={RouterLink}>
