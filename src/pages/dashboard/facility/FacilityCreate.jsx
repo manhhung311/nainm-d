@@ -9,6 +9,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import Page from '../../../components/Page';
 import FacilityNewPostForm from '../../../sections/@dashboard/facility/FacilityNewPostForm';
 import useLocales from '../../../locals/useLocals';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import { PATH_DASHBOARD } from '../../../routes/paths';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -40,8 +42,18 @@ export default function FacilityCreate() {
   const { t } = useLocales();
 
   return (
-    <Page title={t('facility.page')}>
+    <Page title={t('facility.title')}>
       <RootStyle>
+        <Box>
+          <HeaderBreadcrumbs
+            heading={t('create.createNewPost')}
+            links={[
+              { name: t('user.Management'), href: PATH_DASHBOARD.root },
+              { name: t('facility.title'), href: PATH_DASHBOARD.facility.root },
+              { name: t('navItem.create') },
+            ]}
+          />
+        </Box>
         <Box>
           <FacilityNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
         </Box>

@@ -10,18 +10,15 @@ import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
 import { StatusCollection } from '../../constant';
-import useLocales from '../../locals/useLocals';
 
-// ----------------------------------------------------------------------
-
-FacilityPostCard.propTypes = {
+PublicationPostCard.propTypes = {
   post: PropTypes.object.isRequired,
-  handleDeleteFacility: PropTypes.func,
+  handleDeletePublication: PropTypes.func,
   onEditStatusCollection: PropTypes.func,
   currentLang: PropTypes.string,
 };
 
-export default function FacilityPostCard({ post, handleDeleteFacility, currentLang, onEditStatusCollection }) {
+export default function PublicationPostCard({ post, handleDeletePublication, currentLang, onEditStatusCollection }) {
   const {
     title,
     title_english: titleEnglish,
@@ -39,7 +36,7 @@ export default function FacilityPostCard({ post, handleDeleteFacility, currentLa
         titleEnglish={titleEnglish}
         description={description}
         descriptionEnglish={descriptionEnglish}
-        handleDeleteFacility={handleDeleteFacility}
+        handleDeletePublication={handleDeletePublication}
         statusCollection={statusCollection}
         onEditStatusCollection={onEditStatusCollection}
         currentLang={currentLang}
@@ -48,8 +45,6 @@ export default function FacilityPostCard({ post, handleDeleteFacility, currentLa
   );
 }
 
-// ----------------------------------------------------------------------
-
 PostContent.propTypes = {
   index: PropTypes.number,
   title: PropTypes.string,
@@ -57,7 +52,7 @@ PostContent.propTypes = {
   description: PropTypes.string,
   descriptionEnglish: PropTypes.string,
   id: PropTypes.number,
-  handleDeleteFacility: PropTypes.func,
+  handleDeletePublication: PropTypes.func,
   createdAt: PropTypes.string,
   currentLang: PropTypes.string,
   statusCollection: PropTypes.number,
@@ -68,7 +63,7 @@ export function PostContent({
   title,
   index,
   id,
-  handleDeleteFacility,
+  handleDeletePublication,
   onEditStatusCollection,
   description,
   currentLang,
@@ -81,8 +76,8 @@ export function PostContent({
   const [openMenu, setOpenMenuActions] = useState(null);
   const navigate = useNavigate();
 
-  const handleEditFacility = (id) => {
-    navigate(PATH_DASHBOARD.facility.edit(id));
+  const handleEditPublication = (id) => {
+    navigate(PATH_DASHBOARD.publication.edit(id));
   };
 
   const handleOpenMenu = (event) => {
@@ -92,10 +87,11 @@ export function PostContent({
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
-  const linkTo = PATH_DASHBOARD.facility.detail(id);
+
+  const linkTo = PATH_DASHBOARD.publication.detail(id);
 
   const latestPostLarge = index === 0;
-  const { t } = useLocales();
+
   return (
     <CardContent
       sx={{
@@ -133,7 +129,7 @@ export function PostContent({
                     sx={{ color: 'success.main' }}
                   >
                     <Iconify icon={'heroicons-solid:check'} />
-                    {t('card.Examine')}
+                    Duyệt
                   </MenuItem>
                 )}
 
@@ -147,7 +143,7 @@ export function PostContent({
                       // sx={{ color: 'success.main' }}
                     >
                       <Iconify icon={'dashicons:hidden'} />
-                      {t('card.hidden')}
+                      Ẩn
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
@@ -157,7 +153,7 @@ export function PostContent({
                       sx={{ color: 'warning.main' }}
                     >
                       <Iconify icon={'material-symbols:draft-outline'} />
-                      {t('card.Draft')}
+                      Nháp
                     </MenuItem>
                   </>
                 )}
@@ -171,29 +167,29 @@ export function PostContent({
                     sx={{ color: 'success.main' }}
                   >
                     <Iconify icon={'heroicons-solid:check'} />
-                    {t('card.publish')}
+                    Công bố
                   </MenuItem>
                 )}
 
                 <MenuItem
                   onClick={() => {
                     handleCloseMenu();
-                    handleDeleteFacility(id);
+                    handleDeletePublication(id);
                   }}
                   sx={{ color: 'error.main' }}
                 >
                   <Iconify icon={'eva:trash-2-outline'} />
-                  {t('card.Erase')}
+                  Xóa
                 </MenuItem>
 
                 <MenuItem
                   onClick={() => {
-                    handleEditFacility(id);
+                    handleEditPublication(id);
                     handleCloseMenu();
                   }}
                 >
                   <Iconify icon={'eva:edit-fill'} />
-                  {t('card.Edit information')}
+                  Sửa thông tin
                 </MenuItem>
               </>
             }

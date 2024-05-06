@@ -19,7 +19,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import useAuth from '../../hooks/useAuth';
 
 const CREATE_USER = loader('../../graphql/mutations/users/createdUsers.graphql');
-const UPDATE_USER = loader('../..//graphql/mutations/users/updateUser.graphql');
+const UPDATE_USER = loader('../../graphql/mutations/users/updUserForAdmin.graphql');
 NewUser.propTypes = {
   isEdit: PropTypes.bool,
   currentUser: PropTypes.object,
@@ -31,10 +31,10 @@ const Roles = [
   { value: 1, label: 'Quản lí nội dung' },
   { value: 2, label: 'Người dùng' },
 ];
-// const Status = [
-//   { value: 1, label: 'Hoạt động' },
-//   { value: 0, label: 'Đã khóa' },
-// ];
+const Status = [
+  { value: 1, label: 'Hoạt động' },
+  { value: 0, label: 'Khóa' },
+];
 const TypeUser = [
   { value: 0, label: 'Giáo sư' },
   { value: 1, label: 'Sinh viên' },
@@ -56,7 +56,6 @@ export default function NewUser({ isEdit, currentUser }) {
     email: Yup.string().required('Email is required').email(),
     password: Yup.string().required('Password is required'),
     role: Yup.number().required('Role Number is required'),
-    userName: Yup.string().required(' Number is required'),
     typeUser: Yup.string().required('Role Number is required'),
   });
 
@@ -64,7 +63,6 @@ export default function NewUser({ isEdit, currentUser }) {
     firstName: Yup.string().required('FirstName is required'),
     lastName: Yup.string().required('LastName is required'),
     email: Yup.string().required('Email is required').email(),
-    userName: Yup.string().required(' Number is required'),
   });
 
   const defaultValues = useMemo(
@@ -145,8 +143,9 @@ export default function NewUser({ isEdit, currentUser }) {
               lastName: values?.lastName,
               avartaURL: uploadFile, // Sửa thành avartaURL
               phoneNumber: values?.phoneNumber,
-              userName: values?.userName,
-              // status: values?.status === 1,
+              email: values?.email,
+              Role: Number(values?.role),
+              status: values?.status,
             },
           },
         });
@@ -237,8 +236,6 @@ export default function NewUser({ isEdit, currentUser }) {
                   <RHFTextField name="lastName" label="Last Name" />
                   <RHFTextField name="email" label="Email Address" />
                   <RHFTextField name="password" label="Password" />
-                  <RHFTextField name="phoneNumber" label="Phone Number" />
-                  <RHFTextField name="userName" label="userName" />
                   <RHFSelect
                     // value={defaultValues.role}
                     label="Chức vụ"
@@ -269,6 +266,7 @@ export default function NewUser({ isEdit, currentUser }) {
                       </option>
                     ))}
                   </RHFSelect>
+                  <RHFTextField name="phoneNumber" label="Phone Number" />
                 </Box>
               ) : (
                 <Box
@@ -282,22 +280,36 @@ export default function NewUser({ isEdit, currentUser }) {
                   <RHFTextField name="firstName" label="First Name" />
                   <RHFTextField name="lastName" label="Last Name" />
                   <RHFTextField name="email" label="Email Address" />
-                  <RHFTextField name="userName" label="userName" />
                   <RHFTextField name="phoneNumber" label="Phone Number" />
-                  {/* <RHFSelect */}
-                  {/*  label="Trạng thái tài khoản" */}
-                  {/*  name="status" */}
-                  {/*  onChange={(event) => { */}
-                  {/*    setValue('status', event.target.value); */}
-                  {/*  }} */}
-                  {/*  InputLabelProps={{ shrink: true }} */}
-                  {/* > */}
-                  {/*  {Status.map((option) => ( */}
-                  {/*    <option key={option.value} value={option.value}> */}
-                  {/*      {option.label} */}
-                  {/*    </option> */}
-                  {/*  ))} */}
-                  {/* </RHFSelect> */}
+                  <RHFSelect
+                    label="Trạng thái tài khoản"
+                    name="status"
+                    onChange={(event) => {
+                      setValue('status', event.target.value);
+                    }}
+                    InputLabelProps={{ shrink: true }}
+                  >
+                    {Status.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </RHFSelect>
+                  <RHFSelect
+                    // value={defaultValues.role}
+                    label="Chức vụ"
+                    name="role"
+                    onChange={(event) => {
+                      setValue('role', event.target.value);
+                    }}
+                    InputLabelProps={{ shrink: true }}
+                  >
+                    {Roles.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </RHFSelect>
                 </Box>
               )}
               <Stack alignItems="flex-end" sx={{ mt: 3 }}>

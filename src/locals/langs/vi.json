@@ -21,6 +21,33 @@
     "list": "Danh Sách",
     "create": "Tạo mới"
   },
+  "create" : {
+    "researchCreate": "Tạo mới nghiên cứu",
+    "researchList": "Danh sách nghiên cứu",
+    "facilityCreate": "Tạo mới thiết bị",
+    "facilityList": "Danh sách thiết bị",
+    "createNewPost": "Tạo mới bài viết",
+    "postTitle": "Tiêu đề bài đăng",
+    "description": "Mô tả"
+  },
+
+  "card" : {
+    "publish" : "Công bố",
+    "waitForApproval": "Chờ duyệt",
+    "hidden" : "Ẩn",
+    "createNew" : "Tạo mới",
+    "noPostsYet": "Chưa có bài viết nào",
+    "Examine" : "Duyệt",
+    "Erase": "Xóa",
+    "Draft" : "Nháp",
+    "Edit information": "Sửa thông tin"
+  },
+  "message": {
+    "Successful deletion of news": "Xóa tin tức thành công",
+    "Deleting news failed. Cause" : "Xóa tin tức không thành công. Nguyên nhân",
+    "Successful status update!": "Cập nhật trạng thái thành công!",
+    "Status update failed!. Cause:": "Cập nhật trạng thái không thành công!. Nguyên nhân:"
+  },
   "user": {
     "pageList": "Danh Sách Người Dùng",
     "pageCreate": "Tạo Mới Người Dùng",
@@ -64,7 +91,9 @@
     }
   },
   "publication": {
-    "publication": "Dự án nghiên cứu"
+    "publication": "Dự án nghiên cứu",
+    "page1": "Chi Tiết Dự Án Nghiên Cứu",
+    "title": "Dự Án Nghiên Cứu"
   },
   "people": {
     "page": "Nhân sự",
