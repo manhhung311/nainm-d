@@ -76,7 +76,6 @@ export default function ResearchMain() {
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   console.log('_researchData', _researchData);
-  const x = 'https://www.youtube.com/watch?v=ufYmo2z_Hls';
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">

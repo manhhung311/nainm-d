@@ -21,6 +21,17 @@
     "list": "Danh Sách",
     "create": "Tạo mới"
   },
+  "create" : {
+    "researchCreate": "Tạo mới nghiên cứu",
+    "researchList": "Danh sách nghiên cứu",
+    "facilityCreate": "Tạo mới thiết bị",
+    "facilityList": "Danh sách thiết bị",
+    "createNewPost": "Tạo mới bài viết",
+    "postTitle": "Tiêu đề bài đăng",
+    "description": "Mô tả",
+    "content": "Nội dung",
+    "write": "Viết điều gì đó thật tuyệt vời..."
+  },
   "user": {
     "pageList": "Danh Sách Người Dùng",
     "pageCreate": "Tạo Mới Người Dùng",

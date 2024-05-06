@@ -21,6 +21,19 @@
     "list": "List",
     "create": "Create"
   },
+  "create" : {
+    "researchCreate": "Create new research",
+    "researchList": "List research",
+    "facilityCreate": "Create new facility",
+    "facilityList": "List facility",
+    "createNewPost": "Create a new post",
+    "postTitle": "Post Title",
+    "description": "Description",
+    "content": "Content"
+  },
+  "card" : {
+    "publish" : "Publish"
+  },
   "user": {
     "pageList": "User List",
     "pageCreate": "User Create",
