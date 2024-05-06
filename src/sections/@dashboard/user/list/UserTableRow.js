@@ -7,7 +7,9 @@ import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem } from '@mu
 import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
 import { TableMoreMenu } from '../../../../components/table';
-import { roleChangeNumber } from '../../../../constant/role';
+import { roleChangeNumber, RoleId } from '../../../../constant/role';
+import useAuth from '../../../../hooks/useAuth';
+import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
 
 UserTableRow.propTypes = {
@@ -19,6 +21,10 @@ UserTableRow.propTypes = {
 };
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
+  const { t } = useLocales();
+
+  const { user } = useAuth();
+
   const theme = useTheme();
 
   const { avartaURL, email, firstName, lastName, phoneNumber, role, status, type_user: typeUser, userName } = row;
@@ -41,44 +47,42 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
           {firstName} {lastName}
         </Typography>
       </TableCell>
-
       <TableCell align="left">{email}</TableCell>
-
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
         {roleChangeNumber(role)}
       </TableCell>
-
       <TableCell align="center">{phoneNumber}</TableCell>
-
       <TableCell align="right">
-        <TableMoreMenu
-          open={openMenu}
-          onOpen={handleOpenMenu}
-          onClose={handleCloseMenu}
-          actions={
-            <>
-              <MenuItem
-                onClick={() => {
-                  onDeleteRow();
-                  handleCloseMenu();
-                }}
-                sx={{ color: 'error.main' }}
-              >
-                <Iconify icon={'eva:trash-2-outline'} />
-                Delete
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  onEditRow();
-                  handleCloseMenu();
-                }}
-              >
-                <Iconify icon={'eva:edit-fill'} />
-                Edit
-              </MenuItem>
-            </>
-          }
-        />
+        {user?.role === RoleId.admin && (
+          <TableMoreMenu
+            open={openMenu}
+            onOpen={handleOpenMenu}
+            onClose={handleCloseMenu}
+            actions={
+              <>
+                <MenuItem
+                  onClick={() => {
+                    onDeleteRow();
+                    handleCloseMenu();
+                  }}
+                  sx={{ color: 'error.main' }}
+                >
+                  <Iconify icon={'eva:trash-2-outline'} />
+                  {t('user.Delete')}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    onEditRow();
+                    handleCloseMenu();
+                  }}
+                >
+                  <Iconify icon={'eva:edit-fill'} />
+                  {t('user.Edit')}
+                </MenuItem>
+              </>
+            }
+          />
+        )}
       </TableCell>
     </TableRow>
   );
