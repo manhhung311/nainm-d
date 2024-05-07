@@ -1,31 +1,27 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Stack, Typography } from '@mui/material';
+import { Box, Card, Grid, Stack } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { RHFUploadAvatar } from '../../../components/hook-form';
 import FormProvider from '../../../components/hook-form/FormProvider';
 import RHFTextField from '../../../components/hook-form/RHFTextField';
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import useAuth from '../../../hooks/useAuth';
+import { PATH_DASHBOARD, PATH_AUTH } from '../../../routes/paths';
 
 const CHANGE_PASSWORD = loader('../../../graphql/mutations/users/changePassword.graphql');
 
 // import TodoForm from 'src/pages/dashboard/user/TodoForm';
 ChangePassword.propTypes = {
   isEdit: PropTypes.bool,
-  currentUser: PropTypes.object,
-  id: PropTypes.number,
 };
 
-export default function ChangePassword({ isEdit, currentUser }) {
-  const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
-
+export default function ChangePassword({ isEdit }) {
   const UpdateUserSchema = Yup.object().shape({
     oldPassWord: Yup.string().required('oldPassWord is required'),
     newPassWord: Yup.string().required('newPassWord is required'),
@@ -37,9 +33,9 @@ export default function ChangePassword({ isEdit, currentUser }) {
     }),
     []
   );
-  const [createNewuser] = useMutation(CHANGE_PASSWORD);
+  const [createNewuser] = useMutation(CHANGE_PASSWORD); // kết nối api
+  const { user, logout } = useAuth();
 
-  const [uploadFile, setUploadFile] = useState(null);
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -50,7 +46,7 @@ export default function ChangePassword({ isEdit, currentUser }) {
   const {
     reset,
     handleSubmit,
-    setValue,
+
     formState: { isSubmitting },
   } = methods;
   const onSubmit = async (values) => {
@@ -69,8 +65,7 @@ export default function ChangePassword({ isEdit, currentUser }) {
           enqueueSnackbar('Cập nhật thông tin thành công ', {
             variant: 'success',
           });
-          reset();
-          navigate(PATH_DASHBOARD.user.list);
+          await logout();
         }
       }
     } catch (error) {
@@ -85,23 +80,7 @@ export default function ChangePassword({ isEdit, currentUser }) {
       }
     }
   };
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
 
-      if (file) {
-        setValue(
-          'avatarUrl',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-      setUploadFile(file);
-      setUpdateBtnEnable(true);
-    },
-    [setValue]
-  );
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3} sx={{ mt: '10px' }}>
