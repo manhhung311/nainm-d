@@ -21,7 +21,7 @@
     "list": "List",
     "create": "Create"
   },
-  "create" : {
+  "create": {
     "researchCreate": "Create new research",
     "researchList": "List research",
     "facilityCreate": "Create new facility",
@@ -31,20 +31,20 @@
     "description": "Description",
     "content": "Content"
   },
-  "card" : {
-    "publish" : "Publish",
+  "card": {
+    "publish": "Publish",
     "waitForApproval": "Wait for approval",
-    "hidden" : "Hidden",
-    "createNew" : "Create new",
+    "hidden": "Hidden",
+    "createNew": "Create new",
     "noPostsYet": "No posts yet",
-    "Examine" : "Examine",
+    "Examine": "Examine",
     "Erase": "Erase",
     "Draft": "Draft",
     "Edit information": "Edit information"
   },
   "message": {
     "Successful deletion of news": "Successful deletion of news",
-    "Deleting news failed. Cause" : "Deleting news failed. Cause",
+    "Deleting news failed. Cause": "Deleting news failed. Cause",
     "Successful status update!": "Successful status update!",
     "Status update failed!. Cause:": "Status update failed!. Cause:"
   },
@@ -64,6 +64,31 @@
     "Search": "Search User",
     "Dense": "Dense",
     "Delete": "Delete",
+    "Edit": "Edit",
+    "Admin": "Admin",
+    "Manager": "Manager",
+    "All": "All",
+    "ResetPassword": "Reset Password",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "EmailAddress": "Email Address",
+    "PassWord": "Password",
+    "PerSonNel": "personnel",
+    "CreateUser": "Create User",
+    "SaveChanges": "Save Changes",
+    "PROCCEFER": "Proccefer",
+    "Student": "Student",
+    "Active": "Active",
+    "Banned": "Banned",
+    "FirstNames": "FirstName is required",
+    "LastNames": "LastName is required",
+    "Emails": "Email is required",
+    "Passwords": "Password is required",
+    "RoleNumber": "Role Number is required",
+    "Created": "Created successfully",
+    "CreateFailed": "New creation failed",
+    "Updates": "Successfully updated",
+    "UpdatesFailed": "Editing personal information failed. Reason: ",
     "": ""
   },
   "list": "list",
