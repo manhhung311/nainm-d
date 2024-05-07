@@ -21,7 +21,7 @@ export default function People() {
   return (
     <Page title={t('people.page')}>
       <Box>
-        <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1 }}>
+        <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1,pt :5 }}>
           <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
             <Button
               sx={{ width: '100%', height: '100%', borderRadius: 0 }}

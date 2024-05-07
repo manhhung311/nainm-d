@@ -5,9 +5,10 @@ import Image from '../../components/Image';
 import { _studentData } from '../../_mock/_student';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
+  padding: theme.spacing(2),
+  borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(8, 5),
+    padding: theme.spacing(5),
   },
 }));
 // ----------------------------------------------------------------------

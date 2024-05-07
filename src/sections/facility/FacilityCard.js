@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { Box, Card, CardContent, Link, MenuItem, Stack, Typography } from '@mui/material';
 // routes
 import { useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
@@ -81,6 +81,10 @@ export function PostContent({
   const [openMenu, setOpenMenuActions] = useState(null);
   const navigate = useNavigate();
 
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
+
   const handleEditFacility = (id) => {
     navigate(PATH_DASHBOARD.facility.edit(id));
   };
@@ -92,7 +96,7 @@ export function PostContent({
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
-  const linkTo = PATH_DASHBOARD.facility.detail(id);
+  const linkTo = isDashboard ? PATH_DASHBOARD.facility.detail(id) : PATH_PAGE.facility.detail(id);
 
   const latestPostLarge = index === 0;
   const { t } = useLocales();

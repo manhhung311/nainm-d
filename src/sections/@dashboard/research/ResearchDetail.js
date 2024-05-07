@@ -23,11 +23,12 @@ const RootStyle = styled('div')(({ theme }) => ({
 const RESEARCH_DETAIL = loader('../../../graphql/queries/collections/DetailCollection.graphql');
 
 export default function ResearchDetail() {
-  const { id } = useParams();
+  // const { id } = useParams();
   const [post, setPost] = useState(null);
+  const [idResearch, setIdResearch] = useState(1);
   const { data: getPost } = useQuery(RESEARCH_DETAIL, {
     variables: {
-      id: Number(id),
+      id: Number(idResearch),
     },
   });
   useEffect(() => {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar } from '@mui/material';
+import { AppBar, Box, Stack, Toolbar } from '@mui/material';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
 import useResponsive from '../../../hooks/useResponsive';
@@ -14,7 +14,6 @@ import Logo from '../../../components/Logo';
 import Iconify from '../../../components/Iconify';
 import { IconButtonAnimate } from '../../../components/animate';
 //
-import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 
@@ -76,7 +75,6 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           </IconButtonAnimate>
         )}
 
-        <Searchbar />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>

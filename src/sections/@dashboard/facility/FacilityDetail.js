@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Container, Stack, Typography } from '@mui/material';
+import { Card, Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { useLocation, useParams } from 'react-router-dom'; // Import _mock
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
-import _mock from '../../../_mock';
 import useLocales from '../../../locals/useLocals';
 import useResponsive from '../../../hooks/useResponsive';
-import Image from '../../../components/Image';
 import Page from '../../../components/Page';
 import Markdown from '../../../components/Markdown';
 import { Language } from '../../../constant';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../../routes/paths';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 
-const RootStyle = styled('div')(({ theme }) => ({
-  padding: theme.spacing(5),
+const RootStyle = styled('div')(({ theme, isDashboard }) => ({
+  padding: theme.spacing(12,2),
   borderRadius: Number(theme.shape.borderRadius) * 2,
-  // paddingTop: theme.spacing(12),
-  // [theme.breakpoints.up('md')]: {
-  //   paddingTop: theme.spacing(16),
-  // },
+  [theme.breakpoints.up('md')]: {
+    padding: isDashboard ? theme.spacing(0) : theme.spacing(15,7),
+  },
 }));
 
 const FACILITY_DETAIL = loader('../../../graphql/queries/collections/DetailCollection.graphql');
@@ -43,22 +42,43 @@ export default function FacilityDetail() {
 
   const { t, currentLang } = useLocales();
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
 
   console.log('currentLang', currentLang);
   return (
     <Page title={t('facility.page1')}>
-      <RootStyle>
-        <Grid container spacing={1} alignItems="center" sx={{paddingBottom:5, px: 3}}>
+      <RootStyle isDashboard={isDashboard}>
+        <Grid container spacing={0} alignItems="center" sx={{ px: 3 }}>
           {isMobile ? (
             <>
               <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                 <Typography variant="h4"> {t('facility.title')}</Typography>
+              </Grid>
+              <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                <HeaderBreadcrumbs
+                  links={[
+                    { name: 'Home', href: '/' },
+                    { name: 'Danh sách', href: isDashboard ? PATH_DASHBOARD.facility.root : PATH_PAGE.facility.list },
+                    { name: post && post?.title },
+                  ]}
+                />
               </Grid>
             </>
           ) : (
             <>
               <Grid item xs={12}>
                 <Typography variant="h4">{t('facility.title')}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <HeaderBreadcrumbs
+                  links={[
+                    { name: 'Home', href: '/' },
+                    { name: 'Danh sách', href: isDashboard ? PATH_DASHBOARD.facility.root : PATH_PAGE.facility.list },
+                    { name: post && post?.title },
+                  ]}
+                />
               </Grid>
             </>
           )}
