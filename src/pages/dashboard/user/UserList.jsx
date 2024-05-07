@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -17,6 +17,7 @@ import {
   TableContainer,
   TablePagination,
   FormControlLabel,
+  Stack,
 } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useMutation, useQuery } from '@apollo/client';
@@ -26,6 +27,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import useTabs from '../../../hooks/useTabs';
 import useSettings from '../../../hooks/useSettings';
 import useTable, { getComparator, emptyRows } from '../../../hooks/useTable';
+import useAuth from '../../../hooks/useAuth';
 // _mock_
 import { _userList } from '../../../_mock';
 // components
@@ -38,24 +40,16 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
 import { useLocales } from '../../../locals';
-
+import { roleChangeNumber, RoleId } from '../../../constant/role';
 // ----------------------------------------------------------------------
 
 const ListUsers = loader('../../../graphql/queries/user/ListUsers.graphql');
-const STATUS_OPTIONS = ['all', 'active', 'banned'];
+// const updateRole = loader('../../../graphql/mutations/user/updateRole');
+// const editStatus = loader('../../../graphql/mutations/collections/editStatus');
 
-const ROLE_OPTIONS = [
-  'all',
-  'ux designer',
-  'full stack designer',
-  'backend developer',
-  'project manager',
-  'leader',
-  'ui designer',
-  'ui/ux designer',
-  'front end developer',
-  'full stack developer',
-];
+// const STATUS_OPTIONS = ['all', 'active', 'banned'];
+
+const ROLE_OPTIONS = ['All', 'Admin', 'Manager', 'User'];
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', align: 'left' },
@@ -87,6 +81,8 @@ export default function UserList() {
     onChangeRowsPerPage,
   } = useTable();
 
+  const { user } = useAuth();
+
   const { t } = useLocales();
 
   const { themeStretch } = useSettings();
@@ -97,7 +93,9 @@ export default function UserList() {
 
   const [filterName, setFilterName] = useState('');
 
-  const [filterRole, setFilterRole] = useState('all');
+  const [filterRole, setFilterRole] = useState('All');
+
+  console.log(filterRole);
 
   const { currentTab: filterStatus, onChangeTab: onChangeFilterStatus } = useTabs('all');
 
@@ -108,6 +106,20 @@ export default function UserList() {
       setTableData(allUsers.users);
     }
   }, [allUsers]);
+
+  // const [updateRole] = useMutation(updateRole, {
+  //   onCompleted: async (res) => {
+  //     if (res) {
+  //       return res;
+  //     }
+  //     return null;
+  //   },
+  //   refetchQueries: () => [
+  //     {
+  //       query: ListUsers,
+  //     },
+  //   ],
+  // });
 
   const handleFilterName = (filterName) => {
     setFilterName(filterName);
@@ -142,6 +154,8 @@ export default function UserList() {
     filterStatus,
   });
 
+  console.log('tableData', tableData);
+
   const denseHeight = dense ? 52 : 72;
 
   const isNotFound =
@@ -160,14 +174,18 @@ export default function UserList() {
             { name: t('user.List') },
           ]}
           action={
-            <Button
-              variant="contained"
-              component={RouterLink}
-              to={PATH_DASHBOARD.user.new}
-              startIcon={<Iconify icon={'eva:plus-fill'} />}
-            >
-              {t('user.pageNew')}
-            </Button>
+            <Stack>
+              {user?.role === RoleId.admin && (
+                <Button
+                  variant="contained"
+                  to={PATH_DASHBOARD.user.new}
+                  component={RouterLink}
+                  startIcon={<Iconify icon={'eva:plus-fill'} />}
+                >
+                  {t('user.pageNew')}
+                </Button>
+              )}
+            </Stack>
           }
         />
 
@@ -177,6 +195,7 @@ export default function UserList() {
             filterRole={filterRole}
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
+            changeLanguageFunc={t}
             optionsRole={ROLE_OPTIONS}
           />
 
@@ -253,7 +272,7 @@ export default function UserList() {
 
             <FormControlLabel
               control={<Switch checked={dense} onChange={onChangeDense} />}
-              label="Dense"
+              label={t('user.Dense')}
               sx={{ px: 3, py: 1.5, top: 0, position: { md: 'absolute' } }}
             />
           </Box>
@@ -282,8 +301,8 @@ function applySortFilter({ tableData, comparator, filterName, filterStatus, filt
     tableData = tableData.filter((item) => item.status === filterStatus);
   }
 
-  if (filterRole !== 'all') {
-    tableData = tableData.filter((item) => item.role === filterRole);
+  if (filterRole !== 'All') {
+    tableData = tableData.filter((item) => roleChangeNumber(item.role) === filterRole);
   }
 
   return tableData;

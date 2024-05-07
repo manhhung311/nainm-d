@@ -64,6 +64,10 @@
     "Search": "Search User",
     "Dense": "Dense",
     "Delete": "Delete",
+    "Edit" : "Edit",
+    "Admin" : "Admin",
+    "Manager" : "Manager",
+    "All" : "All",
     "": ""
   },
   "list": "list",

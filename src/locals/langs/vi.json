@@ -62,8 +62,12 @@
     "PhoneNumber": "Số Điện Thoại",
     "Status": "Trạng Thái",
     "Search": "Tìm Kiếm Người Dùng",
-    "Dense": "Thu Gọn",
+    "Dense": "Thu Nhỏ",
     "Delete": "Xóa",
+    "Edit" : "Chỉnh Sửa",
+    "Admin" : "Quản Trị Viên",
+    "Manager" : "Quản Lý Bài Viết",
+    "All" : "Tất Cả",
     "": ""
   },
   "list": "danh sách",
