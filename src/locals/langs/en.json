@@ -138,7 +138,21 @@
     "post2": "Post English",
     "tiep": "Continue",
     "trolai": "Back",
-    "post": "Post"
+    "post": "Post",
+    "oldPassWordr": "oldPassWord is required",
+    "newPassWordr": "newPassWord is required",
+    "oldPassWord": "Old PassWord ",
+    "newPassWord": "New PassWord ",
+    "info": "Personal Information",
+    "ChangePassword": "Change The Password ",
+    "Profile": "Profile",
+    "Home": "Home",
+    "Logout": "Logout",
+    "ContentF": "Are you sure you want to reset the password for this user?",
+    "Cancel": "Cancel",
+    "Agree": "Agree",
+    "MK": " Password has been successfully reset to: 'TeamLabServer'",
+    "ER": " An error occurred while trying to reset the password: Reason:"
   },
   "news": {
     "title": "News",

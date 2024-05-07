@@ -72,11 +72,11 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
       });
       console.log('data', data);
       closeDialog();
-      enqueueSnackbar('Mật khẩu đã được reset thành công về: "TeamLabServer" ', {
+      enqueueSnackbar(t('profile.MK'), {
         variant: 'success',
       });
     } catch (error) {
-      enqueueSnackbar(`Đã xảy ra lỗi khi cố gắng reset mật khẩu:. Nguyên nhân: ${error.message}`, {
+      enqueueSnackbar(`${t('profile.ER')} ${error.message}.`, {
         variant: 'error',
       });
     }
@@ -141,14 +141,12 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
         aria-describedby="reset-password-dialog-description"
       >
         <DialogContent>
-          <DialogContentText id="reset-password-dialog-description">
-            Bạn có chắc chắn muốn reset mật khẩu cho người dùng này không?
-          </DialogContentText>
+          <DialogContentText id="reset-password-dialog-description">{t('profile.ContentF')}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog}>Hủy</Button>
+          <Button onClick={closeDialog}> {t('profile.Cancel')}</Button>
           <Button onClick={handleResetPassword} autoFocus>
-            Đồng ý
+            {t('profile.Agree')}
           </Button>
         </DialogActions>
       </Dialog>

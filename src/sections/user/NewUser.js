@@ -121,7 +121,6 @@ export default function NewUser({ isEdit, currentUser }) {
               email: values?.email,
               password: values?.password,
               role: Number(values?.role),
-              userName: values?.userName,
               type_user: Number(values?.typeUser),
               avartaURL: uploadFile,
               phoneNumber: values?.phoneNumber,

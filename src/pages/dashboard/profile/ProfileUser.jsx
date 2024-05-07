@@ -13,6 +13,7 @@ import { RHFUploadAvatar } from '../../../components/hook-form';
 import FormProvider from '../../../components/hook-form/FormProvider';
 import RHFTextField from '../../../components/hook-form/RHFTextField';
 import useAuth from '../../../hooks/useAuth';
+import useLocales from '../../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
 const PROFILE_USER = loader('../../../graphql/mutations/users/updUserForUser.graphql');
@@ -24,13 +25,14 @@ ProfileUser.propTypes = {
 };
 
 export default function ProfileUser({ isEdit, currentUser }) {
+  const { t } = useLocales();
   const { user } = useAuth();
   console.log('user', user);
   const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
 
   const UpdateUserSchema = Yup.object().shape({
-    firstName: Yup.string().required('FirstName is required'),
-    lastName: Yup.string().required('LastName is required'),
+    firstName: Yup.string().required(t('user.FirstNames')),
+    lastName: Yup.string().required(t('user.LastNames')),
   });
   const defaultValues = useMemo(
     () => ({
@@ -72,7 +74,7 @@ export default function ProfileUser({ isEdit, currentUser }) {
         });
 
         if (!response.errors) {
-          enqueueSnackbar('Cập nhật thông tin thành công ', {
+          enqueueSnackbar(t('user.Created'), {
             variant: 'success',
           });
           reset();
@@ -85,7 +87,7 @@ export default function ProfileUser({ isEdit, currentUser }) {
           variant: 'error',
         });
       } else {
-        enqueueSnackbar(`Sửa thông tin cá nhân không thành công. Nguyên nhân: ${error.message}`, {
+        enqueueSnackbar(`${t('user.UpdatesFailed')} ${error.message}.`, {
           variant: 'error',
         });
       }
@@ -140,37 +142,23 @@ export default function ProfileUser({ isEdit, currentUser }) {
         </Grid>
         <Grid item xs={12} md={7}>
           <Card sx={{ py: 10, px: 3, height: '85%' }}>
-            {!isEdit ? (
-              <Box
-                sx={{
-                  display: 'grid',
-                  columnGap: 2,
-                  rowGap: 3,
-                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-                }}
-              >
-                <RHFTextField name="firstName" label="First Name" />
-                <RHFTextField name="lastName" label="Last Name" />
+            <Box
+              sx={{
+                display: 'grid',
+                columnGap: 2,
+                rowGap: 3,
+                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+              }}
+            >
+              <RHFTextField name="firstName" label={t('user.FirstName')} />
+              <RHFTextField name="lastName" label={t('user.LastName')} />
 
-                <RHFTextField name="phoneNumber" label="Phone Number" />
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: 'grid',
-                  columnGap: 2,
-                  rowGap: 3,
-                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-                }}
-              >
-                <RHFTextField name="firstName" label="First Name" />
-                <RHFTextField name="lastName" label="Last Name" />
-                <RHFTextField name="phoneNumber" label="Phone Number" />
-              </Box>
-            )}
+              <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
+            </Box>
+
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {'Save Changes'}
+                {t('user.SaveChanges')}
               </LoadingButton>
             </Stack>
           </Card>

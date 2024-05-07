@@ -136,7 +136,21 @@
     "post2": "Tạo Hồ Sơ Tiếng Anh",
     "tiep": "Tiếp tục",
     "trolai": "Trở lại",
-    "post": "Đăng"
+    "post": "Đăng",
+    "oldPassWordr": "Mật Khẩu Cũ Là Bắt Buộc",
+    "newPassWordr": "Mật Khẩu Mới Là Bắt Buộc",
+    "oldPassWord": " Mật Khẩu Cũ ",
+    "newPassWord": "Mật Khẩu Mới ",
+    "info": "Thông tin cá nhân",
+    "ChangePassword": "Thay đổi mật khẩu ",
+    "Profile": "Hồ Sơ",
+    "Home": "Trang Chủ",
+    "Logout": "Đăng xuất",
+    "ContentF": "Bạn có chắc chắn muốn reset mật khẩu cho người dùng này không?",
+    "Cancel": "Hủy",
+    "Agree": "Đồng ý",
+    "MK": " Mật khẩu đã được reset thành công về: 'TeamLabServer'",
+    "ER": "Đã xảy ra lỗi khi cố gắng reset mật khẩu: Nguyên nhân:"
   },
   "news": {
     "title": "Tin Tức",

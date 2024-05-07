@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 import FormProvider from '../../../components/hook-form/FormProvider';
 import RHFTextField from '../../../components/hook-form/RHFTextField';
 import useAuth from '../../../hooks/useAuth';
-import { PATH_DASHBOARD, PATH_AUTH } from '../../../routes/paths';
+import useLocales from '../../../locals/useLocals';
 
 const CHANGE_PASSWORD = loader('../../../graphql/mutations/users/changePassword.graphql');
 
@@ -22,9 +22,10 @@ ChangePassword.propTypes = {
 };
 
 export default function ChangePassword({ isEdit }) {
+  const { t } = useLocales();
   const UpdateUserSchema = Yup.object().shape({
-    oldPassWord: Yup.string().required('oldPassWord is required'),
-    newPassWord: Yup.string().required('newPassWord is required'),
+    oldPassWord: Yup.string().required(t('profile.oldPassWordr')),
+    newPassWord: Yup.string().required(t('profile.newPassWordr')),
   });
   const defaultValues = useMemo(
     () => ({
@@ -62,7 +63,7 @@ export default function ChangePassword({ isEdit }) {
         });
 
         if (!response.errors) {
-          enqueueSnackbar('Cập nhật thông tin thành công ', {
+          enqueueSnackbar(t('user.Created'), {
             variant: 'success',
           });
           await logout();
@@ -74,7 +75,7 @@ export default function ChangePassword({ isEdit }) {
           variant: 'error',
         });
       } else {
-        enqueueSnackbar(`Sửa thông tin cá nhân không thành công. Nguyên nhân: ${error.message}`, {
+        enqueueSnackbar(`${t('user.UpdatesFailed')} ${error.message}.`, {
           variant: 'error',
         });
       }
@@ -97,8 +98,8 @@ export default function ChangePassword({ isEdit }) {
                   gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
                 }}
               >
-                <RHFTextField name="oldPassWord" label="Mật khẩu cũ" />
-                <RHFTextField name="newPassWord" label="Mật khẩu mới" />
+                <RHFTextField name="oldPassWord" label={t('profile.oldPassWord')} />
+                <RHFTextField name="newPassWord" label={t('profile.newPassWord')} />
               </Box>
             ) : (
               <Box
@@ -115,7 +116,7 @@ export default function ChangePassword({ isEdit }) {
             )}
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {'Save Changes'}
+                {t('user.SaveChanges')}
               </LoadingButton>
             </Stack>
           </Card>
