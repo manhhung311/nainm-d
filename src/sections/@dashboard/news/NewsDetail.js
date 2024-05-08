@@ -75,7 +75,7 @@ export default function NewsDetail() {
                   <Typography variant="h6" sx={{ mb: 5 }}>
                     {post.description}
                   </Typography>
-                  <Markdown children={post.collection_Vietnamese} />
+                  <Markdown children={post?.collection_Vietnamese} />
                 </Box>
               </Card>
             )}
@@ -93,7 +93,7 @@ export default function NewsDetail() {
                   <Typography variant="h6" sx={{ mb: 5 }}>
                     {post.description_english}
                   </Typography>
-                  <Markdown children={post.collection_Vietnamese} />
+                  <Markdown children={post?.collection_English} />
                 </Box>
               </Card>
             )}
