@@ -107,20 +107,6 @@ export default function UserList() {
     }
   }, [allUsers]);
 
-  // const [updateRole] = useMutation(updateRole, {
-  //   onCompleted: async (res) => {
-  //     if (res) {
-  //       return res;
-  //     }
-  //     return null;
-  //   },
-  //   refetchQueries: () => [
-  //     {
-  //       query: ListUsers,
-  //     },
-  //   ],
-  // });
-
   const handleFilterName = (filterName) => {
     setFilterName(filterName);
     setPage(0);
