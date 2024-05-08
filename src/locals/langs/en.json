@@ -68,6 +68,7 @@
     "Admin" : "Admin",
     "Manager" : "Manager",
     "All" : "All",
+    "online" : "Online",
     "": ""
   },
   "list": "list",

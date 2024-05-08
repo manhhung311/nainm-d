@@ -13,6 +13,7 @@ import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
 
 UserTableRow.propTypes = {
+  changeLanguageFunc: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
   onEditRow: PropTypes.func,
@@ -20,7 +21,7 @@ UserTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
 };
 
-export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
+export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow , changeLanguageFunc }) {
   const { t } = useLocales();
 
   const { user } = useAuth();
@@ -49,7 +50,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
       </TableCell>
       <TableCell align="left">{email}</TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-        {roleChangeNumber(role)}
+        {t(`user.${roleChangeNumber(role)}`)}
       </TableCell>
       <TableCell align="center">{phoneNumber}</TableCell>
       <TableCell align="right">

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="971e5592-b43d-4d77-80b4-d8298a9ab662" name="Changes" comment="user/list/chien">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/locals/langs/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/locals/langs/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/locals/langs/vi.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/locals/langs/vi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/dashboard/user/UserList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/dashboard/user/UserList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/@dashboard/user/list/UserTableRow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/@dashboard/user/list/UserTableRow.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/@dashboard/user/list/UserTableToolbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/@dashboard/user/list/UserTableToolbar.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "nguyenchien0911"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Lap-system-manager/lap-sys-client.git",
+    "accountId": "7c36be32-71db-410e-87e4-bcd7837eb5d4"
+  }
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2g4rgWapCliz1My7DZKtybGCi8T" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/update-language-user-chien",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\nguye\\OneDrive\\Documents\\lap-sys-client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="971e5592-b43d-4d77-80b4-d8298a9ab662" name="Changes" comment="" />
+      <created>1714967805208</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714967805208</updated>
+      <workItem from="1714967807756" duration="1846000" />
+      <workItem from="1714969728625" duration="181000" />
+      <workItem from="1714969933492" duration="292000" />
+      <workItem from="1714970742610" duration="932000" />
+      <workItem from="1714971941213" duration="885000" />
+      <workItem from="1714973566843" duration="222000" />
+      <workItem from="1715133737829" duration="872000" />
+      <workItem from="1715136442499" duration="133000" />
+      <workItem from="1715154781838" duration="619000" />
+      <workItem from="1715155427892" duration="306000" />
+      <workItem from="1715155767162" duration="126000" />
+      <workItem from="1715155926742" duration="122000" />
+      <workItem from="1715156084302" duration="713000" />
+      <workItem from="1715156820779" duration="2708000" />
+    </task>
+    <task id="LOCAL-00001" summary="user/list">
+      <option name="closed" value="true" />
+      <created>1714970181068</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714970181068</updated>
+    </task>
+    <task id="LOCAL-00002" summary="user/list/chien">
+      <option name="closed" value="true" />
+      <created>1714972070396</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714972070396</updated>
+    </task>
+    <task id="LOCAL-00003" summary="user/list/chien">
+      <option name="closed" value="true" />
+      <created>1714972251473</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714972251473</updated>
+    </task>
+    <task id="LOCAL-00004" summary="user/list/chien">
+      <option name="closed" value="true" />
+      <created>1714972422668</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714972422668</updated>
+    </task>
+    <task id="LOCAL-00005" summary="user/list/chien">
+      <option name="closed" value="true" />
+      <created>1714972554826</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714972554826</updated>
+    </task>
+    <task id="LOCAL-00006" summary="user/list/chien">
+      <option name="closed" value="true" />
+      <created>1714972684758</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1714972684758</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="user/list" />
+    <MESSAGE value="user/list/chien" />
+    <option name="LAST_COMMIT_MESSAGE" value="user/list/chien" />
+  </component>
+</project>
