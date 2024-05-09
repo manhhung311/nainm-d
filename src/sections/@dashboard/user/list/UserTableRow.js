@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Avatar, Checkbox, TableRow, TableCell, Typography, MenuItem } from '@mui/material';
+import { Avatar, TableRow, TableCell, Typography, MenuItem } from '@mui/material';
 // components
-import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
 import { TableMoreMenu } from '../../../../components/table';
-import { roleChangeNumber, RoleId } from '../../../../constant/role';
+import { roleChangeNumber, RoleId } from '../../../../constant';
 import useAuth from '../../../../hooks/useAuth';
 import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
@@ -19,16 +17,16 @@ UserTableRow.propTypes = {
   onEditRow: PropTypes.func,
   onSelectRow: PropTypes.func,
   onDeleteRow: PropTypes.func,
+  onActiveStatus: PropTypes.func,
+  onLockStatus: PropTypes.func,
 };
 
-export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow , changeLanguageFunc }) {
+export default function UserTableRow({ row, selected, onEditRow, onActiveStatus, onLockStatus }) {
   const { t } = useLocales();
 
   const { user } = useAuth();
 
-  const theme = useTheme();
-
-  const { avartaURL, email, firstName, lastName, phoneNumber, role, status, type_user: typeUser, userName } = row;
+  const { avartaURL, email, firstName, lastName, phoneNumber, role, status, userName } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -52,7 +50,8 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
         {t(`user.${roleChangeNumber(role)}`)}
       </TableCell>
-      <TableCell align="center">{phoneNumber}</TableCell>
+      <TableCell align="left">{phoneNumber}</TableCell>
+      <TableCell align="left">{status ? t('user.StatusActive') : t('user.StatusLock')}</TableCell>
       <TableCell align="right">
         {user?.role === RoleId.admin && (
           <TableMoreMenu
@@ -61,16 +60,30 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
             onClose={handleCloseMenu}
             actions={
               <>
-                <MenuItem
-                  onClick={() => {
-                    onDeleteRow();
-                    handleCloseMenu();
-                  }}
-                  sx={{ color: 'error.main' }}
-                >
-                  <Iconify icon={'eva:trash-2-outline'} />
-                  {t('user.Delete')}
-                </MenuItem>
+                {status === true ? (
+                  <MenuItem
+                    onClick={() => {
+                      onLockStatus();
+                      handleCloseMenu();
+                    }}
+                    sx={{ color: 'error.main' }}
+                  >
+                    <Iconify icon={'mdi:user-lock-outline'} />
+                    {t('user.LockAccount')}
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    onClick={() => {
+                      onActiveStatus();
+                      handleCloseMenu();
+                    }}
+                    sx={{ color: 'success.main' }}
+                  >
+                    <Iconify icon={'mdi:user-lock-open-outline'} />
+                    {t('user.ActiveAccount')}
+                  </MenuItem>
+                )}
+
                 <MenuItem
                   onClick={() => {
                     onEditRow();

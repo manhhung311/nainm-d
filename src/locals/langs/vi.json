@@ -67,6 +67,8 @@
     "Email": "Email",
     "PhoneNumber": "Số Điện Thoại",
     "Status": "Trạng Thái",
+    "StatusActive": "Đang hoạt động",
+    "StatusLock": "Đang khóa",
     "Search": "Tìm Kiếm Người Dùng",
     "Dense": "Thu Nhỏ",
     "Delete": "Xóa",
@@ -75,6 +77,8 @@
     "Manager" : "Quản Lý Bài Viết",
     "All" : "Tất Cả",
     "online" : "Đang hoạt động",
+    "LockAccount": "Khóa",
+    "ActiveAccount": "Mở",
     "": ""
   },
   "list": "danh sách",

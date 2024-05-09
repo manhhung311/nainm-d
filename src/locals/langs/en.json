@@ -67,6 +67,8 @@
     "Email": "Email",
     "PhoneNumber": "Phone Number",
     "Status": "Status",
+    "StatusActive": "Active",
+    "StatusLock": "Lock",
     "Search": "Search User",
     "Dense": "Dense",
     "Delete": "Delete",
@@ -75,6 +77,8 @@
     "Manager" : "Manager",
     "All" : "All",
     "online" : "Online",
+    "LockAccount": "Lock",
+    "ActiveAccount": "Active",
     "": ""
   },
   "list": "list",
