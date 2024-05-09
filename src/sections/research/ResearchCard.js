@@ -92,7 +92,7 @@ export function PostContent({
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
-  const linkTo = PATH_DASHBOARD.research.edit(id);
+  const linkTo = PATH_DASHBOARD.research.detail(id);
 
   const latestPostLarge = index === 0;
   const { t } = useLocales();

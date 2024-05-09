@@ -13,7 +13,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
-import FacilityPostCard from './FacilityCard';
+import FacilityCard from './FacilityCard';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -22,6 +22,7 @@ const RootStyle = styled('div')(({ theme }) => ({
     padding: theme.spacing(5),
   },
 }));
+
 const TABS = [
   {
     value: 1,
@@ -39,6 +40,7 @@ const TABS = [
     color: 'default',
   },
 ];
+
 const LIST_ALL_FACILITY = loader('../../graphql/queries/collections/ListCollections.graphql');
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
@@ -62,6 +64,7 @@ export default function FacilityMain() {
       },
     },
   });
+
   useEffect(() => {
     if (getAllPosts) {
       setFacility(getAllPosts?.collections);
@@ -128,71 +131,65 @@ export default function FacilityMain() {
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
-          <>
-            <Grid item xs={7}>
-              <Typography variant="h4">{t('facility.title')}</Typography>
-            </Grid>
-            <Grid item xs={5}>
-              <Stack>
-                {user && (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.facility.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    {t('navItem.create')}
-                  </Button>
-                )}
-              </Stack>
-            </Grid>
-          </>
+          <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="h4"> {t('facility.title')}</Typography>
+              {user && (
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to={PATH_DASHBOARD.facility.new}
+                  startIcon={<Iconify icon={'eva:plus-fill'} />}
+                >
+                  {t('navItem.create')}
+                </Button>
+              )}
+            </Stack>
+          </Grid>
         ) : (
-          <>
-            <Grid item xs={10}>
-              <Typography variant="h4">{t('facility.title')}</Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Stack>
-                {user && (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.facility.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    {t('navItem.create')}
-                  </Button>
-                )}
-              </Stack>
-            </Grid>
-          </>
+          <Grid item xs={12}>
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="h4"> {t('facility.title')}</Typography>
+              {user && (
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to={PATH_DASHBOARD.facility.new}
+                  startIcon={<Iconify icon={'eva:plus-fill'} />}
+                >
+                  {t('navItem.create')}
+                </Button>
+              )}
+            </Stack>
+          </Grid>
         )}
       </Grid>
 
-      <Tabs
-        allowScrollButtonsMobile
-        variant="scrollable"
-        scrollButtons="auto"
-        value={filterStatus}
-        onChange={onFilterStatus}
-        sx={{ mb: { xs: 3, md: 5 } }}
-      >
-        {TABS.map((tab, idx) => (
-          <Tab
-            disableRipple
-            key={idx + 1}
-            value={tab.value}
-            label={
-              <Stack spacing={1} direction="row" alignItems="center">
-                <div>{t(`card.${tab.label}`)}</div>
-              </Stack>
-            }
-          />
-        ))}
-      </Tabs>
+      {user && (
+        <Tabs
+          allowScrollButtonsMobile
+          variant="scrollable"
+          scrollButtons="auto"
+          value={filterStatus}
+          onChange={onFilterStatus}
+          sx={{ mb: { xs: 3, md: 5 } }}
+        >
+          {TABS.map((tab, idx) => (
+            <Tab
+              disableRipple
+              key={idx + 1}
+              value={tab.value}
+              label={
+                <Stack spacing={1} direction="row" alignItems="center">
+                  <div>{t(`card.${tab.label}`)}</div>
+                </Stack>
+              }
+            />
+          ))}
+        </Tabs>
+      )}
 
-      {dataFiltered.length === 0 && (
+      {dataFiltered.length < 1 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
             {t('card.noPostsYet')}
@@ -201,10 +198,10 @@ export default function FacilityMain() {
       )}
 
       <Grid container spacing={3}>
-        {dataFiltered.length > 0 &&
+        {dataFiltered?.length > 0 &&
           dataFiltered.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
-              <FacilityPostCard
+              <FacilityCard
                 post={post}
                 index={index}
                 handleDeleteFacility={handleDeleteCollection}

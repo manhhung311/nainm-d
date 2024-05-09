@@ -137,12 +137,9 @@ export default function ResearchMain() {
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
           <>
-            <Grid item xs={7}>
-              <Typography variant="h4">{t('research.title')}</Typography>
-            </Grid>
-
-            <Grid item xs={5}>
-              <Stack>
+            <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography variant="h4"> {t('research.title')}</Typography>
                 {user && (
                   <Button
                     variant="contained"
@@ -167,11 +164,9 @@ export default function ResearchMain() {
           </>
         ) : (
           <>
-            <Grid item xs={10}>
-              <Typography variant="h4">{t('research.title')}</Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Stack>
+            <Grid item xs={12}>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography variant="h4"> {t('research.title')}</Typography>
                 {user && (
                   <Button
                     variant="contained"
@@ -197,27 +192,29 @@ export default function ResearchMain() {
         )}
       </Grid>
 
-      <Tabs
-        allowScrollButtonsMobile
-        variant="scrollable"
-        scrollButtons="auto"
-        value={filterStatus}
-        onChange={onFilterStatus}
-        sx={{ mb: { xs: 3, md: 5 } }}
-      >
-        {TABS.map((tab, idx) => (
-          <Tab
-            disableRipple
-            key={idx + 1}
-            value={tab.value}
-            label={
-              <Stack spacing={1} direction="row" alignItems="center">
-                <div>{t(`card.${tab.label}`)}</div>
-              </Stack>
-            }
-          />
-        ))}
-      </Tabs>
+      {user && (
+        <Tabs
+          allowScrollButtonsMobile
+          variant="scrollable"
+          scrollButtons="auto"
+          value={filterStatus}
+          onChange={onFilterStatus}
+          sx={{ mb: { xs: 3, md: 5 } }}
+        >
+          {TABS.map((tab, idx) => (
+            <Tab
+              disableRipple
+              key={idx + 1}
+              value={tab.value}
+              label={
+                <Stack spacing={1} direction="row" alignItems="center">
+                  <div>{t(`card.${tab.label}`)}</div>
+                </Stack>
+              }
+            />
+          ))}
+        </Tabs>
+      )}
       {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">

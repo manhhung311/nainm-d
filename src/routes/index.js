@@ -78,6 +78,7 @@ export default function Router() {
             { path: 'list', element: <ResearchList /> },
             { path: 'new', element: <ResearchCreate /> },
             { path: ':id/edit', element: <ResearchCreate /> },
+            { path: ':id/detail', element: <ResearchDetail/> }
           ],
         },
         {
@@ -174,6 +175,7 @@ const PublicationCreate = Loadable(lazy(() => import('../pages/dashboard/publica
 
 const ResearchList = Loadable(lazy(() => import('../pages/dashboard/research/ResearchList')));
 const ResearchCreate = Loadable(lazy(() => import('../pages/dashboard/research/ResearchCreate')));
+const ResearchDetail = Loadable(lazy(() => import('../sections/@dashboard/research/ResearchDetail')));
 
 const FacilityList = Loadable(lazy(() => import('../pages/dashboard/facility/FacilityList')));
 const FacilityCreate = Loadable(lazy(() => import('../pages/dashboard/facility/FacilityCreate')));

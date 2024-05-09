@@ -48,7 +48,7 @@ export default function NewsDetail() {
   return (
     <Page title={t('news.page1')}>
       <RootStyle>
-        <Grid container spacing={1} alignItems="center">
+        <Grid container spacing={1} alignItems="center" sx={{paddingBottom:5, px: 3}}>
           {isMobile ? (
             <>
               <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>

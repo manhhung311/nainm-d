@@ -3,7 +3,7 @@ import { Card, Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { useLocation, useParams } from 'react-router-dom'; // Import _mock
+import { useParams } from 'react-router-dom'; // Import _mock
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import useLocales from '../../../locals/useLocals';
@@ -11,25 +11,24 @@ import useResponsive from '../../../hooks/useResponsive';
 import Page from '../../../components/Page';
 import Markdown from '../../../components/Markdown';
 import { Language } from '../../../constant';
-import { PATH_DASHBOARD, PATH_PAGE } from '../../../routes/paths';
-import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 
-const RootStyle = styled('div')(({ theme, isDashboard }) => ({
-  padding: theme.spacing(12,2),
+const RootStyle = styled('div')(({ theme }) => ({
+  padding: theme.spacing(2),
   borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
-    padding: isDashboard ? theme.spacing(0) : theme.spacing(15,7),
+    padding: theme.spacing(5),
   },
 }));
 
-const FACILITY_DETAIL = loader('../../../graphql/queries/collections/DetailCollection.graphql');
+const RESEARCH_DETAIL = loader('../../../graphql/queries/collections/DetailCollection.graphql');
 
-export default function FacilityDetail() {
-  const { id } = useParams();
+export default function ResearchDetail() {
+  // const { id } = useParams();
   const [post, setPost] = useState(null);
-  const { data: getPost } = useQuery(FACILITY_DETAIL, {
+  const [idResearch, setIdResearch] = useState(1);
+  const { data: getPost } = useQuery(RESEARCH_DETAIL, {
     variables: {
-      id: Number(id),
+      id: Number(idResearch),
     },
   });
   useEffect(() => {
@@ -42,43 +41,22 @@ export default function FacilityDetail() {
 
   const { t, currentLang } = useLocales();
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
-  const { pathname } = useLocation();
-
-  const isDashboard = pathname.includes('dashboard');
 
   console.log('currentLang', currentLang);
   return (
-    <Page title={t('facility.page1')}>
-      <RootStyle isDashboard={isDashboard}>
-        <Grid container spacing={0} alignItems="center" sx={{ px: 3 }}>
+    <Page title={t('research.page1')}>
+      <RootStyle>
+        <Grid container spacing={1} alignItems="center" sx={{paddingBottom:5, px: 3}}>
           {isMobile ? (
             <>
               <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                <Typography variant="h4"> {t('facility.title')}</Typography>
-              </Grid>
-              <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                <HeaderBreadcrumbs
-                  links={[
-                    { name: 'Home', href: '/' },
-                    { name: 'Danh sách', href: isDashboard ? PATH_DASHBOARD.facility.root : PATH_PAGE.facility.list },
-                    { name: post && post?.title },
-                  ]}
-                />
+                <Typography variant="h4"> {t('research.title')}</Typography>
               </Grid>
             </>
           ) : (
             <>
               <Grid item xs={12}>
-                <Typography variant="h4">{t('facility.title')}</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <HeaderBreadcrumbs
-                  links={[
-                    { name: 'Home', href: '/' },
-                    { name: 'Danh sách', href: isDashboard ? PATH_DASHBOARD.facility.root : PATH_PAGE.facility.list },
-                    { name: post && post?.title },
-                  ]}
-                />
+                <Typography variant="h4">{t('research.title')}</Typography>
               </Grid>
             </>
           )}

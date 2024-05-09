@@ -12,9 +12,10 @@ import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
+  padding: theme.spacing(2),
+  borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(8, 5),
+    padding: theme.spacing(5),
   },
 }));
 // ----------------------------------------------------------------------
@@ -37,7 +38,7 @@ export default function Proccefer() {
   return (
     <RootStyle>
       <Box>
-        <Grid container>
+        <Grid container spacing={5}>
           <Grid item xs={12} md={3}>
             <Box>
               <Image
@@ -193,7 +194,7 @@ export default function Proccefer() {
           )}
         </Grid>
         {_peopleData.map((item, index) => (
-          <Box sx={{ pt: 4, pr: { xs: 0, md: 6 } }} key={index}>
+          <Box sx={{ pt: 4 }} key={index}>
             <ListItem>
               <ListItemIcon>
                 <FitbitSharpIcon sx={{ mr: 1, color: '#00FA9A' }} />
