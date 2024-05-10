@@ -8,6 +8,7 @@ query getCurrentUser {
     email
     type_user
     avartaURL
+    fullName
     status
     createdAt
     updatedAt
