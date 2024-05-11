@@ -14,7 +14,7 @@ import { loader } from 'graphql.macro';
 import { useSnackbar } from 'notistack';
 import Iconify from '../../../../components/Iconify';
 import { TableMoreMenu } from '../../../../components/table';
-import { roleChangeNumber, RoleId } from '../../../../constant/role';
+import { roleChangeNumber, RoleId } from '../../../../constant';
 import useAuth from '../../../../hooks/useAuth';
 import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
@@ -22,18 +22,21 @@ import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
 const RESET_PASSWORD = loader('../../../../graphql/mutations/users/updUserForAdmin.graphql');
 UserTableRow.propTypes = {
+  changeLanguageFunc: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
   onEditRow: PropTypes.func,
   onDeleteRow: PropTypes.func,
+  onActiveStatus: PropTypes.func,
+  onLockStatus: PropTypes.func,
 };
 
-export default function UserTableRow({ row, selected, onEditRow, onDeleteRow }) {
+export default function UserTableRow({ row, selected, onEditRow, onActiveStatus, onLockStatus }) {
   const { t } = useLocales();
 
   const { user } = useAuth();
 
-  const { avartaURL, email, firstName, lastName, phoneNumber, role, type_user: userName } = row;
+  const { avartaURL, email, firstName, lastName, phoneNumber, role, status, userName } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -87,9 +90,10 @@ export default function UserTableRow({ row, selected, onEditRow, onDeleteRow }) 
       </TableCell>
       <TableCell align="left">{email}</TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-        {roleChangeNumber(role)}
+        {t(`user.${roleChangeNumber(role)}`)}
       </TableCell>
-      <TableCell align="center">{phoneNumber}</TableCell>
+      <TableCell align="left">{phoneNumber}</TableCell>
+      <TableCell align="left">{status ? t('user.StatusActive') : t('user.StatusLock')}</TableCell>
       <TableCell align="right">
         {user?.role === RoleId.admin && (
           <TableMoreMenu
@@ -98,16 +102,30 @@ export default function UserTableRow({ row, selected, onEditRow, onDeleteRow }) 
             onClose={handleCloseMenu}
             actions={
               <>
-                <MenuItem
-                  onClick={() => {
-                    onDeleteRow();
-                    handleCloseMenu();
-                  }}
-                  sx={{ color: 'error.main' }}
-                >
-                  <Iconify icon={'eva:trash-2-outline'} />
-                  {t('user.Delete')}
-                </MenuItem>
+                {status === true ? (
+                  <MenuItem
+                    onClick={() => {
+                      onLockStatus();
+                      handleCloseMenu();
+                    }}
+                    sx={{ color: 'error.main' }}
+                  >
+                    <Iconify icon={'mdi:user-lock-outline'} />
+                    {t('user.LockAccount')}
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    onClick={() => {
+                      onActiveStatus();
+                      handleCloseMenu();
+                    }}
+                    sx={{ color: 'success.main' }}
+                  >
+                    <Iconify icon={'mdi:user-lock-open-outline'} />
+                    {t('user.ActiveAccount')}
+                  </MenuItem>
+                )}
+
                 <MenuItem
                   onClick={() => {
                     onEditRow();

@@ -12,6 +12,7 @@ type Collection {
     description: String
     description_english: String
     id: ID!
+    imgURL: String
     status_collection: Int!
     title: String
     title_english: String
@@ -52,6 +53,7 @@ type User {
     createdAt: String!
     email: String!
     firstName: String
+    fullName: String!
     id: Int!
     lastName: String
     phoneNumber: String
@@ -86,6 +88,8 @@ input ChangePassWord {
 }
 
 input Collections_find {
+    limit: Int!
+    page: Int!
     stand_out: Boolean
     status_collection: Int!
     type_collection: Int!
@@ -100,7 +104,6 @@ input CreateUserInput {
     phoneNumber: String
     role: Int!
     type_user: Int!
-    userName: String!
 }
 
 input Create_collection {
@@ -108,6 +111,7 @@ input Create_collection {
     collection_Vietnamese: String
     description: String
     description_english: String
+    imgURL: Upload
     title: String
     title_english: String
     type_collection: Int!
@@ -119,6 +123,7 @@ input Edit_collection {
     description: String
     description_english: String
     id: ID!
+    imgURL: Upload
     stand_out: Boolean
     status: Int
     title: String

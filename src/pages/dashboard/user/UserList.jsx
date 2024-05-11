@@ -1,35 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
   Box,
-  Tab,
-  Tabs,
-  Card,
-  Table,
-  Switch,
   Button,
-  Tooltip,
-  Divider,
-  TableBody,
+  Card,
   Container,
+  FormControlLabel,
   IconButton,
+  Stack,
+  Switch,
+  Table,
+  TableBody,
   TableContainer,
   TablePagination,
-  FormControlLabel,
-  Stack,
+  Tooltip,
 } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useMutation, useQuery } from '@apollo/client';
 // routes
+import { useSnackbar } from 'notistack';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
-import useTabs from '../../../hooks/useTabs';
 import useSettings from '../../../hooks/useSettings';
-import useTable, { getComparator, emptyRows } from '../../../hooks/useTable';
+import useTable, { emptyRows, getComparator } from '../../../hooks/useTable';
 import useAuth from '../../../hooks/useAuth';
 // _mock_
-import { _userList } from '../../../_mock';
 // components
 import Page from '../../../components/Page';
 import Iconify from '../../../components/Iconify';
@@ -40,14 +36,11 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
 import { useLocales } from '../../../locals';
-import { roleChangeNumber, RoleId } from '../../../constant/role';
+import { roleChangeNumber, RoleId } from '../../../constant';
 // ----------------------------------------------------------------------
 
 const ListUsers = loader('../../../graphql/queries/user/ListUsers.graphql');
-// const updateRole = loader('../../../graphql/mutations/user/updateRole');
-// const editStatus = loader('../../../graphql/mutations/collections/editStatus');
-
-// const STATUS_OPTIONS = ['all', 'active', 'banned'];
+const EDIT_STATUS_USER = loader('../../../graphql/mutations/users/updUserForAdmin.graphql');
 
 const ROLE_OPTIONS = ['All', 'Admin', 'Manager', 'User'];
 
@@ -55,7 +48,8 @@ const TABLE_HEAD = [
   { id: 'name', label: 'Name', align: 'left' },
   { id: 'E-mail', label: 'Email', align: 'left' },
   { id: 'role', label: 'Role', align: 'left' },
-  { id: 'PhoneNumber', label: 'PhoneNumber', align: 'center' },
+  { id: 'PhoneNumber', label: 'PhoneNumber', align: 'left' },
+  { id: 'status', label: 'Status', align: 'left' },
   { id: '', label: '' },
 ];
 
@@ -68,7 +62,7 @@ export default function UserList() {
     order,
     orderBy,
     rowsPerPage,
-    setPage,
+    // setPage,
     //
     selected,
     setSelected,
@@ -83,6 +77,8 @@ export default function UserList() {
 
   const { user } = useAuth();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const { t } = useLocales();
 
   const { themeStretch } = useSettings();
@@ -95,35 +91,41 @@ export default function UserList() {
 
   const [filterRole, setFilterRole] = useState('All');
 
-  console.log(filterRole);
-
-  const { currentTab: filterStatus, onChangeTab: onChangeFilterStatus } = useTabs('all');
-
-  const { data: allUsers } = useQuery(ListUsers);
+  const { data: allUsers, refetch } = useQuery(ListUsers);
 
   useEffect(() => {
     if (allUsers) {
-      setTableData(allUsers.users);
+      setTableData(allUsers?.users);
     }
   }, [allUsers]);
 
-  // const [updateRole] = useMutation(updateRole, {
-  //   onCompleted: async (res) => {
-  //     if (res) {
-  //       return res;
-  //     }
-  //     return null;
-  //   },
-  //   refetchQueries: () => [
-  //     {
-  //       query: ListUsers,
-  //     },
-  //   ],
-  // });
+  const [editStatus] = useMutation(EDIT_STATUS_USER, {
+    onCompleted: () => {
+      enqueueSnackbar(t('message.Successful status update!'), {
+        variant: 'success',
+      });
+    },
+    onError: (error) => {
+      enqueueSnackbar(`${t('Status update failed!. Cause:')} ${error.message}`, {
+        variant: 'error',
+      });
+    },
+  });
+
+  const handleEditStatus = async (id, status) => {
+    await editStatus({
+      variables: {
+        input: {
+          id,
+          status,
+        },
+      },
+    });
+    await refetch();
+  };
 
   const handleFilterName = (filterName) => {
     setFilterName(filterName);
-    setPage(0);
   };
 
   const handleFilterRole = (event) => {
@@ -151,17 +153,11 @@ export default function UserList() {
     comparator: getComparator(order, orderBy),
     filterName,
     filterRole,
-    filterStatus,
   });
-
-  console.log('tableData', tableData);
 
   const denseHeight = dense ? 52 : 72;
 
-  const isNotFound =
-    (!dataFiltered.length && !!filterName) ||
-    (!dataFiltered.length && !!filterRole) ||
-    (!dataFiltered.length && !!filterStatus);
+  const isNotFound = (!dataFiltered.length && !!filterName) || (!dataFiltered.length && !!filterRole);
 
   return (
     <Page title={t('user.pageList')}>
@@ -248,6 +244,8 @@ export default function UserList() {
                       onSelectRow={() => onSelectRow(row.id)}
                       onDeleteRow={() => handleDeleteRow(row.id)}
                       onEditRow={() => handleEditRow(row.id)}
+                      onActiveStatus={() => handleEditStatus(row.id, true)}
+                      onLockStatus={() => handleEditStatus(row.id, false)}
                     />
                   ))}
 
@@ -282,7 +280,7 @@ export default function UserList() {
   );
 }
 
-function applySortFilter({ tableData, comparator, filterName, filterStatus, filterRole }) {
+function applySortFilter({ tableData, comparator, filterName, filterRole }) {
   const stabilizedThis = tableData.map((el, index) => [el, index]);
 
   stabilizedThis.sort((a, b) => {
@@ -294,11 +292,7 @@ function applySortFilter({ tableData, comparator, filterName, filterStatus, filt
   tableData = stabilizedThis.map((el) => el[0]);
 
   if (filterName) {
-    tableData = tableData.filter((item) => item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
-  }
-
-  if (filterStatus !== 'all') {
-    tableData = tableData.filter((item) => item.status === filterStatus);
+    tableData = tableData.filter((item) => item.lastName.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
   }
 
   if (filterRole !== 'All') {
