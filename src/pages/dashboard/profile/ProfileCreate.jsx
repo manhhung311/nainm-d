@@ -28,7 +28,7 @@ export default function ProfileCreate() {
 
   const { data: detailUser } = useQuery(USER_BY_ID, {
     variables: {
-      id: 1,
+      id: idNews,
     },
   });
 

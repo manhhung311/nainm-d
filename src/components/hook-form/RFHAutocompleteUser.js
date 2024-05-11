@@ -9,7 +9,8 @@ import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { defaultUserOptions } from '../../constant';
+import { defaultUserOptions, defaultUserOptionsENG, Language } from '../../constant';
+import useLocales from '../../locals/useLocals';
 
 // ----------------------------------------------------------------------
 const LIST_USER = loader('../../graphql/queries/user/ListUsers.graphql');
@@ -17,9 +18,10 @@ const LIST_USER = loader('../../graphql/queries/user/ListUsers.graphql');
 RFHAutocompleteUser.propTypes = {
   name: PropTypes.string,
   isDisabledAutocomplete: PropTypes.bool,
+  language: PropTypes.string,
 };
 
-export default function RFHAutocompleteUser({ name, isDisabledAutocomplete = false, ...other }) {
+export default function RFHAutocompleteUser({ name, language, isDisabledAutocomplete = false, ...other }) {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
   const [districts, setDistricts] = useState([]);
@@ -32,10 +34,12 @@ export default function RFHAutocompleteUser({ name, isDisabledAutocomplete = fal
 
   useEffect(() => {
     if (data) {
-      const newDistricts = [defaultUserOptions, ...data.users];
+      const newDistricts = [language === Language.VietNam ? defaultUserOptions : defaultUserOptionsENG, ...data.users];
       setDistricts(newDistricts);
     }
-  }, [data]);
+  }, [language, data]);
+
+  const { t } = useLocales();
 
   return (
     <>
@@ -49,27 +53,27 @@ export default function RFHAutocompleteUser({ name, isDisabledAutocomplete = fal
               noOptionsText="Không có lựa chọn tương ứng"
               isOptionEqualToValue={(option, value) =>
                 (option.id === value.id && option.fullName === value.fullName) ||
-                value.fullName === defaultUserOptions.fullName
+                value.fullName === (language === Language.VietNam ? defaultUserOptions.fullName : defaultUserOptionsENG)
               }
               getOptionLabel={(option) => option.fullName}
               onChange={(event, newValue) => {
                 if (newValue !== null) {
                   field.onChange(newValue);
                 } else {
-                  field.onChange(defaultUserOptions);
+                  field.onChange(language === Language.VietNam ? defaultUserOptions.fullName : defaultUserOptionsENG);
                 }
               }}
               options={districts.map((option) => option)}
               disabled={isDisabledAutocomplete}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
-                  <Chip {...getTagProps({ index })} key={option.id} size="small" label={option.name} />
+                  <Chip {...getTagProps({ index })} key={option.id} size="small" label={option.fullName} />
                 ))
               }
               renderInput={(params) => (
                 <TextField
                   InputLabelProps={{ shrink: true, style: { color: isLight ? '#000' : '#fff' } }}
-                  label="DANH SÁCH USER"
+                  label={t('user.pageList')}
                   {...params}
                   error={!!error}
                   helperText={error?.message}

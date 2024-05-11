@@ -11,6 +11,7 @@ query Query($id: ID!) {
     status
     type_user
     avartaURL
+    fullName
     user_information_Vietnamese
     user_information_English
   }

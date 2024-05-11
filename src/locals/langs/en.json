@@ -100,6 +100,7 @@
     "CreateFailed": "New creation failed",
     "Updates": "Successfully updated",
     "UpdatesFailed": "Editing personal information failed. Reason: ",
+    "SelectUser": "Select User",
     "": ""
   },
   "list": "list",

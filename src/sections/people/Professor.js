@@ -57,7 +57,7 @@ export default function Professor({ idProfessor }) {
   return (
     <RootStyle>
       <Box>
-        <Grid container spacing={5}>
+        <Grid container spacing={2}>
           <Grid item xs={12} md={3}>
             <Box>
               <Image
@@ -143,17 +143,12 @@ export default function Professor({ idProfessor }) {
             <Grid item xs={12} md={9}>
               <Box>
                 <Box sx={{ pb: 2, ml: { xs: 10, md: 6 } }}>
-                  <h2>BÙI XUÂN TIẾN</h2>
+                  <h2>{userDetail?.fullName}</h2>
                 </Box>
                 <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
-                  <Typography>★ {_mock.text.title(0)}</Typography>
-                  <Typography>★ {_mock.text.title(1)}</Typography>
-                </Box>
-                <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
-                  <Typography>★ {_mock.text.title(2)}</Typography>
-                  <Typography>★ {_mock.text.title(3)}</Typography>
-                  <Typography>★ {_mock.text.title(4)}</Typography>
-                  <Typography>★ {_mock.text.title(5)}</Typography>
+                  <Typography>★ Role: {userDetail?.role}</Typography>
+                  <Typography>★ Email: {userDetail?.email}</Typography>
+                  <Typography>★ Phone: {userDetail?.phoneNumber}</Typography>
                 </Box>
                 <Stack direction="row">
                   <Button
@@ -212,8 +207,10 @@ export default function Professor({ idProfessor }) {
             </Grid>
           )}
         </Grid>
-        {currentLang.value === Language.VietNam && <Markdown children={userDetail?.user_information_Vietnamese} />}
-        {currentLang.value === Language.English && <Markdown children={userDetail?.user_information_English} />}
+        <Box sx={{ pt: 7 }}>
+          {currentLang.value === Language.VietNam && <Markdown children={userDetail?.user_information_Vietnamese} />}
+          {currentLang.value === Language.English && <Markdown children={userDetail?.user_information_English} />}
+        </Box>
       </Box>
     </RootStyle>
   );

@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { RHFEditor, RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
+import RFHAutocompleteUser from '../../../components/hook-form/RFHAutocompleteUser';
 //
 
 // ----------------------------------------------------------------------
@@ -27,7 +28,7 @@ ProfessorPostEnglishStack.propTypes = {
 };
 
 export default function ProfessorPostEnglishStack({ onBack }) {
-  const { t } = useLocales();
+  const { t, currentLang } = useLocales();
 
   const {
     formState: { isSubmitting },
@@ -35,6 +36,7 @@ export default function ProfessorPostEnglishStack({ onBack }) {
   return (
     <>
       <Stack spacing={3}>
+        <RFHAutocompleteUser name="user" language={currentLang.value} />
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="contentEnglish" />

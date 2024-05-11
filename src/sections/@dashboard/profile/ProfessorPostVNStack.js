@@ -26,12 +26,12 @@ ProfessorPostVNStack.propTypes = {
 };
 
 export default function ProfessorPostVNStack({ onNext }) {
-  const { t } = useLocales();
+  const { t, currentLang } = useLocales();
 
   return (
     <>
       <Stack spacing={3}>
-        <RFHAutocompleteUser name="user" />
+        <RFHAutocompleteUser name="user" language={currentLang.value} />
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="content" />

@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider } from '../../../components/hook-form';
-import { defaultUserOptions } from '../../../constant';
+import { defaultUserOptions, defaultUserOptionsENG, Language } from '../../../constant';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import useLocales from '../../../locals/useLocals';
 import ProfilePostVNStack from './ProfessorPostVNStack';
@@ -23,10 +23,8 @@ const UPDATE_USER = loader('../../../graphql/mutations/users/updUserForAdmin.gra
 
 ProfessorNewPostForm.propTypes = {
   isEdit: PropTypes.bool,
-  currentUser: PropTypes.object,
   dataPostUpdate: PropTypes.object,
   id: PropTypes.number,
-  avartaURL: PropTypes.string,
 };
 
 export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
@@ -36,11 +34,13 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
 
   const [currentTab, setCurrentTab] = useState(1);
 
-  const { t } = useLocales();
+  const { t, currentLang } = useLocales();
 
   const defaultValues = {
     id: dataPostUpdate?.id || null,
-    user: defaultUserOptions,
+    user: currentLang.value === Language.VietNam ? defaultUserOptions : defaultUserOptionsENG,
+    lastName: dataPostUpdate?.user?.lastName,
+    firstName: dataPostUpdate?.user?.firstName,
     content: dataPostUpdate?.user_information_Vietnamese || '',
     contentEnglish: dataPostUpdate?.user_information_English || '',
   };
@@ -68,7 +68,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, dataPostUpdate]);
+  }, [isEdit, dataPostUpdate, currentLang]);
 
   // const [createNewFn] = useMutation(CREATE_FACILITY, {
   //   variables: {
@@ -98,7 +98,9 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
       await updateFormUserFn({
         variables: {
           input: {
-            id: Number(values?.id),
+            id: Number(values?.user?.id),
+            lastName: values?.lastName, // tam
+            firstName: values?.firstName, // tam
             user_information_Vietnamese: values?.content,
             user_information_English: values?.contentEnglish,
           },

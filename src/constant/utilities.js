@@ -9,7 +9,12 @@ export const TypeCollection = {
 
 export const defaultUserOptions = {
   id: 0,
-  fullName: 'Chọn User',
+  fullName: 'Chọn Người Dùng',
+};
+
+export const defaultUserOptionsENG = {
+  id: 0,
+  fullName: 'Select User',
 };
 
 export const Publication = {
