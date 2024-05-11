@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 // @mui
 import { Avatar, MenuItem, TableCell, TableRow, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 // components
 import { useMutation } from '@apollo/client';
 import LockResetIcon from '@mui/icons-material/LockReset';
@@ -26,18 +25,15 @@ UserTableRow.propTypes = {
   row: PropTypes.object,
   selected: PropTypes.bool,
   onEditRow: PropTypes.func,
-  onSelectRow: PropTypes.func,
   onDeleteRow: PropTypes.func,
 };
 
-export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
+export default function UserTableRow({ row, selected, onEditRow, onDeleteRow }) {
   const { t } = useLocales();
 
   const { user } = useAuth();
 
-  const theme = useTheme();
-
-  const { avartaURL, email, firstName, lastName, phoneNumber, role, status, type_user: typeUser, userName } = row;
+  const { avartaURL, email, firstName, lastName, phoneNumber, role, type_user: userName } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 

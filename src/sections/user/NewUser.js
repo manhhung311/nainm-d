@@ -25,13 +25,14 @@ NewUser.propTypes = {
   isEdit: PropTypes.bool,
   currentUser: PropTypes.object,
   id: PropTypes.number,
+  avartaURL: PropTypes.string,
 };
 
 export default function NewUser({ isEdit, currentUser }) {
   const [createNewuser] = useMutation(CREATE_USER);
   const [updateUser] = useMutation(UPDATE_USER);
   const [uploadFile, setUploadFile] = useState(null);
-  const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
+
   const { t } = useLocales();
 
   const { user } = useAuth();
@@ -63,22 +64,20 @@ export default function NewUser({ isEdit, currentUser }) {
       lastName: currentUser?.lastName || '',
       phoneNumber: currentUser?.phoneNumber || '',
       role: currentUser?.role || '',
-      avatarUrl: currentUser?.avatarUrl || '', // Kiểm tra và gán giá trị mặc định
+      avatarUrl: currentUser?.avartaURL || null,
       typeUser: currentUser?.TypeUser || '',
       userName: currentUser?.userName || '',
       status: currentUser?.status,
     }),
     [currentUser]
   );
+  console.log('defaultValues', defaultValues);
   const Roles = [
     { value: 0, label: t('user.Admin') },
     { value: 1, label: t('user.Manager') },
     { value: 2, label: t('user.User') },
   ];
-  const Status = [
-    { value: 1, label: t('user.Active') },
-    { value: 0, label: t('user.Banned') },
-  ];
+
   const TypeUser = [
     { value: 0, label: t('user.PROCCEFER') },
     { value: 1, label: t('user.Student') },
@@ -145,13 +144,12 @@ export default function NewUser({ isEdit, currentUser }) {
               phoneNumber: values?.phoneNumber,
               email: values?.email,
               Role: Number(values?.role),
-              status: values?.status,
             },
           },
         });
 
         if (!response.errors) {
-          enqueueSnackbar(t('user.CreateFailed'), {
+          enqueueSnackbar(t('user.Updates'), {
             variant: 'success',
           });
           reset();
@@ -159,12 +157,12 @@ export default function NewUser({ isEdit, currentUser }) {
         }
       }
     } catch (error) {
-      if (!isEdit) {
-        enqueueSnackbar(`${t('user.Updates')} ${error.message}.`, {
+      if (isEdit) {
+        enqueueSnackbar(`${t('user.UpdatesFailed')} ${error.message}.`, {
           variant: 'error',
         });
       } else {
-        enqueueSnackbar(`${t('user.UpdatesFailed')} ${error.message}.`, {
+        enqueueSnackbar(`${t('user.CreateFailed')} ${error.message}.`, {
           variant: 'error',
         });
       }
@@ -183,12 +181,11 @@ export default function NewUser({ isEdit, currentUser }) {
         );
       }
       setUploadFile(file);
-      setUpdateBtnEnable(true);
     },
     [setValue]
   );
 
-  console.log('status', !values?.status);
+  console.log('avatarUrl', values);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -281,20 +278,7 @@ export default function NewUser({ isEdit, currentUser }) {
                   <RHFTextField name="lastName" label={t('user.LastName')} />
                   <RHFTextField name="email" label={t('user.EmailAddress')} />
                   <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
-                  <RHFSelect
-                    label={t('user.Status')}
-                    name="status"
-                    onChange={(event) => {
-                      setValue('status', event.target.value);
-                    }}
-                    InputLabelProps={{ shrink: true }}
-                  >
-                    {Status.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </RHFSelect>
+
                   <RHFSelect
                     // value={defaultValues.role}
                     label={t('user.Role')}

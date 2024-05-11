@@ -85,35 +85,22 @@ export default function ChangePassword({ isEdit }) {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3} sx={{ mt: '10px' }}>
-        <Grid item md={1} />
+        <Grid item md={2.5} />
 
         <Grid item xs={12} md={7}>
           <Card sx={{ py: 10, px: 3, height: '85%' }}>
-            {!isEdit ? (
-              <Box
-                sx={{
-                  display: 'grid',
-                  columnGap: 2,
-                  rowGap: 3,
-                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-                }}
-              >
-                <RHFTextField name="oldPassWord" label={t('profile.oldPassWord')} />
-                <RHFTextField name="newPassWord" label={t('profile.newPassWord')} />
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: 'grid',
-                  columnGap: 2,
-                  rowGap: 3,
-                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-                }}
-              >
-                <RHFTextField name="oldPassWord" label="Mật khẩu cũ" />
-                <RHFTextField name="newPassWord" label="Mật khẩu mới" />
-              </Box>
-            )}
+            <Box
+              sx={{
+                display: 'grid',
+                columnGap: 2,
+                rowGap: 3,
+                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+              }}
+            >
+              <RHFTextField name="oldPassWord" label={t('profile.oldPassWord')} />
+              <RHFTextField name="newPassWord" label={t('profile.newPassWord')} />
+            </Box>
+
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
                 {t('user.SaveChanges')}
@@ -122,7 +109,7 @@ export default function ChangePassword({ isEdit }) {
           </Card>
         </Grid>
 
-        <Grid item md={1} />
+        <Grid item md={2.5} />
       </Grid>
     </FormProvider>
   );
