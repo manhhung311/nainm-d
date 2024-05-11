@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { RHFEditor, RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
+import RFHAutocompleteUser from '../../../components/hook-form/RFHAutocompleteUser';
 //
 
 // ----------------------------------------------------------------------
@@ -20,20 +21,17 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProfilePostVNStack.propTypes = {
+ProfessorPostVNStack.propTypes = {
   onNext: PropTypes.func,
 };
 
-export default function ProfilePostVNStack({ onNext }) {
+export default function ProfessorPostVNStack({ onNext }) {
   const { t } = useLocales();
 
   return (
     <>
       <Stack spacing={3}>
-        <RHFTextField name="title" label="Post Title" />
-
-        <RHFTextField name="description" label="Description" multiline rows={3} />
-
+        <RFHAutocompleteUser name="user" />
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="content" />

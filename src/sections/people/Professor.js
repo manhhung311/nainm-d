@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Grid, List, ListItem, ListItemIcon, Stack, Typography } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { Link as RouterLink } from 'react-router-dom';
 import FitbitSharpIcon from '@mui/icons-material/FitbitSharp';
 import GrainSharpIcon from '@mui/icons-material/GrainSharp';
 import { styled } from '@mui/material/styles';
+import { loader } from 'graphql.macro';
+import PropTypes from 'prop-types';
+import { useQuery } from '@apollo/client';
 import Image from '../../components/Image';
 import _mock from '../../_mock';
 import { _peopleData } from '../../_mock/_user';
 import useResponsive from '../../hooks/useResponsive';
+import ProfessorNewPostForm from '../@dashboard/profile/ProfessorNewPostForm';
+import Markdown from '../../components/Markdown';
+import { Language } from '../../constant';
+import useLocales from '../../locals/useLocals';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
@@ -19,21 +26,33 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 // ----------------------------------------------------------------------
-export default function Proccefer() {
+
+const USER_BY_ID = loader('../../graphql/mutations/users/userById.graphql');
+
+Professor.propTypes = {
+  idProfessor: PropTypes.number,
+};
+
+export default function Professor({ idProfessor }) {
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
-  const IconText = [
-    <ListItem>
-      <ListItemIcon>
-        <FitbitSharpIcon sx={{ mr: 1, color: '#00FA9A' }} />
-      </ListItemIcon>
-    </ListItem>,
-    <ListItem>
-      <ListItemIcon>
-        <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-      </ListItemIcon>
-    </ListItem>,
-  ];
+  const { t, currentLang } = useLocales();
+
+  const [userDetail, setUserDetail] = useState();
+
+  const { data: detailUser } = useQuery(USER_BY_ID, {
+    variables: {
+      id: idProfessor,
+    },
+  });
+
+  useEffect(() => {
+    if (detailUser) {
+      setUserDetail(detailUser?.user);
+    }
+  }, [detailUser]);
+
+  console.log('userDetail', userDetail);
 
   return (
     <RootStyle>
@@ -193,26 +212,8 @@ export default function Proccefer() {
             </Grid>
           )}
         </Grid>
-        {_peopleData.map((item, index) => (
-          <Box sx={{ pt: 4 }} key={index}>
-            <ListItem>
-              <ListItemIcon>
-                <FitbitSharpIcon sx={{ mr: 1, color: '#00FA9A' }} />
-                <Typography variant="h6">{item.title}</Typography>
-              </ListItemIcon>
-            </ListItem>
-            <List sx={{ ml: { md: 3 } }}>
-              {item.data.map((data, idx) => (
-                <ListItem key={idx}>
-                  <ListItemIcon>
-                    <GrainSharpIcon sx={{ fontSize: 'medium', color: '#66CDAA' }} />
-                  </ListItemIcon>
-                  <Typography variant="body1">{data}</Typography>
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        ))}
+        {currentLang.value === Language.VietNam && <Markdown children={userDetail?.user_information_Vietnamese} />}
+        {currentLang.value === Language.English && <Markdown children={userDetail?.user_information_English} />}
       </Box>
     </RootStyle>
   );

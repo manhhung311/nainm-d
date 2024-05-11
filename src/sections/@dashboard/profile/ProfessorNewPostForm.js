@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 // form
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 // @mui
 import { Button, Card, Grid, Typography } from '@mui/material';
@@ -13,22 +12,24 @@ import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider } from '../../../components/hook-form';
-import { TypeCollection } from '../../../constant';
+import { defaultUserOptions } from '../../../constant';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import useLocales from '../../../locals/useLocals';
-import ProfilePostVNStack from './ProfilePostVNStack';
-import ProfilePostEnglishStack from './ProfilePostEnglishStack';
+import ProfilePostVNStack from './ProfessorPostVNStack';
+import ProfilePostEnglishStack from './ProfessorPostEnglishStack';
 
 // ----------------------------------------------------------------------
-const CREATE_NEWS = loader('../../../graphql/mutations/collections/createCollection.graphql');
-const UPDATE_NEWS = loader('../../../graphql/mutations/collections/editCollection.graphql');
+const UPDATE_USER = loader('../../../graphql/mutations/users/updUserForAdmin.graphql');
 
-ProfileNewPostForm.propTypes = {
+ProfessorNewPostForm.propTypes = {
   isEdit: PropTypes.bool,
+  currentUser: PropTypes.object,
   dataPostUpdate: PropTypes.object,
+  id: PropTypes.number,
+  avartaURL: PropTypes.string,
 };
 
-export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
+export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -37,35 +38,14 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
 
   const { t } = useLocales();
 
-  const NewQuotationSchema = Yup.object()
-    .shape({
-      title: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
-      titleEnglish: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
-    })
-    .test('titleEnglish', null, (obj) => {
-      if (obj.title.length !== 0 || obj.titleEnglish.length !== 0) {
-        return true;
-      }
-
-      return new Yup.ValidationError(
-        t('message.You must fill in at least 1 of 2 Vietnamese or English sections!'),
-        null,
-        'titleEnglish'
-      );
-    });
-
   const defaultValues = {
     id: dataPostUpdate?.id || null,
-    title: dataPostUpdate?.title || '',
-    description: dataPostUpdate?.description || '',
-    content: dataPostUpdate?.collection_Vietnamese || '',
-    titleEnglish: dataPostUpdate?.title_english || '',
-    descriptionEnglish: dataPostUpdate?.description_english || '',
-    contentEnglish: dataPostUpdate?.collection_English || '',
+    user: defaultUserOptions,
+    content: dataPostUpdate?.user_information_Vietnamese || '',
+    contentEnglish: dataPostUpdate?.user_information_English || '',
   };
 
   const methods = useForm({
-    resolver: yupResolver(NewQuotationSchema),
     defaultValues,
   });
 
@@ -78,6 +58,8 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
 
   const values = watch();
 
+  console.log('values', values);
+
   useEffect(() => {
     if (isEdit && dataPostUpdate) {
       reset(defaultValues);
@@ -88,21 +70,21 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, dataPostUpdate]);
 
-  const [createNewFn] = useMutation(CREATE_NEWS, {
-    variables: {
-      input: {},
-    },
-    // refetchQueries: () => [
-    //   {
-    //     query: LIST_ALL_NEWS,
-    //     variables: {
-    //       input: {},
-    //     },
-    //   },
-    // ],
-  });
+  // const [createNewFn] = useMutation(CREATE_FACILITY, {
+  //   variables: {
+  //     input: {},
+  //   },
+  //   // refetchQueries: () => [
+  //   //   {
+  //   //     query: LIST_ALL_NEWS,
+  //   //     variables: {
+  //   //       input: {},
+  //   //     },
+  //   //   },
+  //   // ],
+  // });
 
-  const [updateNewsFn] = useMutation(UPDATE_NEWS, {
+  const [updateFormUserFn] = useMutation(UPDATE_USER, {
     onCompleted: async (res) => {
       if (res) {
         return res;
@@ -113,37 +95,16 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
 
   const onSubmit = async () => {
     try {
-      if (!isEdit) {
-        await createNewFn({
-          variables: {
-            input: {
-              // check chuẩn kiểu dữ liệu của input
-              type_collection: TypeCollection.News,
-              title: values?.title,
-              collection_Vietnamese: values?.content,
-              description: values?.description,
-              title_english: values?.titleEnglish,
-              collection_English: values?.contentEnglish,
-              description_english: values?.descriptionEnglish,
-            },
+      await updateFormUserFn({
+        variables: {
+          input: {
+            id: Number(values?.id),
+            user_information_Vietnamese: values?.content,
+            user_information_English: values?.contentEnglish,
           },
-        });
-      } else {
-        await updateNewsFn({
-          variables: {
-            input: {
-              // check chuẩn kiểu dữ liệu của input
-              id: Number(values?.id),
-              title: values?.title,
-              collection_Vietnamese: values?.content,
-              description: values?.description,
-              title_english: values?.titleEnglish,
-              collection_English: values?.contentEnglish,
-              description_english: values?.descriptionEnglish,
-            },
-          },
-        });
-      }
+        },
+      });
+
       reset();
       enqueueSnackbar(isEdit ? t('message.Successfully edited!') : t('Successful post!'));
       navigate(PATH_DASHBOARD.profile.list);
@@ -181,7 +142,7 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
               }
               className={currentTab === 1 ? 'active' : ''}
             >
-              <Typography variant="h5">{t('news.tab1')}</Typography>
+              <Typography variant="h5">{t('facility.tab1')}</Typography>
             </Button>
           </Grid>
           <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
@@ -196,7 +157,7 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
               }
               className={currentTab === 2 ? 'active' : ''}
             >
-              <Typography variant="h5">{t('news.tab2')}</Typography>
+              <Typography variant="h5">{t('facility.tab2')}</Typography>
             </Button>
           </Grid>
         </Grid>

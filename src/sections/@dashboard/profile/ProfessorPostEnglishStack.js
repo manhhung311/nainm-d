@@ -22,11 +22,11 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProfilePostEnglishStack.propTypes = {
+ProfessorPostEnglishStack.propTypes = {
   onBack: PropTypes.func,
 };
 
-export default function ProfilePostEnglishStack({ onBack }) {
+export default function ProfessorPostEnglishStack({ onBack }) {
   const { t } = useLocales();
 
   const {
@@ -35,10 +35,6 @@ export default function ProfilePostEnglishStack({ onBack }) {
   return (
     <>
       <Stack spacing={3}>
-        <RHFTextField name="titleEnglish" label="Post Title" />
-
-        <RHFTextField name="descriptionEnglish" label="Description" multiline rows={3} />
-
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="contentEnglish" />

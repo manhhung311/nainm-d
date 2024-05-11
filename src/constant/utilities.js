@@ -1,9 +1,17 @@
+import { RoleId } from './role';
+
 export const TypeCollection = {
   Research: 0,
   Publication: 1,
   Facility: 2,
   News: 3,
 };
+
+export const defaultUserOptions = {
+  id: 0,
+  fullName: 'Chọn User',
+};
+
 export const Publication = {
   Research: 0,
   Publication: 1,
