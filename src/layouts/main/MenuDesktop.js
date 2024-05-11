@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { m } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink as RouterLink, useLocation } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Link, Grid, List, Stack, Popover, ListItem, ListSubheader, CardActionArea } from '@mui/material';
+import { Box, CardActionArea, Grid, Link, List, ListItem, ListSubheader, Popover, Stack } from '@mui/material';
 // components
 import Iconify from '../../components/Iconify';
 import { useLocales } from '../../locals';
@@ -125,7 +125,6 @@ MenuDesktopItem.propTypes = {
 
 function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
   const { title, path, children } = item;
-  const [currentTab, setCurrentTab] = useState(1);
 
   const { t } = useLocales();
 

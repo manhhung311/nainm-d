@@ -9,6 +9,7 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { RHFEditor, RHFTextField } from '../../../components/hook-form';
+import { useLocales } from '../../../locals';
 //
 
 // ----------------------------------------------------------------------
@@ -29,6 +30,9 @@ export default function FacilityPostEnglishStack({ onBack }) {
   const {
     formState: { isSubmitting },
   } = useFormContext();
+
+  const { t } = useLocales();
+
   return (
     <>
       <Stack spacing={3}>
@@ -44,10 +48,10 @@ export default function FacilityPostEnglishStack({ onBack }) {
       <Grid item xs={12}>
         <Stack direction="row" justifyContent="space-around" spacing={1.5} sx={{ mt: 3 }}>
           <Button fullWidth variant="contained" size="medium" onClick={() => onBack(1)}>
-            Trở lại
+            {t('news.trolai')}
           </Button>
           <LoadingButton fullWidth type="submit" variant="contained" size="medium" loading={isSubmitting}>
-            Đăng bài
+            {t('news.post')}
           </LoadingButton>
         </Stack>
       </Grid>

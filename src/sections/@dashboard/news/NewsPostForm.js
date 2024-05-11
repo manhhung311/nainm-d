@@ -39,8 +39,8 @@ export default function NewsNewPostForm({ isEdit, dataPostUpdate }) {
 
   const NewQuotationSchema = Yup.object()
     .shape({
-      title: Yup.string().max(200, 'Tiêu đề có số kí tự tối đa là 200 kí tự!'),
-      titleEnglish: Yup.string().max(200, 'Tiêu đề có số kí tự tối đa là 200 kí tự!'),
+      title: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
+      titleEnglish: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
     })
     .test('titleEnglish', null, (obj) => {
       if (obj.title.length !== 0 || obj.titleEnglish.length !== 0) {
@@ -48,7 +48,7 @@ export default function NewsNewPostForm({ isEdit, dataPostUpdate }) {
       }
 
       return new Yup.ValidationError(
-        'Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh!',
+        t('message.You must fill in at least 1 of 2 Vietnamese or English sections!'),
         null,
         'titleEnglish'
       );
@@ -145,16 +145,18 @@ export default function NewsNewPostForm({ isEdit, dataPostUpdate }) {
         });
       }
       reset();
-      enqueueSnackbar(isEdit ? 'Sửa bài thành công!' : 'Đăng bài thành công!');
+      enqueueSnackbar(isEdit ? t('message.Successfully edited!') : t('Successful post!'));
       navigate(PATH_DASHBOARD.news.list);
     } catch (error) {
-      enqueueSnackbar(isEdit ? 'Sửa bài không thành công!' : 'Đăng bài không thành công!', { variant: 'error' });
+      enqueueSnackbar(isEdit ? t('message.Failed post fix!') : t('message.Post failed!'), { variant: 'error' });
     }
   };
 
   useEffect(() => {
     if (isSubmitting && values?.title === '' && values?.titleEnglish === '') {
-      enqueueSnackbar('Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh', { variant: 'error' });
+      enqueueSnackbar(t('message.You must fill in at least 1 of 2 Vietnamese or English sections!'), {
+        variant: 'error',
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitting, values]);

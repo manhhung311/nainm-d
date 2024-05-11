@@ -21,6 +21,39 @@
     "list": "List",
     "create": "Create"
   },
+  "create": {
+    "researchCreate": "Create new research",
+    "researchList": "List research",
+    "facilityCreate": "Create new facility",
+    "facilityList": "List facility",
+    "createNewPost": "Create a new post",
+    "postTitle": "Post Title",
+    "description": "Description",
+    "content": "Content"
+  },
+  "card": {
+    "publish": "Publish",
+    "waitForApproval": "Wait for approval",
+    "hidden": "Hidden",
+    "createNew": "Create new",
+    "noPostsYet": "No posts yet",
+    "Examine": "Examine",
+    "Erase": "Erase",
+    "Draft": "Draft",
+    "Edit information": "Edit information"
+  },
+  "message": {
+    "Successful deletion of news": "Successful deletion of news",
+    "Deleting news failed. Cause": "Deleting news failed. Cause",
+    "Successful status update!": "Successful status update!",
+    "Status update failed!. Cause:": "Status update failed!. Cause:",
+    "Titles have a maximum number of 200 characters!": "Titles have a maximum number of 200 characters!",
+    "You must fill in at least 1 of 2 Vietnamese or English sections!": "You must fill in at least 1 of 2 Vietnamese or English sections!",
+    "Successfully edited!" : "Successfully edited!",
+    "Successful post!" : "Successful post!",
+    "Failed post fix!": "Failed post fix!",
+    "Post failed!": "Post failed!"
+  },
   "user": {
     "pageList": "User List",
     "pageCreate": "User Create",
@@ -37,6 +70,31 @@
     "Search": "Search User",
     "Dense": "Dense",
     "Delete": "Delete",
+    "Edit": "Edit",
+    "Admin": "Admin",
+    "Manager": "Manager",
+    "All": "All",
+    "ResetPassword": "Reset Password",
+    "FirstName": "First Name",
+    "LastName": "Last Name",
+    "EmailAddress": "Email Address",
+    "PassWord": "Password",
+    "PerSonNel": "personnel",
+    "CreateUser": "Create User",
+    "SaveChanges": "Save Changes",
+    "PROCCEFER": "Proccefer",
+    "Student": "Student",
+    "Active": "Active",
+    "Banned": "Banned",
+    "FirstNames": "FirstName is required",
+    "LastNames": "LastName is required",
+    "Emails": "Email is required",
+    "Passwords": "Password is required",
+    "RoleNumber": "Role Number is required",
+    "Created": "Created successfully",
+    "CreateFailed": "New creation failed",
+    "Updates": "Successfully updated",
+    "UpdatesFailed": "Editing personal information failed. Reason: ",
     "": ""
   },
   "list": "list",
@@ -44,12 +102,14 @@
   "details": "details",
   "checkout": "checkout",
   "management": "management",
+
   "research": {
     "title": "Research",
     "tab1": "VIETNAMESE",
     "tab2": "ENGLISH",
     "post1": "Create VietNamese",
-    "post2": "Create English"
+    "post2": "Create English",
+    "page1": "Detail Research"
   },
   "facility": {
     "title": "Facility",
@@ -57,7 +117,8 @@
     "tab2": "ENGLISH",
     "post1": "Create VietNamese",
     "post2": "Create English",
-    "content": "Content"
+    "content": "Content",
+    "page1": "Detail Facility"
   },
   "home": {
     "title": "Home",
@@ -66,7 +127,9 @@
     }
   },
   "publication": {
-    "publication": "Publication"
+    "publication": "Publication",
+    "page1": "Detail Publication ",
+    "title": "Publication"
   },
   "people": {
     "page": "People",
@@ -84,7 +147,21 @@
     "post2": "Post English",
     "tiep": "Continue",
     "trolai": "Back",
-    "post": "Post"
+    "post": "Post",
+    "oldPassWordr": "oldPassWord is required",
+    "newPassWordr": "newPassWord is required",
+    "oldPassWord": "Old PassWord ",
+    "newPassWord": "New PassWord ",
+    "info": "Personal Information",
+    "ChangePassword": "Change The Password ",
+    "Profile": "Profile",
+    "Home": "Home",
+    "Logout": "Logout",
+    "ContentF": "Are you sure you want to reset the password for this user?",
+    "Cancel": "Cancel",
+    "Agree": "Agree",
+    "MK": " Password has been successfully reset to: 'TeamLabServer'",
+    "ER": " An error occurred while trying to reset the password: Reason:"
   },
   "news": {
     "title": "News",

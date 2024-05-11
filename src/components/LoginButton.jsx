@@ -21,7 +21,7 @@ export default function LoginButton({ sx }) {
       href={PATH_AFTER_LOGIN}
       to="/dashboard"
       variant="outlined"
-      sx={{ mr: 0, ...sx, whiteSpace: 'nowrap', maxWidth: 80 }}
+      sx={{ mr: 0, ...sx, whiteSpace: 'nowrap', maxWidth: 100 }}
     >
       {t('menu.Login')}
     </Button>

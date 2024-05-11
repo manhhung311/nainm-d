@@ -1,0 +1,3 @@
+mutation updateUserForUser($input: UpdateUserForUserInput!) {
+    updateUserForUser(input: $input)
+}

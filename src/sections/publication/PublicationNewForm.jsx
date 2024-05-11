@@ -145,7 +145,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
       }
       reset();
       enqueueSnackbar(isEdit ? 'Sửa bài thành công!' : 'Đăng bài thành công!');
-      navigate(PATH_DASHBOARD.news.list);
+      navigate(PATH_DASHBOARD.publication.list);
     } catch (error) {
       enqueueSnackbar(isEdit ? 'Sửa bài không thành công!' : 'Đăng bài không thành công!', { variant: 'error' });
     }

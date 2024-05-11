@@ -51,6 +51,7 @@ export const PATH_PAGE = {
       profile: `${ROOTS_DASHBOARD}/user/profile`,
       account: `${ROOTS_DASHBOARD}/user/account`,
       edit: (id) => `${ROOTS_DASHBOARD}/user/${id}/edit`,
+      frofile: (id) => `${ROOTS_DASHBOARD}/user/${id}/frofile`,
     },
   },
 };
@@ -62,6 +63,7 @@ export const PATH_DASHBOARD = {
     new: '/dashboard/user/new',
     list: '/dashboard/user/list',
     edit: (id) => `${ROOTS_DASHBOARD}/user/${id}/edit`,
+    profile: `${ROOTS_DASHBOARD}/user/profile`,
 
     // edit: (name) => `dashboard/user/${name}/edit`,
   },
@@ -71,6 +73,7 @@ export const PATH_DASHBOARD = {
     list: '/dashboard/publication/list',
     edit: (id) => `/dashboard/publication/${id}/edit`,
     // edit: (name) => `dashboard/user/${name}/edit`,
+    detail: (id) => `/dashboard/publication/${id}/detail`,
   },
   research: {
     root: '/dashboard/research',

@@ -1,27 +1,20 @@
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import Label from '../../../components/Label';
-import SvgIconStyle from '../../../components/SvgIconStyle';
+import { SvgColor } from '../../../components/svg-color';
 
 // ----------------------------------------------------------------------
 
-const getIcon = (name) => <SvgIconStyle src={`/icons/${name}.svg`} sx={{ width: 1, height: 1 }} />;
+const getIcon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
 
 const ICONS = {
   blog: getIcon('ic_blog'),
-  cart: getIcon('ic_cart'),
-  chat: getIcon('ic_chat'),
-  mail: getIcon('ic_mail'),
   user: getIcon('ic_user'),
   kanban: getIcon('ic_kanban'),
-  banking: getIcon('ic_banking'),
-  booking: getIcon('ic_booking'),
-  invoice: getIcon('ic_invoice'),
-  calendar: getIcon('ic_calendar'),
-  ecommerce: getIcon('ic_ecommerce'),
-  analytics: getIcon('ic_analytics'),
-  dashboard: getIcon('ic_dashboard'),
+  folder: getIcon('ic_folder'),
+  file: getIcon('ic_file'),
+  label: getIcon('ic_label'),
+  menu: getIcon('ic_menu_item'),
 };
 
 const navConfig = [
@@ -54,7 +47,7 @@ const navConfig = [
       {
         title: 'Research',
         path: PATH_DASHBOARD.research.root,
-        icon: ICONS.blog,
+        icon: ICONS.label,
         children: [
           { title: 'list', path: PATH_DASHBOARD.research.list },
           { title: 'create', path: PATH_DASHBOARD.research.new },
@@ -65,7 +58,7 @@ const navConfig = [
       {
         title: 'Facility',
         path: PATH_DASHBOARD.facility.root,
-        icon: ICONS.booking,
+        icon: ICONS.kanban,
         children: [
           { title: 'list', path: PATH_DASHBOARD.facility.list },
           { title: 'create', path: PATH_DASHBOARD.facility.new },
@@ -75,7 +68,7 @@ const navConfig = [
       {
         title: 'News',
         path: PATH_DASHBOARD.news.root,
-        icon: ICONS.booking,
+        icon: ICONS.file,
         children: [
           { title: 'list', path: PATH_DASHBOARD.news.list },
           { title: 'create', path: PATH_DASHBOARD.news.new },
@@ -85,7 +78,7 @@ const navConfig = [
       {
         title: 'Drive',
         path: PATH_DASHBOARD.drive.root,
-        icon: ICONS.booking,
+        icon: ICONS.folder,
         children: [
           { title: 'list', path: PATH_DASHBOARD.drive.list },
           { title: 'create', path: PATH_DASHBOARD.drive.new },
@@ -95,7 +88,7 @@ const navConfig = [
       {
         title: 'People',
         path: PATH_DASHBOARD.drive.root,
-        icon: ICONS.booking,
+        icon: ICONS.menu,
         children: [
           { title: 'list', path: PATH_DASHBOARD.profile.list },
           { title: 'create', path: PATH_DASHBOARD.profile.new },

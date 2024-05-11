@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 import React from 'react';
 import Page from '../../../components/Page';
 import ResearchMain from '../../../sections/research/ResearchMain';
+import useLocales from '../../../locals/useLocals';
+import ResearchDetail from '../../../sections/@dashboard/research/ResearchDetail';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(10),
@@ -18,15 +20,20 @@ export default function ResearchList() {
   const { pathname } = useLocation();
 
   const isDashboard = pathname.includes('dashboard');
+  const { t } = useLocales();
   return (
-    <Page title="Vận hành">
+    <>
       {isDashboard ? (
-        <ResearchMain />
-      ) : (
-        <RootStyle>
+        <Page title={t('create.researchList')}>
           <ResearchMain />
-        </RootStyle>
+        </Page>
+      ) : (
+        <Page title={t('research.title')}>
+          <RootStyle>
+            <ResearchDetail />
+          </RootStyle>
+        </Page>
       )}
-    </Page>
+    </>
   );
 }
