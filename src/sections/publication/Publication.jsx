@@ -13,11 +13,10 @@ import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
-import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
@@ -29,7 +28,7 @@ import PublicationPostCard from './PublicationCard';
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(2),
+  padding: theme.spacing(2),
   borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(5),
@@ -67,12 +66,10 @@ export default function Publiction() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { user } = useAuth();
-
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
-  // const { pathname } = useLocation();
-  // const isDashboard = pathname.includes('dashboard');
+  const { pathname } = useLocation();
+  const isDashboard = pathname.includes('dashboard');
 
   const [info, setInfo] = useState([]);
 
@@ -81,6 +78,8 @@ export default function Publiction() {
       input: {
         status_collection: filterStatus,
         type_collection: TypeCollection.Publication,
+        page: 1,
+        limit: 999,
       },
     },
   });
@@ -152,21 +151,20 @@ export default function Publiction() {
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
           <>
-            <Grid item xs={7}>
-              <Typography variant="h4">{t('publication.publication')}</Typography>
-            </Grid>
-
-            <Grid item xs={5}>
-              <Stack>
-                {user && (
+            <Grid item xs={12}>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography variant="h4">{t('publication.publication')}</Typography>
+                {isDashboard ? (
                   <Button
                     variant="contained"
                     component={RouterLink}
-                    to={PATH_DASHBOARD.research.new}
+                    to={PATH_DASHBOARD.publication.new}
                     startIcon={<Iconify icon={'eva:plus-fill'} />}
                   >
                     {t('navItem.create')}
                   </Button>
+                ) : (
+                  <></>
                 )}
               </Stack>
             </Grid>
@@ -182,12 +180,10 @@ export default function Publiction() {
           </>
         ) : (
           <>
-            <Grid item xs={10}>
-              <Typography variant="h4">{t('publication.publication')}</Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Stack>
-                {user && (
+            <Grid item xs={12}>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography variant="h4">{t('publication.publication')}</Typography>
+                {isDashboard ? (
                   <Button
                     variant="contained"
                     component={RouterLink}
@@ -196,6 +192,8 @@ export default function Publiction() {
                   >
                     {t('navItem.create')}
                   </Button>
+                ) : (
+                  <></>
                 )}
               </Stack>
             </Grid>

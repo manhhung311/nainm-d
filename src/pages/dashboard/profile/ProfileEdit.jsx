@@ -2,7 +2,6 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { Box, Tab, Tabs } from '@mui/material';
 import Iconify from '../../../components/Iconify';
 import Page from '../../../components/Page';
-import useSettings from '../../../hooks/useSettings';
 import useTabs from '../../../hooks/useTabs';
 import useLocales from '../../../locals/useLocals';
 import ChangePassword from './ChangePassword';
@@ -11,7 +10,6 @@ import ProfileUser from './ProfileUser';
 export default function ProfileEdit() {
   const { t } = useLocales();
   const { currentTab, onChangeTab } = useTabs('profile');
-  const { themeStretch } = useSettings();
 
   const PROFILE_TABS = [
     {

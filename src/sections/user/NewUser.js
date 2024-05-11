@@ -15,7 +15,6 @@ import { RHFUploadAvatar } from '../../components/hook-form';
 import FormProvider from '../../components/hook-form/FormProvider';
 import RHFSelect from '../../components/hook-form/RHFSelect';
 import RHFTextField from '../../components/hook-form/RHFTextField';
-import useAuth from '../../hooks/useAuth';
 import useLocales from '../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../routes/paths';
 
@@ -34,8 +33,6 @@ export default function NewUser({ isEdit, currentUser }) {
   const [uploadFile, setUploadFile] = useState(null);
 
   const { t } = useLocales();
-
-  const { user } = useAuth();
 
   console.log('currentUser', currentUser);
   const navigate = useNavigate();

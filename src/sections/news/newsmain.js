@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
@@ -54,6 +54,12 @@ export default function NewsMain() {
 
   const [news, setNews] = useState([]);
 
+  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
+
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
   const { data: getAllPosts, refetch } = useQuery(LIST_ALL_NEWS, {
@@ -61,6 +67,8 @@ export default function NewsMain() {
       input: {
         status_collection: filterStatus,
         type_collection: TypeCollection.News,
+        page: 1,
+        limit: 999,
       },
     },
   });
@@ -75,8 +83,6 @@ export default function NewsMain() {
     tableData: news,
     filterLanguage: currentLang.value,
   });
-
-  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const [deleteCollection] = useMutation(DELETE_COLLECTION, {
     onCompleted: () => {
@@ -129,12 +135,12 @@ export default function NewsMain() {
 
   return (
     <RootStyle>
-      <Grid container spacing={5} alignItems="center">
+      <Grid container spacing={1} alignItems="center">
         {isMobile ? (
-          <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+          <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('news.title')}</Typography>
-              {user && (
+              {isDashboard ? (
                 <Button
                   variant="contained"
                   component={RouterLink}
@@ -143,6 +149,8 @@ export default function NewsMain() {
                 >
                   {t('navItem.create')}
                 </Button>
+              ) : (
+                <></>
               )}
             </Stack>
           </Grid>
@@ -150,7 +158,7 @@ export default function NewsMain() {
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('news.title')}</Typography>
-              {user && (
+              {isDashboard ? (
                 <Button
                   variant="contained"
                   component={RouterLink}
@@ -159,6 +167,8 @@ export default function NewsMain() {
                 >
                   {t('navItem.create')}
                 </Button>
+              ) : (
+                <></>
               )}
             </Stack>
           </Grid>

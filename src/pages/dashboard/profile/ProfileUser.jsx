@@ -21,14 +21,13 @@ const PROFILE_USER = loader('../../../graphql/mutations/users/updUserForUser.gra
 // import TodoForm from 'src/pages/dashboard/user/TodoForm';
 ProfileUser.propTypes = {
   isEdit: PropTypes.bool,
-  currentUser: PropTypes.object,
+  // currentUser: PropTypes.object,
 };
 
-export default function ProfileUser({ isEdit, currentUser }) {
+export default function ProfileUser({ isEdit }) {
   const { t } = useLocales();
   const { user } = useAuth();
   console.log('user', user);
-  const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
 
   const UpdateUserSchema = Yup.object().shape({
     firstName: Yup.string().required(t('user.FirstNames')),
@@ -106,7 +105,6 @@ export default function ProfileUser({ isEdit, currentUser }) {
         );
       }
       setUploadFile(file);
-      setUpdateBtnEnable(true);
     },
     [setValue]
   );

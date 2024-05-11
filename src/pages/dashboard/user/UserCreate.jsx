@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
 import { Grid, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
@@ -9,10 +8,6 @@ import useLocales from '../../../locals/useLocals';
 import NewUser from '../../../sections/user/NewUser';
 
 const GET_USER_INFO = loader('../../../graphql/mutations/users/userById.graphql');
-
-const RootStyle = styled('div')(() => ({
-  height: '100%',
-}));
 
 export default function UserCreate() {
   const { t } = useLocales();

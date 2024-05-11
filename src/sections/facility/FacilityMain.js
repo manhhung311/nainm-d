@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
@@ -52,6 +52,12 @@ export default function FacilityMain() {
 
   const { user } = useAuth();
 
+  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
+
   const [facility, setFacility] = useState([]);
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
@@ -61,6 +67,8 @@ export default function FacilityMain() {
       input: {
         status_collection: filterStatus,
         type_collection: TypeCollection.Facility,
+        page: 1,
+        limit: 999,
       },
     },
   });
@@ -75,8 +83,6 @@ export default function FacilityMain() {
     tableData: facility,
     filterLanguage: currentLang.value,
   });
-
-  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const [deleteCollection] = useMutation(DELETE_COLLECTION, {
     onCompleted: () => {
@@ -131,10 +137,10 @@ export default function FacilityMain() {
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
-          <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+          <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('facility.title')}</Typography>
-              {user && (
+              {isDashboard ? (
                 <Button
                   variant="contained"
                   component={RouterLink}
@@ -143,6 +149,8 @@ export default function FacilityMain() {
                 >
                   {t('navItem.create')}
                 </Button>
+              ) : (
+                <></>
               )}
             </Stack>
           </Grid>
@@ -150,7 +158,7 @@ export default function FacilityMain() {
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('facility.title')}</Typography>
-              {user && (
+              {isDashboard ? (
                 <Button
                   variant="contained"
                   component={RouterLink}
@@ -159,6 +167,8 @@ export default function FacilityMain() {
                 >
                   {t('navItem.create')}
                 </Button>
+              ) : (
+                <></>
               )}
             </Stack>
           </Grid>
