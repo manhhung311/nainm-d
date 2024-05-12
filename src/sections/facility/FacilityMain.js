@@ -9,11 +9,12 @@ import { useSnackbar } from 'notistack';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import useAuth from '../../hooks/useAuth';
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { RoleId, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import FacilityCard from './FacilityCard';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -137,34 +138,17 @@ export default function FacilityMain() {
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
-          <Grid item xs={12}>
-            <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h4"> {t('facility.title')}</Typography>
-              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.facility.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
-              )}
-            </Stack>
+          <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex', pb: 3 }}>
+            <Typography variant="h4">{t('facility.title')}</Typography>
           </Grid>
         ) : (
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('facility.title')}</Typography>
-              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.facility.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
+              {isDashboard ? (
+                <></>
+              ) : (
+                <HeaderBreadcrumbs links={[{ name: t('profile.Home'), href: '/' }, { name: t('facility.title') }]} />
               )}
             </Stack>
           </Grid>

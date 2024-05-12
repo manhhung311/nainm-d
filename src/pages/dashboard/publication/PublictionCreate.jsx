@@ -1,14 +1,13 @@
-// @mui
-// @mui
-import { Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
 // components
 import PublicationNewForm from '../../../sections/publication/PublicationNewForm';
+import { PATH_DASHBOARD } from '../../../routes/paths';
 import Page from '../../../components/Page';
-import useSettings from '../../../hooks/useSettings';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import useLocales from '../../../locals/useLocals';
 
 // ----------------------------------------------------------------------
 const DETAIL_COLLECTION = loader('../../../graphql/queries/collections/DetailCollection.graphql');
@@ -34,12 +33,21 @@ export default function PublictionCreate() {
 
   const isEdit = pathname.includes('edit');
 
-  const { themeStretch } = useSettings();
+  const { t } = useLocales();
+
   return (
-    <Page title="Blog: New Post">
-      <Container maxWidth={themeStretch ? false : 'lg'}>
+    <Page title={t('publication.title')}>
+      <RootStyle>
+        <HeaderBreadcrumbs
+          heading={t('create.createNewPost')}
+          links={[
+            { name: t('user.Management'), href: PATH_DASHBOARD.root },
+            { name: t('publication.title'), href: PATH_DASHBOARD.publication.root },
+            { name: t('navItem.create') },
+          ]}
+        />
         <PublicationNewForm isEdit={isEdit} dataPostUpdate={postUpdate} />
-      </Container>
+      </RootStyle>
     </Page>
   );
 }

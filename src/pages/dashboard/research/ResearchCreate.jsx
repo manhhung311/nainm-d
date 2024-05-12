@@ -2,7 +2,7 @@
 import { styled } from '@mui/material/styles';
 // components
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ import ResearchNewPostForm from '../../../sections/@dashboard/research/ResearchN
 import useLocales from '../../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import useSettings from '../../../hooks/useSettings';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -37,24 +38,19 @@ export default function ResearchCreate() {
   }, [idNews, detailCollection]);
 
   const isEdit = pathname.includes('edit');
-
   const { t } = useLocales();
   return (
     <Page title={t('research.title')}>
       <RootStyle>
-        <Box>
-          <HeaderBreadcrumbs
-            heading={t('create.createNewPost')}
-            links={[
-              { name: t('user.Management'), href: PATH_DASHBOARD.root },
-              { name: t('research.title'), href: PATH_DASHBOARD.research.root },
-              { name: t('navItem.create') },
-            ]}
-          />
-        </Box>
-        <Box>
-          <ResearchNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
-        </Box>
+        <HeaderBreadcrumbs
+          heading={t('create.createNewPost')}
+          links={[
+            { name: t('user.Management'), href: PATH_DASHBOARD.root },
+            { name: t('research.title'), href: PATH_DASHBOARD.research.root },
+            { name: t('navItem.create') },
+          ]}
+        />
+        <ResearchNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
       </RootStyle>
     </Page>
   );

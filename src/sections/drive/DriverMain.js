@@ -116,35 +116,15 @@ export default function DriverMain() {
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex', pb: 3 }}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('driver.title')}</Typography>
-              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.drive.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
-              )}
             </Stack>
           </Grid>
         ) : (
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('driver.title')}</Typography>
-              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.drive.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
-              )}
             </Stack>
           </Grid>
         )}

@@ -1,11 +1,8 @@
 // @mui
 import { useMutation, useQuery } from '@apollo/client';
 import { Typography } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -13,16 +10,15 @@ import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import Iconify from '../../components/Iconify';
 import useResponsive from '../../hooks/useResponsive';
-import { RoleId, TypeCollection } from '../../constant';
+import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
 import useAuth from '../../hooks/useAuth';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 // components
 
@@ -151,32 +147,11 @@ export default function Publiction() {
 
   return (
     <RootStyle>
-      <Grid container spacing={5} alignItems="center" sx={{ mb: 1 }}>
+      <Grid container spacing={5} alignItems="center">
         {isMobile ? (
           <>
-            <Grid item xs={12}>
-              <Stack direction="row" justifyContent="space-between">
-                <Typography variant="h4">{t('publication.publication')}</Typography>
-                {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.publication.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    {t('navItem.create')}
-                  </Button>
-                )}
-              </Stack>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={top100Films}
-                fullWidth
-                renderInput={(params) => <TextField {...params} label="Search" />}
-              />
+            <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex', pb: 3 }}>
+              <Typography variant="h4">{t('publication.publication')}</Typography>
             </Grid>
           </>
         ) : (
@@ -184,16 +159,7 @@ export default function Publiction() {
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4">{t('publication.publication')}</Typography>
-                {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.publication.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    {t('navItem.create')}
-                  </Button>
-                )}
+                <HeaderBreadcrumbs links={[{ name: t('profile.Home'), href: '/' }, { name: t('publication.title') }]} />
               </Stack>
             </Grid>
           </>
