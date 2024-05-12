@@ -3,6 +3,7 @@ import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
 // components
+import { styled } from '@mui/material/styles';
 import PublicationNewForm from '../../../sections/publication/PublicationNewForm';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import Page from '../../../components/Page';
@@ -10,6 +11,9 @@ import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 import useLocales from '../../../locals/useLocals';
 
 // ----------------------------------------------------------------------
+const RootStyle = styled('div')(() => ({
+height: '100%',
+}));
 const DETAIL_COLLECTION = loader('../../../graphql/queries/collections/DetailCollection.graphql');
 
 export default function PublictionCreate() {

@@ -18,9 +18,16 @@ PublicationPostCard.propTypes = {
   handleDeletePublication: PropTypes.func,
   onEditStatusCollection: PropTypes.func,
   currentLang: PropTypes.string,
+  standOut: PropTypes.bool,
 };
 
-export default function PublicationPostCard({ post, handleDeletePublication, currentLang, onEditStatusCollection }) {
+export default function PublicationPostCard({
+  post,
+  handleDeletePublication,
+  currentLang,
+  onEditStatusCollection,
+  standOut,
+}) {
   const {
     title,
     title_english: titleEnglish,
@@ -42,6 +49,7 @@ export default function PublicationPostCard({ post, handleDeletePublication, cur
         statusCollection={statusCollection}
         onEditStatusCollection={onEditStatusCollection}
         currentLang={currentLang}
+        standOut={standOut}
       />
     </Card>
   );
@@ -59,6 +67,7 @@ PostContent.propTypes = {
   currentLang: PropTypes.string,
   statusCollection: PropTypes.number,
   onEditStatusCollection: PropTypes.func,
+  standOut: PropTypes.bool,
 };
 
 export function PostContent({
@@ -73,6 +82,7 @@ export function PostContent({
   titleEnglish,
   // createdAt,
   descriptionEnglish,
+  standOut,
 }) {
   const isDesktop = useResponsive('up', 'md');
   const [openMenu, setOpenMenuActions] = useState(null);
@@ -128,6 +138,28 @@ export function PostContent({
               onClose={handleCloseMenu}
               actions={
                 <>
+                  {standOut === true && user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Public, false);
+                      }}
+                    >
+                      <Iconify icon={'ri:unpin-fill'} />
+                      {t('card.unStandOut')}
+                    </MenuItem>
+                  )}
+                  {standOut !== true && user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Public, true);
+                      }}
+                    >
+                      <Iconify icon={'mage:pin-fill'} />
+                      {t('card.standOut')}
+                    </MenuItem>
+                  )}
                   {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
                     <MenuItem
                       onClick={() => {
@@ -148,7 +180,7 @@ export function PostContent({
                           handleCloseMenu();
                           onEditStatusCollection(id, StatusCollection.Hidden);
                         }}
-                        // sx={{ color: 'success.main' }}
+                        sx={{ color: 'info.main' }}
                       >
                         <Iconify icon={'dashicons:hidden'} />
                         {t('card.hidden')}

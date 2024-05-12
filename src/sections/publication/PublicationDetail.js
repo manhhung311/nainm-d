@@ -13,7 +13,7 @@ import Page from '../../components/Page';
 import Markdown from '../../components/Markdown';
 import { Language } from '../../constant';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
+import { PATH_PAGE } from '../../routes/paths';
 
 const RootStyle = styled('div')(({ theme, isDashboard }) => ({
   padding: isDashboard ? theme.spacing(0) : theme.spacing(12, 0),

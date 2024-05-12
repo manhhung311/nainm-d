@@ -2,7 +2,6 @@
 import { styled } from '@mui/material/styles';
 // components
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';

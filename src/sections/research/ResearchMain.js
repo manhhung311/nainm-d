@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Autocomplete, Button, Card, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { Autocomplete, Card, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink, useLocation } from 'react-router-dom'; // Import _mock
 import { loader } from 'graphql.macro';
 import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
@@ -12,8 +11,6 @@ import useResponsive from '../../hooks/useResponsive';
 import useAuth from '../../hooks/useAuth';
 import useTabs from '../../hooks/useTabs';
 import { TypeCollection } from '../../constant';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import Iconify from '../../components/Iconify';
 import ResearchPostCard from './ResearchCard';
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -62,10 +59,6 @@ export default function ResearchMain() {
   const [research, setResearch] = useState([]);
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
-
-  const { pathname } = useLocation();
-
-  const isDashboard = pathname.includes('dashboard');
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 

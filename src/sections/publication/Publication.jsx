@@ -10,7 +10,6 @@ import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import useResponsive from '../../hooks/useResponsive';
 import { TypeCollection } from '../../constant';
@@ -19,7 +18,6 @@ import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
 import useAuth from '../../hooks/useAuth';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-
 // components
 
 // ----------------------------------------------------------------------
@@ -49,11 +47,13 @@ const TABS = [
     label: 'hidden',
     color: 'default',
   },
+  {
+    value: true,
+    label: 'standOut',
+    color: 'default',
+  },
 ];
-const top100Films = [
-  { label: 'The Godfather', id: 1 },
-  { label: 'Pulp Fiction', id: 2 },
-];
+
 const LIST_ALL_PUBLICATION = loader('../../graphql/queries/collections/ListCollections.graphql');
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
@@ -65,21 +65,29 @@ export default function Publiction() {
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
-  const { pathname } = useLocation();
-  const isDashboard = pathname.includes('dashboard');
-
   const { user } = useAuth();
 
   const [info, setInfo] = useState([]);
 
   const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
     variables: {
-      input: {
-        status_collection: filterStatus,
-        type_collection: TypeCollection.Publication,
-        page: 1,
-        limit: 999,
-      },
+      input: (() => {
+        if (filterStatus === true) {
+          return {
+            status_collection: 1,
+            stand_out: filterStatus,
+            type_collection: TypeCollection.Publication,
+            page: 1,
+            limit: 999,
+          };
+        }
+        return {
+          status_collection: filterStatus,
+          type_collection: TypeCollection.Publication,
+          page: 1,
+          limit: 999,
+        };
+      })(),
     },
   });
 
@@ -132,12 +140,13 @@ export default function Publiction() {
     await refetch();
   };
 
-  const handleEditStatusCollection = async (id, statusId) => {
+  const handleEditStatusCollection = async (id, statusId, standOut) => {
     await editStatusCollection({
       variables: {
         input: {
           id,
-          status: statusId,
+          ...(standOut === false ? { stand_out: standOut } : { status: statusId }),
+          ...(standOut === true && { stand_out: standOut }),
         },
       },
     });
@@ -207,6 +216,7 @@ export default function Publiction() {
                 handleDeletePublication={handleDeleteCollection}
                 onEditStatusCollection={handleEditStatusCollection}
                 currentLang={currentLang.value}
+                standOut={filterStatus}
               />
             </Grid>
           ))}

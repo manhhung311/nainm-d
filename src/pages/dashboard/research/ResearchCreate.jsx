@@ -2,7 +2,6 @@
 import { styled } from '@mui/material/styles';
 // components
 import React, { useEffect, useState } from 'react';
-import { Box, Container } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
@@ -11,7 +10,6 @@ import ResearchNewPostForm from '../../../sections/@dashboard/research/ResearchN
 import useLocales from '../../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
-import useSettings from '../../../hooks/useSettings';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',

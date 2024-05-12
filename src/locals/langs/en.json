@@ -40,7 +40,9 @@
     "Examine": "Confirm",
     "Erase": "Delete",
     "Draft": "Draft",
-    "Edit information": "Edit"
+    "Edit information": "Edit",
+    "standOut": "Pin",
+    "unStandOut": "Unpin"
   },
   "message": {
     "Successful deletion of news": "Successful deletion of news",

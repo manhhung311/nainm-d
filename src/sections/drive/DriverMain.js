@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Stack, Typography } from '@mui/material';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Card, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
@@ -8,11 +7,8 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import Iconify from '../../components/Iconify';
-import { RoleId, StatusCollection, TypeCollection } from '../../constant';
+import { StatusCollection, TypeCollection } from '../../constant';
 import DriverCard from './DriverCard';
-import useAuth from '../../hooks/useAuth';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -30,12 +26,6 @@ export default function DriverMain() {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const { pathname } = useLocation();
-
-  const isDashboard = pathname.includes('dashboard');
-
-  const { user } = useAuth();
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 

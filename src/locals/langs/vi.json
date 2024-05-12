@@ -41,7 +41,9 @@
     "Examine": "Duyệt",
     "Erase": "Xóa",
     "Draft": "Nháp",
-    "Edit information": "Sửa thông tin"
+    "Edit information": "Sửa thông tin",
+    "standOut": "Ghim",
+    "unStandOut": "Bỏ ghim"
   },
   "message": {
     "Successful deletion of news": "Xóa tin tức thành công",
