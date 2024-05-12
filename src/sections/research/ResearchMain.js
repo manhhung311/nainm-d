@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Autocomplete, Button, Card, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { Autocomplete, Card, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom'; // Import _mock
 import { loader } from 'graphql.macro';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { useSnackbar } from 'notistack';
 import _mock from '../../_mock';
-import { _researchData } from '../../_mock/_research';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import useAuth from '../../hooks/useAuth';
 import useTabs from '../../hooks/useTabs';
 import { TypeCollection } from '../../constant';
-import { PATH_DASHBOARD } from '../../routes/paths';
-import Iconify from '../../components/Iconify';
-import Label from '../../components/Label';
 import ResearchPostCard from './ResearchCard';
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -27,21 +23,23 @@ const RootStyle = styled('div')(({ theme }) => ({
 const TABS = [
   {
     value: 1,
-    label: 'Công bố',
+    label: 'publish',
     color: 'success',
   },
   {
     value: 0,
-    label: 'Chờ Duyệt',
+    label: 'waitForApproval',
     color: 'info',
   },
   {
     value: 2,
-    label: 'Ẩn',
+    label: 'hidden',
     color: 'default',
   },
 ];
 const LIST_ALL_RESEARCH = loader('../../graphql/queries/collections/ListCollections.graphql');
+const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
+const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
 
 export default function ResearchMain() {
   const options = [
@@ -51,19 +49,26 @@ export default function ResearchMain() {
     { label: _mock.text.title(4), id: 4 },
     { label: _mock.text.title(5), id: 5 },
   ];
-  const { t } = useLocales();
+
+  const { t, currentLang } = useLocales();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const { user } = useAuth();
 
   const [research, setResearch] = useState([]);
 
+  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
-  const { data: getAllPosts } = useQuery(LIST_ALL_RESEARCH, {
+  const { data: getAllPosts, refetch } = useQuery(LIST_ALL_RESEARCH, {
     variables: {
       input: {
         status_collection: filterStatus,
         type_collection: TypeCollection.Research,
+        page: 1,
+        limit: 999,
       },
     },
   });
@@ -73,31 +78,68 @@ export default function ResearchMain() {
     }
   }, [getAllPosts]);
 
-  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+  const dataFiltered = applySortFilter({
+    tableData: research,
+    filterLanguage: currentLang.value,
+  });
 
-  console.log('_researchData', _researchData);
-  const x = 'https://www.youtube.com/watch?v=ufYmo2z_Hls';
+  const [deleteCollection] = useMutation(DELETE_COLLECTION, {
+    onCompleted: () => {
+      enqueueSnackbar(t('message.Successful deletion of news'), {
+        variant: 'success',
+      });
+    },
+
+    onError: (error) => {
+      enqueueSnackbar(`${t('message.Deleting news failed. Cause')} ${error.message}`, {
+        variant: 'error',
+      });
+    },
+  });
+
+  const [editStatusCollection] = useMutation(EDIT_STATUS_COLLECTION, {
+    onCompleted: () => {
+      enqueueSnackbar(t('message.Successful status update!'), {
+        variant: 'success',
+      });
+    },
+    onError: (error) => {
+      enqueueSnackbar(`${t('Status update failed!. Cause:')} ${error.message}`, {
+        variant: 'error',
+      });
+    },
+  });
+
+  const handleDeleteCollection = async (idCollection) => {
+    await deleteCollection({
+      variables: {
+        id: Number(idCollection),
+      },
+    });
+    await refetch();
+  };
+
+  const handleEditStatusCollection = async (id, statusId) => {
+    await editStatusCollection({
+      variables: {
+        input: {
+          id,
+          status: statusId,
+        },
+      },
+    });
+
+    await refetch();
+  };
+
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
           <>
-            <Grid item xs={7}>
-              <Typography variant="h4">{t('research.title')}</Typography>
-            </Grid>
-
-            <Grid item xs={5}>
-              <Stack>
-                {user && (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.research.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    Tạo mới
-                  </Button>
-                )}
+            <Grid item xs={12}>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography variant="h4"> {t('research.title')}</Typography>
               </Stack>
             </Grid>
             <Grid item xs={12} md={3}>
@@ -112,73 +154,70 @@ export default function ResearchMain() {
           </>
         ) : (
           <>
-            <Grid item xs={10}>
-              <Typography variant="h4">{t('research.title')}</Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Stack>
-                {user && (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.research.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    Tạo mới
-                  </Button>
-                )}
+            <Grid item xs={12}>
+              <Stack direction="row" justifyContent="space-between">
+                <Typography variant="h4"> {t('research.title')}</Typography>
               </Stack>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={options}
-                fullWidth
-                renderInput={(params) => <TextField {...params} label="Search" />}
-              />
             </Grid>
           </>
         )}
       </Grid>
 
-      <Tabs
-        allowScrollButtonsMobile
-        variant="scrollable"
-        scrollButtons="auto"
-        value={filterStatus}
-        onChange={onFilterStatus}
-        sx={{ mb: { xs: 3, md: 5 } }}
-      >
-        {TABS.map((tab, idx) => (
-          <Tab
-            disableRipple
-            key={idx + 1}
-            value={tab.value}
-            label={
-              <Stack spacing={1} direction="row" alignItems="center">
-                <div>{tab.label}</div> <Label color={tab.color}> </Label>
-              </Stack>
-            }
-          />
-        ))}
-      </Tabs>
-      {research.length === 0 && (
+      {user && (
+        <Tabs
+          allowScrollButtonsMobile
+          variant="scrollable"
+          scrollButtons="auto"
+          value={filterStatus}
+          onChange={onFilterStatus}
+          sx={{ mb: { xs: 3, md: 5 } }}
+        >
+          {TABS.map((tab, idx) => (
+            <Tab
+              disableRipple
+              key={idx + 1}
+              value={tab.value}
+              label={
+                <Stack spacing={1} direction="row" alignItems="center">
+                  <div>{t(`card.${tab.label}`)}</div>
+                </Stack>
+              }
+            />
+          ))}
+        </Tabs>
+      )}
+      {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
-            Chưa có bài viết nào
+            {t('card.noPostsYet')}
           </Typography>
         </Card>
       )}
 
       <Grid container spacing={3}>
-        {research.length > 0 &&
-          research.map((post, index) => (
+        {dataFiltered.length > 0 &&
+          dataFiltered.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
-              <ResearchPostCard post={post} index={index} />
+              <ResearchPostCard
+                post={post}
+                index={index}
+                handleDeleteResearch={handleDeleteCollection}
+                onEditStatusCollection={handleEditStatusCollection}
+                currentLang={currentLang.value}
+              />
             </Grid>
           ))}
       </Grid>
     </RootStyle>
   );
+}
+
+function applySortFilter({ tableData, filterLanguage }) {
+  if (filterLanguage === 'en') {
+    tableData = tableData.filter((item) => item.title_english !== '');
+  }
+  if (filterLanguage === 'vi') {
+    tableData = tableData.filter((item) => item.title !== '');
+  }
+  return tableData;
 }

@@ -7,6 +7,7 @@ import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
 
 UserTableToolbar.propTypes = {
+  changeLanguageFunc: PropTypes.func,
   filterName: PropTypes.string,
   filterRole: PropTypes.string,
   onFilterName: PropTypes.func,
@@ -14,7 +15,7 @@ UserTableToolbar.propTypes = {
   optionsRole: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default function UserTableToolbar({ filterName, filterRole, onFilterName, onFilterRole, optionsRole }) {
+export default function UserTableToolbar({ filterName, filterRole, onFilterName, onFilterRole, optionsRole , changeLanguageFunc }) {
   const { t } = useLocales();
   return (
     <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ py: 2.5, px: 3 }}>
@@ -46,7 +47,7 @@ export default function UserTableToolbar({ filterName, filterRole, onFilterName,
               textTransform: 'capitalize',
             }}
           >
-            {option}
+            {changeLanguageFunc(`user.${option}`)}
           </MenuItem>
         ))}
       </TextField>

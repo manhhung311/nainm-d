@@ -1,62 +1,51 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { Box, Card, CardContent, Link, MenuItem, Stack, Typography } from '@mui/material';
 // routes
 import { useState } from 'react';
-import { alpha, styled } from '@mui/material/styles';
 import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
-
-import SvgIconStyle from '../../components/SvgIconStyle';
+import { RoleId, StatusCollection } from '../../constant';
+import useLocales from '../../locals/useLocals';
 
 // ----------------------------------------------------------------------
 
 BlogPostCard.propTypes = {
   post: PropTypes.object.isRequired,
-  index: PropTypes.number,
   handleDeleteNews: PropTypes.func,
+  onEditStatusCollection: PropTypes.func,
+  currentLang: PropTypes.string,
 };
 
-export default function BlogPostCard({ post, index, handleDeleteNews }) {
-  const { user } = useAuth();
-
+export default function BlogPostCard({ post, handleDeleteNews, onEditStatusCollection, currentLang }) {
   const {
     title,
     title_english: titleEnglish,
     description,
     description_english: descriptionEnglish,
+    status_collection: statusCollection,
     createdAt,
     id,
   } = post;
 
   return (
     <Card>
-      <Box sx={{ position: 'relative' }}>
-        <SvgIconStyle
-          src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"
-          sx={{
-            width: 80,
-            height: 36,
-            zIndex: 9,
-            bottom: -15,
-            position: 'absolute',
-            color: 'background.paper',
-          }}
-        />
-      </Box>
-
       <PostContent
         id={id}
         title={title}
         titleEnglish={titleEnglish}
         description={description}
         descriptionEnglish={descriptionEnglish}
+        statusCollection={statusCollection}
         handleDeleteNews={handleDeleteNews}
+        onEditStatusCollection={onEditStatusCollection}
+        createdAt={createdAt}
+        currentLang={currentLang}
       />
     </Card>
   );
@@ -70,9 +59,12 @@ PostContent.propTypes = {
   titleEnglish: PropTypes.string,
   description: PropTypes.string,
   descriptionEnglish: PropTypes.string,
+  currentLang: PropTypes.string,
+  statusCollection: PropTypes.number,
   id: PropTypes.number,
   handleDeleteNews: PropTypes.func,
-  createdAt: PropTypes.string,
+  onEditStatusCollection: PropTypes.func,
+  // createdAt: PropTypes.string,
 };
 
 export function PostContent({
@@ -80,14 +72,22 @@ export function PostContent({
   index,
   id,
   handleDeleteNews,
+  onEditStatusCollection,
   description,
+  currentLang,
+  statusCollection,
   titleEnglish,
-  createdAt,
+  // createdAt,
   descriptionEnglish,
 }) {
   const isDesktop = useResponsive('up', 'md');
   const [openMenu, setOpenMenuActions] = useState(null);
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+
+  const { pathname } = useLocation();
+  const isDashboard = pathname.includes('dashboard');
 
   const handleEditBlog = (id) => {
     navigate(PATH_DASHBOARD.news.edit(id));
@@ -100,9 +100,10 @@ export function PostContent({
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
-  const linkTo = PATH_DASHBOARD.news.detail(id);
+  const linkTo = isDashboard ? PATH_DASHBOARD.news.detail(id) : PATH_PAGE.news.detail(id);
 
   const latestPostLarge = index === 0;
+  const { t } = useLocales();
 
   return (
     <CardContent
@@ -126,44 +127,90 @@ export function PostContent({
             right: 16,
           }}
         >
-          <TableMoreMenu
-            open={openMenu}
-            onOpen={handleOpenMenu}
-            onClose={handleCloseMenu}
-            actions={
-              <>
-                <MenuItem
-                  onClick={() => {
-                    handleCloseMenu();
-                    handleDeleteNews(id);
-                  }}
-                  sx={{ color: 'success' }}
-                >
-                  Duyệt
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleCloseMenu();
-                    handleDeleteNews(id);
-                  }}
-                  sx={{ color: 'error.main' }}
-                >
-                  <Iconify icon={'eva:trash-2-outline'} />
-                  Xóa
-                </MenuItem>
+          {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
+            <TableMoreMenu
+              open={openMenu}
+              onOpen={handleOpenMenu}
+              onClose={handleCloseMenu}
+              actions={
+                <>
+                  {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Public);
+                      }}
+                      sx={{ color: 'success.main' }}
+                    >
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.Examine')}
+                    </MenuItem>
+                  )}
 
-                <MenuItem
-                  onClick={() => {
-                    handleEditBlog(id);
-                    handleCloseMenu();
-                  }}
-                >
-                  <Iconify icon={'eva:edit-fill'} />
-                  Sửa thông tin
-                </MenuItem>
-              </>
-            }
-          />
+                  {statusCollection === StatusCollection.Public && user?.role === RoleId.admin && (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Hidden);
+                        }}
+                        // sx={{ color: 'success.main' }}
+                      >
+                        <Iconify icon={'dashicons:hidden'} />
+                        {t('card.hidden')}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Draft);
+                        }}
+                        sx={{ color: 'warning.main' }}
+                      >
+                        <Iconify icon={'material-symbols:draft-outline'} />
+                        {t('card.Draft')}
+                      </MenuItem>
+                    </>
+                  )}
+
+                  {statusCollection === StatusCollection.Hidden && user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Public);
+                      }}
+                      sx={{ color: 'success.main' }}
+                    >
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.publish')}
+                    </MenuItem>
+                  )}
+                  {user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        handleDeleteNews(id);
+                      }}
+                      sx={{ color: 'error.main' }}
+                    >
+                      <Iconify icon={'eva:trash-2-outline'} />
+                      {t('card.Erase')}
+                    </MenuItem>
+                  )}
+                  {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
+                    <MenuItem
+                      onClick={() => {
+                        handleEditBlog(id);
+                        handleCloseMenu();
+                      }}
+                    >
+                      <Iconify icon={'eva:edit-fill'} />
+                      {t('card.Edit information')}
+                    </MenuItem>
+                  )}
+                </>
+              }
+            />
+          )}
         </Box>
       )}
 
@@ -179,17 +226,17 @@ export function PostContent({
           }),
         }}
       >
-        {/* {fddMMYYYYWithSlash(createdAt)} */}26/04/2024
+        {''}
       </Typography>
 
       <Stack spacing={1} flexGrow={1}>
         <Link to={linkTo} color="inherit" component={RouterLink}>
           <TextMaxLine variant={isDesktop ? 'h5' : 'subtitle2'} line={2} persistent>
-            {title}
+            {currentLang === 'vi' ? title : titleEnglish}
           </TextMaxLine>
         </Link>
         <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}>
-          {description}
+          {currentLang === 'vi' ? description : descriptionEnglish}
         </TextMaxLine>
       </Stack>
 

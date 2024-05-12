@@ -4,20 +4,16 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 // @mui
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import { LoadingButton } from '@mui/lab';
 import PropTypes from 'prop-types';
-import { Card, Grid, Stack, Typography, Button, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { loader } from 'graphql.macro';
-import React, { useEffect, useState } from 'react';
+import { Button, Card, Grid, Typography } from '@mui/material';
 import { useMutation } from '@apollo/client';
+import { loader } from 'graphql.macro';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider } from '../../components/hook-form';
 import { TypeCollection } from '../../constant';
-import { PATH_DASHBOARD } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
+import { PATH_DASHBOARD } from '../../routes/paths';
 import PublicationPostEnglishStack from './PublicationPostEnglishStack';
 import PublicationPostVNStack from './PublicationPostVNStack';
 
@@ -27,16 +23,13 @@ const UPDATE_PUBLICATION = loader('../../graphql/mutations/collections/editColle
 PublicationNewForm.propTypes = {
   isEdit: PropTypes.bool,
   dataPostUpdate: PropTypes.object,
+  imgURL: PropTypes.string,
 };
-
-const LabelStyle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(1),
-}));
 
 export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
+
+  const [uploadFile, setUploadFile] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -69,6 +62,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     titleEnglish: dataPostUpdate?.title_english || '',
     descriptionEnglish: dataPostUpdate?.description_english || '',
     contentEnglish: dataPostUpdate?.collection_English || '',
+    cover: dataPostUpdate?.imgURL || null,
   };
 
   const methods = useForm({
@@ -80,6 +74,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     reset,
     handleSubmit,
     watch,
+    setValue,
     formState: { isSubmitting },
   } = methods;
 
@@ -119,6 +114,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
               // check chuẩn kiểu dữ liệu của input
               type_collection: TypeCollection.Publication,
               title: values?.title,
+              imgURL: uploadFile,
               collection_Vietnamese: values?.content,
               description: values?.description,
               title_english: values?.titleEnglish,
@@ -136,6 +132,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
               title: values?.title,
               collection_Vietnamese: values?.content,
               description: values?.description,
+              imgURL: uploadFile, // Sửa thành avartaURL
               title_english: values?.titleEnglish,
               collection_English: values?.contentEnglish,
               description_english: values?.descriptionEnglish,
@@ -145,7 +142,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
       }
       reset();
       enqueueSnackbar(isEdit ? 'Sửa bài thành công!' : 'Đăng bài thành công!');
-      navigate(PATH_DASHBOARD.news.list);
+      navigate(PATH_DASHBOARD.publication.list);
     } catch (error) {
       enqueueSnackbar(isEdit ? 'Sửa bài không thành công!' : 'Đăng bài không thành công!', { variant: 'error' });
     }
@@ -157,11 +154,26 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitting, values]);
-  console.log('values?.title', values?.title);
 
   const handleTabClick = (tabIndex) => {
     setCurrentTab(tabIndex);
   };
+  const handleDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+
+      if (file) {
+        setValue(
+          'cover',
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        );
+      }
+      setUploadFile(file);
+    },
+    [setValue]
+  );
   return (
     <>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -201,9 +213,9 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <PublicationPostVNStack onNext={handleTabClick} />
+                <PublicationPostVNStack onNext={handleTabClick} onDrop={handleDrop} />
               ) : (
-                <PublicationPostEnglishStack onBack={handleTabClick} />
+                <PublicationPostEnglishStack onBack={handleTabClick} onDrop={handleDrop} />
               )}
             </Card>
           </Grid>

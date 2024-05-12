@@ -1,40 +1,57 @@
-// @mui
-import { styled, alpha } from '@mui/material/styles';
-import PropTypes from 'prop-types';
-import isString from 'lodash/isString';
-// @mui
-import { LoadingButton } from '@mui/lab';
-import { Box, Button, Container, Typography, DialogActions } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { loader } from 'graphql.macro';
+import { useQuery } from '@apollo/client';
+import { useLocation, useParams } from 'react-router-dom';
 // components
-import Image from '../../../components/Image';
+import { styled } from '@mui/material/styles';
 import PublicationNewForm from '../../../sections/publication/PublicationNewForm';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import Page from '../../../components/Page';
-import useSettings from '../../../hooks/useSettings';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import useLocales from '../../../locals/useLocals';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
-  height: '100%',
+height: '100%',
 }));
-// ----------------------------------------------------------------------
+const DETAIL_COLLECTION = loader('../../../graphql/queries/collections/DetailCollection.graphql');
 
 export default function PublictionCreate() {
-  const { themeStretch } = useSettings();
+  const { pathname } = useLocation();
+
+  const [postUpdate, setPostUpdate] = useState();
+
+  const { id: idNews } = useParams();
+
+  const { data: detailCollection } = useQuery(DETAIL_COLLECTION, {
+    variables: {
+      id: idNews,
+    },
+  });
+
+  useEffect(() => {
+    if (detailCollection) {
+      setPostUpdate(detailCollection?.collection);
+    }
+  }, [idNews, detailCollection]);
+
+  const isEdit = pathname.includes('edit');
+
+  const { t } = useLocales();
+
   return (
-    <Page title="Blog: New Post">
-      <Container maxWidth={themeStretch ? false : 'lg'}>
+    <Page title={t('publication.title')}>
+      <RootStyle>
         <HeaderBreadcrumbs
-          heading="Create a new post"
+          heading={t('create.createNewPost')}
           links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Publication', href: PATH_DASHBOARD.publication.root },
-            { name: 'New Publication' },
+            { name: t('user.Management'), href: PATH_DASHBOARD.root },
+            { name: t('publication.title'), href: PATH_DASHBOARD.publication.root },
+            { name: t('navItem.create') },
           ]}
         />
-
-        <PublicationNewForm />
-      </Container>
+        <PublicationNewForm isEdit={isEdit} dataPostUpdate={postUpdate} />
+      </RootStyle>
     </Page>
   );
 }

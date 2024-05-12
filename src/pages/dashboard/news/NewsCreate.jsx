@@ -2,13 +2,14 @@
 import { styled } from '@mui/material/styles';
 // components
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useLocation, useParams } from 'react-router-dom';
 import Page from '../../../components/Page';
 import NewsNewPostForm from '../../../sections/@dashboard/news/NewsPostForm';
 import useLocales from '../../../locals/useLocals';
+import { PATH_DASHBOARD } from '../../../routes/paths';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -42,9 +43,15 @@ export default function NewsCreate() {
   return (
     <Page title={t('news.page')}>
       <RootStyle>
-        <Box>
-          <NewsNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
-        </Box>
+        <HeaderBreadcrumbs
+          heading={t('create.createNewPost')}
+          links={[
+            { name: t('user.Management'), href: PATH_DASHBOARD.root },
+            { name: t('news.title'), href: PATH_DASHBOARD.news.root },
+            { name: t('navItem.create') },
+          ]}
+        />
+        <NewsNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
       </RootStyle>
     </Page>
   );

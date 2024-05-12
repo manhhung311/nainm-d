@@ -1,52 +1,39 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { Box, Card, CardContent, Link, MenuItem, Stack, Typography } from '@mui/material';
 // routes
 import { useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
-
-import SvgIconStyle from '../../components/SvgIconStyle';
+import { RoleId, StatusCollection } from '../../constant';
+import useLocales from '../../locals/useLocals';
+import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 ResearchPostCard.propTypes = {
   post: PropTypes.object.isRequired,
-  index: PropTypes.number,
   handleDeleteResearch: PropTypes.func,
+  onEditStatusCollection: PropTypes.func,
+  currentLang: PropTypes.string,
 };
 
-export default function ResearchPostCard({ post, handleDeleteResearch }) {
-
-
+export default function ResearchPostCard({ post, handleDeleteResearch, onEditStatusCollection, currentLang }) {
   const {
     title,
     title_english: titleEnglish,
     description,
     description_english: descriptionEnglish,
+    status_collection: statusCollection,
     id,
   } = post;
 
   return (
     <Card>
-      <Box sx={{ position: 'relative' }}>
-        <SvgIconStyle
-          src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"
-          sx={{
-            width: 80,
-            height: 36,
-            zIndex: 9,
-            bottom: -15,
-            position: 'absolute',
-            color: 'background.paper',
-          }}
-        />
-      </Box>
-
       <PostContent
         id={id}
         title={title}
@@ -54,6 +41,9 @@ export default function ResearchPostCard({ post, handleDeleteResearch }) {
         description={description}
         descriptionEnglish={descriptionEnglish}
         handleDeleteResearch={handleDeleteResearch}
+        statusCollection={statusCollection}
+        onEditStatusCollection={onEditStatusCollection}
+        currentLang={currentLang}
       />
     </Card>
   );
@@ -69,19 +59,33 @@ PostContent.propTypes = {
   descriptionEnglish: PropTypes.string,
   id: PropTypes.number,
   handleDeleteResearch: PropTypes.func,
-  createdAt: PropTypes.string,
+  // createdAt: PropTypes.string,
+  currentLang: PropTypes.string,
+  statusCollection: PropTypes.number,
+  onEditStatusCollection: PropTypes.func,
 };
 
 export function PostContent({
-                              title,
-                              index,
-                              id,
-                              handleDeleteResearch,
-                              description,
-                            }) {
+  title,
+  index,
+  id,
+  handleDeleteResearch,
+  onEditStatusCollection,
+  description,
+  currentLang,
+  statusCollection,
+  titleEnglish,
+  // createdAt,
+  descriptionEnglish,
+}) {
   const isDesktop = useResponsive('up', 'md');
   const [openMenu, setOpenMenuActions] = useState(null);
   const navigate = useNavigate();
+
+  const { user } = useAuth();
+
+  const { pathname } = useLocation();
+  const isDashboard = pathname.includes('dashboard');
 
   const handleEditResearch = (id) => {
     navigate(PATH_DASHBOARD.research.edit(id));
@@ -94,10 +98,11 @@ export function PostContent({
   const handleCloseMenu = () => {
     setOpenMenuActions(null);
   };
-  const linkTo = PATH_DASHBOARD.research.edit(id);
+
+  const linkTo = isDashboard ? PATH_DASHBOARD.research.detail(id) : PATH_PAGE.research.detail(id);
 
   const latestPostLarge = index === 0;
-
+  const { t } = useLocales();
   return (
     <CardContent
       sx={{
@@ -120,44 +125,91 @@ export function PostContent({
             right: 16,
           }}
         >
-          <TableMoreMenu
-            open={openMenu}
-            onOpen={handleOpenMenu}
-            onClose={handleCloseMenu}
-            actions={
-              <>
-                <MenuItem
-                  onClick={() => {
-                    handleCloseMenu();
-                    handleDeleteResearch(id);
-                  }}
-                  sx={{ color: 'success' }}
-                >
-                  Duyệt
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleCloseMenu();
-                    handleDeleteResearch(id);
-                  }}
-                  sx={{ color: 'error.main' }}
-                >
-                  <Iconify icon={'eva:trash-2-outline'} />
-                  Xóa
-                </MenuItem>
+          {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
+            <TableMoreMenu
+              open={openMenu}
+              onOpen={handleOpenMenu}
+              onClose={handleCloseMenu}
+              actions={
+                <>
+                  {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Public);
+                      }}
+                      sx={{ color: 'success.main' }}
+                    >
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.Examine')}
+                    </MenuItem>
+                  )}
 
-                <MenuItem
-                  onClick={() => {
-                    handleEditResearch(id);
-                    handleCloseMenu();
-                  }}
-                >
-                  <Iconify icon={'eva:edit-fill'} />
-                  Sửa thông tin
-                </MenuItem>
-              </>
-            }
-          />
+                  {statusCollection === StatusCollection.Public && user?.role === RoleId.admin && (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Hidden);
+                        }}
+                        // sx={{ color: 'success.main' }}
+                      >
+                        <Iconify icon={'dashicons:hidden'} />
+                        {t('card.hidden')}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Draft);
+                        }}
+                        sx={{ color: 'warning.main' }}
+                      >
+                        <Iconify icon={'material-symbols:draft-outline'} />
+                        {t('card.Draft')}
+                      </MenuItem>
+                    </>
+                  )}
+
+                  {statusCollection === StatusCollection.Hidden && user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        onEditStatusCollection(id, StatusCollection.Public);
+                      }}
+                      sx={{ color: 'success.main' }}
+                    >
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.publish')}
+                    </MenuItem>
+                  )}
+
+                  {user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        handleDeleteResearch(id);
+                      }}
+                      sx={{ color: 'error.main' }}
+                    >
+                      <Iconify icon={'eva:trash-2-outline'} />
+                      {t('card.Erase')}
+                    </MenuItem>
+                  )}
+                  {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
+                    <MenuItem
+                      onClick={() => {
+                        handleEditResearch(id);
+                        handleCloseMenu();
+                      }}
+                    >
+                      <Iconify icon={'eva:edit-fill'} />
+                      {t('card.Edit information')}
+                    </MenuItem>
+                  )}
+                </>
+              }
+            />
+          )}
         </Box>
       )}
 
@@ -177,11 +229,11 @@ export function PostContent({
       <Stack spacing={1} flexGrow={1}>
         <Link to={linkTo} color="inherit" component={RouterLink}>
           <TextMaxLine variant={isDesktop ? 'h5' : 'subtitle2'} line={2} persistent>
-            {title}
+            {currentLang === 'vi' ? title : titleEnglish}
           </TextMaxLine>
         </Link>
         <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}>
-          {description}
+          {currentLang === 'vi' ? description : descriptionEnglish}
         </TextMaxLine>
       </Stack>
 

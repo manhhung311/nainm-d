@@ -9,7 +9,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import Page from '../../../components/Page';
 
 import useLocales from '../../../locals/useLocals';
-import ProfileNewPostForm from '../../../sections/@dashboard/profile/ProfileNewPostForm';
+import ProfessorNewPostForm from '../../../sections/@dashboard/profile/ProfessorNewPostForm';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
@@ -17,7 +17,7 @@ const RootStyle = styled('div')(() => ({
 }));
 // ----------------------------------------------------------------------
 
-const DETAIL_COLLECTION = loader('../../../graphql/queries/collections/DetailCollection.graphql');
+const USER_BY_ID = loader('../../../graphql/mutations/users/userById.graphql');
 
 export default function ProfileCreate() {
   const { pathname } = useLocation();
@@ -26,17 +26,17 @@ export default function ProfileCreate() {
 
   const { id: idNews } = useParams();
 
-  const { data: detailCollection } = useQuery(DETAIL_COLLECTION, {
+  const { data: detailUser } = useQuery(USER_BY_ID, {
     variables: {
       id: idNews,
     },
   });
 
   useEffect(() => {
-    if (detailCollection) {
-      setPostUpdate(detailCollection?.collection);
+    if (detailUser) {
+      setPostUpdate(detailUser?.user);
     }
-  }, [idNews, detailCollection]);
+  }, [idNews, detailUser]);
 
   const isEdit = pathname.includes('edit');
 
@@ -46,7 +46,7 @@ export default function ProfileCreate() {
     <Page title={t('profile.page')}>
       <RootStyle>
         <Box>
-          <ProfileNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
+          <ProfessorNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
         </Box>
       </RootStyle>
     </Page>

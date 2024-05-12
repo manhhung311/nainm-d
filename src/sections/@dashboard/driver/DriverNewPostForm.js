@@ -16,19 +16,18 @@ import { FormProvider } from '../../../components/hook-form';
 import { TypeCollection } from '../../../constant';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import useLocales from '../../../locals/useLocals';
-import ProfilePostVNStack from './ProfilePostVNStack';
-import ProfilePostEnglishStack from './ProfilePostEnglishStack';
+import DriverPostEnglishStack from './DriverPostEnglishStack';
 
 // ----------------------------------------------------------------------
-const CREATE_NEWS = loader('../../../graphql/mutations/collections/createCollection.graphql');
-const UPDATE_NEWS = loader('../../../graphql/mutations/collections/editCollection.graphql');
+const CREATE_DRIVER = loader('../../../graphql/mutations/collections/createCollection.graphql');
+const UPDATE_DRIVER = loader('../../../graphql/mutations/collections/editCollection.graphql');
 
-ProfileNewPostForm.propTypes = {
+DriverNewPostForm.propTypes = {
   isEdit: PropTypes.bool,
   dataPostUpdate: PropTypes.object,
 };
 
-export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
+export default function DriverNewPostForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -39,8 +38,8 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
 
   const NewQuotationSchema = Yup.object()
     .shape({
-      title: Yup.string().max(200, 'Tiêu đề có số kí tự tối đa là 200 kí tự!'),
-      titleEnglish: Yup.string().max(200, 'Tiêu đề có số kí tự tối đa là 200 kí tự!'),
+      title: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
+      titleEnglish: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
     })
     .test('titleEnglish', null, (obj) => {
       if (obj.title.length !== 0 || obj.titleEnglish.length !== 0) {
@@ -48,7 +47,7 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
       }
 
       return new Yup.ValidationError(
-        'Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh!',
+        t('message.You must fill in at least 1 of 2 Vietnamese or English sections!'),
         null,
         'titleEnglish'
       );
@@ -58,10 +57,8 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
     id: dataPostUpdate?.id || null,
     title: dataPostUpdate?.title || '',
     description: dataPostUpdate?.description || '',
-    content: dataPostUpdate?.collection_Vietnamese || '',
     titleEnglish: dataPostUpdate?.title_english || '',
     descriptionEnglish: dataPostUpdate?.description_english || '',
-    contentEnglish: dataPostUpdate?.collection_English || '',
   };
 
   const methods = useForm({
@@ -88,7 +85,7 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, dataPostUpdate]);
 
-  const [createNewFn] = useMutation(CREATE_NEWS, {
+  const [createNewFn] = useMutation(CREATE_DRIVER, {
     variables: {
       input: {},
     },
@@ -102,7 +99,7 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
     // ],
   });
 
-  const [updateNewsFn] = useMutation(UPDATE_NEWS, {
+  const [updateDriverFn] = useMutation(UPDATE_DRIVER, {
     onCompleted: async (res) => {
       if (res) {
         return res;
@@ -118,18 +115,16 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
           variables: {
             input: {
               // check chuẩn kiểu dữ liệu của input
-              type_collection: TypeCollection.News,
+              type_collection: TypeCollection.Driver,
               title: values?.title,
-              collection_Vietnamese: values?.content,
               description: values?.description,
-              title_english: values?.titleEnglish,
-              collection_English: values?.contentEnglish,
-              description_english: values?.descriptionEnglish,
+              title_english: values?.title,
+              description_english: values?.description,
             },
           },
         });
       } else {
-        await updateNewsFn({
+        await updateDriverFn({
           variables: {
             input: {
               // check chuẩn kiểu dữ liệu của input
@@ -145,16 +140,18 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
         });
       }
       reset();
-      enqueueSnackbar(isEdit ? 'Sửa bài thành công!' : 'Đăng bài thành công!');
-      navigate(PATH_DASHBOARD.profile.list);
+      enqueueSnackbar(isEdit ? t('message.Successfully edited!') : t('message.Successful post!'));
+      navigate(PATH_DASHBOARD.drive.list);
     } catch (error) {
-      enqueueSnackbar(isEdit ? 'Sửa bài không thành công!' : 'Đăng bài không thành công!', { variant: 'error' });
+      enqueueSnackbar(isEdit ? t('message.Failed post fix!') : t('message.Post failed!'), { variant: 'error' });
     }
   };
 
   useEffect(() => {
     if (isSubmitting && values?.title === '' && values?.titleEnglish === '') {
-      enqueueSnackbar('Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh', { variant: 'error' });
+      enqueueSnackbar(t('message.You must fill in at least 1 of 2 Vietnamese or English sections!'), {
+        variant: 'error',
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitting, values]);
@@ -173,39 +170,20 @@ export default function ProfileNewPostForm({ isEdit, dataPostUpdate }) {
               size="large"
               variant="outlined"
               style={
-                currentTab === 1
-                  ? { backgroundColor: '#4BD578', color: '#fff' }
-                  : { backgroundColor: '#fff', color: '#000' }
-              }
-              className={currentTab === 1 ? 'active' : ''}
-            >
-              <Typography variant="h5">{t('news.tab1')}</Typography>
-            </Button>
-          </Grid>
-          <Grid item xs={6} md={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-            <Button
-              sx={{ width: '100%', height: '100%', borderRadius: 2 }}
-              size="large"
-              variant="outlined"
-              style={
                 currentTab === 2
                   ? { backgroundColor: '#4BD578', color: '#fff' }
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 2 ? 'active' : ''}
             >
-              <Typography variant="h5">{t('news.tab2')}</Typography>
+              <Typography variant="h5">Drive</Typography>
             </Button>
           </Grid>
         </Grid>
         <Grid container spacing={3} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
-              {currentTab === 1 ? (
-                <ProfilePostVNStack onNext={handleTabClick} />
-              ) : (
-                <ProfilePostEnglishStack onBack={handleTabClick} />
-              )}
+              <DriverPostEnglishStack onBack={handleTabClick} />
             </Card>
           </Grid>
         </Grid>

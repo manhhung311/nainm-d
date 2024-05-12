@@ -21,6 +21,42 @@
     "list": "Danh Sách",
     "create": "Tạo mới"
   },
+  "create": {
+    "researchCreate": "Tạo mới nghiên cứu",
+    "researchList": "Danh sách nghiên cứu",
+    "facilityCreate": "Tạo mới thiết bị",
+    "facilityList": "Danh sách thiết bị",
+    "createNewPost": "Tạo mới bài viết",
+    "postTitle": "Tiêu đề bài đăng",
+    "description": "Mô tả",
+    "content": "Content"
+  },
+
+  "card": {
+    "publish": "Công bố",
+    "waitForApproval": "Chờ duyệt",
+    "hidden": "Ẩn",
+    "createNew": "Tạo mới",
+    "noPostsYet": "Chưa có bài viết nào",
+    "Examine": "Duyệt",
+    "Erase": "Xóa",
+    "Draft": "Nháp",
+    "Edit information": "Sửa thông tin",
+    "standOut": "Ghim",
+    "unStandOut": "Bỏ ghim"
+  },
+  "message": {
+    "Successful deletion of news": "Xóa tin tức thành công",
+    "Deleting news failed. Cause": "Xóa tin tức không thành công. Nguyên nhân",
+    "Successful status update!": "Cập nhật trạng thái thành công!",
+    "Status update failed!. Cause:": "Cập nhật trạng thái không thành công!. Nguyên nhân:",
+    "Titles have a maximum number of 200 characters!": "Tiêu đề có số kí tự tối đa là 200 kí tự!",
+    "You must fill in at least 1 of 2 Vietnamese or English sections!": "Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh!",
+    "Successfully edited!" : "Sửa bài thành công!",
+    "Successful post!" : "Đăng bài thành công!",
+    "Failed post fix!": "Sửa bài không thành công!",
+    "Post failed!": "Đăng bài không thành công!"
+},
   "user": {
     "pageList": "Danh Sách Người Dùng",
     "pageCreate": "Tạo Mới Người Dùng",
@@ -34,9 +70,41 @@
     "Email": "Email",
     "PhoneNumber": "Số Điện Thoại",
     "Status": "Trạng Thái",
+    "StatusActive": "Đang hoạt động",
+    "StatusLock": "Đang khóa",
     "Search": "Tìm Kiếm Người Dùng",
-    "Dense": "Thu Gọn",
+    "Dense": "Thu Nhỏ",
     "Delete": "Xóa",
+    "Edit" : "Chỉnh Sửa",
+    "Admin" : "Quản Trị Viên",
+    "Manager" : "Quản Lý Bài Viết",
+    "All" : "Tất Cả",
+    "online" : "Đang hoạt động",
+    "LockAccount": "Khóa",
+    "ActiveAccount": "Mở",
+    "ResetPassword": "Cài Lại Mật Khẩu",
+    "FirstName": "Họ",
+    "LastName": "Tên",
+    "EmailAddress": "Địa Chỉ email",
+    "PassWord": "Mật Khẩu",
+    "PerSonNel": "Nhân Sự",
+    "CreateUser": "Tạo Người Dùng",
+    "SaveChanges": "Lưu Thay Đổi",
+    "PROCCEFER": "Giáo Sư",
+    "Student": "Sinh Viên",
+    "Active": "Hoạt Động",
+    "Banned": "Đã Khóa",
+    "FirstNames": "Họ là bắt buộc",
+    "LastNames": "Tên là bắt buộc",
+    "Emails": "email là bắt buộc",
+    "Passwords": "Mật khẩu là bắt buộc",
+    "RoleNumber": "Vai trò là bắt buộc",
+    "Created": "Tạo mới thành công",
+    "CreateFailed": "Tạo mới không thành công ",
+    "Updates": "Cập nhật thành công ",
+    "UpdatesFailed": "Sửa thông tin cá nhân không thành công. Nguyên nhân: ",
+    "MoreView": "Xem Thêm",
+    "SelectUser": "Chọn Người Dùng",
     "": ""
   },
   "list": "danh sách",
@@ -48,14 +116,25 @@
     "tab1": "Việt Nam",
     "tab2": "Tiếng Anh",
     "post1": "Tạo mới Tiếng Việt",
-    "post2": "Tạo mới Tiếng Anh"
+    "post2": "Tạo mới Tiếng Anh",
+    "page1": "Chi tiết nghiên cứu"
   },
   "facility": {
     "title": "Thiết bị",
     "tab1": "Việt Nam",
     "tab2": "Tiếng Anh",
     "post1": "Tạo mới Tiếng Việt",
-    "post2": "Tạo mới Tiếng Anh"
+    "post2": "Tạo mới Tiếng Anh",
+    "page1": "Chi tiết thiết bị"
+  },
+
+  "driver": {
+    "title": "Drive",
+    "tab1": "Việt Nam",
+    "tab2": "Tiếng Anh",
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh",
+    "page1": "Chi tiết drive"
   },
   "home": {
     "title": "Trang chủ",
@@ -64,12 +143,17 @@
     }
   },
   "publication": {
-    "publication": "Dự án nghiên cứu"
+    "publication": "Dự án nghiên cứu",
+    "page1": "Chi Tiết Dự Án Nghiên Cứu",
+    "title": "Dự Án Nghiên Cứu"
   },
   "people": {
     "page": "Nhân sự",
     "tab1": "GIÁO SƯ",
-    "tab2": "TEAM LAB"
+    "tab2": "THÀNH VIÊN",
+    "phone": "Liên Hệ",
+    "email": "E-mail",
+    "edit" : "Chỉnh Sửa"
   },
   "demo": {
     "title": "Việt Nam"
@@ -82,7 +166,21 @@
     "post2": "Tạo Hồ Sơ Tiếng Anh",
     "tiep": "Tiếp tục",
     "trolai": "Trở lại",
-    "post": "Đăng"
+    "post": "Đăng",
+    "oldPassWordr": "Mật Khẩu Cũ Là Bắt Buộc",
+    "newPassWordr": "Mật Khẩu Mới Là Bắt Buộc",
+    "oldPassWord": " Mật Khẩu Cũ ",
+    "newPassWord": "Mật Khẩu Mới ",
+    "info": "Thông tin cá nhân",
+    "ChangePassword": "Thay đổi mật khẩu ",
+    "Profile": "Hồ Sơ",
+    "Home": "Trang Chủ",
+    "Logout": "Đăng xuất",
+    "ContentF": "Bạn có chắc chắn muốn reset mật khẩu cho người dùng này không?",
+    "Cancel": "Hủy",
+    "Agree": "Đồng ý",
+    "MK": " Mật khẩu đã được reset thành công về: 'TeamLabServer'",
+    "ER": "Đã xảy ra lỗi khi cố gắng reset mật khẩu: Nguyên nhân:"
   },
   "news": {
     "title": "Tin Tức",

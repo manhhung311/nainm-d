@@ -16,8 +16,9 @@ import Logo from '../../../components/Logo';
 import Scrollbar from '../../../components/Scrollbar';
 import { NavSectionVertical } from '../../../components/nav-section';
 //
-import navConfig from './NavConfig';
 import CollapseButton from './CollapseButton';
+import commonNavConfig from './NavConfig';
+import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,8 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
   const theme = useTheme();
 
   const { pathname } = useLocation();
+
+  const { user } = useAuth();
 
   const isDesktop = useResponsive('up', 'lg');
 
@@ -78,13 +81,11 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
             <CollapseButton onToggleCollapse={onToggleCollapse} collapseClick={collapseClick} />
           )}
         </Stack>
-
       </Stack>
 
-      <NavSectionVertical navConfig={navConfig} isCollapse={isCollapse} />
+      <NavSectionVertical navConfig={commonNavConfig(user)} isCollapse={isCollapse} />
 
       <Box sx={{ flexGrow: 1 }} />
-
     </Scrollbar>
   );
 

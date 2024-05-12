@@ -32,16 +32,33 @@ export const PATH_PAGE = {
   page500: '/500',
   components: '/components',
   people: '/people',
-  publication: '/publication',
-  research: '/research',
+
+  drive: {
+    list: '/drive',
+    detail: (id) => `${id}/detail`,
+  },
+  publication: {
+    list: '/publication',
+    detail: (id) => `${id}/detail`,
+  },
+  research: {
+    list: '/research',
+    detail: (id) => `${id}/detail`,
+  },
   facility: {
     list: '/facility',
     detail: (id) => `${id}/detail`,
   },
   news: {
-    list: `news`,
+    list: `/news`,
     detail: (id) => `${id}/detail`,
   },
+
+  profile: {
+    list: 'profile',
+    detail: (id) => `${id}/detail`,
+  },
+
   dashboard: {
     root: ROOTS_DASHBOARD,
     user: {
@@ -51,6 +68,7 @@ export const PATH_PAGE = {
       profile: `${ROOTS_DASHBOARD}/user/profile`,
       account: `${ROOTS_DASHBOARD}/user/account`,
       edit: (id) => `${ROOTS_DASHBOARD}/user/${id}/edit`,
+      frofile: (id) => `${ROOTS_DASHBOARD}/user/${id}/frofile`,
     },
   },
 };
@@ -62,6 +80,7 @@ export const PATH_DASHBOARD = {
     new: '/dashboard/user/new',
     list: '/dashboard/user/list',
     edit: (id) => `${ROOTS_DASHBOARD}/user/${id}/edit`,
+    profile: `${ROOTS_DASHBOARD}/user/profile`,
 
     // edit: (name) => `dashboard/user/${name}/edit`,
   },
@@ -71,6 +90,7 @@ export const PATH_DASHBOARD = {
     list: '/dashboard/publication/list',
     edit: (id) => `/dashboard/publication/${id}/edit`,
     // edit: (name) => `dashboard/user/${name}/edit`,
+    detail: (id) => `/dashboard/publication/${id}/detail`,
   },
   research: {
     root: '/dashboard/research',
@@ -97,13 +117,14 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/drive',
     new: '/dashboard/drive/new',
     list: '/dashboard/drive/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+    edit: (id) => `/dashboard/drive/${id}/edit`,
   },
   profile: {
     root: '/dashboard/profile',
     new: '/dashboard/profile/new',
     list: '/dashboard/profile/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+    edit: (id) => `/dashboard/profile/${id}/edit`,
+    detail: (id) => `/dashboard/profile/${id}/detail`,
   },
 };
 

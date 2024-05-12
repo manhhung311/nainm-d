@@ -2,38 +2,26 @@ import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
+import { Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
 // routes
-import { PATH_DASHBOARD, PATH_AUTH } from '../../../routes/paths';
+import { PATH_AUTH, PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
-import MyAvatar from '../../../components/MyAvatar';
 import MenuPopover from '../../../components/MenuPopover';
+import MyAvatar from '../../../components/MyAvatar';
 import { IconButtonAnimate } from '../../../components/animate';
+import useLocales from '../../../locals/useLocals';
 
 // ----------------------------------------------------------------------
-
-const MENU_OPTIONS = [
-  {
-    label: 'Home',
-    linkTo: '/',
-  },
-  {
-    label: 'Profile',
-    linkTo: PATH_DASHBOARD.user.profile,
-  },
-  {
-    label: 'Settings',
-    linkTo: PATH_DASHBOARD.user.account,
-  },
-];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const { t } = useLocales();
+
   const navigate = useNavigate();
 
   const { user, logout } = useAuth();
@@ -47,7 +35,16 @@ export default function AccountPopover() {
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
-
+  const MENU_OPTIONS = [
+    {
+      label: t('profile.Home'), // Sử dụng hàm t() hoặc biến tùy theo trường hợp của bạn
+      linkTo: '/',
+    },
+    {
+      label: t('profile.Profile'), // Sử dụng hàm t() hoặc biến tùy theo trường hợp của bạn
+      linkTo: PATH_DASHBOARD.user.profile,
+    },
+  ];
   const handleClose = () => {
     setOpen(null);
   };
@@ -124,7 +121,7 @@ export default function AccountPopover() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
-          Logout
+          {t('profile.Logout')}
         </MenuItem>
       </MenuPopover>
     </>

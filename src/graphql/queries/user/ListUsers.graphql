@@ -1,18 +1,18 @@
 query ListUser {
     users{
-        id
-        userName
-        user_information_Vietnamese
-        user_information_English
-        type_user
-        status
-        role
-        phoneNumber
-        lastName
-        firstName
-        email
         avartaURL
-        updatedAt
         createdAt
+        email
+        firstName
+        fullName
+        id
+        lastName
+        phoneNumber
+        role
+        status
+        type_user
+        updatedAt
+        user_information_English
+        user_information_Vietnamese
     }
 }

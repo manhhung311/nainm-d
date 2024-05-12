@@ -3,6 +3,34 @@ export const TypeCollection = {
   Publication: 1,
   Facility: 2,
   News: 3,
+  Driver: 4,
+};
+
+export const defaultUserOptions = {
+  id: 0,
+  fullName: 'Chọn Người Dùng',
+};
+
+export const defaultUserOptionsENG = {
+  id: 0,
+  fullName: 'Select User',
+};
+
+export const Publication = {
+  Research: 0,
+  Publication: 1,
+  Facility: 2,
+  News: 3,
+};
+
+export const defaultCollectionVN = {
+  id: 0,
+  title: 'Chọn mục cần tìm',
+};
+
+export const defaultCollectionENG = {
+  id: 0,
+  title_english: 'Select the item to search',
 };
 
 export const StatusCollection = {

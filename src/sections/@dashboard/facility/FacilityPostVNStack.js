@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 // components
 import React from 'react';
 import { RHFEditor, RHFTextField } from '../../../components/hook-form';
+import { useLocales } from '../../../locals';
 //
 
 // ----------------------------------------------------------------------
@@ -24,6 +25,8 @@ FacilityPostVNStack.propTypes = {
 };
 
 export default function FacilityPostVNStack({ onNext }) {
+  const { t } = useLocales();
+
   return (
     <>
       <Stack spacing={3}>
@@ -39,7 +42,7 @@ export default function FacilityPostVNStack({ onNext }) {
       <Grid item xs={12}>
         <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
           <Button fullWidth variant="contained" size="medium" onClick={() => onNext(2)}>
-            Tiếp
+            {t('news.tiep')}
           </Button>
         </Stack>
       </Grid>

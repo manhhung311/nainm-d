@@ -54,7 +54,7 @@ export default function MainHeader() {
 
   const { pathname } = useLocation();
 
-  const isDesktop = useResponsive('up', 'md');
+  const isDesktop = useResponsive('up', 'lg');
 
   const isHome = pathname === '/';
 
@@ -92,10 +92,10 @@ export default function MainHeader() {
             <Box sx={{ flexGrow: 0.5 }} />
           </Grid>
           <Grid item xs={5} md={2} sx={{ justifyContent: 'end', alignItems: 'center', display: 'flex' }}>
-            <Box sx={{ justifyContent: 'end', alignItems: 'center',display: 'flex' }}>
+            <Box sx={{ justifyContent: 'end', alignItems: 'center', display: 'flex' }}>
               <LanguagePopover />
-              <LoginButton/>
-                {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig}/>}
+              <LoginButton />
+              {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
             </Box>
           </Grid>
         </Grid>
