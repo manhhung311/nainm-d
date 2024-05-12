@@ -182,9 +182,6 @@ export default function NewUser({ isEdit, currentUser }) {
     [setValue]
   );
 
-  console.log('avatarUrl', values);
-  console.log('uploadFile', uploadFile);
-
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <>

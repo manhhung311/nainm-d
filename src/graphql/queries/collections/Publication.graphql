@@ -12,5 +12,6 @@ query Query($type_collection: Int!) {
     description
     description_english
     title_english
+    imgURL
   }
 }

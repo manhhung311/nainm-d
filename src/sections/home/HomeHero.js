@@ -13,16 +13,18 @@ import { Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import Image from '../../components/Image';
-import TypeCollection from '../../constant/utilities';
+import { TypeCollection, StatusCollection, Language } from '../../constant/utilities';
 import useResponsive from '../../hooks/useResponsive';
+import useLocales from '../../locals/useLocals';
 
-const Publication = loader('../../graphql/queries/collections/Publication.graphql');
+const LIST_ALL_PUBLICATION = loader('../../graphql/queries/collections/ListCollections.graphql');
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 export default function HomeHero() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
+  const { t, currentLang } = useLocales();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -39,31 +41,38 @@ export default function HomeHero() {
   const handleItemClick = (index) => {
     setActiveStep(index);
   };
+  const [info, setInfo] = useState([]);
 
-  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
-  const isDesktop = useResponsive('between', 'xs', 'xs', 'lg');
-  const [data, setData] = useState([]);
-
-  const { data: publication } = useQuery(Publication, {
+  const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
     variables: {
-      type_collection: 1,
+      input: {
+        status_collection: StatusCollection.Public,
+        type_collection: TypeCollection.Publication,
+        stand_out: true,
+        page: 1,
+        limit: 999,
+      },
     },
   });
-
-  console.log('data', data);
   useEffect(() => {
-    if (publication) {
-      setData(publication?.publicCollections);
+    if (collection) {
+      setInfo(collection?.collections);
     }
-  }, [publication]);
-  const newImages = data.map((item) => ({
+  }, [collection]);
+
+  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+
+  const newImages = info.map((item, index) => ({
     id: item.id,
+    label: index + 1,
     title: item.title,
-    content: item.description, // Trường 'description' sẽ lấy giá trị từ trường 'Content' của mỗi phần tử trong mảng 'images'
-    imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+    titleEnglish: item.title_english,
+    content: item.description,
+    contentEnglish: item.description_english, // Trường 'description' sẽ lấy giá trị từ trường 'Content' của mỗi phần tử trong mảng 'images'
+    imgPath: item.imgURL,
   }));
   const maxSteps = newImages.length;
-  console.log('newImages', newImages);
+
   return (
     <Box
       style={{
@@ -99,7 +108,7 @@ export default function HomeHero() {
               enableMouseEvents
             >
               {newImages.map((step, index) => (
-                <Box key={step.label} sx={{ mx: 1 }}>
+                <Box key={index} sx={{ mx: 1 }}>
                   {Math.abs(activeStep - index) <= 2 ? (
                     <Grid
                       container
@@ -112,7 +121,7 @@ export default function HomeHero() {
                       }}
                     >
                       <Grid item xs={12} sm={6} md={6}>
-                        <Image style={{ height: '100%', width: '100%' }} src={step.imgPath} alt={step.label} />
+                        <Image ratio="16/9" src={step.imgPath} alt={step.label} />
                       </Grid>
                       <Grid item xs={12} sm={6} md={6}>
                         <Grid
@@ -143,22 +152,22 @@ export default function HomeHero() {
                             </Typography>
                           </Grid>
 
-                          <Grid item xs={12} key={index}>
+                          <Grid item xs={12}>
                             <Typography variant="h3" color="#82f9d4">
-                              {step.title}
+                              {currentLang.value === Language.VietNam ? step.title : step.titleEnglish}
                             </Typography>
                           </Grid>
 
-                          <Grid item xs={12} key={index}>
+                          <Grid item xs={12}>
                             <Typography variant="subtitle1" color="#fff">
-                              {step.description}
+                              {currentLang.value === Language.VietNam ? step.content : step.contentEnglish}
                             </Typography>
                           </Grid>
 
                           <Grid item xs={12}>
                             <Link
-                              to="/more-view"
-                              sx={{
+                              to={`/publication/${step.id}/detail`}
+                              style={{
                                 textDecoration: 'none',
                                 color: '#fff',
                                 '&:hover': {
@@ -178,7 +187,7 @@ export default function HomeHero() {
                                   padding: '4px 8px', // Khoảng cách viền và chữ
                                 }}
                               >
-                                More View
+                                {t('user.MoreView')}
                                 <ArrowRightAltIcon sx={{ marginLeft: '8px' }} />
                               </Typography>
                             </Link>

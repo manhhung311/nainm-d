@@ -6,14 +6,15 @@ import { useForm } from 'react-hook-form';
 // @mui
 import PropTypes from 'prop-types';
 import { Button, Card, Grid, Typography } from '@mui/material';
-import { loader } from 'graphql.macro';
-import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { styled } from '@mui/material/styles';
+import { loader } from 'graphql.macro';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider } from '../../components/hook-form';
 import { TypeCollection } from '../../constant';
-import { PATH_DASHBOARD } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
+import { PATH_DASHBOARD } from '../../routes/paths';
 import PublicationPostEnglishStack from './PublicationPostEnglishStack';
 import PublicationPostVNStack from './PublicationPostVNStack';
 
@@ -23,10 +24,13 @@ const UPDATE_PUBLICATION = loader('../../graphql/mutations/collections/editColle
 PublicationNewForm.propTypes = {
   isEdit: PropTypes.bool,
   dataPostUpdate: PropTypes.object,
+  imgURL: PropTypes.string,
 };
 
 export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
+
+  const [uploadFile, setUploadFile] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -59,6 +63,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     titleEnglish: dataPostUpdate?.title_english || '',
     descriptionEnglish: dataPostUpdate?.description_english || '',
     contentEnglish: dataPostUpdate?.collection_English || '',
+    cover: dataPostUpdate?.imgURL || null,
   };
 
   const methods = useForm({
@@ -70,6 +75,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     reset,
     handleSubmit,
     watch,
+    setValue,
     formState: { isSubmitting },
   } = methods;
 
@@ -109,6 +115,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
               // check chuẩn kiểu dữ liệu của input
               type_collection: TypeCollection.Publication,
               title: values?.title,
+              imgURL: uploadFile,
               collection_Vietnamese: values?.content,
               description: values?.description,
               title_english: values?.titleEnglish,
@@ -126,6 +133,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
               title: values?.title,
               collection_Vietnamese: values?.content,
               description: values?.description,
+              imgURL: uploadFile, // Sửa thành avartaURL
               title_english: values?.titleEnglish,
               collection_English: values?.contentEnglish,
               description_english: values?.descriptionEnglish,
@@ -151,6 +159,22 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
   const handleTabClick = (tabIndex) => {
     setCurrentTab(tabIndex);
   };
+  const handleDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+
+      if (file) {
+        setValue(
+          'cover',
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        );
+      }
+      setUploadFile(file);
+    },
+    [setValue]
+  );
   return (
     <>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -190,7 +214,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <PublicationPostVNStack onNext={handleTabClick} />
+                <PublicationPostVNStack onNext={handleTabClick} onDrop={handleDrop} />
               ) : (
                 <PublicationPostEnglishStack onBack={handleTabClick} />
               )}

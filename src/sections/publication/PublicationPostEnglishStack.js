@@ -7,7 +7,7 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 // components
 import PropTypes from 'prop-types';
 import React from 'react';
-import { RHFTextField, RHFEditor } from '../../components/hook-form';
+import { RHFTextField, RHFEditor, RHFUploadSingleFile } from '../../components/hook-form';
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -17,9 +17,10 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 PublicationPostEnglishStack.propTypes = {
   onBack: PropTypes.func,
+  onDrop: PropTypes.func,
 };
 
-export default function PublicationPostEnglishStack({ onBack }) {
+export default function PublicationPostEnglishStack({ onBack, onDrop }) {
   const {
     formState: { isSubmitting },
   } = useFormContext();
@@ -33,6 +34,10 @@ export default function PublicationPostEnglishStack({ onBack }) {
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="contentEnglish" />
+        </div>
+        <div>
+          <LabelStyle>Image</LabelStyle>
+          <RHFUploadSingleFile name="cover" accept="image/*" maxSize={3145728} onDrop={onDrop} />
         </div>
       </Stack>
       <Grid item xs={12}>

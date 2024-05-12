@@ -21,7 +21,6 @@ export default function HomePage() {
     <Page title={t('home.title')}>
       <RootStyle>
         <HomeHero />
-        <HomeMinimal />
       </RootStyle>
     </Page>
   );
