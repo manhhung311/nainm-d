@@ -199,15 +199,6 @@ export default function Publiction() {
                 )}
               </Stack>
             </Grid>
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={top100Films}
-                fullWidth
-                renderInput={(params) => <TextField {...params} label="Search" />}
-              />
-            </Grid>
           </>
         )}
       </Grid>

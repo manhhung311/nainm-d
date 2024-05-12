@@ -10,6 +10,17 @@ export const Publication = {
   Facility: 2,
   News: 3,
 };
+
+export const defaultCollectionVN = {
+  id: 0,
+  title: 'Chọn mục cần tìm',
+};
+
+export const defaultCollectionENG = {
+  id: 0,
+  title_english: 'Select the item to search',
+};
+
 export const StatusCollection = {
   Public: 1,
   Draft: 0,

@@ -292,7 +292,7 @@ function applySortFilter({ tableData, comparator, filterName, filterRole }) {
   tableData = stabilizedThis.map((el) => el[0]);
 
   if (filterName) {
-    tableData = tableData.filter((item) => item.lastName.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
+    tableData = tableData.filter((item) => item.fullName.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
   }
 
   if (filterRole !== 'All') {

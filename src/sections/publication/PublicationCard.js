@@ -9,8 +9,9 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
-import { StatusCollection } from '../../constant';
+import { RoleId, StatusCollection } from '../../constant';
 import useLocales from '../../locals/useLocals';
+import useAuth from '../../hooks/useAuth';
 
 PublicationPostCard.propTypes = {
   post: PropTypes.object.isRequired,
@@ -77,6 +78,8 @@ export function PostContent({
   const [openMenu, setOpenMenuActions] = useState(null);
   const navigate = useNavigate();
 
+  const { user } = useAuth();
+
   const handleEditPublication = (id) => {
     navigate(PATH_DASHBOARD.publication.edit(id));
   };
@@ -121,7 +124,7 @@ export function PostContent({
             onClose={handleCloseMenu}
             actions={
               <>
-                {statusCollection === StatusCollection.Draft && (
+                {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
                   <MenuItem
                     onClick={() => {
                       handleCloseMenu();
@@ -134,7 +137,7 @@ export function PostContent({
                   </MenuItem>
                 )}
 
-                {statusCollection === StatusCollection.Public && (
+                {statusCollection === StatusCollection.Public && user?.role === RoleId.admin && (
                   <>
                     <MenuItem
                       onClick={() => {
@@ -159,7 +162,7 @@ export function PostContent({
                   </>
                 )}
 
-                {statusCollection === StatusCollection.Hidden && (
+                {statusCollection === StatusCollection.Hidden && user?.role === RoleId.admin && (
                   <MenuItem
                     onClick={() => {
                       handleCloseMenu();
@@ -171,27 +174,29 @@ export function PostContent({
                     {t('card.publish')}
                   </MenuItem>
                 )}
-
-                <MenuItem
-                  onClick={() => {
-                    handleCloseMenu();
-                    handleDeletePublication(id);
-                  }}
-                  sx={{ color: 'error.main' }}
-                >
-                  <Iconify icon={'eva:trash-2-outline'} />
-                  {t('card.Erase')}
-                </MenuItem>
-
-                <MenuItem
-                  onClick={() => {
-                    handleEditPublication(id);
-                    handleCloseMenu();
-                  }}
-                >
-                  <Iconify icon={'eva:edit-fill'} />
-                  {t('card.Edit information')}
-                </MenuItem>
+                {user?.role === RoleId.admin && (
+                  <MenuItem
+                    onClick={() => {
+                      handleCloseMenu();
+                      handleDeletePublication(id);
+                    }}
+                    sx={{ color: 'error.main' }}
+                  >
+                    <Iconify icon={'eva:trash-2-outline'} />
+                    {t('card.Erase')}
+                  </MenuItem>
+                )}
+                {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
+                  <MenuItem
+                    onClick={() => {
+                      handleEditPublication(id);
+                      handleCloseMenu();
+                    }}
+                  >
+                    <Iconify icon={'eva:edit-fill'} />
+                    {t('card.Edit information')}
+                  </MenuItem>
+                )}
               </>
             }
           />

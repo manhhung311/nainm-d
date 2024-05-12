@@ -37,10 +37,10 @@
     "hidden": "Hidden",
     "createNew": "Create new",
     "noPostsYet": "No posts yet",
-    "Examine": "Examine",
-    "Erase": "Erase",
+    "Examine": "Confirm",
+    "Erase": "Delete",
     "Draft": "Draft",
-    "Edit information": "Edit information"
+    "Edit information": "Edit"
   },
   "message": {
     "Successful deletion of news": "Successful deletion of news",

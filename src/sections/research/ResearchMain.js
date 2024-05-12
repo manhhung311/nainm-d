@@ -67,6 +67,8 @@ export default function ResearchMain() {
       input: {
         status_collection: filterStatus,
         type_collection: TypeCollection.Research,
+        page: 1,
+        limit: 999,
       },
     },
   });
@@ -178,15 +180,6 @@ export default function ResearchMain() {
                   </Button>
                 )}
               </Stack>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={options}
-                fullWidth
-                renderInput={(params) => <TextField {...params} label="Search" />}
-              />
             </Grid>
           </>
         )}
