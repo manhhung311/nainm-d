@@ -105,19 +105,23 @@ function HomeMinimal(props) {
 
             <Grid container spacing={2}>
               <Grid item xs={12} md={7} sx={{ backgroundColor: '#F6F6F7', padding: 5 }}>
-                <Stack sx={{ display: 'block', background: 'red' }}>
-                  <Typography variant="subtitle2" sx={{ color: '#878787' }}>
+                <Stack sx={{ display: 'block' }}>
+                  <Typography variant="subtitle2" sx={{ color: '#161C24' }}>
                     {displayedData.number}
                   </Typography>
-                  <Typography variant="body1" item>
+                  <Typography variant="body1" sx={{ color: '#161C24' }}>
                     {displayedData.name}
                   </Typography>
-                  <Typography variant="subtitle2">{displayedData.content}</Typography>
+                  <Typography variant="subtitle2" sx={{ color: '#161C24' }}>
+                    {displayedData.content}
+                  </Typography>
                   <Box sx={{ display: 'flex' }}>
-                    <Link sx={{ color: '#3549c1', fontSize: '90px' }} to="/">
+                    <Link sx={{ color: '#161C24', fontSize: '90px' }} to="/">
                       {displayedData.link}
                     </Link>
-                    <Typography variant="subtitle2">{displayedData.if}</Typography>
+                    <Typography variant="subtitle2" sx={{ color: '#161C24' }}>
+                      {displayedData.if}
+                    </Typography>
                   </Box>
                 </Stack>
                 <Grid container spacing={2} alignItems="center" justifyContent="center">
@@ -153,17 +157,19 @@ function HomeMinimal(props) {
                       onMouseLeave={() => setHoveredIndex(null)}
                     >
                       <Box onClick={() => handleBoxClick(index)}>
-                        <Typography variant="subtitle2" sx={{ color: '#878787' }}>
+                        <Typography variant="subtitle2" sx={{ color: '#161C24' }}>
                           {item.number}
                         </Typography>
-                        <Typography variant="subtitle2">{item.content}</Typography>
+                        <Typography variant="subtitle2" sx={{ color: '#161C24' }}>
+                          {item.content}
+                        </Typography>
                         <Stack>
-                          <Link sx={{ color: '#3549c1' }} to="/">
-                            <Typography variant="subtitle2" sx={{ paddingLeft: '4px' }}>
+                          <Link sx={{ color: '#161C24' }} to="/">
+                            <Typography variant="subtitle2" sx={{ paddingLeft: '4px', color: '#161C24' }}>
                               {item.link}
                             </Typography>
                           </Link>
-                          <Typography variant="subtitle2" sx={{ paddingLeft: '4px' }}>
+                          <Typography variant="subtitle2" sx={{ paddingLeft: '4px', color: '#161C24' }}>
                             {item.if}
                           </Typography>
                         </Stack>

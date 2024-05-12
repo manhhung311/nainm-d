@@ -185,7 +185,11 @@ export default function NewUser({ isEdit, currentUser }) {
     [setValue]
   );
 
-  console.log('avatarUrl', values);
+  if (values && values.avatarUrl) {
+    console.log('avatarUrl', values.avatarUrl);
+  } else {
+    console.log('avatarUrl is not defined');
+  }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

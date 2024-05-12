@@ -81,6 +81,8 @@ export default function Publiction() {
       input: {
         status_collection: filterStatus,
         type_collection: TypeCollection.Publication,
+        page: 1,
+        limit: 999,
       },
     },
   });
