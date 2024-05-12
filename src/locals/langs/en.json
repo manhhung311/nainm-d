@@ -120,6 +120,14 @@
     "content": "Content",
     "page1": "Detail Facility"
   },
+  "driver": {
+    "title": "Drive",
+    "tab1": "VIETNAMESE",
+    "tab2": "ENGLISH",
+    "post1": "Create VietNamese",
+    "post2": "Create English",
+    "page1": "Detail Drive"
+  },
   "home": {
     "title": "Home",
     "arrIteam": {

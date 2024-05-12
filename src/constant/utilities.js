@@ -3,6 +3,7 @@ export const TypeCollection = {
   Publication: 1,
   Facility: 2,
   News: 3,
+  Driver: 4,
 };
 export const Publication = {
   Research: 0,

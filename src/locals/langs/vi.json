@@ -28,7 +28,8 @@
     "facilityList": "Danh sách thiết bị",
     "createNewPost": "Tạo mới bài viết",
     "postTitle": "Tiêu đề bài đăng",
-    "description": "Mô tả"
+    "description": "Mô tả",
+    "content": "Content"
   },
 
   "card": {
@@ -116,6 +117,15 @@
     "post1": "Tạo mới Tiếng Việt",
     "post2": "Tạo mới Tiếng Anh",
     "page1": "Chi tiết thiết bị"
+  },
+
+  "driver": {
+    "title": "Drive",
+    "tab1": "Việt Nam",
+    "tab2": "Tiếng Anh",
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh",
+    "page1": "Chi tiết drive"
   },
   "home": {
     "title": "Trang chủ",
