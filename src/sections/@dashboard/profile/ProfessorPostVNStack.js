@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 // routes
 // components
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { RHFEditor, RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 import RFHAutocompleteUser from '../../../components/hook-form/RFHAutocompleteUser';
@@ -23,15 +24,25 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 ProfessorPostVNStack.propTypes = {
   onNext: PropTypes.func,
+  isEdit: PropTypes.bool,
 };
 
-export default function ProfessorPostVNStack({ onNext }) {
+export default function ProfessorPostVNStack({ onNext, isEdit }) {
   const { t, currentLang } = useLocales();
+  const { watch } = useFormContext();
+  const values = watch();
 
   return (
     <>
       <Stack spacing={3}>
-        <RFHAutocompleteUser name="user" language={currentLang.value} />
+        {isEdit ? (
+          <Typography variant="h4" sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            {' '}
+            {values?.userDetail?.fullName}
+          </Typography>
+        ) : (
+          <RFHAutocompleteUser name="user" language={currentLang.value} />
+        )}
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="content" />

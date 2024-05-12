@@ -67,8 +67,8 @@ export default function Router() {
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
-            { path: ':id/edit', element: <PublicationCreate />},
-            { path: ':id/detail', element: <PublicationDetail /> }
+            { path: ':id/edit', element: <PublicationCreate /> },
+            { path: ':id/detail', element: <PublicationDetail /> },
           ],
         },
         {
@@ -78,7 +78,7 @@ export default function Router() {
             { path: 'list', element: <ResearchList /> },
             { path: 'new', element: <ResearchCreate /> },
             { path: ':id/edit', element: <ResearchCreate /> },
-            { path: ':id/detail', element: <ResearchDetail/> }
+            { path: ':id/detail', element: <ResearchDetail /> },
           ],
         },
         {
@@ -116,7 +116,8 @@ export default function Router() {
             { element: <Navigate to="/dashboard/profile/list" replace />, index: true },
             { path: 'list', element: <ProfileList /> },
             { path: 'new', element: <ProfileCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <ProfileCreate /> },
+            { path: ':id/detail', element: <Professor /> },
           ],
         },
       ],
@@ -197,3 +198,4 @@ const UserList = Loadable(lazy(() => import('../pages/dashboard/user/UserList'))
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/user/UserCreate')));
 const UserUpdate = Loadable(lazy(() => import('../pages/dashboard/user/UserUpdate')));
 const ProfileEdit = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileEdit')));
+const Professor = Loadable(lazy(() => import('../sections/people/Professor')));

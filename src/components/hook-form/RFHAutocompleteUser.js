@@ -25,7 +25,6 @@ export default function RFHAutocompleteUser({ name, language, isDisabledAutocomp
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
   const [districts, setDistricts] = useState([]);
-
   const { error, data } = useQuery(LIST_USER, {
     variables: {},
     fetchPolicy: 'cache-and-network',

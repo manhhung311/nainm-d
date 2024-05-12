@@ -140,7 +140,10 @@
   "people": {
     "page": "People",
     "tab1": "PROFESSOR",
-    "tab2": "STUDENT"
+    "tab2": "STUDENT",
+    "phone": "Phone",
+    "email": "Email",
+    "edit" : "Edit"
   },
   "demo": {
     "title": "English"

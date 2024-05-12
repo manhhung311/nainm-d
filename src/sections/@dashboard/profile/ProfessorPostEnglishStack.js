@@ -25,10 +25,13 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 ProfessorPostEnglishStack.propTypes = {
   onBack: PropTypes.func,
+  isEdit: PropTypes.bool,
 };
 
-export default function ProfessorPostEnglishStack({ onBack }) {
+export default function ProfessorPostEnglishStack({ onBack, isEdit }) {
   const { t, currentLang } = useLocales();
+  const { watch } = useFormContext();
+  const values = watch();
 
   const {
     formState: { isSubmitting },
@@ -36,7 +39,14 @@ export default function ProfessorPostEnglishStack({ onBack }) {
   return (
     <>
       <Stack spacing={3}>
-        <RFHAutocompleteUser name="user" language={currentLang.value} />
+        {isEdit ? (
+          <Typography variant="h4" sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            {' '}
+            {values?.userDetail?.fullName}
+          </Typography>
+        ) : (
+          <RFHAutocompleteUser name="user" language={currentLang.value} />
+        )}
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="contentEnglish" />

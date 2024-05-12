@@ -137,7 +137,10 @@
   "people": {
     "page": "Nhân sự",
     "tab1": "GIÁO SƯ",
-    "tab2": "TEAM LAB"
+    "tab2": "THÀNH VIÊN",
+    "phone": "Liên Hệ",
+    "email": "E-mail",
+    "edit" : "Chỉnh Sửa"
   },
   "demo": {
     "title": "Việt Nam"

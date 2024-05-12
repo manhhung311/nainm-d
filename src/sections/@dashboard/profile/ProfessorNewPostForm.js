@@ -38,6 +38,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
 
   const defaultValues = {
     id: dataPostUpdate?.id || null,
+    userDetail: dataPostUpdate || null,
     user: currentLang.value === Language.VietNam ? defaultUserOptions : defaultUserOptionsENG,
     lastName: dataPostUpdate?.user?.lastName,
     firstName: dataPostUpdate?.user?.firstName,
@@ -51,6 +52,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
 
   const {
     reset,
+    setValue,
     handleSubmit,
     watch,
     formState: { isSubmitting },
@@ -84,6 +86,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
   //   // ],
   // });
 
+  console.log('dataPostUpdate', dataPostUpdate);
   const [updateFormUserFn] = useMutation(UPDATE_USER, {
     onCompleted: async (res) => {
       if (res) {
@@ -98,7 +101,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
       await updateFormUserFn({
         variables: {
           input: {
-            id: Number(values?.user?.id),
+            id: isEdit ? Number(values?.userDetail?.id) : Number(values?.user?.id),
             lastName: values?.lastName, // tam
             firstName: values?.firstName, // tam
             user_information_Vietnamese: values?.content,
@@ -167,9 +170,9 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <ProfilePostVNStack onNext={handleTabClick} />
+                <ProfilePostVNStack onNext={handleTabClick} isEdit={isEdit} />
               ) : (
-                <ProfilePostEnglishStack onBack={handleTabClick} />
+                <ProfilePostEnglishStack onBack={handleTabClick} isEdit={isEdit} />
               )}
             </Card>
           </Grid>
