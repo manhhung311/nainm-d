@@ -107,8 +107,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/drive/list" replace />, index: true },
             { path: 'list', element: <DriveList /> },
             { path: 'new', element: <DriveCreate /> },
-            { path: ':id/detail', element: <DriveCreate /> },
-            { path: ':id/detail', element: <DriverDetail /> },
+            { path: ':id/edit', element: <DriveCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
           ],
         },
@@ -188,7 +187,6 @@ const NewsCreate = Loadable(lazy(() => import('../pages/dashboard/news/NewsCreat
 
 const DriveList = Loadable(lazy(() => import('../pages/dashboard/driver/DriverList')));
 const DriveCreate = Loadable(lazy(() => import('../pages/dashboard/driver/DriverCreate')));
-const DriverDetail = Loadable(lazy(() => import('../sections/@dashboard/driver/DriverDetail')));
 
 const ProfileList = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileList')));
 const ProfileCreate = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileCreate')));

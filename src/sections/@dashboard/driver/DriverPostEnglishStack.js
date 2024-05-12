@@ -3,12 +3,12 @@ import { useFormContext } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 // routes
 // components
 import PropTypes from 'prop-types';
 import React from 'react';
-import { RHFEditor, RHFTextField } from '../../../components/hook-form';
+import { RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 //
 
@@ -36,15 +36,12 @@ export default function DriverPostEnglishStack({ onBack }) {
   return (
     <>
       <Stack spacing={3}>
-        <RHFTextField name="titleEnglish" label="Post Title" />
+        <RHFTextField name="title" label="Post Title" />
 
-        <RHFTextField name="descriptionEnglish" label="Link" multiline rows={3} />
+        <RHFTextField name="description" label="Link" multiline rows={3} />
       </Stack>
       <Grid item xs={12}>
         <Stack direction="row" justifyContent="space-around" spacing={1.5} sx={{ mt: 3 }}>
-          <Button fullWidth variant="contained" size="medium" onClick={() => onBack(1)}>
-            {t('news.trolai')}
-          </Button>
           <LoadingButton fullWidth type="submit" variant="contained" size="medium" loading={isSubmitting}>
             {t('news.post')}
           </LoadingButton>

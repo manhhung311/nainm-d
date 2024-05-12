@@ -10,7 +10,7 @@ import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
-import { TypeCollection } from '../../constant';
+import { StatusCollection, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import DriverCard from './DriverCard';
 
@@ -21,24 +21,6 @@ const RootStyle = styled('div')(({ theme }) => ({
     padding: theme.spacing(5),
   },
 }));
-
-const TABS = [
-  {
-    value: 1,
-    label: 'publish',
-    color: 'success',
-  },
-  {
-    value: 0,
-    label: 'waitForApproval',
-    color: 'info',
-  },
-  {
-    value: 2,
-    label: 'hidden',
-    color: 'default',
-  },
-];
 
 const LIST_ALL_DRIVER = loader('../../graphql/queries/collections/ListCollections.graphql');
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
@@ -58,7 +40,7 @@ export default function DriverMain() {
   const { data: getAllPosts, refetch } = useQuery(LIST_ALL_DRIVER, {
     variables: {
       input: {
-        status_collection: filterStatus,
+        status_collection: StatusCollection.Draft,
         type_collection: TypeCollection.Driver,
         page: 1,
         limit: 999,
@@ -159,27 +141,6 @@ export default function DriverMain() {
           </Grid>
         )}
       </Grid>
-      <Tabs
-        allowScrollButtonsMobile
-        variant="scrollable"
-        scrollButtons="auto"
-        value={filterStatus}
-        onChange={onFilterStatus}
-        sx={{ mb: { xs: 3, md: 5 } }}
-      >
-        {TABS.map((tab, idx) => (
-          <Tab
-            disableRipple
-            key={idx + 1}
-            value={tab.value}
-            label={
-              <Stack spacing={1} direction="row" alignItems="center">
-                <div>{t(`card.${tab.label}`)}</div>
-              </Stack>
-            }
-          />
-        ))}
-      </Tabs>
 
       {dataFiltered.length < 1 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
