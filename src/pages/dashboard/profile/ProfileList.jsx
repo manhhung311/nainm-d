@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { useLocation } from 'react-router-dom';
 // components
 import Page from '../../../components/Page';
-import Student from '../../../sections/people/student';
+import Student from '../../../sections/people/Students';
 import People from '../../People';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
@@ -21,10 +21,10 @@ export default function ProfileList() {
   return (
     <Page title="People">
       {isDashboard ? (
-        <People/>
+        <People />
       ) : (
         <RootStyle>
-          <People/>
+          <People />
         </RootStyle>
       )}
     </Page>

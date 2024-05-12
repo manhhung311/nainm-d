@@ -101,6 +101,7 @@
     "CreateFailed": "Tạo mới không thành công ",
     "Updates": "Cập nhật thành công ",
     "UpdatesFailed": "Sửa thông tin cá nhân không thành công. Nguyên nhân: ",
+    "SelectUser": "Chọn Người Dùng",
     "": ""
   },
   "list": "danh sách",
@@ -146,7 +147,10 @@
   "people": {
     "page": "Nhân sự",
     "tab1": "GIÁO SƯ",
-    "tab2": "TEAM LAB"
+    "tab2": "THÀNH VIÊN",
+    "phone": "Liên Hệ",
+    "email": "E-mail",
+    "edit" : "Chỉnh Sửa"
   },
   "demo": {
     "title": "Việt Nam"

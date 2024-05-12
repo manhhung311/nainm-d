@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { RHFEditor, RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
+import RFHAutocompleteUser from '../../../components/hook-form/RFHAutocompleteUser';
 //
 
 // ----------------------------------------------------------------------
@@ -22,12 +23,15 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProfilePostEnglishStack.propTypes = {
+ProfessorPostEnglishStack.propTypes = {
   onBack: PropTypes.func,
+  isEdit: PropTypes.bool,
 };
 
-export default function ProfilePostEnglishStack({ onBack }) {
-  const { t } = useLocales();
+export default function ProfessorPostEnglishStack({ onBack, isEdit }) {
+  const { t, currentLang } = useLocales();
+  const { watch } = useFormContext();
+  const values = watch();
 
   const {
     formState: { isSubmitting },
@@ -35,10 +39,14 @@ export default function ProfilePostEnglishStack({ onBack }) {
   return (
     <>
       <Stack spacing={3}>
-        <RHFTextField name="titleEnglish" label="Post Title" />
-
-        <RHFTextField name="descriptionEnglish" label="Description" multiline rows={3} />
-
+        {isEdit ? (
+          <Typography variant="h4" sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            {' '}
+            {values?.userDetail?.fullName}
+          </Typography>
+        ) : (
+          <RFHAutocompleteUser name="user" language={currentLang.value} />
+        )}
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="contentEnglish" />

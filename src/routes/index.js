@@ -117,7 +117,8 @@ export default function Router() {
             { element: <Navigate to="/dashboard/profile/list" replace />, index: true },
             { path: 'list', element: <ProfileList /> },
             { path: 'new', element: <ProfileCreate /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
+            { path: ':id/edit', element: <ProfileCreate /> },
+            { path: ':id/detail', element: <Professor /> },
           ],
         },
       ],
@@ -206,3 +207,4 @@ const UserList = Loadable(lazy(() => import('../pages/dashboard/user/UserList'))
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/user/UserCreate')));
 const UserUpdate = Loadable(lazy(() => import('../pages/dashboard/user/UserUpdate')));
 const ProfileEdit = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileEdit')));
+const Professor = Loadable(lazy(() => import('../sections/people/Professor')));
