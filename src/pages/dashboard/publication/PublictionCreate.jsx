@@ -48,12 +48,19 @@ export default function PublictionCreate() {
 
   const { t } = useLocales();
 
-  const { themeStretch } = useSettings();
   return (
-    <Page title="Blog: New Post">
-      <Container maxWidth={themeStretch ? false : 'lg'}>
+    <Page title={t('publication.title')}>
+      <RootStyle>
+        <HeaderBreadcrumbs
+          heading={t('create.createNewPost')}
+          links={[
+            { name: t('user.Management'), href: PATH_DASHBOARD.root },
+            { name: t('publication.title'), href: PATH_DASHBOARD.publication.root },
+            { name: t('navItem.create') },
+          ]}
+        />
         <PublicationNewForm isEdit={isEdit} dataPostUpdate={postUpdate} />
-      </Container>
+      </RootStyle>
     </Page>
   );
 }

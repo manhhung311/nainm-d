@@ -8,6 +8,8 @@ import { loader } from 'graphql.macro';
 import Page from '../../../components/Page';
 import DriverNewPostForm from '../../../sections/@dashboard/driver/DriverNewPostForm';
 import useLocales from '../../../locals/useLocals';
+import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
+import { PATH_DASHBOARD } from '../../../routes/paths';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
   height: '100%',
@@ -40,6 +42,14 @@ export default function DriverCreate() {
   return (
     <Page title={t('driver.title')}>
       <RootStyle>
+        <HeaderBreadcrumbs
+          heading={t('create.createNewPost')}
+          links={[
+            { name: t('user.Management'), href: PATH_DASHBOARD.root },
+            { name: t('driver.title'), href: PATH_DASHBOARD.drive.root },
+            { name: t('navItem.create') },
+          ]}
+        />
         <DriverNewPostForm isEdit={isEdit} dataPostUpdate={postUpdate} />
       </RootStyle>
     </Page>
