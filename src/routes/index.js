@@ -67,8 +67,8 @@ export default function Router() {
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
-            { path: ':id/edit', element: <PublicationCreate />},
-            { path: ':id/detail', element: <PublicationDetail /> }
+            { path: ':id/edit', element: <PublicationCreate /> },
+            { path: ':id/detail', element: <PublicationDetail /> },
           ],
         },
         {
@@ -78,7 +78,7 @@ export default function Router() {
             { path: 'list', element: <ResearchList /> },
             { path: 'new', element: <ResearchCreate /> },
             { path: ':id/edit', element: <ResearchCreate /> },
-            { path: ':id/detail', element: <ResearchDetail/> }
+            { path: ':id/detail', element: <ResearchDetail /> },
           ],
         },
         {
@@ -107,6 +107,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/drive/list" replace />, index: true },
             { path: 'list', element: <DriveList /> },
             { path: 'new', element: <DriveCreate /> },
+            { path: ':id/edit', element: <DriveCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
           ],
         },

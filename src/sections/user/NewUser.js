@@ -11,12 +11,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { RHFUploadAvatar } from '../../components/hook-form';
 import FormProvider from '../../components/hook-form/FormProvider';
 import RHFSelect from '../../components/hook-form/RHFSelect';
 import RHFTextField from '../../components/hook-form/RHFTextField';
-import { RHFUploadAvatar } from '../../components/hook-form';
+import useLocales from '../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../routes/paths';
-import useAuth from '../../hooks/useAuth';
 
 const CREATE_USER = loader('../../graphql/mutations/users/createdUsers.graphql');
 const UPDATE_USER = loader('../../graphql/mutations/users/updUserForAdmin.graphql');
@@ -24,45 +24,32 @@ NewUser.propTypes = {
   isEdit: PropTypes.bool,
   currentUser: PropTypes.object,
   id: PropTypes.number,
+  avartaURL: PropTypes.string,
 };
 
-const Roles = [
-  { value: 0, label: 'Admin' },
-  { value: 1, label: 'Quản lí nội dung' },
-  { value: 2, label: 'Người dùng' },
-];
-const Status = [
-  { value: 1, label: 'Hoạt động' },
-  { value: 0, label: 'Khóa' },
-];
-const TypeUser = [
-  { value: 0, label: 'Giáo sư' },
-  { value: 1, label: 'Sinh viên' },
-];
 export default function NewUser({ isEdit, currentUser }) {
   const [createNewuser] = useMutation(CREATE_USER);
   const [updateUser] = useMutation(UPDATE_USER);
   const [uploadFile, setUploadFile] = useState(null);
-  const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
 
-  const { user } = useAuth();
+  const { t } = useLocales();
 
   console.log('currentUser', currentUser);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const NewUserSchema = Yup.object().shape({
-    firstName: Yup.string().required('FirstName is required'),
-    lastName: Yup.string().required('LastName is required'),
-    email: Yup.string().required('Email is required').email(),
-    password: Yup.string().required('Password is required'),
-    role: Yup.number().required('Role Number is required'),
-    typeUser: Yup.string().required('Role Number is required'),
+    firstName: Yup.string().required(t('user.FirstNames')),
+    lastName: Yup.string().required(t('user.LastNames')),
+    email: Yup.string().required(t('user.Emails')).email(),
+    password: Yup.string().required(t('user.Passwords')),
+    role: Yup.string().required(t('user.RoleNumber')),
+    typeUser: Yup.string().required(t('user.RoleNumber')),
   });
 
   const UpdateUserSchema = Yup.object().shape({
-    firstName: Yup.string().required('FirstName is required'),
-    lastName: Yup.string().required('LastName is required'),
-    email: Yup.string().required('Email is required').email(),
+    firstName: Yup.string().required(t('user.FirstNames')),
+    lastName: Yup.string().required('user.LastNames'),
+    email: Yup.string().required('user.Emails').email(),
   });
 
   const defaultValues = useMemo(
@@ -74,14 +61,24 @@ export default function NewUser({ isEdit, currentUser }) {
       lastName: currentUser?.lastName || '',
       phoneNumber: currentUser?.phoneNumber || '',
       role: currentUser?.role || '',
-      avatarUrl: currentUser?.avatarUrl || '', // Kiểm tra và gán giá trị mặc định
+      avatarUrl: currentUser?.avartaURL || null,
       typeUser: currentUser?.TypeUser || '',
       userName: currentUser?.userName || '',
       status: currentUser?.status,
     }),
     [currentUser]
   );
+  console.log('defaultValues', defaultValues);
+  const Roles = [
+    { value: 0, label: t('user.Admin') },
+    { value: 1, label: t('user.Manager') },
+    { value: 2, label: t('user.User') },
+  ];
 
+  const TypeUser = [
+    { value: 0, label: t('user.PROCCEFER') },
+    { value: 1, label: t('user.Student') },
+  ];
   const methods = useForm({
     resolver: !isEdit ? yupResolver(NewUserSchema) : yupResolver(UpdateUserSchema),
     defaultValues,
@@ -120,7 +117,6 @@ export default function NewUser({ isEdit, currentUser }) {
               email: values?.email,
               password: values?.password,
               role: Number(values?.role),
-              userName: values?.userName,
               type_user: Number(values?.typeUser),
               avartaURL: uploadFile,
               phoneNumber: values?.phoneNumber,
@@ -128,7 +124,7 @@ export default function NewUser({ isEdit, currentUser }) {
           },
         });
         if (!response.errors) {
-          enqueueSnackbar('Tạo mới thành công ', {
+          enqueueSnackbar(t('user.Created'), {
             variant: 'success',
           });
           reset();
@@ -145,13 +141,12 @@ export default function NewUser({ isEdit, currentUser }) {
               phoneNumber: values?.phoneNumber,
               email: values?.email,
               Role: Number(values?.role),
-              status: values?.status,
             },
           },
         });
 
         if (!response.errors) {
-          enqueueSnackbar('Cập nhật thông tin thành công ', {
+          enqueueSnackbar(t('user.Updates'), {
             variant: 'success',
           });
           reset();
@@ -159,12 +154,12 @@ export default function NewUser({ isEdit, currentUser }) {
         }
       }
     } catch (error) {
-      if (!isEdit) {
-        enqueueSnackbar(`Tạo mới không thành công ${error.message}.`, {
+      if (isEdit) {
+        enqueueSnackbar(`${t('user.UpdatesFailed')} ${error.message}.`, {
           variant: 'error',
         });
       } else {
-        enqueueSnackbar(`Sửa thông tin cá nhân không thành công. Nguyên nhân: ${error.message}`, {
+        enqueueSnackbar(`${t('user.CreateFailed')} ${error.message}.`, {
           variant: 'error',
         });
       }
@@ -183,12 +178,11 @@ export default function NewUser({ isEdit, currentUser }) {
         );
       }
       setUploadFile(file);
-      setUpdateBtnEnable(true);
     },
     [setValue]
   );
 
-  console.log('status', !values?.status);
+  console.log('avatarUrl', values);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -232,13 +226,13 @@ export default function NewUser({ isEdit, currentUser }) {
                     gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
                   }}
                 >
-                  <RHFTextField name="firstName" label="First Name" />
-                  <RHFTextField name="lastName" label="Last Name" />
-                  <RHFTextField name="email" label="Email Address" />
-                  <RHFTextField name="password" label="Password" />
+                  <RHFTextField name="firstName" label={t('user.FirstName')} />
+                  <RHFTextField name="lastName" label={t('user.LastName')} />
+                  <RHFTextField name="email" label={t('user.EmailAddress')} />
+                  <RHFTextField name="password" label={t('user.PassWord')} />
                   <RHFSelect
                     // value={defaultValues.role}
-                    label="Chức vụ"
+                    label={t('user.Role')}
                     name="role"
                     onChange={(event) => {
                       setValue('role', event.target.value);
@@ -253,7 +247,7 @@ export default function NewUser({ isEdit, currentUser }) {
                   </RHFSelect>
                   <RHFSelect
                     // value={defaultValues.typeUser}
-                    label="Nhân sự"
+                    label={t('user.PerSonNel')}
                     name="typeUser"
                     onChange={(event) => {
                       setValue('typeUser', event.target.value);
@@ -266,7 +260,7 @@ export default function NewUser({ isEdit, currentUser }) {
                       </option>
                     ))}
                   </RHFSelect>
-                  <RHFTextField name="phoneNumber" label="Phone Number" />
+                  <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
                 </Box>
               ) : (
                 <Box
@@ -277,27 +271,14 @@ export default function NewUser({ isEdit, currentUser }) {
                     gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
                   }}
                 >
-                  <RHFTextField name="firstName" label="First Name" />
-                  <RHFTextField name="lastName" label="Last Name" />
-                  <RHFTextField name="email" label="Email Address" />
-                  <RHFTextField name="phoneNumber" label="Phone Number" />
-                  <RHFSelect
-                    label="Trạng thái tài khoản"
-                    name="status"
-                    onChange={(event) => {
-                      setValue('status', event.target.value);
-                    }}
-                    InputLabelProps={{ shrink: true }}
-                  >
-                    {Status.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </RHFSelect>
+                  <RHFTextField name="firstName" label={t('user.FirstName')} />
+                  <RHFTextField name="lastName" label={t('user.LastName')} />
+                  <RHFTextField name="email" label={t('user.EmailAddress')} />
+                  <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
+
                   <RHFSelect
                     // value={defaultValues.role}
-                    label="Chức vụ"
+                    label={t('user.Role')}
                     name="role"
                     onChange={(event) => {
                       setValue('role', event.target.value);
@@ -314,7 +295,7 @@ export default function NewUser({ isEdit, currentUser }) {
               )}
               <Stack alignItems="flex-end" sx={{ mt: 3 }}>
                 <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                  {!isEdit ? 'Create User' : 'Save Changes'}
+                  {!isEdit ? t('user.CreateUser') : t('user.SaveChanges')}
                 </LoadingButton>
               </Stack>
             </Card>

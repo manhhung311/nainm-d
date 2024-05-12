@@ -1,9 +1,10 @@
 import { useMutation } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Typography, Stack } from '@mui/material';
+import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 import { loader } from 'graphql.macro';
 import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 import { useCallback, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -11,57 +12,44 @@ import * as Yup from 'yup';
 import { RHFUploadAvatar } from '../../../components/hook-form';
 import FormProvider from '../../../components/hook-form/FormProvider';
 import RHFTextField from '../../../components/hook-form/RHFTextField';
+import useAuth from '../../../hooks/useAuth';
+import useLocales from '../../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
-const CREATE_USER = loader('../../../graphql/mutations/users/createdUsers.graphql');
-const UPDATE_USER = loader('../../../graphql/mutations/users/updateUser.graphql');
+const PROFILE_USER = loader('../../../graphql/mutations/users/updUserForUser.graphql');
 
 // import TodoForm from 'src/pages/dashboard/user/TodoForm';
-ProfileUser.propTypes = {};
+ProfileUser.propTypes = {
+  isEdit: PropTypes.bool,
+  // currentUser: PropTypes.object,
+};
 
-export default function ProfileUser({ isEdit, currentUser }) {
-  const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
+export default function ProfileUser({ isEdit }) {
+  const { t } = useLocales();
+  const { user } = useAuth();
+  console.log('user', user);
 
-  const NewUserSchema = Yup.object().shape({
-    firstName: Yup.string().required('FirstName is required'),
-    lastName: Yup.string().required('LastName is required'),
-    email: Yup.string().required('Email is required').email(),
-    password: Yup.string().required('Password is required'),
-    role: Yup.number().required('Role Number is required'),
-    userName: Yup.string().required(' Number is required'),
-    typeUser: Yup.string().required('Role Number is required'),
-  });
   const UpdateUserSchema = Yup.object().shape({
-    firstName: Yup.string().required('FirstName is required'),
-    lastName: Yup.string().required('LastName is required'),
-    email: Yup.string().required('Email is required').email(),
-    userName: Yup.string().required(' Number is required'),
+    firstName: Yup.string().required(t('user.FirstNames')),
+    lastName: Yup.string().required(t('user.LastNames')),
   });
   const defaultValues = useMemo(
     () => ({
-      id: currentUser?.id || null,
-      firstName: currentUser?.firstName || '',
-      email: currentUser?.email || '',
-      password: currentUser?.password || '',
-      lastName: currentUser?.lastName || '',
-      phoneNumber: currentUser?.phoneNumber || '',
-      role: currentUser?.role || '',
-      avatarUrl: currentUser?.avatarUrl || '', // Kiểm tra và gán giá trị mặc định
-      typeUser: currentUser?.TypeUser || '',
-      userName: currentUser?.userName || '',
-      status: currentUser?.status,
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      phoneNumber: user?.phoneNumber || '',
+      avatarUrl: user?.avatarUrl || '', // Kiểm tra và gán giá trị mặc định
     }),
-    [currentUser]
+    [user]
   );
-  const [createNewuser] = useMutation(CREATE_USER);
-  const [updateUser] = useMutation(UPDATE_USER);
+  const [createNewuser] = useMutation(PROFILE_USER); // gọi API
 
   const [uploadFile, setUploadFile] = useState(null);
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({
-    resolver: !isEdit ? yupResolver(NewUserSchema) : yupResolver(UpdateUserSchema),
+    resolver: yupResolver(UpdateUserSchema),
     defaultValues,
   });
   const {
@@ -78,40 +66,14 @@ export default function ProfileUser({ isEdit, currentUser }) {
             input: {
               firstName: values?.firstName,
               lastName: values?.lastName,
-              email: values?.email,
-              password: values?.password,
-              role: Number(values?.role),
-              userName: values?.userName,
-              type_user: Number(values?.typeUser),
               avartaURL: uploadFile,
               phoneNumber: values?.phoneNumber,
             },
           },
         });
-        if (!response.errors) {
-          enqueueSnackbar('Tạo mới thành công ', {
-            variant: 'success',
-          });
-          reset();
-          navigate(PATH_DASHBOARD.user.list);
-        }
-      } else {
-        const response = await updateUser({
-          variables: {
-            input: {
-              id: Number(values?.id), // Thêm trường id
-              firstName: values?.firstName,
-              lastName: values?.lastName,
-              avartaURL: uploadFile, // Sửa thành avartaURL
-              phoneNumber: values?.phoneNumber,
-              userName: values?.userName,
-              // status: values?.status === 1,
-            },
-          },
-        });
 
         if (!response.errors) {
-          enqueueSnackbar('Cập nhật thông tin thành công ', {
+          enqueueSnackbar(t('user.Created'), {
             variant: 'success',
           });
           reset();
@@ -124,7 +86,7 @@ export default function ProfileUser({ isEdit, currentUser }) {
           variant: 'error',
         });
       } else {
-        enqueueSnackbar(`Sửa thông tin cá nhân không thành công. Nguyên nhân: ${error.message}`, {
+        enqueueSnackbar(`${t('user.UpdatesFailed')} ${error.message}.`, {
           variant: 'error',
         });
       }
@@ -143,16 +105,15 @@ export default function ProfileUser({ isEdit, currentUser }) {
         );
       }
       setUploadFile(file);
-      setUpdateBtnEnable(true);
     },
     [setValue]
   );
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{ mt: '10px' }}>
         <Grid item md={1} />
         <Grid item xs={12} md={3}>
-          <Card sx={{ py: 10, px: 3, height: '86%' }}>
+          <Card sx={{ py: 10, px: 3, height: '85%' }}>
             <Box sx={{ mb: 5 }}>
               <RHFUploadAvatar
                 name="avatarUrl"
@@ -178,42 +139,24 @@ export default function ProfileUser({ isEdit, currentUser }) {
           </Card>
         </Grid>
         <Grid item xs={12} md={7}>
-          <Card sx={{ p: 3 }}>
-            {!isEdit ? (
-              <Box
-                sx={{
-                  display: 'grid',
-                  columnGap: 2,
-                  rowGap: 3,
-                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-                }}
-              >
-                <RHFTextField name="firstName" label="First Name" />
-                <RHFTextField name="lastName" label="Last Name" />
-                <RHFTextField name="email" label="Email Address" />
-                <RHFTextField name="password" label="Password" />
-                <RHFTextField name="phoneNumber" label="Phone Number" />
-                <RHFTextField name="userName" label="userName" />
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: 'grid',
-                  columnGap: 2,
-                  rowGap: 3,
-                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-                }}
-              >
-                <RHFTextField name="firstName" label="First Name" />
-                <RHFTextField name="lastName" label="Last Name" />
-                <RHFTextField name="email" label="Email Address" />
-                <RHFTextField name="userName" label="userName" />
-                <RHFTextField name="phoneNumber" label="Phone Number" />
-              </Box>
-            )}
+          <Card sx={{ py: 10, px: 3, height: '85%' }}>
+            <Box
+              sx={{
+                display: 'grid',
+                columnGap: 2,
+                rowGap: 3,
+                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+              }}
+            >
+              <RHFTextField name="firstName" label={t('user.FirstName')} />
+              <RHFTextField name="lastName" label={t('user.LastName')} />
+
+              <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
+            </Box>
+
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {'Save Changes'}
+                {t('user.SaveChanges')}
               </LoadingButton>
             </Stack>
           </Card>

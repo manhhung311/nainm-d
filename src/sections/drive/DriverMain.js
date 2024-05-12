@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
@@ -8,12 +8,11 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
-import useAuth from '../../hooks/useAuth';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
-import { TypeCollection } from '../../constant';
+import { StatusCollection, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
-import FacilityCard from './FacilityCard';
+import DriverCard from './DriverCard';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -23,50 +22,26 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const TABS = [
-  {
-    value: 1,
-    label: 'publish',
-    color: 'success',
-  },
-  {
-    value: 0,
-    label: 'waitForApproval',
-    color: 'info',
-  },
-  {
-    value: 2,
-    label: 'hidden',
-    color: 'default',
-  },
-];
-
-const LIST_ALL_FACILITY = loader('../../graphql/queries/collections/ListCollections.graphql');
+const LIST_ALL_DRIVER = loader('../../graphql/queries/collections/ListCollections.graphql');
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
 
-export default function FacilityMain() {
+export default function DriverMain() {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { user } = useAuth();
-
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
-  const { pathname } = useLocation();
-
-  const isDashboard = pathname.includes('dashboard');
-
-  const [facility, setFacility] = useState([]);
+  const [driver, setDriver] = useState([]);
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
-  const { data: getAllPosts, refetch } = useQuery(LIST_ALL_FACILITY, {
+  const { data: getAllPosts, refetch } = useQuery(LIST_ALL_DRIVER, {
     variables: {
       input: {
-        status_collection: filterStatus,
-        type_collection: TypeCollection.Facility,
+        status_collection: StatusCollection.Draft,
+        type_collection: TypeCollection.Driver,
         page: 1,
         limit: 999,
       },
@@ -75,12 +50,12 @@ export default function FacilityMain() {
 
   useEffect(() => {
     if (getAllPosts) {
-      setFacility(getAllPosts?.collections);
+      setDriver(getAllPosts?.collections);
     }
   }, [getAllPosts]);
 
   const dataFiltered = applySortFilter({
-    tableData: facility,
+    tableData: driver,
     filterLanguage: currentLang.value,
   });
 
@@ -139,65 +114,33 @@ export default function FacilityMain() {
         {isMobile ? (
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h4"> {t('facility.title')}</Typography>
-              {isDashboard ? (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.facility.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
-              ) : (
-                <></>
-              )}
+              <Typography variant="h4"> {t('driver.title')}</Typography>
+              <Button
+                variant="contained"
+                component={RouterLink}
+                to={PATH_DASHBOARD.drive.new}
+                startIcon={<Iconify icon={'eva:plus-fill'} />}
+              >
+                {t('navItem.create')}
+              </Button>
             </Stack>
           </Grid>
         ) : (
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h4"> {t('facility.title')}</Typography>
-              {isDashboard ? (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.facility.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
-              ) : (
-                <></>
-              )}
+              <Typography variant="h4"> {t('driver.title')}</Typography>
+              <Button
+                variant="contained"
+                component={RouterLink}
+                to={PATH_DASHBOARD.drive.new}
+                startIcon={<Iconify icon={'eva:plus-fill'} />}
+              >
+                {t('navItem.create')}
+              </Button>
             </Stack>
           </Grid>
         )}
       </Grid>
-
-      {user && (
-        <Tabs
-          allowScrollButtonsMobile
-          variant="scrollable"
-          scrollButtons="auto"
-          value={filterStatus}
-          onChange={onFilterStatus}
-          sx={{ mb: { xs: 3, md: 5 } }}
-        >
-          {TABS.map((tab, idx) => (
-            <Tab
-              disableRipple
-              key={idx + 1}
-              value={tab.value}
-              label={
-                <Stack spacing={1} direction="row" alignItems="center">
-                  <div>{t(`card.${tab.label}`)}</div>
-                </Stack>
-              }
-            />
-          ))}
-        </Tabs>
-      )}
 
       {dataFiltered.length < 1 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
@@ -211,10 +154,10 @@ export default function FacilityMain() {
         {dataFiltered?.length > 0 &&
           dataFiltered.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
-              <FacilityCard
+              <DriverCard
                 post={post}
                 index={index}
-                handleDeleteFacility={handleDeleteCollection}
+                handleDeleteDriver={handleDeleteCollection}
                 onEditStatusCollection={handleEditStatusCollection}
                 currentLang={currentLang.value}
               />

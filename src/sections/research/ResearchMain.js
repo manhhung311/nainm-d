@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Autocomplete, Button, Card, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { Link as RouterLink } from 'react-router-dom'; // Import _mock
+import { Link as RouterLink, useLocation } from 'react-router-dom'; // Import _mock
 import { loader } from 'graphql.macro';
 import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
@@ -52,6 +52,7 @@ export default function ResearchMain() {
     { label: _mock.text.title(4), id: 4 },
     { label: _mock.text.title(5), id: 5 },
   ];
+
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -59,6 +60,12 @@ export default function ResearchMain() {
   const { user } = useAuth();
 
   const [research, setResearch] = useState([]);
+
+  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
+
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
@@ -82,8 +89,6 @@ export default function ResearchMain() {
     tableData: research,
     filterLanguage: currentLang.value,
   });
-
-  const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const [deleteCollection] = useMutation(DELETE_COLLECTION, {
     onCompleted: () => {
@@ -139,10 +144,10 @@ export default function ResearchMain() {
       <Grid container spacing={5} alignItems="center">
         {isMobile ? (
           <>
-            <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+            <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4"> {t('research.title')}</Typography>
-                {user && (
+                {isDashboard ? (
                   <Button
                     variant="contained"
                     component={RouterLink}
@@ -151,6 +156,8 @@ export default function ResearchMain() {
                   >
                     {t('navItem.create')}
                   </Button>
+                ) : (
+                  <></>
                 )}
               </Stack>
             </Grid>
@@ -169,7 +176,7 @@ export default function ResearchMain() {
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4"> {t('research.title')}</Typography>
-                {user && (
+                {isDashboard ? (
                   <Button
                     variant="contained"
                     component={RouterLink}
@@ -178,6 +185,8 @@ export default function ResearchMain() {
                   >
                     {t('navItem.create')}
                   </Button>
+                ) : (
+                  <></>
                 )}
               </Stack>
             </Grid>

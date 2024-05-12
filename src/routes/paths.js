@@ -100,7 +100,7 @@ export const PATH_DASHBOARD = {
     root: '/dashboard/drive',
     new: '/dashboard/drive/new',
     list: '/dashboard/drive/list',
-    // edit: (name) => `dashboard/user/${name}/edit`,
+    edit: (id) => `/dashboard/drive/${id}/edit`,
   },
   profile: {
     root: '/dashboard/profile',

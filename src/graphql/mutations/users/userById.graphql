@@ -1,17 +1,18 @@
 query Query($id: ID!) {
   user(id: $id) {
-    id
+    avartaURL
+    createdAt
     email
     firstName
+    fullName
+    id
     lastName
-    createdAt
-    updatedAt
-    role
     phoneNumber
+    role
     status
     type_user
-    avartaURL
-    user_information_Vietnamese
+    updatedAt
     user_information_English
+    user_information_Vietnamese
   }
 }
