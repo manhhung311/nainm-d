@@ -51,8 +51,7 @@ export default function RFHAutocompleteUser({ name, language, isDisabledAutocomp
               {...field}
               noOptionsText="Không có lựa chọn tương ứng"
               isOptionEqualToValue={(option, value) =>
-                (option.id === value.id && option.fullName === value.fullName) ||
-                value.fullName === (language === Language.VietNam ? defaultUserOptions.fullName : defaultUserOptionsENG)
+                Number(option.id) === Number(value.id) && option.fullName === value.fullName
               }
               getOptionLabel={(option) => option.fullName}
               onChange={(event, newValue) => {
@@ -66,7 +65,7 @@ export default function RFHAutocompleteUser({ name, language, isDisabledAutocomp
               disabled={isDisabledAutocomplete}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
-                  <Chip {...getTagProps({ index })} key={option.id} size="small" label={option.fullName} />
+                  <Chip {...getTagProps({ index })} key={Number(option.id)} size="small" label={option.fullName} />
                 ))
               }
               renderInput={(params) => (

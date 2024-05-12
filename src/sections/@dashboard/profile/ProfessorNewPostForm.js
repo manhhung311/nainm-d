@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
 // form
 import { useForm } from 'react-hook-form';
@@ -52,15 +51,12 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
 
   const {
     reset,
-    setValue,
     handleSubmit,
     watch,
     formState: { isSubmitting },
   } = methods;
 
   const values = watch();
-
-  console.log('values', values);
 
   useEffect(() => {
     if (isEdit && dataPostUpdate) {

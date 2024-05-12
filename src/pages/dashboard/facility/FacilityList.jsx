@@ -6,8 +6,6 @@ import React from 'react';
 import Page from '../../../components/Page';
 import FacilityMain from '../../../sections/facility/FacilityMain';
 import useLocales from '../../../locals/useLocals';
-import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
-import { PATH_DASHBOARD } from '../../../routes/paths';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(10),

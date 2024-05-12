@@ -59,10 +59,7 @@ PostContent.propTypes = {
   descriptionEnglish: PropTypes.string,
   id: PropTypes.number,
   handleDeleteDriver: PropTypes.func,
-  createdAt: PropTypes.string,
   currentLang: PropTypes.string,
-  statusCollection: PropTypes.number,
-  onEditStatusCollection: PropTypes.func,
 };
 
 export function PostContent({
@@ -70,12 +67,9 @@ export function PostContent({
   index,
   id,
   handleDeleteDriver,
-  onEditStatusCollection,
   description,
   currentLang,
-  statusCollection,
   titleEnglish,
-  createdAt,
   descriptionEnglish,
 }) {
   const isDesktop = useResponsive('up', 'md');

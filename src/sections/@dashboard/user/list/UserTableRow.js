@@ -22,11 +22,9 @@ import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
 const RESET_PASSWORD = loader('../../../../graphql/mutations/users/updUserForAdmin.graphql');
 UserTableRow.propTypes = {
-  changeLanguageFunc: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
   onEditRow: PropTypes.func,
-  onDeleteRow: PropTypes.func,
   onActiveStatus: PropTypes.func,
   onLockStatus: PropTypes.func,
 };

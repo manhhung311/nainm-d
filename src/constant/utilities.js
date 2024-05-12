@@ -1,5 +1,3 @@
-import { RoleId } from './role';
-
 export const TypeCollection = {
   Research: 0,
   Publication: 1,

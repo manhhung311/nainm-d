@@ -1,20 +1,16 @@
-import { Box, Grid, Typography, Divider, Button, Link, Tooltip, IconButton } from '@mui/material';
+import { Box, Divider, Grid, IconButton, Link, Tooltip, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import Image from '../../components/Image';
-import { _studentData } from '../../_mock/_student';
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
-import { getComparator } from '../../hooks/useTable';
-import { roleChangeNumber } from '../../constant';
-import Iconify from '../../components/Iconify';
 // ----------------------------------------------------------------------
 
-const ListUsers = loader('../../graphql/queries/user/ListUsers.graphql');
+const ListUsers = loader('../../graphql/queries/user/publicUsers.graphql');
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -24,7 +20,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 // ----------------------------------------------------------------------
-export default function Students({ idProfessor, id }) {
+export default function Students() {
   const [tableData, setTableData] = useState([]);
 
   const { data: allUsers } = useQuery(ListUsers);
@@ -35,19 +31,16 @@ export default function Students({ idProfessor, id }) {
 
   const { t } = useLocales();
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (allUsers) {
-      setTableData(allUsers?.users);
+      setTableData(allUsers?.publicUsers);
     }
   }, [allUsers]);
 
   const dataFiltered = applySortFilter({
     tableData,
   });
-  console.log('dataFiltered', dataFiltered);
-  const handleLinkTo = (id) => PATH_DASHBOARD.profile.detail(id);
+  const handleLinkTo = (id) => (isDashboard ? PATH_DASHBOARD.profile.detail(id) : PATH_PAGE.profile.detail(id));
   const handleLinkToEdit = (id) => PATH_DASHBOARD.profile.edit(id);
   return (
     <RootStyle>

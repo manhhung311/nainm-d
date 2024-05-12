@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import Image from '../../components/Image';
-import { TypeCollection, StatusCollection, Language } from '../../constant/utilities';
+import { TypeCollection, StatusCollection, Language } from '../../constant';
 import useResponsive from '../../hooks/useResponsive';
 import useLocales from '../../locals/useLocals';
 
@@ -38,12 +38,9 @@ export default function HomeHero() {
     setActiveStep(step);
   };
 
-  const handleItemClick = (index) => {
-    setActiveStep(index);
-  };
   const [info, setInfo] = useState([]);
 
-  const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
+  const { data: collection } = useQuery(LIST_ALL_PUBLICATION, {
     variables: {
       input: {
         status_collection: StatusCollection.Public,

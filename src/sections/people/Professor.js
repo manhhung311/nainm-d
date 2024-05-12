@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Grid, List, ListItem, ListItemIcon, Stack, Typography } from '@mui/material';
-import LaunchIcon from '@mui/icons-material/Launch';
+import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
 import { Link as RouterLink, useLocation, useParams } from 'react-router-dom';
-import FitbitSharpIcon from '@mui/icons-material/FitbitSharp';
-import GrainSharpIcon from '@mui/icons-material/GrainSharp';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
-import { id } from 'date-fns/locale';
-import { EditSharp } from '@mui/icons-material';
 import Image from '../../components/Image';
-import _mock from '../../_mock';
-import { _peopleData } from '../../_mock/_user';
 import useResponsive from '../../hooks/useResponsive';
-import ProfessorNewPostForm from '../@dashboard/profile/ProfessorNewPostForm';
 import Markdown from '../../components/Markdown';
 import { Language } from '../../constant';
 import useLocales from '../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../routes/paths';
 
 // ----------------------------------------------------------------------
-const RootStyle = styled('div')(({ theme }) => ({
-  padding: theme.spacing(2),
+const RootStyle = styled('div')(({ theme, isDashboard, isStudent }) => ({
+  padding: theme.spacing(12, 2),
   borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(5),
+    // eslint-disable-next-line no-nested-ternary
+    padding: isDashboard ? theme.spacing(5) : isStudent ? theme.spacing(15, 9.5) : theme.spacing(0, 7),
   },
 }));
+
 // ----------------------------------------------------------------------
 
-const USER_BY_ID = loader('../../graphql/mutations/users/userById.graphql');
+const USER_BY_ID = loader('../../graphql/queries/user/publicUserById.graphql');
 
 Professor.propTypes = {
   idProfessor: PropTypes.number,
@@ -60,25 +54,20 @@ export default function Professor({ idProfessor }) {
 
   useEffect(() => {
     if (detailUser) {
-      setUserDetail(detailUser?.user);
+      setUserDetail(detailUser?.publicUser);
     }
   }, [detailUser]);
 
-  console.log('userDetail', userDetail);
-
   return (
-    <RootStyle>
+    <RootStyle isDashboard={isDashboard} isStudent={isStudent}>
       {isDashboard ? (
         <Grid container>
           <Grid item xs={12} sx={{ justifyContent: 'right', alignItems: 'right', display: 'flex' }}>
-            <Button
-              variant="contained"
-              startIcon={<EditSharpIcon />}
-              component={RouterLink}
-              to={PATH_DASHBOARD.profile.edit(idProfessor)}
-            >
-              {t('people.edit')}
-            </Button>
+            <Tooltip title={t('people.edit')} placement="top">
+              <IconButton color="success" component={RouterLink} to={PATH_DASHBOARD.profile.edit(idProfessor)}>
+                <EditSharpIcon sx={{ width: 20, height: 20 }} />
+              </IconButton>
+            </Tooltip>
           </Grid>
         </Grid>
       ) : (

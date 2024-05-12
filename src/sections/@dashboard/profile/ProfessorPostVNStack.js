@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 // components
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { RHFEditor, RHFTextField } from '../../../components/hook-form';
+import { RHFEditor } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 import RFHAutocompleteUser from '../../../components/hook-form/RFHAutocompleteUser';
 //

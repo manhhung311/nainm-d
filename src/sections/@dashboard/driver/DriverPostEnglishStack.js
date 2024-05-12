@@ -5,7 +5,6 @@ import { LoadingButton } from '@mui/lab';
 import { Grid, Stack } from '@mui/material';
 // routes
 // components
-import PropTypes from 'prop-types';
 import React from 'react';
 import { RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
@@ -13,11 +12,9 @@ import { useLocales } from '../../../locals';
 
 // ----------------------------------------------------------------------
 
-DriverPostEnglishStack.propTypes = {
-  onBack: PropTypes.func,
-};
+DriverPostEnglishStack.propTypes = {};
 
-export default function DriverPostEnglishStack({ onBack }) {
+export default function DriverPostEnglishStack() {
   const {
     formState: { isSubmitting },
   } = useFormContext();

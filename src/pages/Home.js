@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles';
 // components
 import Page from '../components/Page';
 import HomeHero from '../sections/home/HomeHero';
-import HomeMinimal from '../sections/home/HomeMinimal';
 import useLocales from '../locals/useLocals';
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme }) => ({

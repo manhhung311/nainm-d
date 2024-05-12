@@ -54,6 +54,11 @@ export const PATH_PAGE = {
     detail: (id) => `${id}/detail`,
   },
 
+  profile: {
+    list: 'profile',
+    detail: (id) => `${id}/detail`,
+  },
+
   dashboard: {
     root: ROOTS_DASHBOARD,
     user: {

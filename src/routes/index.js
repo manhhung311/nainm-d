@@ -146,7 +146,14 @@ export default function Router() {
             { path: ':id/detail', element: <NewsDetail /> },
           ],
         },
-        { path: 'people', element: <ProfileList /> },
+        {
+          path: 'profile',
+          children: [
+            { path: '/profile', element: <ProfileList /> },
+            { path: ':id/detail', element: <Professor /> },
+          ],
+        },
+        // { path: 'people', element: <ProfileList /> },
         {
           path: 'publication',
           children: [
@@ -178,7 +185,6 @@ export default function Router() {
 const Login = Loadable(lazy(() => import('../pages/auth/Login')));
 // MAIN
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
-const People = Loadable(lazy(() => import('../pages/People')));
 // DASHBOARD
 const PublicationList = Loadable(lazy(() => import('../pages/dashboard/publication/PublictionList')));
 const PublicationCreate = Loadable(lazy(() => import('../pages/dashboard/publication/PublictionCreate')));
@@ -205,6 +211,5 @@ const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/user/UserList')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/user/UserCreate')));
-const UserUpdate = Loadable(lazy(() => import('../pages/dashboard/user/UserUpdate')));
 const ProfileEdit = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileEdit')));
 const Professor = Loadable(lazy(() => import('../sections/people/Professor')));

@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { Button, Card, Grid, Typography } from '@mui/material';
 import { useMutation } from '@apollo/client';
-import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -216,7 +215,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
               {currentTab === 1 ? (
                 <PublicationPostVNStack onNext={handleTabClick} onDrop={handleDrop} />
               ) : (
-                <PublicationPostEnglishStack onBack={handleTabClick} />
+                <PublicationPostEnglishStack onBack={handleTabClick} onDrop={handleDrop} />
               )}
             </Card>
           </Grid>

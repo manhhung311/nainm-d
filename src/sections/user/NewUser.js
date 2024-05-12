@@ -34,7 +34,6 @@ export default function NewUser({ isEdit, currentUser }) {
 
   const { t } = useLocales();
 
-  console.log('currentUser', currentUser);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const NewUserSchema = Yup.object().shape({
@@ -68,7 +67,7 @@ export default function NewUser({ isEdit, currentUser }) {
     }),
     [currentUser]
   );
-  console.log('defaultValues', defaultValues);
+
   const Roles = [
     { value: 0, label: t('user.Admin') },
     { value: 1, label: t('user.Manager') },
@@ -88,11 +87,8 @@ export default function NewUser({ isEdit, currentUser }) {
     reset,
     setValue,
     handleSubmit,
-    watch,
     formState: { isSubmitting },
   } = methods;
-
-  const values = watch();
 
   useEffect(() => {
     if (currentUser) {

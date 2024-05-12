@@ -8,10 +8,9 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 // components
 import PropTypes from 'prop-types';
 import React from 'react';
-import { RHFEditor, RHFTextField } from '../../../components/hook-form';
+import { RHFEditor } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 import RFHAutocompleteUser from '../../../components/hook-form/RFHAutocompleteUser';
-//
 
 // ----------------------------------------------------------------------
 
