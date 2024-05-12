@@ -13,10 +13,11 @@ import { Link } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import Image from '../../components/Image';
-import TypeCollection from '../../constant/utilities';
+import { TypeCollection, StatusCollection } from '../../constant/utilities';
 import useResponsive from '../../hooks/useResponsive';
 
 const Publication = loader('../../graphql/queries/collections/Publication.graphql');
+const LIST_ALL_PUBLICATION = loader('../../graphql/queries/collections/ListCollections.graphql');
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -39,6 +40,26 @@ export default function HomeHero() {
   const handleItemClick = (index) => {
     setActiveStep(index);
   };
+  const [info, setInfo] = useState([]);
+
+  const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
+    variables: {
+      input: {
+        status_collection: StatusCollection.Public,
+        type_collection: TypeCollection.Publication,
+        stand_out: true,
+        page: 1,
+        limit: 999,
+      },
+    },
+  });
+  useEffect(() => {
+    if (collection) {
+      setInfo(collection?.collections);
+    }
+  }, [collection]);
+
+  console.log('info', info);
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
   const isDesktop = useResponsive('between', 'xs', 'xs', 'lg');
@@ -56,8 +77,9 @@ export default function HomeHero() {
       setData(publication?.publicCollections);
     }
   }, [publication]);
-  const newImages = data.map((item) => ({
+  const newImages = info.map((item, index) => ({
     id: item.id,
+    label: index + 1,
     title: item.title,
     content: item.description, // Trường 'description' sẽ lấy giá trị từ trường 'Content' của mỗi phần tử trong mảng 'images'
     imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
@@ -151,7 +173,7 @@ export default function HomeHero() {
 
                           <Grid item xs={12} key={index}>
                             <Typography variant="subtitle1" color="#fff">
-                              {step.description}
+                              {step.content}
                             </Typography>
                           </Grid>
 
