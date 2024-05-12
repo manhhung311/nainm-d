@@ -11,7 +11,7 @@ import useResponsive from '../../hooks/useResponsive';
 import useAuth from '../../hooks/useAuth';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
-import { TypeCollection } from '../../constant';
+import { RoleId, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import NewsCard from './NewsCard';
 
@@ -140,7 +140,7 @@ export default function NewsMain() {
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('news.title')}</Typography>
-              {isDashboard ? (
+              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
                 <Button
                   variant="contained"
                   component={RouterLink}
@@ -149,8 +149,6 @@ export default function NewsMain() {
                 >
                   {t('navItem.create')}
                 </Button>
-              ) : (
-                <></>
               )}
             </Stack>
           </Grid>
@@ -158,7 +156,7 @@ export default function NewsMain() {
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('news.title')}</Typography>
-              {isDashboard ? (
+              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
                 <Button
                   variant="contained"
                   component={RouterLink}
@@ -167,8 +165,6 @@ export default function NewsMain() {
                 >
                   {t('navItem.create')}
                 </Button>
-              ) : (
-                <></>
               )}
             </Stack>
           </Grid>

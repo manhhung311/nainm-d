@@ -125,90 +125,92 @@ export function PostContent({
             right: 16,
           }}
         >
-          <TableMoreMenu
-            open={openMenu}
-            onOpen={handleOpenMenu}
-            onClose={handleCloseMenu}
-            actions={
-              <>
-                {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseMenu();
-                      onEditStatusCollection(id, StatusCollection.Public);
-                    }}
-                    sx={{ color: 'success.main' }}
-                  >
-                    <Iconify icon={'heroicons-solid:check'} />
-                    {t('card.Examine')}
-                  </MenuItem>
-                )}
-
-                {statusCollection === StatusCollection.Public && user?.role === RoleId.admin && (
-                  <>
+          {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
+            <TableMoreMenu
+              open={openMenu}
+              onOpen={handleOpenMenu}
+              onClose={handleCloseMenu}
+              actions={
+                <>
+                  {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
                     <MenuItem
                       onClick={() => {
                         handleCloseMenu();
-                        onEditStatusCollection(id, StatusCollection.Hidden);
+                        onEditStatusCollection(id, StatusCollection.Public);
                       }}
-                      // sx={{ color: 'success.main' }}
+                      sx={{ color: 'success.main' }}
                     >
-                      <Iconify icon={'dashicons:hidden'} />
-                      {t('card.hidden')}
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.Examine')}
                     </MenuItem>
+                  )}
+
+                  {statusCollection === StatusCollection.Public && user?.role === RoleId.admin && (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Hidden);
+                        }}
+                        // sx={{ color: 'success.main' }}
+                      >
+                        <Iconify icon={'dashicons:hidden'} />
+                        {t('card.hidden')}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Draft);
+                        }}
+                        sx={{ color: 'warning.main' }}
+                      >
+                        <Iconify icon={'material-symbols:draft-outline'} />
+                        {t('card.Draft')}
+                      </MenuItem>
+                    </>
+                  )}
+
+                  {statusCollection === StatusCollection.Hidden && user?.role === RoleId.admin && (
                     <MenuItem
                       onClick={() => {
                         handleCloseMenu();
-                        onEditStatusCollection(id, StatusCollection.Draft);
+                        onEditStatusCollection(id, StatusCollection.Public);
                       }}
-                      sx={{ color: 'warning.main' }}
+                      sx={{ color: 'success.main' }}
                     >
-                      <Iconify icon={'material-symbols:draft-outline'} />
-                      {t('card.Draft')}
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.publish')}
                     </MenuItem>
-                  </>
-                )}
+                  )}
 
-                {statusCollection === StatusCollection.Hidden && user?.role === RoleId.admin && (
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseMenu();
-                      onEditStatusCollection(id, StatusCollection.Public);
-                    }}
-                    sx={{ color: 'success.main' }}
-                  >
-                    <Iconify icon={'heroicons-solid:check'} />
-                    {t('card.publish')}
-                  </MenuItem>
-                )}
+                  {user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        handleDeleteFacility(id);
+                      }}
+                      sx={{ color: 'error.main' }}
+                    >
+                      <Iconify icon={'eva:trash-2-outline'} />
+                      {t('card.Erase')}
+                    </MenuItem>
+                  )}
 
-                {user?.role === RoleId.admin && (
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseMenu();
-                      handleDeleteFacility(id);
-                    }}
-                    sx={{ color: 'error.main' }}
-                  >
-                    <Iconify icon={'eva:trash-2-outline'} />
-                    {t('card.Erase')}
-                  </MenuItem>
-                )}
-
-                {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
-                  <MenuItem
-                    onClick={() => {
-                      handleEditFacility(id);
-                      handleCloseMenu();
-                    }}
-                  >
-                    <Iconify icon={'eva:edit-fill'} />
-                    {t('card.Edit information')}
-                  </MenuItem>
-                )}
-              </>
-            }
-          />
+                  {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
+                    <MenuItem
+                      onClick={() => {
+                        handleEditFacility(id);
+                        handleCloseMenu();
+                      }}
+                    >
+                      <Iconify icon={'eva:edit-fill'} />
+                      {t('card.Edit information')}
+                    </MenuItem>
+                  )}
+                </>
+              }
+            />
+          )}
         </Box>
       )}
 

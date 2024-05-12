@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Button, Card, Stack, Typography } from '@mui/material';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
@@ -10,9 +10,9 @@ import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
-import { StatusCollection, TypeCollection } from '../../constant';
-import useTabs from '../../hooks/useTabs';
+import { RoleId, StatusCollection, TypeCollection } from '../../constant';
 import DriverCard from './DriverCard';
+import useAuth from '../../hooks/useAuth';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -31,11 +31,15 @@ export default function DriverMain() {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
+
+  const { user } = useAuth();
+
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const [driver, setDriver] = useState([]);
-
-  const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
   const { data: getAllPosts, refetch } = useQuery(LIST_ALL_DRIVER, {
     variables: {
@@ -115,28 +119,32 @@ export default function DriverMain() {
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('driver.title')}</Typography>
-              <Button
-                variant="contained"
-                component={RouterLink}
-                to={PATH_DASHBOARD.drive.new}
-                startIcon={<Iconify icon={'eva:plus-fill'} />}
-              >
-                {t('navItem.create')}
-              </Button>
+              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to={PATH_DASHBOARD.drive.new}
+                  startIcon={<Iconify icon={'eva:plus-fill'} />}
+                >
+                  {t('navItem.create')}
+                </Button>
+              )}
             </Stack>
           </Grid>
         ) : (
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('driver.title')}</Typography>
-              <Button
-                variant="contained"
-                component={RouterLink}
-                to={PATH_DASHBOARD.drive.new}
-                startIcon={<Iconify icon={'eva:plus-fill'} />}
-              >
-                {t('navItem.create')}
-              </Button>
+              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to={PATH_DASHBOARD.drive.new}
+                  startIcon={<Iconify icon={'eva:plus-fill'} />}
+                >
+                  {t('navItem.create')}
+                </Button>
+              )}
             </Stack>
           </Grid>
         )}

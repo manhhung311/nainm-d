@@ -64,11 +64,10 @@ export default function ResearchDetail() {
   }, [getPost, values?.research?.id]);
 
   useEffect(() => {
-    if (getPost) {
+    if (currentLang) {
       reset(defaultValues);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentLang]);
+  }, [currentLang, defaultValues, reset]);
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 

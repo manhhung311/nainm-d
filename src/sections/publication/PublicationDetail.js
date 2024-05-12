@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Container, Stack, Typography } from '@mui/material';
+import { Card, Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { useLocation, useParams } from 'react-router-dom'; // Import _mock
+import { useParams } from 'react-router-dom'; // Import _mock
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import useLocales from '../../locals/useLocals';

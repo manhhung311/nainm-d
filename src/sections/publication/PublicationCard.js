@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { Box, Card, CardContent, Link, MenuItem, Stack, Typography } from '@mui/material';
 // routes
 import { useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
@@ -80,6 +80,9 @@ export function PostContent({
 
   const { user } = useAuth();
 
+  const { pathname } = useLocation();
+  const isDashboard = pathname.includes('dashboard');
+
   const handleEditPublication = (id) => {
     navigate(PATH_DASHBOARD.publication.edit(id));
   };
@@ -92,7 +95,7 @@ export function PostContent({
     setOpenMenuActions(null);
   };
 
-  const linkTo = PATH_DASHBOARD.publication.detail(id);
+  const linkTo = isDashboard ? PATH_DASHBOARD.publication.detail(id) : PATH_PAGE.publication.detail(id);
 
   const latestPostLarge = index === 0;
   const { t } = useLocales();
@@ -118,88 +121,90 @@ export function PostContent({
             right: 16,
           }}
         >
-          <TableMoreMenu
-            open={openMenu}
-            onOpen={handleOpenMenu}
-            onClose={handleCloseMenu}
-            actions={
-              <>
-                {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseMenu();
-                      onEditStatusCollection(id, StatusCollection.Public);
-                    }}
-                    sx={{ color: 'success.main' }}
-                  >
-                    <Iconify icon={'heroicons-solid:check'} />
-                    {t('card.Examine')}
-                  </MenuItem>
-                )}
-
-                {statusCollection === StatusCollection.Public && user?.role === RoleId.admin && (
-                  <>
+          {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
+            <TableMoreMenu
+              open={openMenu}
+              onOpen={handleOpenMenu}
+              onClose={handleCloseMenu}
+              actions={
+                <>
+                  {statusCollection === StatusCollection.Draft && user?.role === RoleId.admin && (
                     <MenuItem
                       onClick={() => {
                         handleCloseMenu();
-                        onEditStatusCollection(id, StatusCollection.Hidden);
+                        onEditStatusCollection(id, StatusCollection.Public);
                       }}
-                      // sx={{ color: 'success.main' }}
+                      sx={{ color: 'success.main' }}
                     >
-                      <Iconify icon={'dashicons:hidden'} />
-                      {t('card.hidden')}
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.Examine')}
                     </MenuItem>
+                  )}
+
+                  {statusCollection === StatusCollection.Public && user?.role === RoleId.admin && (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Hidden);
+                        }}
+                        // sx={{ color: 'success.main' }}
+                      >
+                        <Iconify icon={'dashicons:hidden'} />
+                        {t('card.hidden')}
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          handleCloseMenu();
+                          onEditStatusCollection(id, StatusCollection.Draft);
+                        }}
+                        sx={{ color: 'warning.main' }}
+                      >
+                        <Iconify icon={'material-symbols:draft-outline'} />
+                        {t('card.Draft')}
+                      </MenuItem>
+                    </>
+                  )}
+
+                  {statusCollection === StatusCollection.Hidden && user?.role === RoleId.admin && (
                     <MenuItem
                       onClick={() => {
                         handleCloseMenu();
-                        onEditStatusCollection(id, StatusCollection.Draft);
+                        onEditStatusCollection(id, StatusCollection.Public);
                       }}
-                      sx={{ color: 'warning.main' }}
+                      sx={{ color: 'success.main' }}
                     >
-                      <Iconify icon={'material-symbols:draft-outline'} />
-                      {t('card.Draft')}
+                      <Iconify icon={'heroicons-solid:check'} />
+                      {t('card.publish')}
                     </MenuItem>
-                  </>
-                )}
-
-                {statusCollection === StatusCollection.Hidden && user?.role === RoleId.admin && (
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseMenu();
-                      onEditStatusCollection(id, StatusCollection.Public);
-                    }}
-                    sx={{ color: 'success.main' }}
-                  >
-                    <Iconify icon={'heroicons-solid:check'} />
-                    {t('card.publish')}
-                  </MenuItem>
-                )}
-                {user?.role === RoleId.admin && (
-                  <MenuItem
-                    onClick={() => {
-                      handleCloseMenu();
-                      handleDeletePublication(id);
-                    }}
-                    sx={{ color: 'error.main' }}
-                  >
-                    <Iconify icon={'eva:trash-2-outline'} />
-                    {t('card.Erase')}
-                  </MenuItem>
-                )}
-                {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
-                  <MenuItem
-                    onClick={() => {
-                      handleEditPublication(id);
-                      handleCloseMenu();
-                    }}
-                  >
-                    <Iconify icon={'eva:edit-fill'} />
-                    {t('card.Edit information')}
-                  </MenuItem>
-                )}
-              </>
-            }
-          />
+                  )}
+                  {user?.role === RoleId.admin && (
+                    <MenuItem
+                      onClick={() => {
+                        handleCloseMenu();
+                        handleDeletePublication(id);
+                      }}
+                      sx={{ color: 'error.main' }}
+                    >
+                      <Iconify icon={'eva:trash-2-outline'} />
+                      {t('card.Erase')}
+                    </MenuItem>
+                  )}
+                  {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
+                    <MenuItem
+                      onClick={() => {
+                        handleEditPublication(id);
+                        handleCloseMenu();
+                      }}
+                    >
+                      <Iconify icon={'eva:edit-fill'} />
+                      {t('card.Edit information')}
+                    </MenuItem>
+                  )}
+                </>
+              }
+            />
+          )}
         </Box>
       )}
 

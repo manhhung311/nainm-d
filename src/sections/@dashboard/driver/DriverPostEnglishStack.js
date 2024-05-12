@@ -2,8 +2,7 @@
 import { useFormContext } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { styled } from '@mui/material/styles';
-import { Grid, Stack, Typography } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 // routes
 // components
 import PropTypes from 'prop-types';
@@ -11,14 +10,6 @@ import React from 'react';
 import { RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 //
-
-// ----------------------------------------------------------------------
-
-const LabelStyle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(1),
-}));
 
 // ----------------------------------------------------------------------
 

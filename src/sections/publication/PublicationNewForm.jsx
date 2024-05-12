@@ -4,12 +4,8 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 // @mui
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import { LoadingButton } from '@mui/lab';
 import PropTypes from 'prop-types';
-import { Card, Grid, Stack, Typography, Button, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Button, Card, Grid, Typography } from '@mui/material';
 import { loader } from 'graphql.macro';
 import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
@@ -28,12 +24,6 @@ PublicationNewForm.propTypes = {
   isEdit: PropTypes.bool,
   dataPostUpdate: PropTypes.object,
 };
-
-const LabelStyle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(1),
-}));
 
 export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
   const navigate = useNavigate();
@@ -157,7 +147,6 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitting, values]);
-  console.log('values?.title', values?.title);
 
   const handleTabClick = (tabIndex) => {
     setCurrentTab(tabIndex);

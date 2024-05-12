@@ -18,10 +18,11 @@ import { useSnackbar } from 'notistack';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import useResponsive from '../../hooks/useResponsive';
-import { TypeCollection } from '../../constant';
+import { RoleId, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
+import useAuth from '../../hooks/useAuth';
 
 // components
 
@@ -70,6 +71,8 @@ export default function Publiction() {
 
   const { pathname } = useLocation();
   const isDashboard = pathname.includes('dashboard');
+
+  const { user } = useAuth();
 
   const [info, setInfo] = useState([]);
 
@@ -148,13 +151,13 @@ export default function Publiction() {
 
   return (
     <RootStyle>
-      <Grid container spacing={5} alignItems="center">
+      <Grid container spacing={5} alignItems="center" sx={{ mb: 1 }}>
         {isMobile ? (
           <>
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4">{t('publication.publication')}</Typography>
-                {isDashboard ? (
+                {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
                   <Button
                     variant="contained"
                     component={RouterLink}
@@ -163,8 +166,6 @@ export default function Publiction() {
                   >
                     {t('navItem.create')}
                   </Button>
-                ) : (
-                  <></>
                 )}
               </Stack>
             </Grid>
@@ -183,7 +184,7 @@ export default function Publiction() {
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4">{t('publication.publication')}</Typography>
-                {isDashboard ? (
+                {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
                   <Button
                     variant="contained"
                     component={RouterLink}
@@ -192,35 +193,35 @@ export default function Publiction() {
                   >
                     {t('navItem.create')}
                   </Button>
-                ) : (
-                  <></>
                 )}
               </Stack>
             </Grid>
           </>
         )}
       </Grid>
-      <Tabs
-        allowScrollButtonsMobile
-        variant="scrollable"
-        scrollButtons="auto"
-        value={filterStatus}
-        onChange={onFilterStatus}
-        sx={{ mb: { xs: 3, md: 5 } }}
-      >
-        {TABS.map((tab, idx) => (
-          <Tab
-            disableRipple
-            key={idx + 1}
-            value={tab.value}
-            label={
-              <Stack spacing={1} direction="row" alignItems="center">
-                <div>{t(`card.${tab.label}`)}</div>
-              </Stack>
-            }
-          />
-        ))}
-      </Tabs>
+      {user && (
+        <Tabs
+          allowScrollButtonsMobile
+          variant="scrollable"
+          scrollButtons="auto"
+          value={filterStatus}
+          onChange={onFilterStatus}
+          sx={{ mb: { xs: 3, md: 5 } }}
+        >
+          {TABS.map((tab, idx) => (
+            <Tab
+              disableRipple
+              key={idx + 1}
+              value={tab.value}
+              label={
+                <Stack spacing={1} direction="row" alignItems="center">
+                  <div>{t(`card.${tab.label}`)}</div>
+                </Stack>
+              }
+            />
+          ))}
+        </Tabs>
+      )}
 
       {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Container, Stack, Typography } from '@mui/material';
+import { Card, Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
-import { useLocation, useParams } from 'react-router-dom'; // Import _mock
+import { useParams } from 'react-router-dom'; // Import _mock
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
-import _mock from '../../../_mock';
 import useLocales from '../../../locals/useLocals';
 import useResponsive from '../../../hooks/useResponsive';
-import Image from '../../../components/Image';
 import Page from '../../../components/Page';
 import Markdown from '../../../components/Markdown';
 import { Language } from '../../../constant';
@@ -39,16 +37,13 @@ export default function NewsDetail() {
     }
   }, [getPost]);
 
-  console.log('post', post);
-
   const { t, currentLang } = useLocales();
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
-  console.log('currentLang', currentLang);
   return (
     <Page title={t('news.page1')}>
       <RootStyle>
-        <Grid container spacing={1} alignItems="center" sx={{paddingBottom:5, px: 3}}>
+        <Grid container spacing={1} alignItems="center" sx={{ paddingBottom: 5, px: 3 }}>
           {isMobile ? (
             <>
               <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>

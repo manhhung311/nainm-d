@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { Box, Card, CardContent, Link, MenuItem, Stack, Typography } from '@mui/material';
 // routes
@@ -9,7 +9,7 @@ import { PATH_DASHBOARD } from '../../routes/paths';
 import Iconify from '../../components/Iconify';
 import { TableMoreMenu } from '../../components/table';
 import TextMaxLine from '../../components/TextMaxLine';
-import { RoleId, StatusCollection } from '../../constant';
+import { RoleId } from '../../constant';
 import useLocales from '../../locals/useLocals';
 import useAuth from '../../hooks/useAuth';
 
@@ -84,6 +84,10 @@ export function PostContent({
 
   const { user } = useAuth();
 
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
+
   const handleEditDriver = (id) => {
     navigate(PATH_DASHBOARD.drive.edit(id));
   };
@@ -120,7 +124,7 @@ export function PostContent({
             right: 16,
           }}
         >
-          {(user?.role === RoleId.admin || user?.role === RoleId.manager) && (
+          {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
             <TableMoreMenu
               open={openMenu}
               onOpen={handleOpenMenu}

@@ -141,15 +141,25 @@ export default function Router() {
         {
           path: 'news',
           children: [
-            // { element: <Navigate to="/news" replace />, index: true },
             { path: '/news', element: <NewsList /> },
             { path: ':id/detail', element: <NewsDetail /> },
-            // { path: ':name/edit', element: <UserUpdate /> },
           ],
         },
         { path: 'people', element: <ProfileList /> },
-        { path: 'publication', element: <PublicationList /> },
-        { path: '/research', element: <ResearchList /> },
+        {
+          path: 'publication',
+          children: [
+            { path: '/publication', element: <PublicationList /> },
+            { path: ':id/detail', element: <PublicationDetail /> },
+          ],
+        },
+        {
+          path: 'research',
+          children: [
+            { path: '/research', element: <ResearchList /> },
+            { path: ':id/detail', element: <ResearchDetail /> },
+          ],
+        },
         {
           path: 'facility',
           children: [
@@ -157,8 +167,6 @@ export default function Router() {
             { path: ':id/detail', element: <FacilityDetail /> },
           ],
         },
-
-        { path: 'news', element: <NewsList /> },
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
