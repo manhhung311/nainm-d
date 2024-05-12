@@ -147,18 +147,6 @@ export default function ResearchMain() {
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4"> {t('research.title')}</Typography>
-                {isDashboard ? (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.research.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    {t('navItem.create')}
-                  </Button>
-                ) : (
-                  <></>
-                )}
               </Stack>
             </Grid>
             <Grid item xs={12} md={3}>
@@ -176,18 +164,6 @@ export default function ResearchMain() {
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4"> {t('research.title')}</Typography>
-                {isDashboard ? (
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={PATH_DASHBOARD.research.new}
-                    startIcon={<Iconify icon={'eva:plus-fill'} />}
-                  >
-                    {t('navItem.create')}
-                  </Button>
-                ) : (
-                  <></>
-                )}
               </Stack>
             </Grid>
           </>
