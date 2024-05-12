@@ -88,12 +88,7 @@ export default function Professor({ idProfessor }) {
         <Grid container spacing={2}>
           <Grid item xs={12} md={3}>
             <Box>
-              <Image
-                alt="preview"
-                src="https://www.chuphinhsanpham.vn/wp-content/uploads/2022/02/chup-hinh-cv-profile-hcm-0004.jpg"
-                ratio="1/1"
-                sx={{ borderRadius: 2 }}
-              />
+              <Image alt="preview" src={userDetail?.avartaURL} ratio="1/1" sx={{ borderRadius: 2 }} />
             </Box>
           </Grid>
           {isMobile ? (

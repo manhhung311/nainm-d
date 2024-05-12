@@ -91,7 +91,7 @@ export default function PublicationDetail() {
                   <Typography variant="h6" sx={{ mb: 5 }}>
                     {post.description_english}
                   </Typography>
-                  <Markdown children={post.collection_Vietnamese} />
+                  <Markdown children={post.collection_English} />
                 </Box>
               </Card>
             )}

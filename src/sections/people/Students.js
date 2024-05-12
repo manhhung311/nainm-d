@@ -48,6 +48,7 @@ export default function Students({ idProfessor, id }) {
   });
   console.log('dataFiltered', dataFiltered);
   const handleLinkTo = (id) => PATH_DASHBOARD.profile.detail(id);
+  const handleLinkToEdit = (id) => PATH_DASHBOARD.profile.edit(id);
   return (
     <RootStyle>
       <Box>
@@ -58,7 +59,7 @@ export default function Students({ idProfessor, id }) {
               <Grid container>
                 <Grid item xs={12} sx={{ justifyContent: 'right', alignItems: 'right', display: 'flex' }}>
                   <Tooltip title={t('people.edit')} placement="top">
-                    <IconButton color="success" component={RouterLink} to={PATH_DASHBOARD.profile.edit(idProfessor)}>
+                    <IconButton color="success" component={RouterLink} to={handleLinkToEdit(Number(item?.id))}>
                       <EditSharpIcon sx={{ width: 20, height: 20 }} />
                     </IconButton>
                   </Tooltip>
@@ -80,8 +81,8 @@ export default function Students({ idProfessor, id }) {
                 <Image alt="preview" src={item.avartaURL} ratio="3/4" sx={{ borderRadius: 2 }} />
               </Grid>
               <Grid item xs={12} md={10}>
-                <Link to={handleLinkTo(Number(item.id))} color="inherit" component={RouterLink}>
-                  <Typography variant="h6">{item.fullName}</Typography>
+                <Link to={handleLinkTo(Number(item?.id))} color="inherit" component={RouterLink}>
+                  <Typography variant="h6">{item?.fullName}</Typography>
                 </Link>
                 <Box sx={{ m: 3, ml: 0 }}>
                   <Typography>
