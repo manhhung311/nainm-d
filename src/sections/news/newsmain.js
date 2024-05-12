@@ -14,6 +14,7 @@ import Iconify from '../../components/Iconify';
 import { RoleId, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import NewsCard from './NewsCard';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -135,36 +136,19 @@ export default function NewsMain() {
 
   return (
     <RootStyle>
-      <Grid container spacing={1} alignItems="center">
+      <Grid container spacing={5} alignItems="center">
         {isMobile ? (
-          <Grid item xs={12}>
-            <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h4"> {t('news.title')}</Typography>
-              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.news.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
-              )}
-            </Stack>
+          <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex', pb: 3 }}>
+            <Typography variant="h4"> {t('news.title')}</Typography>
           </Grid>
         ) : (
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="space-between">
               <Typography variant="h4"> {t('news.title')}</Typography>
-              {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
-                <Button
-                  variant="contained"
-                  component={RouterLink}
-                  to={PATH_DASHBOARD.news.new}
-                  startIcon={<Iconify icon={'eva:plus-fill'} />}
-                >
-                  {t('navItem.create')}
-                </Button>
+              {isDashboard ? (
+                <></>
+              ) : (
+                <HeaderBreadcrumbs links={[{ name: t('profile.Home'), href: '/' }, { name: t('news.title') }]} />
               )}
             </Stack>
           </Grid>

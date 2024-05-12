@@ -6,19 +6,20 @@ import { styled } from '@mui/material/styles';
 import { useLocation, useParams } from 'react-router-dom'; // Import _mock
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
+import Stack from '@mui/material/Stack';
 import useLocales from '../../../locals/useLocals';
 import useResponsive from '../../../hooks/useResponsive';
 import Page from '../../../components/Page';
 import Markdown from '../../../components/Markdown';
 import { Language } from '../../../constant';
-import { PATH_DASHBOARD, PATH_PAGE } from '../../../routes/paths';
+import { PATH_PAGE } from '../../../routes/paths';
 import HeaderBreadcrumbs from '../../../components/HeaderBreadcrumbs';
 
 const RootStyle = styled('div')(({ theme, isDashboard }) => ({
-  padding: theme.spacing(12,2),
+  padding: isDashboard ? theme.spacing(0) : theme.spacing(12, 0),
   borderRadius: Number(theme.shape.borderRadius) * 2,
   [theme.breakpoints.up('md')]: {
-    padding: isDashboard ? theme.spacing(0) : theme.spacing(15,7),
+    padding: isDashboard ? theme.spacing(0) : theme.spacing(15, 7),
   },
 }));
 
@@ -53,32 +54,30 @@ export default function FacilityDetail() {
         <Grid container spacing={0} alignItems="center" sx={{ px: 3 }}>
           {isMobile ? (
             <>
-              <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+              <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex', pb: 3 }}>
                 <Typography variant="h4"> {t('facility.title')}</Typography>
-              </Grid>
-              <Grid item xs={12} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                <HeaderBreadcrumbs
-                  links={[
-                    { name: 'Home', href: '/' },
-                    { name: 'Danh sách', href: isDashboard ? PATH_DASHBOARD.facility.root : PATH_PAGE.facility.list },
-                    { name: post && post?.title },
-                  ]}
-                />
               </Grid>
             </>
           ) : (
             <>
               <Grid item xs={12}>
-                <Typography variant="h4">{t('facility.title')}</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <HeaderBreadcrumbs
-                  links={[
-                    { name: 'Home', href: '/' },
-                    { name: 'Danh sách', href: isDashboard ? PATH_DASHBOARD.facility.root : PATH_PAGE.facility.list },
-                    { name: post && post?.title },
-                  ]}
-                />
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography variant="h4">{t('facility.title')}</Typography>
+                  {isDashboard ? (
+                    <></>
+                  ) : (
+                    <HeaderBreadcrumbs
+                      links={[
+                        { name: t('profile.Home'), href: '/' },
+                        {
+                          name: t('facility.title'),
+                          href: PATH_PAGE.facility.list,
+                        },
+                        { name: post && (currentLang.value === Language.VietNam ? post?.title : post?.title_english) },
+                      ]}
+                    />
+                  )}
+                </Stack>
               </Grid>
             </>
           )}
