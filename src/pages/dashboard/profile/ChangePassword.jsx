@@ -80,10 +80,8 @@ export default function ChangePassword({ isEdit }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3} sx={{ mt: '10px' }}>
-        <Grid item md={2.5} />
-
-        <Grid item xs={12} md={7}>
+      <Grid container spacing={3} sx={{ mt: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Grid item xs={12} md={8}>
           <Card sx={{ py: 10, px: 3, height: '85%' }}>
             <Box
               sx={{
@@ -104,8 +102,6 @@ export default function ChangePassword({ isEdit }) {
             </Stack>
           </Card>
         </Grid>
-
-        <Grid item md={2.5} />
       </Grid>
     </FormProvider>
   );
