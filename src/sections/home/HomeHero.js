@@ -113,84 +113,165 @@ export default function HomeHero() {
                       alignItems="center"
                       justifyContent="center"
                       sx={{
-                        flexDirection: { xs: 'column-reverse', sm: 'row', md: 'row' },
+                        flexDirection: { sm: 'row', md: 'row' },
                         textAlign: { xs: 'center', sm: 'start', md: 'start' },
                       }}
                     >
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Image ratio="16/9" src={step.imgPath} alt={step.label} />
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6}>
-                        <Grid
-                          container
-                          alignItems="center"
-                          justifyContent="center"
-                          spacing={2}
-                          sx={{
-                            flexDirection: { xs: 'column', sm: 'row', md: 'row' },
-                            textAlign: { xs: 'center', sm: 'start', md: 'start' },
-                          }}
-                        >
-                          <Grid item xs={12}>
-                            <Typography
-                              variant="h4"
-                              gutterBottom
+                      {isMobile ? (
+                        <>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <Grid
+                              container
+                              alignItems="center"
+                              justifyContent="center"
+                              spacing={2}
                               sx={{
-                                border: '1px solid #82f9d4',
-                                color: '#82f9d4',
-                                height: '50px',
-                                width: '50px',
-                                fontSize: '0.95rem',
-                                textAlign: 'center',
-                                lineHeight: '50px',
+                                flexDirection: { xs: 'column', sm: 'row', md: 'row' },
+                                textAlign: { xs: 'center', sm: 'start', md: 'start' },
                               }}
                             >
-                              {step.label}
-                            </Typography>
-                          </Grid>
+                              <Grid item xs={12}>
+                                <Typography
+                                  variant="h4"
+                                  gutterBottom
+                                  sx={{
+                                    border: '1px solid #82f9d4',
+                                    color: '#82f9d4',
+                                    height: '50px',
+                                    width: '50px',
+                                    fontSize: '0.95rem',
+                                    textAlign: 'center',
+                                    lineHeight: '50px',
+                                  }}
+                                >
+                                  {step.label}
+                                </Typography>
+                              </Grid>
 
-                          <Grid item xs={12}>
-                            <Typography variant="h3" color="#82f9d4">
-                              {currentLang.value === Language.VietNam ? step.title : step.titleEnglish}
-                            </Typography>
-                          </Grid>
+                              <Grid item xs={12}>
+                                <Typography variant="h3" color="#82f9d4">
+                                  {currentLang.value === Language.VietNam ? step.title : step.titleEnglish}
+                                </Typography>
+                              </Grid>
 
-                          <Grid item xs={12}>
-                            <Typography variant="subtitle1" color="#fff">
-                              {currentLang.value === Language.VietNam ? step.content : step.contentEnglish}
-                            </Typography>
-                          </Grid>
+                              <Grid item xs={12}>
+                                <Typography variant="subtitle1" color="#fff">
+                                  {currentLang.value === Language.VietNam ? step.content : step.contentEnglish}
+                                </Typography>
+                              </Grid>
 
-                          <Grid item xs={12}>
-                            <Link
-                              to={`/publication/${step.id}/detail`}
-                              style={{
-                                textDecoration: 'none',
-                                color: '#fff',
-                                '&:hover': {
-                                  textDecoration: 'none',
-                                  color: '#fff',
-                                },
+                              <Grid item xs={12}>
+                                <Link
+                                  to={`/publication/${step.id}/detail`}
+                                  style={{
+                                    textDecoration: 'none',
+                                    color: '#fff',
+                                    '&:hover': {
+                                      textDecoration: 'none',
+                                      color: '#fff',
+                                    },
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      height: '80%',
+                                      width: '140px',
+                                      color: '#fff',
+                                      display: 'flex', // Sử dụng flexbox
+                                      alignItems: 'center', // Căn chỉnh theo chiều dọc
+                                      border: '1px solid #fff',
+                                      padding: '4px 8px', // Khoảng cách viền và chữ
+                                    }}
+                                  >
+                                    {t('user.MoreView')}
+                                    <ArrowRightAltIcon sx={{ marginLeft: '8px' }} />
+                                  </Typography>
+                                </Link>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <Image ratio="16/9" src={step.imgPath} alt={step.label} />
+                          </Grid>
+                        </>
+                      ) : (
+                        <>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <Image ratio="16/9" src={step.imgPath} alt={step.label} />
+                          </Grid>
+                          <Grid item xs={12} sm={6} md={6}>
+                            <Grid
+                              container
+                              alignItems="center"
+                              justifyContent="center"
+                              spacing={2}
+                              sx={{
+                                flexDirection: { xs: 'column', sm: 'row', md: 'row' },
+                                textAlign: { xs: 'center', sm: 'start', md: 'start' },
                               }}
                             >
-                              <Typography
-                                sx={{
-                                  height: '80%',
-                                  width: '140px',
-                                  color: '#fff',
-                                  display: 'flex', // Sử dụng flexbox
-                                  alignItems: 'center', // Căn chỉnh theo chiều dọc
-                                  border: '1px solid #fff',
-                                  padding: '4px 8px', // Khoảng cách viền và chữ
-                                }}
-                              >
-                                {t('user.MoreView')}
-                                <ArrowRightAltIcon sx={{ marginLeft: '8px' }} />
-                              </Typography>
-                            </Link>
+                              <Grid item xs={12}>
+                                <Typography
+                                  variant="h4"
+                                  gutterBottom
+                                  sx={{
+                                    border: '1px solid #82f9d4',
+                                    color: '#82f9d4',
+                                    height: '50px',
+                                    width: '50px',
+                                    fontSize: '0.95rem',
+                                    textAlign: 'center',
+                                    lineHeight: '50px',
+                                  }}
+                                >
+                                  {step.label}
+                                </Typography>
+                              </Grid>
+
+                              <Grid item xs={12}>
+                                <Typography variant="h3" color="#82f9d4">
+                                  {currentLang.value === Language.VietNam ? step.title : step.titleEnglish}
+                                </Typography>
+                              </Grid>
+
+                              <Grid item xs={12}>
+                                <Typography variant="subtitle1" color="#fff">
+                                  {currentLang.value === Language.VietNam ? step.content : step.contentEnglish}
+                                </Typography>
+                              </Grid>
+
+                              <Grid item xs={12}>
+                                <Link
+                                  to={`/publication/${step.id}/detail`}
+                                  style={{
+                                    textDecoration: 'none',
+                                    color: '#fff',
+                                    '&:hover': {
+                                      textDecoration: 'none',
+                                      color: '#fff',
+                                    },
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      height: '80%',
+                                      width: '140px',
+                                      color: '#fff',
+                                      display: 'flex', // Sử dụng flexbox
+                                      alignItems: 'center', // Căn chỉnh theo chiều dọc
+                                      border: '1px solid #fff',
+                                      padding: '4px 8px', // Khoảng cách viền và chữ
+                                    }}
+                                  >
+                                    {t('user.MoreView')}
+                                    <ArrowRightAltIcon sx={{ marginLeft: '8px' }} />
+                                  </Typography>
+                                </Link>
+                              </Grid>
+                            </Grid>
                           </Grid>
-                        </Grid>
-                      </Grid>
+                        </>
+                      )}
                     </Grid>
                   ) : null}
                 </Box>

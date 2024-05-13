@@ -84,7 +84,7 @@ function AuthProvider({ children }) {
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem(SESSION_KEY.ACCESS_TOKEN);
-        
+
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
@@ -155,7 +155,6 @@ function AuthProvider({ children }) {
       throw e;
     });
 
-    console.log('response', response);
     if (!response.error && response.data.login) {
       const { token, user } = response.data.login;
       const currentUser = {

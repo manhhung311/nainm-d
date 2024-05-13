@@ -8,7 +8,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
-import useAuth from '../../hooks/useAuth';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import NewsCard from './NewsCard';
@@ -48,8 +47,6 @@ export default function NewsMain() {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const { user } = useAuth();
 
   const [news, setNews] = useState([]);
 
@@ -153,7 +150,7 @@ export default function NewsMain() {
         )}
       </Grid>
 
-      {user && (
+      {isDashboard && (
         <Tabs
           allowScrollButtonsMobile
           variant="scrollable"

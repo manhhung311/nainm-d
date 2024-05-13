@@ -19,9 +19,10 @@ RFHAutocompleteUser.propTypes = {
   name: PropTypes.string,
   isDisabledAutocomplete: PropTypes.bool,
   language: PropTypes.string,
+  tap: PropTypes.number,
 };
 
-export default function RFHAutocompleteUser({ name, language, isDisabledAutocomplete = false, ...other }) {
+export default function RFHAutocompleteUser({ name, language, tap, isDisabledAutocomplete = false, ...other }) {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
   const [districts, setDistricts] = useState([]);
@@ -33,10 +34,25 @@ export default function RFHAutocompleteUser({ name, language, isDisabledAutocomp
 
   useEffect(() => {
     if (data) {
-      const newDistricts = [language === Language.VietNam ? defaultUserOptions : defaultUserOptionsENG, ...data.users];
+      const userVN = data.users.filter(
+        (el) =>
+          el?.user_information_Vietnamese === '' ||
+          el?.user_information_Vietnamese === '<p><br></p>' ||
+          !el?.user_information_Vietnamese
+      );
+      const userENG = data.users.filter(
+        (el) =>
+          el?.user_information_English === '' ||
+          el?.user_information_English === '<p><br></p>' ||
+          !el?.user_information_English
+      );
+      const newDistricts = [
+        language === Language.VietNam ? defaultUserOptions : defaultUserOptionsENG,
+        ...(tap === 1 ? userVN : userENG),
+      ];
       setDistricts(newDistricts);
     }
-  }, [language, data]);
+  }, [language, data, tap]);
 
   const { t } = useLocales();
 

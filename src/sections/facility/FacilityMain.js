@@ -8,7 +8,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
-import useAuth from '../../hooks/useAuth';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import FacilityCard from './FacilityCard';
@@ -48,8 +47,6 @@ export default function FacilityMain() {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const { user } = useAuth();
 
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
@@ -153,7 +150,7 @@ export default function FacilityMain() {
         )}
       </Grid>
 
-      {user && (
+      {isDashboard && (
         <Tabs
           allowScrollButtonsMobile
           variant="scrollable"

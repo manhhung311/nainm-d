@@ -11,12 +11,12 @@ import { loader } from 'graphql.macro';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
+import { useLocation } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
-import useAuth from '../../hooks/useAuth';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // components
 
@@ -65,7 +65,9 @@ export default function Publiction() {
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
-  const { user } = useAuth();
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
 
   const [info, setInfo] = useState([]);
 
@@ -174,7 +176,7 @@ export default function Publiction() {
           </>
         )}
       </Grid>
-      {user && (
+      {isDashboard && (
         <Tabs
           allowScrollButtonsMobile
           variant="scrollable"

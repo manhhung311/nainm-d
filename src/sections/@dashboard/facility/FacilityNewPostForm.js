@@ -9,7 +9,7 @@ import { Button, Card, Grid, Typography } from '@mui/material';
 // components
 import PropTypes from 'prop-types';
 import { loader } from 'graphql.macro';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider } from '../../../components/hook-form';
@@ -34,6 +34,8 @@ export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const [currentTab, setCurrentTab] = useState(1);
+
+  const [uploadFile, setUploadFile] = useState(null);
 
   const { t } = useLocales();
 
@@ -62,6 +64,7 @@ export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
     titleEnglish: dataPostUpdate?.title_english || '',
     descriptionEnglish: dataPostUpdate?.description_english || '',
     contentEnglish: dataPostUpdate?.collection_English || '',
+    cover: dataPostUpdate?.imgURL || null,
   };
 
   const methods = useForm({
@@ -72,6 +75,7 @@ export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
   const {
     reset,
     handleSubmit,
+    setValue,
     watch,
     formState: { isSubmitting },
   } = methods;
@@ -120,6 +124,7 @@ export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
               // check chuẩn kiểu dữ liệu của input
               type_collection: TypeCollection.Facility,
               title: values?.title,
+              imgURL: uploadFile,
               collection_Vietnamese: values?.content,
               description: values?.description,
               title_english: values?.titleEnglish,
@@ -135,6 +140,7 @@ export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
               // check chuẩn kiểu dữ liệu của input
               id: Number(values?.id),
               title: values?.title,
+              imgURL: uploadFile,
               collection_Vietnamese: values?.content,
               description: values?.description,
               title_english: values?.titleEnglish,
@@ -164,6 +170,23 @@ export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
   const handleTabClick = (tabIndex) => {
     setCurrentTab(tabIndex);
   };
+
+  const handleDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+
+      if (file) {
+        setValue(
+          'cover',
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        );
+      }
+      setUploadFile(file);
+    },
+    [setValue]
+  );
 
   return (
     <>
@@ -204,9 +227,9 @@ export default function FacilityNewPostForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <FacilityPostVNStack onNext={handleTabClick} />
+                <FacilityPostVNStack onNext={handleTabClick} onDrop={handleDrop} />
               ) : (
-                <FacilityPostEnglishStack onBack={handleTabClick} />
+                <FacilityPostEnglishStack onBack={handleTabClick} onDrop={handleDrop} />
               )}
             </Card>
           </Grid>

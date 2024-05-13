@@ -10,6 +10,8 @@ import { loader } from 'graphql.macro';
 import React, { useEffect, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider } from '../../../components/hook-form';
 import { defaultUserOptions, defaultUserOptionsENG, Language } from '../../../constant';
 import { PATH_DASHBOARD } from '../../../routes/paths';
@@ -35,6 +37,11 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
 
   const { t, currentLang } = useLocales();
 
+  const Schema = Yup.object().shape({
+    content: Yup.string().required(t('user.contentProfile')),
+    contentEnglish: Yup.string().required(t('user.contentProfile')),
+  });
+
   const defaultValues = {
     id: dataPostUpdate?.id || null,
     userDetail: dataPostUpdate || null,
@@ -46,6 +53,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
   };
 
   const methods = useForm({
+    resolver: yupResolver(Schema),
     defaultValues,
   });
 
