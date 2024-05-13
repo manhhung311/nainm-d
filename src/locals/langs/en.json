@@ -104,6 +104,7 @@
     "UpdatesFailed": "Editing personal information failed. Reason: ",
     "MoreView": "More View",
     "SelectUser": "Select User",
+    "contentProfile": "Description content cannot be empty",
     "": ""
   },
   "list": "list",
@@ -194,5 +195,17 @@
     "tiep": "Continue",
     "trolai": "Back",
     "post": "Post"
+  },
+  "error": {
+    "noData" : "No Data",
+    "UserNotExit": "User does not exist",
+    "UserNotFound": "User not found",
+    "PassWordErr": "Wrong password",
+    "UserNotPermission1": "You do not have permission to access account",
+    "UserNotPermission2": "You do not have permission to view this user",
+    "UserNotPermission": "You do not have permission to perform the function",
+    "EmailPassWordNotNull": "Email and password cannot be empty",
+    "UserExit": "User exists",
+    "CollectionNotExit": "No information found"
   }
 }

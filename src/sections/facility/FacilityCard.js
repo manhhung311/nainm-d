@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // @mui
-import { Box, Card, CardContent, Link, MenuItem, Stack, Typography } from '@mui/material';
+import { Box, Card, Link, MenuItem, Stack } from '@mui/material';
 // routes
 import { useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
@@ -12,6 +12,7 @@ import TextMaxLine from '../../components/TextMaxLine';
 import { RoleId, StatusCollection } from '../../constant';
 import useLocales from '../../locals/useLocals';
 import useAuth from '../../hooks/useAuth';
+import Image from '../../components/Image';
 
 // ----------------------------------------------------------------------
 
@@ -30,6 +31,7 @@ export default function FacilityPostCard({ post, handleDeleteFacility, currentLa
     description_english: descriptionEnglish,
     status_collection: statusCollection,
     id,
+    imgURL,
   } = post;
 
   return (
@@ -40,6 +42,7 @@ export default function FacilityPostCard({ post, handleDeleteFacility, currentLa
         titleEnglish={titleEnglish}
         description={description}
         descriptionEnglish={descriptionEnglish}
+        imgURL={imgURL}
         handleDeleteFacility={handleDeleteFacility}
         statusCollection={statusCollection}
         onEditStatusCollection={onEditStatusCollection}
@@ -55,8 +58,9 @@ PostContent.propTypes = {
   index: PropTypes.number,
   title: PropTypes.string,
   titleEnglish: PropTypes.string,
-  description: PropTypes.string,
-  descriptionEnglish: PropTypes.string,
+  // description: PropTypes.string,
+  // descriptionEnglish: PropTypes.string,
+  imgURL: PropTypes.string,
   id: PropTypes.number,
   handleDeleteFacility: PropTypes.func,
   // createdAt: PropTypes.string,
@@ -71,12 +75,13 @@ export function PostContent({
   id,
   handleDeleteFacility,
   onEditStatusCollection,
-  description,
+  // description,
+  imgURL,
   currentLang,
   statusCollection,
   titleEnglish,
   // createdAt,
-  descriptionEnglish,
+  // descriptionEnglish,
 }) {
   const isDesktop = useResponsive('up', 'md');
   const [openMenu, setOpenMenuActions] = useState(null);
@@ -104,10 +109,11 @@ export function PostContent({
   const latestPostLarge = index === 0;
   const { t } = useLocales();
   return (
-    <CardContent
+    <Card
       sx={{
-        pt: 4.5,
-        width: 1,
+        pt: 5,
+        px: 3,
+        // width: 1,
         ...(latestPostLarge && {
           pt: 0,
           zIndex: 99,
@@ -117,12 +123,16 @@ export function PostContent({
         }),
       }}
     >
+      <Box sx={{ borderRadius: 8 }}>
+        <Image alt="cover" src={imgURL} sx={{ height: 280, borderRadius: 1 }} />
+      </Box>
+
       {!latestPostLarge && (
         <Box
           sx={{
             position: 'absolute',
-            top: 16,
-            right: 16,
+            top: 3,
+            right: 1,
           }}
         >
           {(user?.role === RoleId.admin || user?.role === RoleId.manager) && isDashboard && (
@@ -214,44 +224,29 @@ export function PostContent({
         </Box>
       )}
 
-      <Typography
-        gutterBottom
-        variant="caption"
-        component="div"
-        sx={{
-          color: 'text.disabled',
-          ...(latestPostLarge && {
-            opacity: 0.64,
-            color: 'common.white',
-          }),
-        }}
-      />
+      {/* <Typography */}
+      {/*  gutterBottom */}
+      {/*  variant="caption" */}
+      {/*  component="div" */}
+      {/*  sx={{ */}
+      {/*    color: 'text.disabled', */}
+      {/*    ...(latestPostLarge && { */}
+      {/*      opacity: 0.64, */}
+      {/*      color: 'common.white', */}
+      {/*    }), */}
+      {/*  }} */}
+      {/* /> */}
 
       <Stack spacing={1} flexGrow={1}>
-        <Link to={linkTo} color="inherit" component={RouterLink}>
+        <Link to={linkTo} color="inherit" component={RouterLink} sx={{ pt: 3 }}>
           <TextMaxLine variant={isDesktop ? 'h5' : 'subtitle2'} line={2} persistent>
             {currentLang === 'vi' ? title : titleEnglish}
           </TextMaxLine>
         </Link>
-        <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}>
-          {currentLang === 'vi' ? description : descriptionEnglish}
-        </TextMaxLine>
+        {/* <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}> */}
+        {/*  {currentLang === 'vi' ? description : descriptionEnglish} */}
+        {/* </TextMaxLine> */}
       </Stack>
-
-      <Stack
-        flexWrap="wrap"
-        direction="row"
-        justifyContent="flex-end"
-        sx={{
-          mt: 3,
-          mb: -1,
-          color: 'text.disabled',
-          ...(latestPostLarge && {
-            opacity: 0.64,
-            color: 'common.white',
-          }),
-        }}
-      />
-    </CardContent>
+    </Card>
   );
 }

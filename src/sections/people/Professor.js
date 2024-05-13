@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Grid, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import LaunchIcon from '@mui/icons-material/Launch';
 import { Link as RouterLink, useLocation, useParams } from 'react-router-dom';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import { styled } from '@mui/material/styles';
@@ -83,8 +84,8 @@ export default function Professor({ idProfessor }) {
           {isMobile ? (
             <Grid item xs={12} md={9}>
               <Box>
-                <Box sx={{ pb: 2, ml: { xs: 10, md: 6 } }}>
-                  <h2>{userDetail?.fullName}</h2>
+                <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
+                  <Typography variant="h2">{userDetail?.fullName}</Typography>
                 </Box>
                 <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
                   <Typography>
@@ -96,36 +97,39 @@ export default function Professor({ idProfessor }) {
                     ★ {t('people.phone')}: {userDetail?.phoneNumber}
                   </Typography>
                 </Box>
-                {/* <Stack direction="row"> */}
-                {/*  <Button */}
-                {/*    sx={{ */}
-                {/*      width: 170, */}
-                {/*      ml: { xs: 1, md: 6 }, */}
-                {/*      mt: { xs: 0, md: 6, mt: 4 }, */}
-                {/*      mb: { xs: 0, md: 1 }, */}
-                {/*      bgcolor: '#00FA9A', */}
-                {/*      borderRadius: 20, */}
-                {/*    }} */}
-                {/*    target="_blank" */}
-                {/*    variant="contained" */}
-                {/*    endIcon={<LaunchIcon />} */}
-                {/*    component={RouterLink} */}
-                {/*    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*  > */}
-                {/*    Google Scholar */}
-                {/*  </Button> */}
-                {/*  <Button */}
-                {/*    sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }} */}
-                {/*    variant="textlink" */}
-                {/*    target="_blank" */}
-                {/*    component={RouterLink} */}
-                {/*    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*  > */}
-                {/*    http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ */}
-                {/*  </Button> */}
-                {/* </Stack> */}
+                {!isStudent && (
+                  <Stack direction="row">
+                    <Button
+                      sx={{
+                        width: 170,
+                        ml: { xs: 1, md: 6 },
+                        mt: { xs: 0, md: 6, mt: 4 },
+                        mb: { xs: 0, md: 1 },
+                        bgcolor: '#00FA9A',
+                        borderRadius: 20,
+                      }}
+                      target="_blank"
+                      variant="contained"
+                      endIcon={<LaunchIcon />}
+                      component={RouterLink}
+                      href="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                      to="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                    >
+                      Google Scholar
+                    </Button>
+                    <Button
+                      sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }}
+                      variant="textlink"
+                      target="_blank"
+                      component={RouterLink}
+                      href="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                      to="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                    >
+                      https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao
+                    </Button>
+                  </Stack>
+                )}
+
                 {/* <Stack direction="row"> */}
                 {/*  <Button */}
                 {/*    sx={{ width: 170, ml: { xs: 1, md: 6 }, mt: 2, borderRadius: 20 }} */}
@@ -154,7 +158,7 @@ export default function Professor({ idProfessor }) {
           ) : (
             <Grid item xs={12} md={9}>
               <Box>
-                <Box sx={{ pb: 2, ml: { xs: 10, md: 6 } }}>
+                <Box sx={{ pb: 2, ml: { xs: 10, sm: 1, md: 6 } }}>
                   <h2>{userDetail?.fullName}</h2>
                 </Box>
                 <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
@@ -167,36 +171,38 @@ export default function Professor({ idProfessor }) {
                     ★ {t('people.phone')}: {userDetail?.phoneNumber}
                   </Typography>
                 </Box>
-                {/* <Stack direction="row"> */}
-                {/*  <Button */}
-                {/*    sx={{ */}
-                {/*      width: 170, */}
-                {/*      ml: { xs: 1, md: 6 }, */}
-                {/*      mt: { xs: 0, md: 6, mt: 4 }, */}
-                {/*      mb: { xs: 0, md: 1 }, */}
-                {/*      bgcolor: '#00FA9A', */}
-                {/*      borderRadius: 20, */}
-                {/*    }} */}
-                {/*    target="_blank" */}
-                {/*    variant="contained" */}
-                {/*    endIcon={<LaunchIcon />} */}
-                {/*    component={RouterLink} */}
-                {/*    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*  > */}
-                {/*    Google Scholar */}
-                {/*  </Button> */}
-                {/*  <Button */}
-                {/*    sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }} */}
-                {/*    variant="textlink" */}
-                {/*    target="_blank" */}
-                {/*    component={RouterLink} */}
-                {/*    href="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*    to="http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ" */}
-                {/*  > */}
-                {/*    http://scholar.google.co.kr/citations?user=GJHV48MAAAAJ */}
-                {/*  </Button> */}
-                {/* </Stack> */}
+                {!isStudent && (
+                  <Stack direction="row">
+                    <Button
+                      sx={{
+                        width: 170,
+                        ml: { xs: 1, md: 6 },
+                        mt: { xs: 0, md: 6, mt: 4 },
+                        mb: { xs: 0, md: 1 },
+                        bgcolor: '#00FA9A',
+                        borderRadius: 20,
+                      }}
+                      target="_blank"
+                      variant="contained"
+                      endIcon={<LaunchIcon />}
+                      component={RouterLink}
+                      href="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                      to="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                    >
+                      GG Scholar
+                    </Button>
+                    <Button
+                      sx={{ ml: { xs: 1, md: 6 }, mt: { xs: 0, md: 6, mt: 4 } }}
+                      variant="textlink"
+                      target="_blank"
+                      component={RouterLink}
+                      href="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                      to="https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao"
+                    >
+                      https://scholar.google.co.kr/citations?user=FfKxwhsAAAAJ&hl=vi&oi=ao
+                    </Button>
+                  </Stack>
+                )}
                 {/* <Stack direction="row"> */}
                 {/*  <Button */}
                 {/*    sx={{ width: 170, ml: { xs: 1, md: 6 }, mt: 2, borderRadius: 20 }} */}

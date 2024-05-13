@@ -105,6 +105,7 @@
     "UpdatesFailed": "Sửa thông tin cá nhân không thành công. Nguyên nhân: ",
     "MoreView": "Xem Thêm",
     "SelectUser": "Chọn Người Dùng",
+    "contentProfile": "Nội dung mô tả không được để trống",
     "": ""
   },
   "list": "danh sách",
@@ -193,5 +194,17 @@
     "tiep": "Tiếp tục",
     "trolai": "Trở lại",
     "post": "Đăng"
+  },
+  "error": {
+    "noData" : "Không có dữ liệu",
+    "UserNotExit": "Người dùng không tồn tại",
+    "UserNotFound": "Không tìm thấy người dùng",
+    "PassWordErr": "Sai mật khẩu",
+    "UserNotPermission1": "Bạn không có quyền truy cập vào tài khoản",
+    "UserNotPermission2": "Bạn không có quyền xem người dùng này",
+    "UserNotPermission": "Bạn không có quyền thực hiện chức năng này",
+    "EmailPassWordNotNull": "Email và mật khẩu không được để trống",
+    "UserExit": "Người dùng tồn tại",
+    "CollectionNotExit": "Không tìm thấy thông tin"
   }
 }

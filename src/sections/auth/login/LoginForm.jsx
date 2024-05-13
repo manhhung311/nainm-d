@@ -15,11 +15,14 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { useLocales } from '../../../locals';
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const { login } = useAuth();
+
+  const { t } = useLocales();
 
   const isMountedRef = useIsMountedRef();
 
@@ -62,7 +65,7 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+        {!!errors.afterSubmit && <Alert severity="error">{t(`error.${errors.afterSubmit.message}`)}</Alert>}
 
         <RHFTextField name="email" label="Email address" />
 

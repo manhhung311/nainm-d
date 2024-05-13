@@ -59,9 +59,9 @@ export default function NewUser({ isEdit, currentUser }) {
       password: currentUser?.password || '',
       lastName: currentUser?.lastName || '',
       phoneNumber: currentUser?.phoneNumber || '',
-      role: currentUser?.role || '',
+      role: currentUser?.role || 0,
       avatarUrl: currentUser?.avartaURL || null,
-      typeUser: currentUser?.TypeUser || '',
+      typeUser: currentUser?.type_user || 0,
       userName: currentUser?.userName || '',
       status: currentUser?.status,
     }),
@@ -151,11 +151,11 @@ export default function NewUser({ isEdit, currentUser }) {
       }
     } catch (error) {
       if (isEdit) {
-        enqueueSnackbar(`${t('user.UpdatesFailed')} ${error.message}.`, {
+        enqueueSnackbar(`${t('user.UpdatesFailed')}: ${t(`error.${error.message}`)}.`, {
           variant: 'error',
         });
       } else {
-        enqueueSnackbar(`${t('user.CreateFailed')} ${error.message}.`, {
+        enqueueSnackbar(`${t('user.CreateFailed')}: ${t(`error.${error.message}`)}.`, {
           variant: 'error',
         });
       }

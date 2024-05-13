@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // routes
 // components
 import React from 'react';
-import { RHFEditor, RHFTextField } from '../../../components/hook-form';
+import { RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 //
 
@@ -22,9 +22,10 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 FacilityPostVNStack.propTypes = {
   onNext: PropTypes.func,
+  onDrop: PropTypes.func,
 };
 
-export default function FacilityPostVNStack({ onNext }) {
+export default function FacilityPostVNStack({ onNext, onDrop }) {
   const { t } = useLocales();
 
   return (
@@ -37,6 +38,10 @@ export default function FacilityPostVNStack({ onNext }) {
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="content" />
+        </div>
+        <div>
+          <LabelStyle>Ảnh</LabelStyle>
+          <RHFUploadSingleFile name="cover" accept="image/*" maxSize={3145728} onDrop={onDrop} />
         </div>
       </Stack>
       <Grid item xs={12}>

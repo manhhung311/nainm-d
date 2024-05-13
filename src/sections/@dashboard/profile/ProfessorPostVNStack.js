@@ -41,7 +41,7 @@ export default function ProfessorPostVNStack({ onNext, isEdit }) {
             {values?.userDetail?.fullName}
           </Typography>
         ) : (
-          <RFHAutocompleteUser name="user" language={currentLang.value} />
+          <RFHAutocompleteUser name="user" language={currentLang.value} tap={1} />
         )}
         <div>
           <LabelStyle>Content</LabelStyle>

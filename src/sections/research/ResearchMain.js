@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Autocomplete, Card, Stack, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { Card, Stack, Tab, Tabs, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
-import _mock from '../../_mock';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import useAuth from '../../hooks/useAuth';
@@ -42,14 +41,6 @@ const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteColl
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
 
 export default function ResearchMain() {
-  const options = [
-    { label: _mock.text.title(1), id: 1 }, // Lấy tiêu đề từ _mock
-    { label: _mock.text.title(2), id: 2 },
-    { label: _mock.text.title(3), id: 3 },
-    { label: _mock.text.title(4), id: 4 },
-    { label: _mock.text.title(5), id: 5 },
-  ];
-
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -141,15 +132,6 @@ export default function ResearchMain() {
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4"> {t('research.title')}</Typography>
               </Stack>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={options}
-                fullWidth
-                renderInput={(params) => <TextField {...params} label="Search" />}
-              />
             </Grid>
           </>
         ) : (

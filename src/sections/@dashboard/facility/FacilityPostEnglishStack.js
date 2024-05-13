@@ -8,7 +8,7 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 // components
 import PropTypes from 'prop-types';
 import React from 'react';
-import { RHFEditor, RHFTextField } from '../../../components/hook-form';
+import { RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 //
 
@@ -24,9 +24,10 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 FacilityPostEnglishStack.propTypes = {
   onBack: PropTypes.func,
+  onDrop: PropTypes.func,
 };
 
-export default function FacilityPostEnglishStack({ onBack }) {
+export default function FacilityPostEnglishStack({ onBack, onDrop }) {
   const {
     formState: { isSubmitting },
   } = useFormContext();
@@ -43,6 +44,10 @@ export default function FacilityPostEnglishStack({ onBack }) {
         <div>
           <LabelStyle>Content</LabelStyle>
           <RHFEditor name="contentEnglish" />
+        </div>
+        <div>
+          <LabelStyle>Image</LabelStyle>
+          <RHFUploadSingleFile name="cover" accept="image/*" maxSize={3145728} onDrop={onDrop} />
         </div>
       </Stack>
       <Grid item xs={12}>
