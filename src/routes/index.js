@@ -67,8 +67,8 @@ export default function Router() {
             { path: 'list', element: <PublicationList /> },
             { path: 'new', element: <PublicationCreate /> },
             // { path: ':name/edit', element: <UserUpdate /> },
-            { path: ':id/edit', element: <PublicationCreate />},
-            { path: ':id/detail', element: <PublicationDetail /> }
+            { path: ':id/edit', element: <PublicationCreate /> },
+            { path: ':id/detail', element: <PublicationDetail /> },
           ],
         },
         {
@@ -106,6 +106,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/drive/list" replace />, index: true },
             { path: 'list', element: <DriveList /> },
             { path: 'new', element: <DriveCreate /> },
+
             // { path: ':name/edit', element: <UserUpdate /> },
           ],
         },
@@ -115,6 +116,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/profile/list" replace />, index: true },
             { path: 'list', element: <ProfileList /> },
             { path: 'new', element: <ProfileCreate /> },
+
             // { path: ':name/edit', element: <UserUpdate /> },
           ],
         },
@@ -167,7 +169,6 @@ export default function Router() {
 const Login = Loadable(lazy(() => import('../pages/auth/Login')));
 // MAIN
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
-const People = Loadable(lazy(() => import('../pages/People')));
 // DASHBOARD
 const PublicationList = Loadable(lazy(() => import('../pages/dashboard/publication/PublictionList')));
 const PublicationCreate = Loadable(lazy(() => import('../pages/dashboard/publication/PublictionCreate')));
@@ -193,5 +194,4 @@ const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/user/UserList')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/user/UserCreate')));
-const UserUpdate = Loadable(lazy(() => import('../pages/dashboard/user/UserUpdate')));
 const ProfileEdit = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileEdit')));

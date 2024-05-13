@@ -38,12 +38,9 @@ export default function HomeHero() {
     setActiveStep(step);
   };
 
-  const handleItemClick = (index) => {
-    setActiveStep(index);
-  };
   const [info, setInfo] = useState([]);
 
-  const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
+  const { data: collection } = useQuery(LIST_ALL_PUBLICATION, {
     variables: {
       input: {
         status_collection: StatusCollection.Public,

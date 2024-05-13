@@ -7,7 +7,6 @@ import { useSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import FormProvider from '../../../components/hook-form/FormProvider';
 import RHFTextField from '../../../components/hook-form/RHFTextField';
@@ -35,9 +34,7 @@ export default function ChangePassword({ isEdit }) {
     []
   );
   const [createNewuser] = useMutation(CHANGE_PASSWORD); // kết nối api
-  const { user, logout } = useAuth();
-
-  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({
@@ -45,7 +42,6 @@ export default function ChangePassword({ isEdit }) {
     defaultValues,
   });
   const {
-    reset,
     handleSubmit,
 
     formState: { isSubmitting },
@@ -84,10 +80,8 @@ export default function ChangePassword({ isEdit }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3} sx={{ mt: '10px' }}>
-        <Grid item md={2.5} />
-
-        <Grid item xs={12} md={7}>
+      <Grid container spacing={3} sx={{ mt: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Grid item xs={12} md={8}>
           <Card sx={{ py: 10, px: 3, height: '85%' }}>
             <Box
               sx={{
@@ -108,8 +102,6 @@ export default function ChangePassword({ isEdit }) {
             </Stack>
           </Card>
         </Grid>
-
-        <Grid item md={2.5} />
       </Grid>
     </FormProvider>
   );

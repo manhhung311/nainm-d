@@ -21,14 +21,12 @@ const PROFILE_USER = loader('../../../graphql/mutations/users/updUserForUser.gra
 // import TodoForm from 'src/pages/dashboard/user/TodoForm';
 ProfileUser.propTypes = {
   isEdit: PropTypes.bool,
-  currentUser: PropTypes.object,
 };
 
-export default function ProfileUser({ isEdit, currentUser }) {
+export default function ProfileUser({ isEdit }) {
   const { t } = useLocales();
   const { user } = useAuth();
   console.log('user', user);
-  const [updateBtnEnable, setUpdateBtnEnable] = useState(false);
 
   const UpdateUserSchema = Yup.object().shape({
     firstName: Yup.string().required(t('user.FirstNames')),
@@ -39,7 +37,7 @@ export default function ProfileUser({ isEdit, currentUser }) {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       phoneNumber: user?.phoneNumber || '',
-      avatarUrl: user?.avatarUrl || '', // Kiểm tra và gán giá trị mặc định
+      avatarUrl: user?.avartaURL || null,
     }),
     [user]
   );
@@ -106,14 +104,12 @@ export default function ProfileUser({ isEdit, currentUser }) {
         );
       }
       setUploadFile(file);
-      setUpdateBtnEnable(true);
     },
     [setValue]
   );
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3} sx={{ mt: '10px' }}>
-        <Grid item md={1} />
+      <Grid container spacing={3} sx={{ mt: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Grid item xs={12} md={3}>
           <Card sx={{ py: 10, px: 3, height: '85%' }}>
             <Box sx={{ mb: 5 }}>
@@ -140,7 +136,7 @@ export default function ProfileUser({ isEdit, currentUser }) {
             </Box>
           </Card>
         </Grid>
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={5}>
           <Card sx={{ py: 10, px: 3, height: '85%' }}>
             <Box
               sx={{
@@ -163,8 +159,6 @@ export default function ProfileUser({ isEdit, currentUser }) {
             </Stack>
           </Card>
         </Grid>
-
-        <Grid item md={1} />
       </Grid>
     </FormProvider>
   );
