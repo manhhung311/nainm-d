@@ -1,0 +1,25 @@
+query Query($input: Collections_find_research_publication!) {
+  collections_research_publication(input: $input) {
+    id
+    name
+    nameElg
+    description
+    descriptionElg
+    type_collection
+    collection {
+      id
+      type_collection
+      status_collection
+      user_update
+      collection_Vietnamese
+      collection_English
+      createdAt
+      updatedAt
+      title
+      description
+      description_english
+      title_english
+      imgURL
+    }
+  }
+}

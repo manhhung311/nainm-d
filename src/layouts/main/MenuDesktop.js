@@ -1,10 +1,21 @@
 import PropTypes from 'prop-types';
 import { m } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink as RouterLink, useLocation } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, CardActionArea, Grid, Link, List, ListItem, ListSubheader, Popover, Stack } from '@mui/material';
+import {
+  Box,
+  CardActionArea,
+  Grid,
+  Link,
+  List,
+  ListItem,
+  ListSubheader,
+  Popover,
+  Stack,
+  Typography,
+} from '@mui/material';
 // components
 import Iconify from '../../components/Iconify';
 import { useLocales } from '../../locals';
@@ -14,7 +25,8 @@ import { useLocales } from '../../locals';
 const LinkStyle = styled(Link)(({ theme }) => ({
   ...theme.typography.subtitle2,
   color: theme.palette.text.primary,
-  marginRight: theme.spacing(5),
+  marginRight: theme.spacing(4),
+  marginLeft: theme.spacing(4),
   transition: theme.transitions.create('opacity', {
     duration: theme.transitions.duration.shorter,
   }),
@@ -255,7 +267,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
         },
       }}
     >
-      {t(`menu.${title}`)}
+      <Typography variant="h5">{t(`menu.${title}`)}</Typography>
     </LinkStyle>
   );
 }

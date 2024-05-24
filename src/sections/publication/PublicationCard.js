@@ -40,7 +40,7 @@ export default function PublicationPostCard({
   return (
     <Card>
       <PostContent
-        id={id}
+        id={Number(id)}
         title={title}
         titleEnglish={titleEnglish}
         description={description}

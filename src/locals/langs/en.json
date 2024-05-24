@@ -152,7 +152,9 @@
   "people": {
     "page": "People",
     "tab1": "PROFESSOR",
-    "tab2": "STUDENT",
+    "tab2": "MEMBER",
+    "tab3": "OLD MEMBER",
+    "tab4": "COOPERATOR",
     "phone": "Phone",
     "email": "Email",
     "edit" : "Edit"

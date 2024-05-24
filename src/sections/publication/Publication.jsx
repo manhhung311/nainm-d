@@ -1,6 +1,6 @@
 // @mui
 import { useMutation, useQuery } from '@apollo/client';
-import { Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useLocation } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
-import { TypeCollection } from '../../constant';
+import { TypeCollection, TypeUser } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
@@ -57,6 +57,7 @@ const TABS = [
 const LIST_ALL_PUBLICATION = loader('../../graphql/queries/collections/ListCollections.graphql');
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
+const LIST_TAP = loader('../../graphql/queries/tap/listTap.graphql');
 
 export default function Publiction() {
   const { t, currentLang } = useLocales();
@@ -65,13 +66,17 @@ export default function Publiction() {
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
+  const [currentTab, setCurrentTab] = useState(null);
+
   const { pathname } = useLocation();
 
   const isDashboard = pathname.includes('dashboard');
 
   const [info, setInfo] = useState([]);
 
-  const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
+  const [publicationByTap, setPublicationByTap] = useState([]);
+
+  const { data: collection, refetch } = useQuery(LIST_TAP, {
     variables: {
       input: (() => {
         if (filterStatus === true) {
@@ -95,7 +100,8 @@ export default function Publiction() {
 
   useEffect(() => {
     if (collection) {
-      setInfo(collection?.collections);
+      setInfo(collection?.collections_research_publication);
+      setCurrentTab(collection?.collections_research_publication?.[0]);
     }
   }, [collection]);
 
@@ -156,6 +162,10 @@ export default function Publiction() {
     await refetch();
   };
 
+  console.log('dataFiltered?.[0]?.collection', dataFiltered?.[0]?.collection);
+  console.log('publicationByTap', publicationByTap);
+  console.log('currentTab', currentTab);
+
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -200,6 +210,45 @@ export default function Publiction() {
         </Tabs>
       )}
 
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+        }}
+      >
+        {info &&
+          info.length > 0 &&
+          info.map((nameTap, index) => (
+            <Button
+              key={index}
+              sx={{
+                flex: {
+                  xs: '1 0 100%',
+                  sm: '1 0 50%',
+                  md: '1 0 33%',
+                },
+                borderRadius: 0,
+              }}
+              size="large"
+              variant="outlined"
+              style={
+                Number(currentTab?.id) === Number(nameTap?.id)
+                  ? { backgroundColor: '#4BD578', color: '#fff' }
+                  : { backgroundColor: '#fff', color: '#000' }
+              }
+              onClick={() => {
+                setPublicationByTap(nameTap?.collection);
+                setCurrentTab(nameTap);
+              }}
+            >
+              <Typography variant="h5" noWrap>
+                {nameTap.name}
+              </Typography>
+            </Button>
+          ))}
+      </Box>
+
       {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
@@ -209,8 +258,8 @@ export default function Publiction() {
       )}
 
       <Grid container spacing={3}>
-        {dataFiltered.length > 0 &&
-          dataFiltered.map((post, index) => (
+        {currentTab?.collection?.length > 0 &&
+          currentTab?.collection.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
               <PublicationPostCard
                 post={post}

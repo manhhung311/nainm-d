@@ -21,6 +21,13 @@ export const RoleId = {
   user: 2,
 };
 
+export const TypeUser = {
+  professor: 0,
+  member: 1,
+  oldMember: 2,
+  cooperator: 3,
+};
+
 export const RoleNumberList = {
   director: 999,
   admin: 99,
