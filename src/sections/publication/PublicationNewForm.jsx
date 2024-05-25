@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import { Button, Card, Grid, Typography } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import { loader } from 'graphql.macro';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider } from '../../components/hook-form';
-import { TypeCollection } from '../../constant';
+import { defaultTapENG, defaultTapVN, TypeCollection } from '../../constant';
 import useLocales from '../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import PublicationPostEnglishStack from './PublicationPostEnglishStack';
@@ -54,16 +54,21 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
       );
     });
 
-  const defaultValues = {
-    id: dataPostUpdate?.id || null,
-    title: dataPostUpdate?.title || '',
-    description: dataPostUpdate?.description || '',
-    content: dataPostUpdate?.collection_Vietnamese || '',
-    titleEnglish: dataPostUpdate?.title_english || '',
-    descriptionEnglish: dataPostUpdate?.description_english || '',
-    contentEnglish: dataPostUpdate?.collection_English || '',
-    cover: dataPostUpdate?.imgURL || null,
-  };
+  const defaultValues = useMemo(
+    () => ({
+      id: dataPostUpdate?.id || null,
+      title: dataPostUpdate?.title || '',
+      description: dataPostUpdate?.description || '',
+      content: dataPostUpdate?.collection_Vietnamese || '',
+      titleEnglish: dataPostUpdate?.title_english || '',
+      descriptionEnglish: dataPostUpdate?.description_english || '',
+      contentEnglish: dataPostUpdate?.collection_English || '',
+      cover: dataPostUpdate?.imgURL || null,
+      tapVN: defaultTapVN,
+      tapENG: defaultTapENG,
+    }),
+    [dataPostUpdate]
+  );
 
   const methods = useForm({
     resolver: yupResolver(NewQuotationSchema),
@@ -79,6 +84,15 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
   } = methods;
 
   const values = watch();
+
+  // useEffect(() => {
+  //   if (values.tapENG) {
+  //     setValue('tapVN.name', values.tapENG.nameElg);
+  //   }
+  //   if (values.tapVN) {
+  //     setValue('tapENG.nameElg', values.tapVN.name);
+  //   }
+  // }, [setValue, values.tapENG, values.tapVN]);
 
   useEffect(() => {
     if (isEdit && dataPostUpdate) {
@@ -113,6 +127,15 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
             input: {
               // check chuẩn kiểu dữ liệu của input
               type_collection: TypeCollection.Publication,
+              ...(values?.title !== '' && {
+                name: values?.tapVN.name,
+                description_type_collection: values?.tapVN.description,
+              }),
+              ...(values?.titleEnglish !== '' && {
+                description_type_collectionElg: values?.tapENG.descriptionElg,
+                nameElg: values?.tapENG.nameElg,
+              }),
+
               title: values?.title,
               imgURL: uploadFile,
               collection_Vietnamese: values?.content,
@@ -213,9 +236,9 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <PublicationPostVNStack onNext={handleTabClick} onDrop={handleDrop} />
+                <PublicationPostVNStack onNext={handleTabClick} onDrop={handleDrop} isEdit={isEdit} />
               ) : (
-                <PublicationPostEnglishStack onBack={handleTabClick} onDrop={handleDrop} />
+                <PublicationPostEnglishStack onBack={handleTabClick} onDrop={handleDrop} isEdit={isEdit} />
               )}
             </Card>
           </Grid>

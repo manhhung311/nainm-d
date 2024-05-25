@@ -12,7 +12,7 @@ import useLocales from '../../../locals/useLocals';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(() => ({
-height: '100%',
+  height: '100%',
 }));
 const DETAIL_COLLECTION = loader('../../../graphql/queries/collections/DetailCollection.graphql');
 
@@ -43,7 +43,7 @@ export default function PublictionCreate() {
     <Page title={t('publication.title')}>
       <RootStyle>
         <HeaderBreadcrumbs
-          heading={t('create.createNewPost')}
+          heading={isEdit ? t('create.updateNewPost') : t('create.createNewPost')}
           links={[
             { name: t('user.Management'), href: PATH_DASHBOARD.root },
             { name: t('publication.title'), href: PATH_DASHBOARD.publication.root },

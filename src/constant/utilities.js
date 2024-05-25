@@ -23,6 +23,18 @@ export const Publication = {
   News: 3,
 };
 
+export const defaultTapVN = {
+  id: 0,
+  name: 'Chọn mục cần tìm',
+  description: null,
+};
+
+export const defaultTapENG = {
+  id: 0,
+  nameElg: 'Select the item to search',
+  descriptionElg: null,
+};
+
 export const defaultCollectionVN = {
   id: 0,
   title: 'Chọn mục cần tìm',

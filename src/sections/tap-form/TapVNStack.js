@@ -22,7 +22,7 @@ export default function TapVNStack({ onNext }) {
   return (
     <>
       <Stack spacing={3}>
-        <RHFTextField name="nameVn" label="Name" />
+        <RHFTextField name="nameVn" label="Name " />
 
         <RHFTextField name="descriptionVN" label="Description" multiline rows={3} />
       </Stack>

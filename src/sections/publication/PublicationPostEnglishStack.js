@@ -8,6 +8,8 @@ import { Button, Grid, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { RHFTextField, RHFEditor, RHFUploadSingleFile } from '../../components/hook-form';
+import { StatusCollection, TypeCollection } from '../../constant';
+import RHFAutocompleteTapENG from '../../components/hook-form/RHFAutocompleteTapENG';
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -18,15 +20,24 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 PublicationPostEnglishStack.propTypes = {
   onBack: PropTypes.func,
   onDrop: PropTypes.func,
+  isEdit: PropTypes.bool,
 };
 
-export default function PublicationPostEnglishStack({ onBack, onDrop }) {
+export default function PublicationPostEnglishStack({ onBack, onDrop, isEdit }) {
   const {
     formState: { isSubmitting },
   } = useFormContext();
   return (
     <>
       <Stack spacing={3}>
+        {!isEdit && (
+          <RHFAutocompleteTapENG
+            name="tapENG"
+            statusCollection={StatusCollection.Draft}
+            typeCollection={TypeCollection.Publication}
+          />
+        )}
+
         <RHFTextField name="titleEnglish" label="Post Title" />
 
         <RHFTextField name="descriptionEnglish" label="Description" multiline rows={3} />

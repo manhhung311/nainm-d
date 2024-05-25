@@ -39,15 +39,12 @@ export default function FacilityDetail() {
     }
   }, [getPost]);
 
-  console.log('post', post);
-
   const { t, currentLang } = useLocales();
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
   const { pathname } = useLocation();
 
   const isDashboard = pathname.includes('dashboard');
 
-  console.log('currentLang', currentLang);
   return (
     <Page title={t('facility.page1')}>
       <RootStyle isDashboard={isDashboard}>
