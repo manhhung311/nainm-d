@@ -9,11 +9,11 @@ import { Button, Card, Grid, Typography } from '@mui/material';
 // components
 import PropTypes from 'prop-types';
 import { loader } from 'graphql.macro';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider } from '../../../components/hook-form';
-import { TypeCollection } from '../../../constant';
+import { TypeCollection, defaultTapENG, defaultTapVN } from '../../../constant';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import useLocales from '../../../locals/useLocals';
 import ResearchPostVNStack from './ResearchPostVNStack';
@@ -55,15 +55,20 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
       );
     });
 
-  const defaultValues = {
-    id: dataPostUpdate?.id || null,
-    title: dataPostUpdate?.title || '',
-    description: dataPostUpdate?.description || '',
-    content: dataPostUpdate?.collection_Vietnamese || '',
-    titleEnglish: dataPostUpdate?.title_english || '',
-    descriptionEnglish: dataPostUpdate?.description_english || '',
-    contentEnglish: dataPostUpdate?.collection_English || '',
-  };
+  const defaultValues = useMemo(
+    () => ({
+      id: dataPostUpdate?.id || null,
+      title: dataPostUpdate?.title || '',
+      description: dataPostUpdate?.description || '',
+      content: dataPostUpdate?.collection_Vietnamese || '',
+      titleEnglish: dataPostUpdate?.title_english || '',
+      descriptionEnglish: dataPostUpdate?.description_english || '',
+      contentEnglish: dataPostUpdate?.collection_English || '',
+      tapVN: defaultTapVN,
+      tapENG: defaultTapENG,
+    }),
+    [dataPostUpdate]
+  );
 
   const methods = useForm({
     resolver: yupResolver(NewQuotationSchema),
@@ -120,6 +125,14 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
             input: {
               // check chuẩn kiểu dữ liệu của input
               type_collection: TypeCollection.Research,
+              ...(values?.title !== '' && {
+                name: values?.tapVN.name,
+                description_type_collection: values?.tapVN.description,
+              }),
+              ...(values?.titleEnglish !== '' && {
+                description_type_collectionElg: values?.tapENG.descriptionElg,
+                nameElg: values?.tapENG.nameElg,
+              }),
               title: values?.title,
               collection_Vietnamese: values?.content,
               description: values?.description,
@@ -205,9 +218,9 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ p: 3 }}>
               {currentTab === 1 ? (
-                <ResearchPostVNStack onNext={handleTabClick} />
+                <ResearchPostVNStack onNext={handleTabClick} isEdit={isEdit} />
               ) : (
-                <ResearchPostEnglishStack onBack={handleTabClick} />
+                <ResearchPostEnglishStack onBack={handleTabClick} isEdit={isEdit} />
               )}
             </Card>
           </Grid>

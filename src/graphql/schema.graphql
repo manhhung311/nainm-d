@@ -21,10 +21,21 @@ type Collection {
     user_update: Int!
 }
 
+type Collections_find_res_pub {
+    collection: [Collection]
+    description: String
+    descriptionElg: String
+    id: ID!
+    name: String
+    nameElg: String
+    type_collection: Int!
+}
+
 type Mutation {
     changePassWord(input: ChangePassWord!): SuccessResponse!
     create_collection(input: Create_collection!): Collection!
-    deleteCollection(id: ID!): SuccessResponse!
+    deleteCollection(input: deleteCollection!): SuccessResponse!
+    edit_TypeCollection(input: editTypeCollection!): SuccessResponse!
     edit_collection(input: Edit_collection!): SuccessResponse!
     register(input: CreateUserInput!): User!
     updateUserForAdmin(input: UpdateUserForAdminInput!): SuccessResponse!
@@ -39,6 +50,7 @@ type PageInfo {
 type Query {
     collection(id: ID!): Collection!
     collections(input: Collections_find!): [Collection]
+    collections_research_publication(input: Collections_find_research_publication!): [Collections_find_res_pub]
     greeting: String!
     login(input: UserLoginInput!): UserLoginResponse!
     me: User!
@@ -88,8 +100,16 @@ input ChangePassWord {
 }
 
 input Collections_find {
-    limit: Int!
-    page: Int!
+    limit: Int
+    page: Int
+    stand_out: Boolean
+    status_collection: Int!
+    type_collection: Int!
+}
+
+input Collections_find_research_publication {
+    limit: Int
+    page: Int
     stand_out: Boolean
     status_collection: Int!
     type_collection: Int!
@@ -111,7 +131,11 @@ input Create_collection {
     collection_Vietnamese: String
     description: String
     description_english: String
+    description_type_collection: String
+    description_type_collectionElg: String
     imgURL: Upload
+    name: String
+    nameElg: String
     title: String
     title_english: String
     type_collection: Int!
@@ -164,4 +188,18 @@ input UpdateUserForUserInput {
 input UserLoginInput {
     email: String!
     password: String!
+}
+
+input deleteCollection {
+    id: ID
+    id_tap: ID
+}
+
+input editTypeCollection {
+    description_type_collection: String
+    description_type_collectionElg: String
+    id: Int!
+    index: [Int!]
+    name: String
+    nameElg: String
 }

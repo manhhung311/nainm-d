@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { RHFEditor, RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
+import RHFAutocompleteTapENG from '../../../components/hook-form/RHFAutocompleteTapENG';
+import { StatusCollection, TypeCollection } from '../../../constant';
 //
 
 // ----------------------------------------------------------------------
@@ -24,9 +26,10 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 ResearchPostEnglishStack.propTypes = {
   onBack: PropTypes.func,
+  isEdit: PropTypes.bool,
 };
 
-export default function ResearchPostEnglishStack({ onBack }) {
+export default function ResearchPostEnglishStack({ onBack, isEdit }) {
   const {
     formState: { isSubmitting },
   } = useFormContext();
@@ -36,6 +39,13 @@ export default function ResearchPostEnglishStack({ onBack }) {
   return (
     <>
       <Stack spacing={3}>
+        {!isEdit && (
+          <RHFAutocompleteTapENG
+            name="tapENG"
+            statusCollection={StatusCollection.Draft}
+            typeCollection={TypeCollection.Research}
+          />
+        )}
         <RHFTextField name="titleEnglish" label="Post Title" />
 
         <RHFTextField name="descriptionEnglish" label="Description" multiline rows={3} />
