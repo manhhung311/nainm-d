@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useLocation } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
-import { TypeCollection, TypeUser } from '../../constant';
+import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
@@ -55,7 +55,6 @@ const TABS = [
   },
 ];
 
-const LIST_ALL_PUBLICATION = loader('../../graphql/queries/collections/ListCollections.graphql');
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
 const LIST_TAP = loader('../../graphql/queries/tap/listTap.graphql');
@@ -74,8 +73,6 @@ export default function Publiction() {
   const isDashboard = pathname.includes('dashboard');
 
   const [info, setInfo] = useState([]);
-
-  const [publicationByTap, setPublicationByTap] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -109,7 +106,7 @@ export default function Publiction() {
   }, [collection]);
 
   const dataFiltered = applySortFilter({
-    tableData: info,
+    tableData: currentTab?.collection ?? [],
     filterLanguage: currentLang.value,
   });
 
@@ -145,7 +142,9 @@ export default function Publiction() {
   const handleDeleteCollection = async (idCollection) => {
     await deleteCollection({
       variables: {
-        id: Number(idCollection),
+        input: {
+          id: Number(idCollection),
+        },
       },
     });
     await refetch();
@@ -169,13 +168,9 @@ export default function Publiction() {
     setIsOpen(false);
   };
 
-  const handleOpenEditDialog = (row) => {
+  const handleOpenEditDialog = () => {
     setIsOpen(true);
   };
-
-  console.log('dataFiltered?.[0]?.collection', dataFiltered?.[0]?.collection);
-  console.log('publicationByTap', publicationByTap);
-  console.log('currentTab', currentTab);
 
   return (
     <RootStyle>
@@ -244,7 +239,7 @@ export default function Publiction() {
                 flex: {
                   xs: '1 0 100%',
                   sm: '1 0 50%',
-                  md: '1 0 33%',
+                  md: '1 0 25%',
                 },
                 borderRadius: 0,
               }}
@@ -256,12 +251,11 @@ export default function Publiction() {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               onClick={() => {
-                setPublicationByTap(nameTap?.collection);
                 setCurrentTab(nameTap);
               }}
             >
               <Typography variant="h5" noWrap>
-                {nameTap.name}
+                {currentLang.value === 'vi' ? nameTap.name : nameTap.nameElg}
               </Typography>
             </Button>
           ))}
@@ -276,8 +270,8 @@ export default function Publiction() {
       )}
 
       <Grid container spacing={3}>
-        {currentTab?.collection?.length > 0 &&
-          currentTab?.collection.map((post, index) => (
+        {dataFiltered.length > 0 &&
+          dataFiltered.map((post, index) => (
             <Grid key={post?.id} item xs={12} sm={6} md={4}>
               <PublicationPostCard
                 post={post}
@@ -291,17 +285,24 @@ export default function Publiction() {
           ))}
       </Grid>
 
-      <TapNewEditDialog onClose={handleCloseEditDialog} isOpen={isOpen} row={null} refetchData={refetch} />
+      <TapNewEditDialog
+        onClose={handleCloseEditDialog}
+        isOpen={isOpen}
+        row={null}
+        refetchData={refetch}
+        tap={info}
+        typeCollection={TypeCollection.Publication}
+      />
     </RootStyle>
   );
 }
 
 function applySortFilter({ tableData, filterLanguage }) {
   if (filterLanguage === 'en') {
-    tableData = tableData.filter((item) => item.title_english !== '');
+    tableData = tableData.filter((item) => item?.title_english !== '');
   }
   if (filterLanguage === 'vi') {
-    tableData = tableData.filter((item) => item.title !== '');
+    tableData = tableData.filter((item) => item?.title !== '');
   }
   return tableData;
 }

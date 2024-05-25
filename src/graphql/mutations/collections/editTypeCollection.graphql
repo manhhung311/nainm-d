@@ -1,0 +1,3 @@
+mutation edit_TypeCollection($input : editTypeCollection!) {
+    edit_TypeCollection(input: $input)
+}
