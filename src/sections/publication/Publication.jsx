@@ -18,6 +18,7 @@ import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import TapNewEditDialog from '../tap-form/TapNewEditDialog';
 // components
 
 // ----------------------------------------------------------------------
@@ -75,6 +76,8 @@ export default function Publiction() {
   const [info, setInfo] = useState([]);
 
   const [publicationByTap, setPublicationByTap] = useState([]);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const { data: collection, refetch } = useQuery(LIST_TAP, {
     variables: {
@@ -162,6 +165,14 @@ export default function Publiction() {
     await refetch();
   };
 
+  const handleCloseEditDialog = () => {
+    setIsOpen(false);
+  };
+
+  const handleOpenEditDialog = (row) => {
+    setIsOpen(true);
+  };
+
   console.log('dataFiltered?.[0]?.collection', dataFiltered?.[0]?.collection);
   console.log('publicationByTap', publicationByTap);
   console.log('currentTab', currentTab);
@@ -186,28 +197,34 @@ export default function Publiction() {
           </>
         )}
       </Grid>
+
       {isDashboard && (
-        <Tabs
-          allowScrollButtonsMobile
-          variant="scrollable"
-          scrollButtons="auto"
-          value={filterStatus}
-          onChange={onFilterStatus}
-          sx={{ mb: { xs: 3, md: 5 } }}
-        >
-          {TABS.map((tab, idx) => (
-            <Tab
-              disableRipple
-              key={idx + 1}
-              value={tab.value}
-              label={
-                <Stack spacing={1} direction="row" alignItems="center">
-                  <div>{t(`card.${tab.label}`)}</div>
-                </Stack>
-              }
-            />
-          ))}
-        </Tabs>
+        <Stack direction="row" justifyContent="space-between" sx={{ mb: { xs: 3, md: 5 } }}>
+          <Tabs
+            allowScrollButtonsMobile
+            variant="scrollable"
+            scrollButtons="auto"
+            value={filterStatus}
+            onChange={onFilterStatus}
+          >
+            {TABS.map((tab, idx) => (
+              <Tab
+                disableRipple
+                key={idx + 1}
+                value={tab.value}
+                label={
+                  <Stack spacing={1} direction="row" alignItems="center">
+                    <div>{t(`card.${tab.label}`)}</div>
+                  </Stack>
+                }
+              />
+            ))}
+          </Tabs>
+
+          <Button variant="contained" onClick={handleOpenEditDialog}>
+            Quản lí tap
+          </Button>
+        </Stack>
       )}
 
       <Box
@@ -215,6 +232,7 @@ export default function Publiction() {
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
+          mb: { xs: 3, md: 5 },
         }}
       >
         {info &&
@@ -272,6 +290,8 @@ export default function Publiction() {
             </Grid>
           ))}
       </Grid>
+
+      <TapNewEditDialog onClose={handleCloseEditDialog} isOpen={isOpen} row={null} refetchData={refetch} />
     </RootStyle>
   );
 }
