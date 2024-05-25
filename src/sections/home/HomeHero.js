@@ -83,21 +83,29 @@ export default function HomeHero() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '630px',
+          height: '100%',
           width: '100%',
           maxWidth: '1680px',
           margin: '0 auto',
         }}
       >
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
+        <Grid container spacing={0} alignItems="center" justifyContent="start" sx={{ height: '80%' }}>
           {!isMobile && (
-            <Grid item xs={1} md={1}>
-              <IconButton size="large" onClick={handleBack} disabled={activeStep === 0}>
+            <Grid item xs={1} md={0.5}>
+              <IconButton
+                size="large"
+                onClick={handleBack}
+                disabled={activeStep === 0}
+                sx={{
+                  padding: '0',
+                  fontSize: '55px',
+                }}
+              >
                 <ArrowBackIosNewIcon fontSize="inherit" />
               </IconButton>
             </Grid>
           )}
-          <Grid item xs={12} sm={10} md={10}>
+          <Grid item xs={12} sm={10} md={11}>
             <AutoPlaySwipeableViews
               axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
               index={activeStep}
@@ -155,7 +163,7 @@ export default function HomeHero() {
                               </Grid>
 
                               <Grid item xs={12}>
-                                <Typography variant="subtitle1" color="#fff">
+                                <Typography variant="h5" color="#fff">
                                   {currentLang.value === Language.VietNam ? step.content : step.contentEnglish}
                                 </Typography>
                               </Grid>
@@ -190,16 +198,16 @@ export default function HomeHero() {
                               </Grid>
                             </Grid>
                           </Grid>
-                          <Grid item xs={12} sm={6} md={6}>
+                          <Grid item xs={12} sm={6} md={6.5}>
                             <Image ratio="16/9" src={step.imgPath} alt={step.label} />
                           </Grid>
                         </>
                       ) : (
                         <>
-                          <Grid item xs={12} sm={6} md={6}>
-                            <Image ratio="16/9" src={step.imgPath} alt={step.label} />
+                          <Grid item xs={12} sm={6} md={6.5}>
+                            <Image ratio="14/9" src={step.imgPath} alt={step.label} />
                           </Grid>
-                          <Grid item xs={12} sm={6} md={6}>
+                          <Grid item xs={12} sm={6} md={5.5}>
                             <Grid
                               container
                               alignItems="center"
@@ -210,7 +218,7 @@ export default function HomeHero() {
                                 textAlign: { xs: 'center', sm: 'start', md: 'start' },
                               }}
                             >
-                              <Grid item xs={12}>
+                              <Grid item xs={12} sx={{ marginBottom: '20px' }}>
                                 <Typography
                                   variant="h4"
                                   gutterBottom
@@ -228,28 +236,24 @@ export default function HomeHero() {
                                 </Typography>
                               </Grid>
 
-                              <Grid item xs={12}>
-                                <Typography variant="h3" color="#82f9d4">
+                              <Grid item xs={12} sx={{ marginBottom: '20px' }}>
+                                <Typography variant="h2" color="#82f9d4">
                                   {currentLang.value === Language.VietNam ? step.title : step.titleEnglish}
                                 </Typography>
                               </Grid>
 
-                              <Grid item xs={12}>
-                                <Typography variant="subtitle1" color="#fff">
+                              <Grid item xs={12} sx={{ marginBottom: '20px' }}>
+                                <Typography variant="h5" color="#fff">
                                   {currentLang.value === Language.VietNam ? step.content : step.contentEnglish}
                                 </Typography>
                               </Grid>
 
-                              <Grid item xs={12}>
+                              <Grid item xs={12} sx={{ marginBottom: '20px' }}>
                                 <Link
                                   to={`/publication/${step.id}/detail`}
                                   style={{
                                     textDecoration: 'none',
                                     color: '#fff',
-                                    '&:hover': {
-                                      textDecoration: 'none',
-                                      color: '#fff',
-                                    },
                                   }}
                                 >
                                   <Typography
@@ -257,10 +261,10 @@ export default function HomeHero() {
                                       height: '80%',
                                       width: '140px',
                                       color: '#fff',
-                                      display: 'flex', // Sử dụng flexbox
-                                      alignItems: 'center', // Căn chỉnh theo chiều dọc
+                                      display: 'flex',
+                                      alignItems: 'center',
                                       border: '1px solid #fff',
-                                      padding: '4px 8px', // Khoảng cách viền và chữ
+                                      padding: '4px 8px',
                                     }}
                                   >
                                     {t('user.MoreView')}
@@ -279,9 +283,24 @@ export default function HomeHero() {
             </AutoPlaySwipeableViews>
           </Grid>
           {!isMobile && (
-            <Grid item xs={1} md={1}>
-              <IconButton size="large" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-                <ArrowForwardIosIcon fontSize="inherit" />
+            <Grid item xs={1} md={0.5} container spacing={0} alignItems="center" justifyContent="end">
+              <IconButton
+                size="large"
+                onClick={handleNext}
+                disabled={activeStep === maxSteps - 1}
+                sx={{
+                  padding: '0',
+                  textAlign: 'end',
+                }}
+              >
+                <ArrowForwardIosIcon
+                  fontSize="inherit"
+                  sx={{
+                    padding: '0',
+                    textAlign: 'end',
+                    fontSize: '55px',
+                  }}
+                />
               </IconButton>
             </Grid>
           )}
