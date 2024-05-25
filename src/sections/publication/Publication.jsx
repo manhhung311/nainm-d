@@ -211,7 +211,7 @@ export default function Publiction() {
       <Grid container spacing={3}>
         {dataFiltered.length > 0 &&
           dataFiltered.map((post, index) => (
-            <Grid key={post?.id} item xs={12} sm={6} md={4}>
+            <Grid key={post?.id} item xs={12}>
               <PublicationPostCard
                 post={post}
                 index={index}
