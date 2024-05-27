@@ -74,7 +74,7 @@ export default function HomeHero() {
     <Box
       style={{
         width: '100%',
-        height: '810px',
+        height: '870px',
         backgroundImage: 'url("https://smim.kaist.ac.kr/resources/wis-layout/images/main/section_bg.jpg")',
       }}
     >

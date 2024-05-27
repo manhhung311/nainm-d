@@ -13,6 +13,7 @@ import useTabs from '../../hooks/useTabs';
 import { TypeCollection } from '../../constant';
 import ResearchPostCard from './ResearchCard';
 import TapNewEditDialog from '../tap-form/TapNewEditDialog';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -161,6 +162,7 @@ export default function ResearchMain() {
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4"> {t('research.title')}</Typography>
+                <HeaderBreadcrumbs links={[{ name: t('profile.Home'), href: '/' }, { name: t('research.title') }]} />
               </Stack>
             </Grid>
           </>

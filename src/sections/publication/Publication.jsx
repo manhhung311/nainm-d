@@ -19,6 +19,7 @@ import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import TapNewEditDialog from '../tap-form/TapNewEditDialog';
+import TapListDialog from '../tap-form/TapListDialog';
 // components
 
 // ----------------------------------------------------------------------
@@ -75,6 +76,8 @@ export default function Publiction() {
   const [info, setInfo] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [isOpenList, setIsOpenList] = useState(false);
 
   const { data: collection, refetch } = useQuery(LIST_TAP, {
     variables: {
@@ -172,6 +175,14 @@ export default function Publiction() {
     setIsOpen(true);
   };
 
+  const handleCloseListDialog = () => {
+    setIsOpenList(false);
+  };
+
+  const handleOpenListDialog = () => {
+    setIsOpenList(true);
+  };
+
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -215,10 +226,14 @@ export default function Publiction() {
               />
             ))}
           </Tabs>
-
-          <Button variant="contained" onClick={handleOpenEditDialog}>
-            Quản lí tap
-          </Button>
+          <Box>
+            <Button variant="contained" onClick={handleOpenListDialog} sx={{ mr: 1 }}>
+              Quản lí danh sách
+            </Button>
+            <Button variant="contained" onClick={handleOpenEditDialog}>
+              Quản lí tap
+            </Button>
+          </Box>
         </Stack>
       )}
 
@@ -288,6 +303,15 @@ export default function Publiction() {
       <TapNewEditDialog
         onClose={handleCloseEditDialog}
         isOpen={isOpen}
+        row={null}
+        refetchData={refetch}
+        tap={info}
+        typeCollection={TypeCollection.Publication}
+      />
+
+      <TapListDialog
+        onClose={handleCloseListDialog}
+        isOpen={isOpenList}
         row={null}
         refetchData={refetch}
         tap={info}
