@@ -40,7 +40,7 @@ export default function PublicationPostCard({
   return (
     <Card>
       <PostContent
-        id={id}
+        id={Number(id)}
         title={title}
         titleEnglish={titleEnglish}
         description={description}
@@ -112,7 +112,7 @@ export function PostContent({
   return (
     <CardContent
       sx={{
-        pt: 4.5,
+        pt: 3,
         width: 1,
         ...(latestPostLarge && {
           pt: 0,

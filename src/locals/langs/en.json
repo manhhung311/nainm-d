@@ -19,7 +19,8 @@
   },
   "navItem": {
     "list": "List",
-    "create": "Create"
+    "create": "Create",
+    "otherCreate": "Create another user"
   },
   "create": {
     "researchCreate": "Create new research",
@@ -27,6 +28,7 @@
     "facilityCreate": "Create new facility",
     "facilityList": "List facility",
     "createNewPost": "Create a new post",
+    "updateNewPost": "Update a post",
     "postTitle": "Post Title",
     "description": "Description",
     "content": "Content"
@@ -51,8 +53,8 @@
     "Status update failed!. Cause:": "Status update failed!. Cause:",
     "Titles have a maximum number of 200 characters!": "Titles have a maximum number of 200 characters!",
     "You must fill in at least 1 of 2 Vietnamese or English sections!": "You must fill in at least 1 of 2 Vietnamese or English sections!",
-    "Successfully edited!" : "Successfully edited!",
-    "Successful post!" : "Successful post!",
+    "Successfully edited!": "Successfully edited!",
+    "Successful post!": "Successful post!",
     "Failed post fix!": "Failed post fix!",
     "Post failed!": "Post failed!"
   },
@@ -74,11 +76,11 @@
     "Search": "Search User",
     "Dense": "Dense",
     "Delete": "Delete",
-    "Edit" : "Edit",
-    "Admin" : "Admin",
-    "Manager" : "Manager",
-    "All" : "All",
-    "online" : "Online",
+    "Edit": "Edit",
+    "Admin": "Admin",
+    "Manager": "Manager",
+    "All": "All",
+    "online": "Online",
     "LockAccount": "Lock",
     "ActiveAccount": "Active",
     "ResetPassword": "Reset Password",
@@ -91,6 +93,8 @@
     "SaveChanges": "Save Changes",
     "PROCCEFER": "Proccefer",
     "Student": "Student",
+    "oldMember": "Old Member",
+    "cooperator": "Cooperator",
     "Active": "Active",
     "Banned": "Banned",
     "FirstNames": "FirstName is required",
@@ -152,10 +156,12 @@
   "people": {
     "page": "People",
     "tab1": "PROFESSOR",
-    "tab2": "STUDENT",
+    "tab2": "MEMBER",
+    "tab3": "OLD MEMBER",
+    "tab4": "COOPERATOR",
     "phone": "Phone",
     "email": "Email",
-    "edit" : "Edit"
+    "edit": "Edit"
   },
   "demo": {
     "title": "English"
@@ -197,7 +203,7 @@
     "post": "Post"
   },
   "error": {
-    "noData" : "No Data",
+    "noData": "No Data",
     "UserNotExit": "User does not exist",
     "UserNotFound": "User not found",
     "PassWordErr": "Wrong password",

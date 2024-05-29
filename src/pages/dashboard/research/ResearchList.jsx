@@ -30,7 +30,7 @@ export default function ResearchList() {
       ) : (
         <Page title={t('research.title')}>
           <RootStyle>
-            <ResearchDetail />
+            <ResearchMain />
           </RootStyle>
         </Page>
       )}

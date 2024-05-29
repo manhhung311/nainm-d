@@ -19,7 +19,8 @@
   },
   "navItem": {
     "list": "Danh Sách",
-    "create": "Tạo mới"
+    "create": "Tạo mới",
+    "otherCreate": "Tạo người dùng khác"
   },
   "create": {
     "researchCreate": "Tạo mới nghiên cứu",
@@ -27,6 +28,7 @@
     "facilityCreate": "Tạo mới thiết bị",
     "facilityList": "Danh sách thiết bị",
     "createNewPost": "Tạo mới bài viết",
+    "updateNewPost": "Chỉnh sửa bài viết",
     "postTitle": "Tiêu đề bài đăng",
     "description": "Mô tả",
     "content": "Content"
@@ -52,11 +54,11 @@
     "Status update failed!. Cause:": "Cập nhật trạng thái không thành công!. Nguyên nhân:",
     "Titles have a maximum number of 200 characters!": "Tiêu đề có số kí tự tối đa là 200 kí tự!",
     "You must fill in at least 1 of 2 Vietnamese or English sections!": "Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh!",
-    "Successfully edited!" : "Sửa bài thành công!",
-    "Successful post!" : "Đăng bài thành công!",
+    "Successfully edited!": "Sửa bài thành công!",
+    "Successful post!": "Đăng bài thành công!",
     "Failed post fix!": "Sửa bài không thành công!",
     "Post failed!": "Đăng bài không thành công!"
-},
+  },
   "user": {
     "pageList": "Danh Sách Người Dùng",
     "pageCreate": "Tạo Mới Người Dùng",
@@ -75,11 +77,11 @@
     "Search": "Tìm Kiếm Người Dùng",
     "Dense": "Thu Nhỏ",
     "Delete": "Xóa",
-    "Edit" : "Chỉnh Sửa",
-    "Admin" : "Quản Trị Viên",
-    "Manager" : "Quản Lý Bài Viết",
-    "All" : "Tất Cả",
-    "online" : "Đang hoạt động",
+    "Edit": "Chỉnh Sửa",
+    "Admin": "Quản Trị Viên",
+    "Manager": "Quản Lý Bài Viết",
+    "All": "Tất Cả",
+    "online": "Đang hoạt động",
     "LockAccount": "Khóa",
     "ActiveAccount": "Mở",
     "ResetPassword": "Cài Lại Mật Khẩu",
@@ -92,6 +94,8 @@
     "SaveChanges": "Lưu Thay Đổi",
     "PROCCEFER": "Giáo Sư",
     "Student": "Sinh Viên",
+    "oldMember": "Cựu Thành Viên",
+    "cooperator": "Hợp tác",
     "Active": "Hoạt Động",
     "Banned": "Đã Khóa",
     "FirstNames": "Họ là bắt buộc",
@@ -144,17 +148,19 @@
     }
   },
   "publication": {
-    "publication": "Dự án nghiên cứu",
-    "page1": "Chi Tiết Dự Án Nghiên Cứu",
-    "title": "Dự Án Nghiên Cứu"
+    "publication": "Công bố khoa học",
+    "page1": "Chi Tiết Công Bố Khoa Học",
+    "title": "Công bố khoa học"
   },
   "people": {
     "page": "Nhân sự",
     "tab1": "GIÁO SƯ",
     "tab2": "THÀNH VIÊN",
+    "tab3": "CỰU THÀNH VIÊN",
+    "tab4": "HỢP TÁC",
     "phone": "Liên Hệ",
     "email": "E-mail",
-    "edit" : "Chỉnh Sửa"
+    "edit": "Chỉnh Sửa"
   },
   "demo": {
     "title": "Việt Nam"
@@ -196,7 +202,7 @@
     "post": "Đăng"
   },
   "error": {
-    "noData" : "Không có dữ liệu",
+    "noData": "Không có dữ liệu",
     "UserNotExit": "Người dùng không tồn tại",
     "UserNotFound": "Không tìm thấy người dùng",
     "PassWordErr": "Sai mật khẩu",

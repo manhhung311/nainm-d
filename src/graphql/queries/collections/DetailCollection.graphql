@@ -8,6 +8,7 @@ query Query($id: ID!) {
     collection_English
     createdAt
     updatedAt
+    index
     title
     description
     description_english

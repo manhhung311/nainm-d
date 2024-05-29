@@ -9,6 +9,7 @@ query Query($input: Collections_find!) {
     createdAt
     updatedAt
     title
+    index
     description
     description_english
     title_english

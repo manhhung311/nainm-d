@@ -14,7 +14,7 @@ import { loader } from 'graphql.macro';
 import { useSnackbar } from 'notistack';
 import Iconify from '../../../../components/Iconify';
 import { TableMoreMenu } from '../../../../components/table';
-import { roleChangeNumber, RoleId } from '../../../../constant';
+import { roleChangeNumber, RoleId, TypeUser } from '../../../../constant';
 import useAuth from '../../../../hooks/useAuth';
 import useLocales from '../../../../locals/useLocals';
 // ----------------------------------------------------------------------
@@ -34,7 +34,7 @@ export default function UserTableRow({ row, selected, onEditRow, onActiveStatus,
 
   const { user } = useAuth();
 
-  const { avartaURL, email, firstName, lastName, phoneNumber, role, status, userName } = row;
+  const { avartaURL, email, firstName, lastName, phoneNumber, role, status, userName, type_user: typeUser } = row;
 
   const [openMenu, setOpenMenuActions] = useState(null);
 
@@ -78,6 +78,7 @@ export default function UserTableRow({ row, selected, onEditRow, onActiveStatus,
       });
     }
   };
+
   return (
     <TableRow hover selected={selected}>
       <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
@@ -100,28 +101,32 @@ export default function UserTableRow({ row, selected, onEditRow, onActiveStatus,
             onClose={handleCloseMenu}
             actions={
               <>
-                {status === true ? (
-                  <MenuItem
-                    onClick={() => {
-                      onLockStatus();
-                      handleCloseMenu();
-                    }}
-                    sx={{ color: 'error.main' }}
-                  >
-                    <Iconify icon={'mdi:user-lock-outline'} />
-                    {t('user.LockAccount')}
-                  </MenuItem>
-                ) : (
-                  <MenuItem
-                    onClick={() => {
-                      onActiveStatus();
-                      handleCloseMenu();
-                    }}
-                    sx={{ color: 'success.main' }}
-                  >
-                    <Iconify icon={'mdi:user-lock-open-outline'} />
-                    {t('user.ActiveAccount')}
-                  </MenuItem>
+                {(typeUser === TypeUser.professor || typeUser === TypeUser.member) && (
+                  <>
+                    {status === true ? (
+                      <MenuItem
+                        onClick={() => {
+                          onLockStatus();
+                          handleCloseMenu();
+                        }}
+                        sx={{ color: 'error.main' }}
+                      >
+                        <Iconify icon={'mdi:user-lock-outline'} />
+                        {t('user.LockAccount')}
+                      </MenuItem>
+                    ) : (
+                      <MenuItem
+                        onClick={() => {
+                          onActiveStatus();
+                          handleCloseMenu();
+                        }}
+                        sx={{ color: 'success.main' }}
+                      >
+                        <Iconify icon={'mdi:user-lock-open-outline'} />
+                        {t('user.ActiveAccount')}
+                      </MenuItem>
+                    )}
+                  </>
                 )}
 
                 <MenuItem

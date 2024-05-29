@@ -5,9 +5,12 @@ import EditSharpIcon from '@mui/icons-material/EditSharp';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
+import PropTypes from 'prop-types';
 import Image from '../../components/Image';
 import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
+import useAuth from '../../hooks/useAuth';
+import { RoleId } from '../../constant';
 // ----------------------------------------------------------------------
 
 const ListUsers = loader('../../graphql/queries/user/publicUsers.graphql');
@@ -20,10 +23,17 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 // ----------------------------------------------------------------------
-export default function Students() {
+
+Students.propTypes = {
+  typeUser: PropTypes.number.isRequired,
+};
+
+export default function Students({ typeUser }) {
   const [tableData, setTableData] = useState([]);
 
   const { data: allUsers } = useQuery(ListUsers);
+
+  const { user } = useAuth();
 
   const { pathname } = useLocation();
 
@@ -39,6 +49,7 @@ export default function Students() {
 
   const dataFiltered = applySortFilter({
     tableData,
+    typeUser,
   });
   const handleLinkTo = (id) => (isDashboard ? PATH_DASHBOARD.profile.detail(id) : PATH_PAGE.profile.detail(id));
   const handleLinkToEdit = (id) => PATH_DASHBOARD.profile.edit(id);
@@ -51,11 +62,13 @@ export default function Students() {
             {isDashboard ? (
               <Grid container>
                 <Grid item xs={12} sx={{ justifyContent: 'right', alignItems: 'right', display: 'flex' }}>
-                  <Tooltip title={t('people.edit')} placement="top">
-                    <IconButton color="success" component={RouterLink} to={handleLinkToEdit(Number(item?.id))}>
-                      <EditSharpIcon sx={{ width: 20, height: 20 }} />
-                    </IconButton>
-                  </Tooltip>
+                  {user?.role === RoleId.admin && (
+                    <Tooltip title={t('people.edit')} placement="top">
+                      <IconButton color="success" component={RouterLink} to={handleLinkToEdit(Number(item?.id))}>
+                        <EditSharpIcon sx={{ width: 20, height: 20 }} />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                   {/* <Button */}
                   {/*  variant="outlined" */}
                   {/*  startIcon={<EditSharpIcon />} */}
@@ -71,7 +84,7 @@ export default function Students() {
             )}
             <Grid container sx={{ justifyContent: 'center', display: 'flex', mb: 4 }} spacing={5} key={index}>
               <Grid item xs={6} md={2}>
-                <Image alt="preview" src={item.avartaURL} ratio="3/4" sx={{ borderRadius: 2 }} />
+                <Image alt="preview" src={item.avartaURL} ratio="2/3" sx={{ borderRadius: 2 }} />
               </Grid>
               <Grid item xs={12} md={10}>
                 <Link to={handleLinkTo(Number(item?.id))} color="inherit" component={RouterLink}>
@@ -95,8 +108,8 @@ export default function Students() {
     </RootStyle>
   );
 }
-function applySortFilter({ tableData }) {
-  tableData = tableData.filter((item) => item.type_user !== 0);
+function applySortFilter({ tableData, typeUser }) {
+  tableData = tableData.filter((item) => item.type_user === typeUser);
 
   return tableData;
 }

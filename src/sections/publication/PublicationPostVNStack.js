@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 
 // routes
 // components
+import React from 'react';
 import { RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../components/hook-form';
+import { StatusCollection, TypeCollection } from '../../constant';
+import RHFAutocompleteTapVN from '../../components/hook-form/RHFAutocompleteTapVN';
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -15,12 +18,21 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 PublicationPostVNStack.propTypes = {
   onNext: PropTypes.func,
   onDrop: PropTypes.func,
+  isEdit: PropTypes.bool,
 };
 
-export default function PublicationPostVNStack({ onNext, onDrop }) {
+export default function PublicationPostVNStack({ onNext, onDrop, isEdit }) {
   return (
     <>
       <Stack spacing={3}>
+        {!isEdit && (
+          <RHFAutocompleteTapVN
+            name="tapVN"
+            statusCollection={StatusCollection.Draft}
+            typeCollection={TypeCollection.Publication}
+          />
+        )}
+
         <RHFTextField name="title" label="Post Title" />
 
         <RHFTextField name="description" label="Description" multiline rows={3} />

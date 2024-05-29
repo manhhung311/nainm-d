@@ -1,6 +1,6 @@
 // @mui
 import { useMutation, useQuery } from '@apollo/client';
-import { Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Card from '@mui/material/Card';
@@ -18,6 +18,8 @@ import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import TapNewEditDialog from '../tap-form/TapNewEditDialog';
+import TapListDialog from '../tap-form/TapListDialog';
 // components
 
 // ----------------------------------------------------------------------
@@ -54,9 +56,9 @@ const TABS = [
   },
 ];
 
-const LIST_ALL_PUBLICATION = loader('../../graphql/queries/collections/ListCollections.graphql');
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
+const LIST_TAP = loader('../../graphql/queries/tap/listTap.graphql');
 
 export default function Publiction() {
   const { t, currentLang } = useLocales();
@@ -65,13 +67,19 @@ export default function Publiction() {
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
+  const [currentTab, setCurrentTab] = useState(null);
+
   const { pathname } = useLocation();
 
   const isDashboard = pathname.includes('dashboard');
 
   const [info, setInfo] = useState([]);
 
-  const { data: collection, refetch } = useQuery(LIST_ALL_PUBLICATION, {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [isOpenList, setIsOpenList] = useState(false);
+
+  const { data: collection, refetch } = useQuery(LIST_TAP, {
     variables: {
       input: (() => {
         if (filterStatus === true) {
@@ -95,15 +103,17 @@ export default function Publiction() {
 
   useEffect(() => {
     if (collection) {
-      setInfo(collection?.collections);
+      setInfo(collection?.collections_research_publication);
+      setCurrentTab(collection?.collections_research_publication?.[0]);
     }
   }, [collection]);
 
   const dataFiltered = applySortFilter({
-    tableData: info,
+    tableData: currentTab?.collection ?? [],
     filterLanguage: currentLang.value,
   });
 
+  console.log('currentTab', currentTab);
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const [deleteCollection] = useMutation(DELETE_COLLECTION, {
@@ -136,7 +146,9 @@ export default function Publiction() {
   const handleDeleteCollection = async (idCollection) => {
     await deleteCollection({
       variables: {
-        id: Number(idCollection),
+        input: {
+          id: Number(idCollection),
+        },
       },
     });
     await refetch();
@@ -155,6 +167,24 @@ export default function Publiction() {
 
     await refetch();
   };
+
+  const handleCloseEditDialog = () => {
+    setIsOpen(false);
+  };
+
+  const handleOpenEditDialog = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseListDialog = () => {
+    setIsOpenList(false);
+  };
+
+  const handleOpenListDialog = () => {
+    setIsOpenList(true);
+  };
+
+  console.log('info', info);
 
   return (
     <RootStyle>
@@ -176,29 +206,84 @@ export default function Publiction() {
           </>
         )}
       </Grid>
+
       {isDashboard && (
-        <Tabs
-          allowScrollButtonsMobile
-          variant="scrollable"
-          scrollButtons="auto"
-          value={filterStatus}
-          onChange={onFilterStatus}
-          sx={{ mb: { xs: 3, md: 5 } }}
-        >
-          {TABS.map((tab, idx) => (
-            <Tab
-              disableRipple
-              key={idx + 1}
-              value={tab.value}
-              label={
-                <Stack spacing={1} direction="row" alignItems="center">
-                  <div>{t(`card.${tab.label}`)}</div>
-                </Stack>
-              }
-            />
-          ))}
-        </Tabs>
+        <Stack direction="row" justifyContent="space-between" sx={{ mb: { xs: 3, md: 5 } }}>
+          <Tabs
+            allowScrollButtonsMobile
+            variant="scrollable"
+            scrollButtons="auto"
+            value={filterStatus}
+            onChange={onFilterStatus}
+          >
+            {TABS.map((tab, idx) => (
+              <Tab
+                disableRipple
+                key={idx + 1}
+                value={tab.value}
+                label={
+                  <Stack spacing={1} direction="row" alignItems="center">
+                    <div>{t(`card.${tab.label}`)}</div>
+                  </Stack>
+                }
+              />
+            ))}
+          </Tabs>
+          <Box>
+            <Button variant="contained" onClick={handleOpenListDialog} sx={{ mr: 1 }}>
+              Quản lí danh sách
+            </Button>
+            <Button variant="contained" onClick={handleOpenEditDialog}>
+              Quản lí tap
+            </Button>
+          </Box>
+        </Stack>
       )}
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          mb: { xs: 3, md: 5 },
+        }}
+      >
+        {info &&
+          info.length > 0 &&
+          info.map((nameTap, index) => (
+            <Button
+              key={index}
+              sx={{
+                flex: {
+                  xs: '1 0 100%',
+                  sm: '1 0 50%',
+                  md: '1 0 25%',
+                },
+                borderRadius: 0,
+              }}
+              size="large"
+              variant="outlined"
+              style={
+                Number(currentTab?.id) === Number(nameTap?.id)
+                  ? { backgroundColor: '#4BD578', color: '#fff' }
+                  : { backgroundColor: '#fff', color: '#000' }
+              }
+              onClick={() => {
+                setCurrentTab(nameTap);
+              }}
+            >
+              <Typography variant="h5" noWrap>
+                {currentLang.value === 'vi' ? nameTap.name : nameTap.nameElg}
+              </Typography>
+            </Button>
+          ))}
+      </Box>
+
+      <Typography variant="h5">{currentLang.value === 'vi' ? currentTab?.name : currentTab?.nameElg}</Typography>
+
+      <Typography variant="body2" sx={{ mb: 5 }}>
+        {currentLang.value === 'vi' ? currentTab?.description : currentTab?.descriptionElg}
+      </Typography>
 
       {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
@@ -211,7 +296,7 @@ export default function Publiction() {
       <Grid container spacing={3}>
         {dataFiltered.length > 0 &&
           dataFiltered.map((post, index) => (
-            <Grid key={post?.id} item xs={12} sm={6} md={4}>
+            <Grid key={post?.id} item xs={12}>
               <PublicationPostCard
                 post={post}
                 index={index}
@@ -223,16 +308,35 @@ export default function Publiction() {
             </Grid>
           ))}
       </Grid>
+
+      <TapNewEditDialog
+        onClose={handleCloseEditDialog}
+        isOpen={isOpen}
+        row={null}
+        refetchData={refetch}
+        tap={info}
+        typeCollection={TypeCollection.Publication}
+      />
+
+      <TapListDialog
+        idCurrentTap={Number(currentTab?.id)}
+        onClose={handleCloseListDialog}
+        isOpen={isOpenList}
+        row={null}
+        refetchData={refetch}
+        tap={info}
+        typeCollection={TypeCollection.Publication}
+      />
     </RootStyle>
   );
 }
 
 function applySortFilter({ tableData, filterLanguage }) {
   if (filterLanguage === 'en') {
-    tableData = tableData.filter((item) => item.title_english !== '');
+    tableData = tableData.filter((item) => item?.title_english !== '');
   }
   if (filterLanguage === 'vi') {
-    tableData = tableData.filter((item) => item.title !== '');
+    tableData = tableData.filter((item) => item?.title !== '');
   }
   return tableData;
 }

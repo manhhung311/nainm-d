@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Button, Card, Stack, Tab, Tabs, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import { loader } from 'graphql.macro';
 import { useMutation, useQuery } from '@apollo/client';
 import { useSnackbar } from 'notistack';
+import { useLocation } from 'react-router-dom';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import useAuth from '../../hooks/useAuth';
 import useTabs from '../../hooks/useTabs';
 import { TypeCollection } from '../../constant';
 import ResearchPostCard from './ResearchCard';
+import TapNewEditDialog from '../tap-form/TapNewEditDialog';
+import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import TapListDialog from '../tap-form/TapListDialog';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -36,9 +40,10 @@ const TABS = [
     color: 'default',
   },
 ];
-const LIST_ALL_RESEARCH = loader('../../graphql/queries/collections/ListCollections.graphql');
+
 const DELETE_COLLECTION = loader('../../graphql/mutations/collections/deleteCollection.graphql');
 const EDIT_STATUS_COLLECTION = loader('../../graphql/mutations/collections/editCollection.graphql');
+const LIST_TAP = loader('../../graphql/queries/tap/listTap.graphql');
 
 export default function ResearchMain() {
   const { t, currentLang } = useLocales();
@@ -49,11 +54,21 @@ export default function ResearchMain() {
 
   const [research, setResearch] = useState([]);
 
+  const { pathname } = useLocation();
+
+  const isDashboard = pathname.includes('dashboard');
+
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const { currentTab: filterStatus, onChangeTab: onFilterStatus } = useTabs(1);
 
-  const { data: getAllPosts, refetch } = useQuery(LIST_ALL_RESEARCH, {
+  const [currentTab, setCurrentTab] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [isOpenList, setIsOpenList] = useState(false);
+
+  const { data: getAllPosts, refetch } = useQuery(LIST_TAP, {
     variables: {
       input: {
         status_collection: filterStatus,
@@ -65,12 +80,13 @@ export default function ResearchMain() {
   });
   useEffect(() => {
     if (getAllPosts) {
-      setResearch(getAllPosts?.collections);
+      setResearch(getAllPosts?.collections_research_publication);
+      setCurrentTab(getAllPosts?.collections_research_publication?.[0]);
     }
   }, [getAllPosts]);
 
   const dataFiltered = applySortFilter({
-    tableData: research,
+    tableData: currentTab?.collection ?? [],
     filterLanguage: currentLang.value,
   });
 
@@ -104,7 +120,9 @@ export default function ResearchMain() {
   const handleDeleteCollection = async (idCollection) => {
     await deleteCollection({
       variables: {
-        id: Number(idCollection),
+        input: {
+          id: Number(idCollection),
+        },
       },
     });
     await refetch();
@@ -123,6 +141,22 @@ export default function ResearchMain() {
     await refetch();
   };
 
+  const handleCloseEditDialog = () => {
+    setIsOpen(false);
+  };
+
+  const handleOpenEditDialog = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseListDialog = () => {
+    setIsOpenList(false);
+  };
+
+  const handleOpenListDialog = () => {
+    setIsOpenList(true);
+  };
+
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -139,36 +173,101 @@ export default function ResearchMain() {
             <Grid item xs={12}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="h4"> {t('research.title')}</Typography>
+                <HeaderBreadcrumbs links={[{ name: t('profile.Home'), href: '/' }, { name: t('research.title') }]} />
               </Stack>
             </Grid>
           </>
         )}
       </Grid>
 
-      {user && (
-        <Tabs
-          allowScrollButtonsMobile
-          variant="scrollable"
-          scrollButtons="auto"
-          value={filterStatus}
-          onChange={onFilterStatus}
-          sx={{ mb: { xs: 3, md: 5 } }}
-        >
-          {TABS.map((tab, idx) => (
-            <Tab
-              disableRipple
-              key={idx + 1}
-              value={tab.value}
-              label={
-                <Stack spacing={1} direction="row" alignItems="center">
-                  <div>{t(`card.${tab.label}`)}</div>
-                </Stack>
-              }
-            />
-          ))}
-        </Tabs>
+      {isDashboard && (
+        <Stack direction="row" justifyContent="space-between" sx={{ mb: { xs: 3, md: 5 } }}>
+          <Tabs
+            allowScrollButtonsMobile
+            variant="scrollable"
+            scrollButtons="auto"
+            value={filterStatus}
+            onChange={onFilterStatus}
+          >
+            {TABS.map((tab, idx) => (
+              <Tab
+                disableRipple
+                key={idx + 1}
+                value={tab.value}
+                label={
+                  <Stack spacing={1} direction="row" alignItems="center">
+                    <div>{t(`card.${tab.label}`)}</div>
+                  </Stack>
+                }
+              />
+            ))}
+          </Tabs>
+
+          <Box>
+            <Button variant="contained" onClick={handleOpenListDialog} sx={{ mr: 1 }}>
+              Quản lí danh sách
+            </Button>
+            <Button variant="contained" onClick={handleOpenEditDialog}>
+              Quản lí tap
+            </Button>
+          </Box>
+        </Stack>
       )}
-      {dataFiltered.length === 0 && (
+
+      {research && research.length === 0 && (
+        <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
+          <Typography textAlign={'center'} variant="h6">
+            Không có tap
+          </Typography>
+        </Card>
+      )}
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          mb: { xs: 3, md: 5 },
+        }}
+      >
+        {research &&
+          research.length > 0 &&
+          research.map((nameTap, index) => (
+            <Button
+              key={index}
+              sx={{
+                flex: {
+                  xs: '1 0 100%',
+                  sm: '1 0 50%',
+                  md: '1 0 25%',
+                },
+                borderRadius: 0,
+              }}
+              size="large"
+              variant="outlined"
+              style={
+                Number(currentTab?.id) === Number(nameTap?.id)
+                  ? { backgroundColor: '#4BD578', color: '#fff' }
+                  : { backgroundColor: '#fff', color: '#000' }
+              }
+              onClick={() => {
+                setCurrentTab(nameTap);
+              }}
+            >
+              <Typography variant="h5" noWrap>
+                {currentLang.value === 'vi' ? nameTap.name : nameTap.nameElg}
+              </Typography>
+            </Button>
+          ))}
+      </Box>
+
+      <Typography variant="h5">{currentLang.value === 'vi' ? currentTab?.name : currentTab?.nameElg}</Typography>
+
+      <Typography variant="body2" sx={{ mb: 5 }}>
+        {currentLang.value === 'vi' ? currentTab?.description : currentTab?.descriptionElg}
+      </Typography>
+
+      {research && research.length > 0 && dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
             {t('card.noPostsYet')}
@@ -190,6 +289,25 @@ export default function ResearchMain() {
             </Grid>
           ))}
       </Grid>
+
+      <TapNewEditDialog
+        onClose={handleCloseEditDialog}
+        isOpen={isOpen}
+        row={null}
+        refetchData={refetch}
+        tap={research}
+        typeCollection={TypeCollection.Research}
+      />
+
+      <TapListDialog
+        idCurrentTap={Number(currentTab?.id)}
+        onClose={handleCloseListDialog}
+        isOpen={isOpenList}
+        row={null}
+        refetchData={refetch}
+        tap={research}
+        typeCollection={TypeCollection.Research}
+      />
     </RootStyle>
   );
 }

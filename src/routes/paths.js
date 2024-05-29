@@ -78,8 +78,10 @@ export const PATH_DASHBOARD = {
   user: {
     root: '/dashboard/user',
     new: '/dashboard/user/new',
+    otherNew: '/dashboard/user/otherNew',
     list: '/dashboard/user/list',
     edit: (id) => `${ROOTS_DASHBOARD}/user/${id}/edit`,
+    otherEdit: (id) => `${ROOTS_DASHBOARD}/user/${id}/otherEdit`,
     profile: `${ROOTS_DASHBOARD}/user/profile`,
 
     // edit: (name) => `dashboard/user/${name}/edit`,

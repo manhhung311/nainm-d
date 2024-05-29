@@ -36,7 +36,7 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
 import { useLocales } from '../../../locals';
-import { roleChangeNumber, RoleId } from '../../../constant';
+import { roleChangeNumber, RoleId, TypeUser } from '../../../constant';
 // ----------------------------------------------------------------------
 
 const ListUsers = loader('../../../graphql/queries/user/ListUsers.graphql');
@@ -144,8 +144,12 @@ export default function UserList() {
     setTableData(deleteRows);
   };
 
-  const handleEditRow = (id) => {
-    navigate(PATH_DASHBOARD.user.edit(id));
+  const handleEditRow = (id, typeUser) => {
+    if (typeUser === TypeUser.oldMember || typeUser === TypeUser.cooperator) {
+      navigate(PATH_DASHBOARD.user.otherEdit(id));
+    } else {
+      navigate(PATH_DASHBOARD.user.edit(id));
+    }
   };
 
   const dataFiltered = applySortFilter({
@@ -243,7 +247,7 @@ export default function UserList() {
                       selected={selected.includes(row.id)}
                       onSelectRow={() => onSelectRow(row.id)}
                       onDeleteRow={() => handleDeleteRow(row.id)}
-                      onEditRow={() => handleEditRow(row.id)}
+                      onEditRow={() => handleEditRow(row.id, row.type_user)}
                       onActiveStatus={() => handleEditStatus(row.id, true)}
                       onLockStatus={() => handleEditStatus(row.id, false)}
                     />
