@@ -157,8 +157,6 @@ export default function ResearchMain() {
     setIsOpenList(true);
   };
 
-  console.log('research', research);
-
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -262,6 +260,12 @@ export default function ResearchMain() {
             </Button>
           ))}
       </Box>
+
+      <Typography variant="h5">{currentLang.value === 'vi' ? currentTab?.name : currentTab?.nameElg}</Typography>
+
+      <Typography variant="body2" sx={{ mb: 5 }}>
+        {currentLang.value === 'vi' ? currentTab?.description : currentTab?.descriptionElg}
+      </Typography>
 
       {research && research.length > 0 && dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>

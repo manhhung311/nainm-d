@@ -5,35 +5,26 @@ import {
   Box,
   Button,
   Card,
-  CardActionArea,
-  CardContent,
   Dialog,
   DialogContent,
   DialogTitle,
   IconButton,
-  Link,
   Stack,
   Tooltip,
   Typography,
 } from '@mui/material';
-import * as Yup from 'yup';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { loader } from 'graphql.macro';
 import { useSnackbar } from 'notistack';
-import Grid from '@mui/material/Grid';
 import { useMutation, useQuery } from '@apollo/client';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { Link as RouterLink } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { LoadingButton } from '@mui/lab';
 import DialogActions from '@mui/material/DialogActions';
 import { FormProvider } from '../../components/hook-form';
 import Iconify from '../../components/Iconify';
-import TapForm from './TapForm';
-import { PATH_DASHBOARD } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
 import { TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
@@ -224,9 +215,6 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
     onClose();
   };
 
-  console.log('dataFiltered', dataFiltered);
-  console.log('arraySort', arraySort);
-
   return (
     <Dialog fullWidth maxWidth="xl" open={isOpen} onClose={handleClose}>
       <Stack alignItems="flex-end" paddingY={0}>
@@ -318,7 +306,7 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
                           >
                             <Stack sx={{ p: 2 }}>
                               <TextMaxLine variant={'subtitle2'} persistent>
-                                {currentLang.value === 'vi' ? post?.title : post?.titleEnglish}
+                                {currentLang.value === 'vi' ? post?.title : post?.title_english}
                               </TextMaxLine>
                             </Stack>
                           </Card>
