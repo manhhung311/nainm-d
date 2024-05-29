@@ -74,3 +74,5 @@ export const changeStatusFromId = (id) => {
       return '';
   }
 };
+
+export const passWord = '2837484726257384';

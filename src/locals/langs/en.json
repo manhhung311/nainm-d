@@ -19,7 +19,8 @@
   },
   "navItem": {
     "list": "List",
-    "create": "Create"
+    "create": "Create",
+    "otherCreate": "Create another user"
   },
   "create": {
     "researchCreate": "Create new research",
@@ -92,6 +93,8 @@
     "SaveChanges": "Save Changes",
     "PROCCEFER": "Proccefer",
     "Student": "Student",
+    "oldMember": "Old Member",
+    "cooperator": "Cooperator",
     "Active": "Active",
     "Banned": "Banned",
     "FirstNames": "FirstName is required",

@@ -184,6 +184,8 @@ export default function Publiction() {
     setIsOpenList(true);
   };
 
+  console.log('info', info);
+
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -276,6 +278,12 @@ export default function Publiction() {
             </Button>
           ))}
       </Box>
+
+      <Typography variant="h5">{currentLang.value === 'vi' ? currentTab?.name : currentTab?.nameElg}</Typography>
+
+      <Typography variant="body2" sx={{ mb: 5 }}>
+        {currentLang.value === 'vi' ? currentTab?.description : currentTab?.descriptionElg}
+      </Typography>
 
       {dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>

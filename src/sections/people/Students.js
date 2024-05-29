@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import Image from '../../components/Image';
 import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
+import useAuth from '../../hooks/useAuth';
+import { RoleId } from '../../constant';
 // ----------------------------------------------------------------------
 
 const ListUsers = loader('../../graphql/queries/user/publicUsers.graphql');
@@ -30,6 +32,8 @@ export default function Students({ typeUser }) {
   const [tableData, setTableData] = useState([]);
 
   const { data: allUsers } = useQuery(ListUsers);
+
+  const { user } = useAuth();
 
   const { pathname } = useLocation();
 
@@ -58,11 +62,13 @@ export default function Students({ typeUser }) {
             {isDashboard ? (
               <Grid container>
                 <Grid item xs={12} sx={{ justifyContent: 'right', alignItems: 'right', display: 'flex' }}>
-                  <Tooltip title={t('people.edit')} placement="top">
-                    <IconButton color="success" component={RouterLink} to={handleLinkToEdit(Number(item?.id))}>
-                      <EditSharpIcon sx={{ width: 20, height: 20 }} />
-                    </IconButton>
-                  </Tooltip>
+                  {user?.role === RoleId.admin && (
+                    <Tooltip title={t('people.edit')} placement="top">
+                      <IconButton color="success" component={RouterLink} to={handleLinkToEdit(Number(item?.id))}>
+                        <EditSharpIcon sx={{ width: 20, height: 20 }} />
+                      </IconButton>
+                    </Tooltip>
+                  )}
                   {/* <Button */}
                   {/*  variant="outlined" */}
                   {/*  startIcon={<EditSharpIcon />} */}

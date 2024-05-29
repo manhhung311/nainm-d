@@ -14,6 +14,7 @@ import { TypeCollection } from '../../constant';
 import ResearchPostCard from './ResearchCard';
 import TapNewEditDialog from '../tap-form/TapNewEditDialog';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
+import TapListDialog from '../tap-form/TapListDialog';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -64,6 +65,8 @@ export default function ResearchMain() {
   const [currentTab, setCurrentTab] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [isOpenList, setIsOpenList] = useState(false);
 
   const { data: getAllPosts, refetch } = useQuery(LIST_TAP, {
     variables: {
@@ -146,6 +149,16 @@ export default function ResearchMain() {
     setIsOpen(true);
   };
 
+  const handleCloseListDialog = () => {
+    setIsOpenList(false);
+  };
+
+  const handleOpenListDialog = () => {
+    setIsOpenList(true);
+  };
+
+  console.log('research', research);
+
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -192,9 +205,14 @@ export default function ResearchMain() {
             ))}
           </Tabs>
 
-          <Button variant="contained" onClick={handleOpenEditDialog}>
-            Quản lí tap
-          </Button>
+          <Box>
+            <Button variant="contained" onClick={handleOpenListDialog} sx={{ mr: 1 }}>
+              Quản lí danh sách
+            </Button>
+            <Button variant="contained" onClick={handleOpenEditDialog}>
+              Quản lí tap
+            </Button>
+          </Box>
         </Stack>
       )}
 
@@ -271,6 +289,16 @@ export default function ResearchMain() {
       <TapNewEditDialog
         onClose={handleCloseEditDialog}
         isOpen={isOpen}
+        row={null}
+        refetchData={refetch}
+        tap={research}
+        typeCollection={TypeCollection.Research}
+      />
+
+      <TapListDialog
+        idCurrentTap={Number(currentTab?.id)}
+        onClose={handleCloseListDialog}
+        isOpen={isOpenList}
         row={null}
         refetchData={refetch}
         tap={research}

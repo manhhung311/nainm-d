@@ -56,7 +56,9 @@ export default function Router() {
             { element: <Navigate to="/dashboard/user/list" replace />, index: true },
             { path: 'list', element: <UserList /> },
             { path: 'new', element: <UserCreate /> },
+            { path: 'otherNew', element: <OtherUserCreate /> },
             { path: ':id/edit', element: <UserCreate /> },
+            { path: ':id/otherEdit', element: <OtherUserCreate /> },
             { path: 'profile', element: <ProfileEdit /> },
           ],
         },
@@ -211,5 +213,6 @@ const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/user/UserList')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/user/UserCreate')));
+const OtherUserCreate = Loadable(lazy(() => import('../pages/dashboard/user/OtherUserCreate')));
 const ProfileEdit = Loadable(lazy(() => import('../pages/dashboard/profile/ProfileEdit')));
 const Professor = Loadable(lazy(() => import('../sections/people/Professor')));

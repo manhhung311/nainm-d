@@ -32,6 +32,7 @@ export const adminNavConfig = [
         children: [
           { title: 'list', path: PATH_DASHBOARD.user.list },
           { title: 'create', path: PATH_DASHBOARD.user.new },
+          { title: 'otherCreate', path: PATH_DASHBOARD.user.otherNew },
         ],
       },
       {

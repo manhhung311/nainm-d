@@ -64,17 +64,36 @@ const TABS = [
   },
 ];
 
+const TABS2 = [
+  {
+    value: 1,
+    label: 'publish',
+    color: 'success',
+  },
+  {
+    value: 0,
+    label: 'waitForApproval',
+    color: 'info',
+  },
+  {
+    value: 2,
+    label: 'hidden',
+    color: 'default',
+  },
+];
+
 const LIST_TAP = loader('../../graphql/queries/tap/listTap.graphql');
-const EDIT_LIST_TAP = loader('../../graphql/mutations/collections/editCollection.graphql');
+const EDIT_LIST_TAP = loader('../../graphql/mutations/collections/editTypeCollection.graphql');
 
 TapListDialog.propTypes = {
   isOpen: PropTypes.bool,
+  typeCollection: PropTypes.number,
   onClose: PropTypes.func,
   refetchData: PropTypes.func,
   idCurrentTap: PropTypes.number,
 };
 
-export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentTap }) {
+export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentTap, typeCollection }) {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -84,6 +103,7 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
   const [collections, setCollection] = useState(false);
 
   const [currentTab, setCurrentTab] = useState(null);
+  const [arraySort, setArraySort] = useState([]);
 
   const { data: collection, refetch } = useQuery(LIST_TAP, {
     variables: {
@@ -92,14 +112,14 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
           return {
             status_collection: 1,
             stand_out: filterStatusDialog,
-            type_collection: TypeCollection.Publication,
+            type_collection: typeCollection,
             page: 1,
             limit: 999,
           };
         }
         return {
           status_collection: filterStatusDialog,
-          type_collection: TypeCollection.Publication,
+          type_collection: typeCollection,
           page: 1,
           limit: 999,
         };
@@ -154,19 +174,19 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
   });
 
   const onSubmit = async () => {
-    try {
-      await updateListTapFn({
-        variables: {
-          input: {
-            id: Number(idCurrentTap),
-            index: dataFiltered?.map((data) => Number(data?.id)),
-          },
-        },
-      });
-      enqueueSnackbar(t('message.Successfully edited!'), { variant: 'success' });
-    } catch (error) {
-      enqueueSnackbar(t('message.Failed post fix!'), { variant: 'error' });
-    }
+    // try {
+    // await updateListTapFn({
+    //   variables: {
+    //     input: {
+    //       id: Number(idCurrentTap),
+    //       index: dataFiltered?.map((data) => Number(data?.index)).reverse(),
+    //     },
+    //   },
+    // });
+    // enqueueSnackbar(t('message.Successfully edited!'), { variant: 'success' });
+    // } catch (error) {
+    //   enqueueSnackbar(t('message.Failed post fix!'), { variant: 'error' });
+    // }
   };
 
   const handleDragEnd = (result) => {
@@ -192,11 +212,20 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
     });
   };
 
+  // useEffect(() => {
+  //
+  //     setArraySort(dataFiltered
+  //       ?.map(data => Number(data?.index)) // Chuyển đổi index thành số
+  //       .reverse());
+  //
+  // }, [dataFiltered]);
+
   const handleClose = () => {
     onClose();
   };
 
   console.log('dataFiltered', dataFiltered);
+  console.log('arraySort', arraySort);
 
   return (
     <Dialog fullWidth maxWidth="xl" open={isOpen} onClose={handleClose}>
@@ -220,7 +249,7 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
               value={filterStatusDialog}
               onChange={onFilterStatus}
             >
-              {TABS.map((tab, idx) => (
+              {(typeCollection === TypeCollection.Publication ? TABS : TABS2).map((tab, idx) => (
                 <Tab
                   disableRipple
                   key={idx + 1}

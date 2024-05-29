@@ -19,7 +19,8 @@
   },
   "navItem": {
     "list": "Danh Sách",
-    "create": "Tạo mới"
+    "create": "Tạo mới",
+    "otherCreate": "Tạo người dùng khác"
   },
   "create": {
     "researchCreate": "Tạo mới nghiên cứu",
@@ -93,6 +94,8 @@
     "SaveChanges": "Lưu Thay Đổi",
     "PROCCEFER": "Giáo Sư",
     "Student": "Sinh Viên",
+    "oldMember": "Cựu Thành Viên",
+    "cooperator": "Hợp tác",
     "Active": "Hoạt Động",
     "Banned": "Đã Khóa",
     "FirstNames": "Họ là bắt buộc",
