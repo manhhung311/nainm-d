@@ -8,6 +8,7 @@ mutation create_collection($input: Create_collection!) {
         collection_English
         createdAt
         updatedAt
+        index
         title
         description
 

@@ -17,6 +17,7 @@ query Query($input: Collections_find_research_publication!) {
       updatedAt
       title
       description
+      index
       description_english
       title_english
       imgURL

@@ -13,6 +13,7 @@ type Collection {
     description_english: String
     id: ID!
     imgURL: String
+    index: Int
     status_collection: Int!
     title: String
     title_english: String

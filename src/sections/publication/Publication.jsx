@@ -113,6 +113,7 @@ export default function Publiction() {
     filterLanguage: currentLang.value,
   });
 
+  console.log('currentTab', currentTab);
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const [deleteCollection] = useMutation(DELETE_COLLECTION, {
@@ -310,6 +311,7 @@ export default function Publiction() {
       />
 
       <TapListDialog
+        idCurrentTap={Number(currentTab?.id)}
         onClose={handleCloseListDialog}
         isOpen={isOpenList}
         row={null}

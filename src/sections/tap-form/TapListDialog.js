@@ -28,6 +28,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Link as RouterLink } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { LoadingButton } from '@mui/lab';
+import DialogActions from '@mui/material/DialogActions';
 import { FormProvider } from '../../components/hook-form';
 import Iconify from '../../components/Iconify';
 import TapForm from './TapForm';
@@ -63,14 +65,16 @@ const TABS = [
 ];
 
 const LIST_TAP = loader('../../graphql/queries/tap/listTap.graphql');
+const EDIT_LIST_TAP = loader('../../graphql/mutations/collections/editCollection.graphql');
 
 TapListDialog.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   refetchData: PropTypes.func,
+  idCurrentTap: PropTypes.number,
 };
 
-export default function TapListDialog({ isOpen, onClose, refetchData }) {
+export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentTap }) {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -110,6 +114,15 @@ export default function TapListDialog({ isOpen, onClose, refetchData }) {
     }
   }, [collection]);
 
+  const [updateListTapFn] = useMutation(EDIT_LIST_TAP, {
+    onCompleted: async (res) => {
+      if (res) {
+        return res;
+      }
+      return null;
+    },
+  });
+
   const defaultValues = useMemo(
     () => ({
       id: null,
@@ -125,7 +138,13 @@ export default function TapListDialog({ isOpen, onClose, refetchData }) {
     defaultValues,
   });
 
-  const { reset, watch, setValue, handleSubmit } = methods;
+  const {
+    reset,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
 
   const values = watch();
 
@@ -135,10 +154,19 @@ export default function TapListDialog({ isOpen, onClose, refetchData }) {
   });
 
   const onSubmit = async () => {
-    // try {
-    // } catch (error) {
-    //   enqueueSnackbar(isEdit ? t('message.Failed post fix!') : t('message.Post failed!'), { variant: 'error' });
-    // }
+    try {
+      await updateListTapFn({
+        variables: {
+          input: {
+            id: Number(idCurrentTap),
+            index: dataFiltered?.map((data) => Number(data?.id)),
+          },
+        },
+      });
+      enqueueSnackbar(t('message.Successfully edited!'), { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar(t('message.Failed post fix!'), { variant: 'error' });
+    }
   };
 
   const handleDragEnd = (result) => {
@@ -274,6 +302,11 @@ export default function TapListDialog({ isOpen, onClose, refetchData }) {
             </Droppable>
           </DragDropContext>
         </DialogContent>
+        <DialogActions>
+          <LoadingButton fullWidth type="submit" variant="contained" size="medium" loading={isSubmitting}>
+            Apply
+          </LoadingButton>
+        </DialogActions>
       </FormProvider>
     </Dialog>
   );
