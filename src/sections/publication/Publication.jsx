@@ -240,6 +240,14 @@ export default function Publiction() {
         </Stack>
       )}
 
+      {info && info.length === 0 && (
+        <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
+          <Typography textAlign={'center'} variant="h6">
+            Không có tap
+          </Typography>
+        </Card>
+      )}
+
       <Box
         sx={{
           display: 'flex',
@@ -285,7 +293,7 @@ export default function Publiction() {
         {currentLang.value === 'vi' ? currentTab?.description : currentTab?.descriptionElg}
       </Typography>
 
-      {dataFiltered.length === 0 && (
+      {info && info.length > 0 && dataFiltered.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
             {t('card.noPostsYet')}

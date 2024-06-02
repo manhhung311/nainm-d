@@ -8,7 +8,6 @@ import { useSnackbar } from 'notistack';
 import { useLocation } from 'react-router-dom';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
-import useAuth from '../../hooks/useAuth';
 import useTabs from '../../hooks/useTabs';
 import { TypeCollection } from '../../constant';
 import ResearchPostCard from './ResearchCard';
@@ -49,8 +48,6 @@ export default function ResearchMain() {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const { user } = useAuth();
 
   const [research, setResearch] = useState([]);
 

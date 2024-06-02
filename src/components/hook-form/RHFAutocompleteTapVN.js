@@ -9,7 +9,7 @@ import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { defaultCollectionVN, defaultTapVN } from '../../constant';
+import { defaultTapVN } from '../../constant';
 
 // ----------------------------------------------------------------------
 const LIST_TAP = loader('../../graphql/queries/tap/listTap.graphql');

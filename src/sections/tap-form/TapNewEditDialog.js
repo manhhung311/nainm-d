@@ -25,7 +25,6 @@ import { useMutation } from '@apollo/client';
 import { FormProvider } from '../../components/hook-form';
 import Iconify from '../../components/Iconify';
 import TapForm from './TapForm';
-import { TypeCollection } from '../../constant';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
 
@@ -130,6 +129,7 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
         },
       },
     });
+    reset();
     await refetchData();
   };
 
