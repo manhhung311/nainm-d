@@ -8,6 +8,7 @@ import React from 'react';
 import { RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../components/hook-form';
 import { StatusCollection, TypeCollection } from '../../constant';
 import RHFAutocompleteTapVN from '../../components/hook-form/RHFAutocompleteTapVN';
+import useLocales from '../../locals/useLocals';
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -22,6 +23,8 @@ PublicationPostVNStack.propTypes = {
 };
 
 export default function PublicationPostVNStack({ onNext, onDrop, isEdit }) {
+  const { t } = useLocales();
+
   return (
     <>
       <Stack spacing={3}>
@@ -42,14 +45,14 @@ export default function PublicationPostVNStack({ onNext, onDrop, isEdit }) {
           <RHFEditor name="content" />
         </div>
         <div>
-          <LabelStyle>Ảnh</LabelStyle>
+          <LabelStyle>{t('profile.anh')}</LabelStyle>
           <RHFUploadSingleFile name="cover" accept="image/*" maxSize={3145728} onDrop={onDrop} />
         </div>
       </Stack>
       <Grid item xs={12}>
         <Stack direction="row" spacing={1.5} sx={{ mt: 3 }}>
           <Button fullWidth variant="contained" size="medium" onClick={() => onNext(2)}>
-            Tiếp
+            {t('profile.tiep')}
           </Button>
         </Stack>
       </Grid>

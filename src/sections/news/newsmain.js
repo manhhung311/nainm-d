@@ -110,7 +110,9 @@ export default function NewsMain() {
   const handleDeleteCollection = async (idCollection) => {
     await deleteCollection({
       variables: {
-        id: Number(idCollection),
+        input: {
+          id: Number(idCollection),
+        },
       },
     });
     await refetch();

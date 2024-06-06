@@ -24,7 +24,7 @@ export default function People() {
     <Page title={t('people.page')}>
       <Box>
         <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 1, pt: 5 }}>
-          <Grid item xs={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+          <Grid item xs={12} sm={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
             <Button
               sx={{ width: '100%', height: '100%', borderRadius: 0 }}
               size="large"
@@ -37,10 +37,12 @@ export default function People() {
               onClick={() => handleTabClick(TypeUser.professor)}
               className={currentTab === TypeUser.professor ? 'active' : ''}
             >
-              <Typography variant="h5">{t('people.tab1')}</Typography>
+              <Typography variant="h5" noWrap>
+                {t('people.tab1')}
+              </Typography>
             </Button>
           </Grid>
-          <Grid item xs={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+          <Grid item xs={12} sm={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
             <Button
               sx={{ width: '100%', height: '100%', borderRadius: 0 }}
               size="large"
@@ -59,7 +61,7 @@ export default function People() {
             </Button>
           </Grid>
 
-          <Grid item xs={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+          <Grid item xs={12} sm={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
             <Button
               sx={{ width: '100%', height: '100%', borderRadius: 0 }}
               size="large"
@@ -78,7 +80,7 @@ export default function People() {
             </Button>
           </Grid>
 
-          <Grid item xs={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+          <Grid item xs={12} sm={6} md={2} sx={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
             <Button
               sx={{ width: '100%', height: '100%', borderRadius: 0 }}
               size="large"

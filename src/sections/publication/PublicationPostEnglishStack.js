@@ -10,6 +10,7 @@ import React from 'react';
 import { RHFTextField, RHFEditor, RHFUploadSingleFile } from '../../components/hook-form';
 import { StatusCollection, TypeCollection } from '../../constant';
 import RHFAutocompleteTapENG from '../../components/hook-form/RHFAutocompleteTapENG';
+import { useLocales } from '../../locals';
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -27,6 +28,8 @@ export default function PublicationPostEnglishStack({ onBack, onDrop, isEdit }) 
   const {
     formState: { isSubmitting },
   } = useFormContext();
+  const { t } = useLocales();
+
   return (
     <>
       <Stack spacing={3}>
@@ -54,10 +57,10 @@ export default function PublicationPostEnglishStack({ onBack, onDrop, isEdit }) 
       <Grid item xs={12}>
         <Stack direction="row" justifyContent="space-around" spacing={1.5} sx={{ mt: 3 }}>
           <Button fullWidth variant="contained" size="medium" onClick={() => onBack(1)}>
-            Trở lại
+            {t('news.trolai')}
           </Button>
           <LoadingButton fullWidth type="submit" variant="contained" size="medium" loading={isSubmitting}>
-            Đăng bài
+            {t('news.post')}
           </LoadingButton>
         </Stack>
       </Grid>

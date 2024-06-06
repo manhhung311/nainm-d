@@ -13,13 +13,14 @@ import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useLocation } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
-import { TypeCollection } from '../../constant';
+import { RoleId, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import useLocales from '../../locals/useLocals';
 import PublicationPostCard from './PublicationCard';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import TapNewEditDialog from '../tap-form/TapNewEditDialog';
 import TapListDialog from '../tap-form/TapListDialog';
+import useAuth from '../../hooks/useAuth';
 // components
 
 // ----------------------------------------------------------------------
@@ -71,6 +72,8 @@ export default function Publiction() {
 
   const { pathname } = useLocation();
 
+  const { user } = useAuth();
+
   const isDashboard = pathname.includes('dashboard');
 
   const [info, setInfo] = useState([]);
@@ -78,6 +81,9 @@ export default function Publiction() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [isOpenList, setIsOpenList] = useState(false);
+
+  const [oldId, setOldId] = useState([]);
+  const [oldIndex, setOldIndex] = useState([]);
 
   const { data: collection, refetch } = useQuery(LIST_TAP, {
     variables: {
@@ -108,12 +114,18 @@ export default function Publiction() {
     }
   }, [collection]);
 
+  useEffect(() => {
+    if (currentTab) {
+      setOldId(currentTab?.collection?.map((el) => Number(el.id)));
+      setOldIndex(currentTab?.collection?.map((el) => Number(el.index)));
+    }
+  }, [currentTab]);
+
   const dataFiltered = applySortFilter({
     tableData: currentTab?.collection ?? [],
     filterLanguage: currentLang.value,
   });
 
-  console.log('currentTab', currentTab);
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const [deleteCollection] = useMutation(DELETE_COLLECTION, {
@@ -184,8 +196,6 @@ export default function Publiction() {
     setIsOpenList(true);
   };
 
-  console.log('info', info);
-
   return (
     <RootStyle>
       <Grid container spacing={5} alignItems="center">
@@ -207,7 +217,7 @@ export default function Publiction() {
         )}
       </Grid>
 
-      {isDashboard && (
+      {isDashboard && (user?.role === RoleId.admin || user?.role === RoleId.manager) && (
         <Stack direction="row" justifyContent="space-between" sx={{ mb: { xs: 3, md: 5 } }}>
           <Tabs
             allowScrollButtonsMobile
@@ -231,10 +241,10 @@ export default function Publiction() {
           </Tabs>
           <Box>
             <Button variant="contained" onClick={handleOpenListDialog} sx={{ mr: 1 }}>
-              Quản lí danh sách
+              {t('tapForm.ListManager')}
             </Button>
             <Button variant="contained" onClick={handleOpenEditDialog}>
-              Quản lí tap
+              {t('tapForm.tapManager')}
             </Button>
           </Box>
         </Stack>
@@ -243,7 +253,7 @@ export default function Publiction() {
       {info && info.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
-            Không có tap
+            {t('tapForm.errorTap')}
           </Typography>
         </Card>
       )}
@@ -328,6 +338,8 @@ export default function Publiction() {
 
       <TapListDialog
         idCurrentTap={Number(currentTab?.id)}
+        oldId={oldId}
+        oldIndex={oldIndex}
         onClose={handleCloseListDialog}
         isOpen={isOpenList}
         row={null}

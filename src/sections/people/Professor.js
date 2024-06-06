@@ -10,9 +10,10 @@ import { useQuery } from '@apollo/client';
 import Image from '../../components/Image';
 import useResponsive from '../../hooks/useResponsive';
 import Markdown from '../../components/Markdown';
-import { Language } from '../../constant';
+import { Language, RoleId } from '../../constant';
 import useLocales from '../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../routes/paths';
+import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 const RootStyle = styled('div')(({ theme, isDashboard, isStudent }) => ({
@@ -36,6 +37,8 @@ export default function Professor({ idProfessor }) {
   const isMobile = useResponsive('between', 'xs', 'xs', 'sm');
 
   const { t, currentLang } = useLocales();
+
+  const { user } = useAuth();
 
   const { pathname } = useLocation();
 
@@ -64,11 +67,13 @@ export default function Professor({ idProfessor }) {
       {isDashboard ? (
         <Grid container>
           <Grid item xs={12} sx={{ justifyContent: 'right', alignItems: 'right', display: 'flex' }}>
-            <Tooltip title={t('people.edit')} placement="top">
-              <IconButton color="success" component={RouterLink} to={PATH_DASHBOARD.profile.edit(idProfessor)}>
-                <EditSharpIcon sx={{ width: 20, height: 20 }} />
-              </IconButton>
-            </Tooltip>
+            {user?.role === RoleId.admin && (
+              <Tooltip title={t('people.edit')} placement="top">
+                <IconButton color="success" component={RouterLink} to={PATH_DASHBOARD.profile.edit(idProfessor)}>
+                  <EditSharpIcon sx={{ width: 20, height: 20 }} />
+                </IconButton>
+              </Tooltip>
+            )}
           </Grid>
         </Grid>
       ) : (

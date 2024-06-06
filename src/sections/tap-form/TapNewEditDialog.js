@@ -22,11 +22,14 @@ import { loader } from 'graphql.macro';
 import { useSnackbar } from 'notistack';
 import Grid from '@mui/material/Grid';
 import { useMutation } from '@apollo/client';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
 import { FormProvider } from '../../components/hook-form';
 import Iconify from '../../components/Iconify';
 import TapForm from './TapForm';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import useLocales from '../../locals/useLocals';
+import useToggle from '../../hooks/useToggle';
 
 // ----------------------------------------------------------------------
 
@@ -47,13 +50,17 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const { toggle: openDeleteTap, onOpen: onOpenDeleteTap, onClose: onCloseDeleteTap } = useToggle();
+
   const [isEdit, setIsEdit] = useState(false);
 
+  const [idDelete, setIdDelete] = useState(null);
+
   const NewSchema = Yup.object().shape({
-    nameVn: Yup.string().required('tên tap phải bắt buộc'),
-    nameEng: Yup.string().required('tên tap phải bắt buộc tiếng anh'),
-    descriptionVN: Yup.string().required('ghi chú bắt buộc'),
-    descriptionENG: Yup.string().required('ghi chú bắt buộc tiếng anh'),
+    nameVn: Yup.string().required(t('tapForm.requiredNameTap')),
+    nameEng: Yup.string().required(t('tapForm.requiredNameTap')),
+    descriptionVN: Yup.string().required(t('tapForm.requiredDescriptionTap')),
+    descriptionENG: Yup.string().required(t('tapForm.requiredDescriptionTap')),
   });
 
   const defaultValues = useMemo(
@@ -80,6 +87,11 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
     variables: {
       input: {},
     },
+    onCompleted: () => {
+      enqueueSnackbar('Xóa thành công', {
+        variant: 'success',
+      });
+    },
     // refetchQueries: () => [
     //   {
     //     query: LIST_ALL_NEWS,
@@ -92,13 +104,13 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
 
   const [deleteTap] = useMutation(DELETE_TAP, {
     onCompleted: () => {
-      enqueueSnackbar('Xóa thành công', {
+      enqueueSnackbar(t('tapForm.deleteSuccess'), {
         variant: 'success',
       });
     },
 
     onError: (error) => {
-      enqueueSnackbar(`Xóa không thành công. Nguyên nhân: ${error.message}`, {
+      enqueueSnackbar(`${t('tapForm.deleteSuccess')}: ${error.message}`, {
         variant: 'error',
       });
     },
@@ -130,13 +142,24 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
       },
     });
     reset();
+    onCloseDeleteTap();
     await refetchData();
+  };
+
+  const handleDeleteCollection = async (idCollection) => {
+    await deleteTap({
+      variables: {
+        input: {
+          id: Number(idCollection),
+        },
+      },
+    });
   };
 
   const onSubmit = async () => {
     try {
       if (!isEdit) {
-        await createNewFn({
+        const response = await createNewFn({
           variables: {
             input: {
               // check chuẩn kiểu dữ liệu của input
@@ -148,6 +171,7 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
             },
           },
         });
+        await handleDeleteCollection(response?.data?.create_collection?.id);
       } else {
         await updateFacilityFn({
           variables: {
@@ -186,10 +210,15 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
     reset();
   };
 
+  const handleOpenDeleteTap = async (id) => {
+    await setIdDelete(id);
+    onOpenDeleteTap();
+  };
+
   return (
     <Dialog fullScreen fullWidth maxWidth="md" open={isOpen} onClose={handleClose}>
       <Stack alignItems="flex-end" paddingY={0}>
-        <Tooltip title="Đóng">
+        <Tooltip title={t('tapForm.close')}>
           <IconButton color="primary" onClick={() => onClose()}>
             <Iconify icon={'material-symbols:close'} />
           </IconButton>
@@ -197,18 +226,18 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
       </Stack>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle variant="h5" sx={{ textAlign: 'center', py: 1 }}>
-          Chỉnh sửa tap
+          {t('tapForm.updateTap')}
         </DialogTitle>
         <DialogContent sx={{ minWidth: '400px', minHeight: '200px' }}>
           <Grid container spacing={5} alignItems="center">
             <Grid item xs={12} md={5} sx={{ justifyContent: 'center', display: 'flex' }}>
               <Button variant="contained" onClick={handleReset}>
-                Tạo mới
+                {t('navItem.create')}
               </Button>
             </Grid>
             <Grid item xs={12} md={7}>
               <Typography variant="subtitle1" sx={{ textAlign: 'center', color: 'text.primary' }}>
-                {values?.id ? 'Chỉnh sửa' : 'Tạo mới'}
+                {values?.id ? t('navItem.update') : t('navItem.create')}
               </Typography>
             </Grid>
           </Grid>
@@ -223,8 +252,8 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
                           <Typography gutterBottom variant="h5" component="div">
                             {currentLang.value === 'vi' ? item?.name : item?.nameElg}
                           </Typography>
-                          <Tooltip title="Xóa">
-                            <IconButton color="error" onClick={() => handleDeleteTap(item.id)}>
+                          <Tooltip title={t('card.Erase')}>
+                            <IconButton color="error" onClick={() => handleOpenDeleteTap(item.id)}>
                               <Iconify icon={'eva:trash-2-outline'} />
                             </IconButton>
                           </Tooltip>
@@ -238,6 +267,19 @@ export default function TapNewEditDialog({ isOpen, onClose, refetchData, tap, ty
             <TapForm />
           </Grid>
         </DialogContent>
+
+        <Dialog maxWidth="sm" open={openDeleteTap} onClose={onCloseDeleteTap}>
+          <DialogTitle id="alert-dialog-title">{t('tapForm.cfDelete')}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">{t('tapForm.notiDelete')}</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={onCloseDeleteTap}>{t('card.cancel')}</Button>
+            <Button color="error" onClick={() => handleDeleteTap(idDelete)}>
+              {t('card.Erase')}
+            </Button>
+          </DialogActions>
+        </Dialog>
       </FormProvider>
     </Dialog>
   );

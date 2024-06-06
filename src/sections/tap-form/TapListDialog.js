@@ -26,7 +26,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { FormProvider } from '../../components/hook-form';
 import Iconify from '../../components/Iconify';
 import useLocales from '../../locals/useLocals';
-import { TypeCollection } from '../../constant';
+import { StatusCollection, TypeCollection } from '../../constant';
 import useTabs from '../../hooks/useTabs';
 import TextMaxLine from '../../components/TextMaxLine';
 
@@ -79,12 +79,14 @@ const EDIT_LIST_TAP = loader('../../graphql/mutations/collections/editTypeCollec
 TapListDialog.propTypes = {
   isOpen: PropTypes.bool,
   typeCollection: PropTypes.number,
+  oldId: PropTypes.array,
+  oldIndex: PropTypes.array,
   onClose: PropTypes.func,
   refetchData: PropTypes.func,
   idCurrentTap: PropTypes.number,
 };
 
-export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentTap, typeCollection }) {
+export default function TapListDialog({ isOpen, onClose, oldId, oldIndex, refetchData, idCurrentTap, typeCollection }) {
   const { t, currentLang } = useLocales();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -94,9 +96,8 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
   const [collections, setCollection] = useState(false);
 
   const [currentTab, setCurrentTab] = useState(null);
-  const [arraySort, setArraySort] = useState([]);
 
-  const { data: collection, refetch } = useQuery(LIST_TAP, {
+  const { data: collection } = useQuery(LIST_TAP, {
     variables: {
       input: (() => {
         if (filterStatusDialog === true) {
@@ -109,7 +110,7 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
           };
         }
         return {
-          status_collection: filterStatusDialog,
+          status_collection: StatusCollection.Public,
           type_collection: typeCollection,
           page: 1,
           limit: 999,
@@ -150,14 +151,9 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
   });
 
   const {
-    reset,
-    watch,
-    setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
-  const values = watch();
 
   const dataFiltered = applySortFilter({
     tableData: currentTab?.collection ?? [],
@@ -165,19 +161,44 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
   });
 
   const onSubmit = async () => {
-    // try {
-    // await updateListTapFn({
-    //   variables: {
-    //     input: {
-    //       id: Number(idCurrentTap),
-    //       index: dataFiltered?.map((data) => Number(data?.index)).reverse(),
-    //     },
-    //   },
-    // });
-    // enqueueSnackbar(t('message.Successfully edited!'), { variant: 'success' });
-    // } catch (error) {
-    //   enqueueSnackbar(t('message.Failed post fix!'), { variant: 'error' });
-    // }
+    const currentId = dataFiltered?.map((data) => Number(data?.id));
+
+    const getNewIndexes = (mangMoi, mangCu, sortedIndexes) => {
+      const newIndexes = [];
+
+      // Duyệt qua các phần tử trong mảng mới
+      mangMoi.forEach((id) => {
+        // Tìm vị trí của phần tử này trong mảng cũ
+        const indexInOldArray = mangCu.indexOf(id);
+
+        // Lấy giá trị lớn nhất hiện tại trong mảng sortedIndexes
+        const largestIndex = sortedIndexes.shift();
+
+        // Gán giá trị này vào vị trí tương ứng trong mảng mới
+        newIndexes[indexInOldArray] = largestIndex;
+      });
+
+      return newIndexes;
+    };
+
+    // Gọi hàm và lấy mảng index mới
+    const newIndexes = getNewIndexes(currentId, oldId, oldIndex);
+
+    try {
+      await updateListTapFn({
+        variables: {
+          input: {
+            id: Number(idCurrentTap),
+            index: newIndexes,
+          },
+        },
+      });
+      await refetchData();
+      await onClose();
+      enqueueSnackbar(t('message.Successfully edited!'), { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar(t('message.Failed post fix!'), { variant: 'error' });
+    }
   };
 
   const handleDragEnd = (result) => {
@@ -203,14 +224,6 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
     });
   };
 
-  // useEffect(() => {
-  //
-  //     setArraySort(dataFiltered
-  //       ?.map(data => Number(data?.index)) // Chuyển đổi index thành số
-  //       .reverse());
-  //
-  // }, [dataFiltered]);
-
   const handleClose = () => {
     onClose();
   };
@@ -226,7 +239,7 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
       </Stack>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle variant="h5" sx={{ textAlign: 'center', py: 1 }}>
-          Quản lí danh sách
+          {t('tapForm.ListManager')}
         </DialogTitle>
         <DialogContent sx={{ minWidth: '400px', minHeight: '200px' }}>
           <Stack direction="row" justifyContent="space-between" sx={{ mb: { xs: 3, md: 5 } }}>
@@ -321,7 +334,7 @@ export default function TapListDialog({ isOpen, onClose, refetchData, idCurrentT
         </DialogContent>
         <DialogActions>
           <LoadingButton fullWidth type="submit" variant="contained" size="medium" loading={isSubmitting}>
-            Apply
+            {t('tapForm.apply')}
           </LoadingButton>
         </DialogActions>
       </FormProvider>

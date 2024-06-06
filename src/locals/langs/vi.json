@@ -1,6 +1,6 @@
 {
   "menu": {
-    "People": "Nhân sự",
+    "People": "Nhân lực",
     "Research": "Nghiên cứu",
     "Publication": "Công bố khoa học",
     "Facility": "Thiết bị",
@@ -15,11 +15,12 @@
     "Facility": "Thiết bị",
     "News": "Tin tức",
     "Drive": "Drive",
-    "People": "Nhân sự"
+    "People": "Nhân lực"
   },
   "navItem": {
     "list": "Danh Sách",
     "create": "Tạo mới",
+    "update": "Cập nhật",
     "otherCreate": "Tạo người dùng khác"
   },
   "create": {
@@ -45,7 +46,8 @@
     "Draft": "Nháp",
     "Edit information": "Sửa thông tin",
     "standOut": "Ghim",
-    "unStandOut": "Bỏ ghim"
+    "unStandOut": "Bỏ ghim",
+    "cancel": "Hủy"
   },
   "message": {
     "Successful deletion of news": "Xóa tin tức thành công",
@@ -89,10 +91,10 @@
     "LastName": "Tên",
     "EmailAddress": "Địa Chỉ email",
     "PassWord": "Mật Khẩu",
-    "PerSonNel": "Nhân Sự",
+    "PerSonNel": "Nhân lực",
     "CreateUser": "Tạo Người Dùng",
     "SaveChanges": "Lưu Thay Đổi",
-    "PROCCEFER": "Giáo Sư",
+    "PROCCEFER": "Trưởng nhóm",
     "Student": "Sinh Viên",
     "oldMember": "Cựu Thành Viên",
     "cooperator": "Hợp tác",
@@ -153,8 +155,8 @@
     "title": "Công bố khoa học"
   },
   "people": {
-    "page": "Nhân sự",
-    "tab1": "GIÁO SƯ",
+    "page": "NHÂN LỰC",
+    "tab1": "TRƯỞNG NHÓM",
     "tab2": "THÀNH VIÊN",
     "tab3": "CỰU THÀNH VIÊN",
     "tab4": "HỢP TÁC",
@@ -172,6 +174,7 @@
     "post1": "Tạo Hồ Sơ Tiếng Việt",
     "post2": "Tạo Hồ Sơ Tiếng Anh",
     "tiep": "Tiếp tục",
+    "anh": "Image",
     "trolai": "Trở lại",
     "post": "Đăng",
     "oldPassWordr": "Mật Khẩu Cũ Là Bắt Buộc",
@@ -212,5 +215,25 @@
     "EmailPassWordNotNull": "Email và mật khẩu không được để trống",
     "UserExit": "Người dùng tồn tại",
     "CollectionNotExit": "Không tìm thấy thông tin"
+  },
+  "footer":{
+    "d1": "Trường ĐH Bách Khoa - ĐHQG TP.HCM",
+    "d2": "286 Lý Thường Kiệt, Phường 14, Quận 10, Tp.Hồ Chí Minh",
+    "d3": "Tel: (+84) 91-155-2201(TS.Bùi Văn Tiến)",
+    "d4": "Email: naimn-d@hcmut.edu.vn"
+  },
+  "tapForm": {
+    "tapManager": "Quản lí đề mục",
+    "ListManager": "Quản lí danh sách",
+    "errorTap": "Không có đề mục",
+    "apply": "Áp dụng",
+    "requiredNameTap": "Bạn phải điền tên đề mục",
+    "requiredDescriptionTap": "Bạn phải điền ghi chú",
+    "deleteSuccess": "Xóa thành công",
+    "deleteFailed": "Xóa không thành công. Nguyên nhân",
+    "updateTap": "Cập nhật đề mục",
+    "close": "Đóng",
+    "cfDelete": "Xác nhận xoá",
+    "notiDelete": "Bạn có chắc chắn muốn xoá đề mục này không?"
   }
 }

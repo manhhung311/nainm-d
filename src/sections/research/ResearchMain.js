@@ -9,11 +9,12 @@ import { useLocation } from 'react-router-dom';
 import useLocales from '../../locals/useLocals';
 import useResponsive from '../../hooks/useResponsive';
 import useTabs from '../../hooks/useTabs';
-import { TypeCollection } from '../../constant';
+import { RoleId, TypeCollection } from '../../constant';
 import ResearchPostCard from './ResearchCard';
 import TapNewEditDialog from '../tap-form/TapNewEditDialog';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import TapListDialog from '../tap-form/TapListDialog';
+import useAuth from '../../hooks/useAuth';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -52,6 +53,8 @@ export default function ResearchMain() {
   const [research, setResearch] = useState([]);
 
   const { pathname } = useLocation();
+
+  const { user } = useAuth();
 
   const isDashboard = pathname.includes('dashboard');
 
@@ -177,7 +180,7 @@ export default function ResearchMain() {
         )}
       </Grid>
 
-      {isDashboard && (
+      {isDashboard && (user?.role === RoleId.admin || user?.role === RoleId.manager) && (
         <Stack direction="row" justifyContent="space-between" sx={{ mb: { xs: 3, md: 5 } }}>
           <Tabs
             allowScrollButtonsMobile
@@ -202,10 +205,10 @@ export default function ResearchMain() {
 
           <Box>
             <Button variant="contained" onClick={handleOpenListDialog} sx={{ mr: 1 }}>
-              Quản lí danh sách
+              {t('tapForm.ListManager')}
             </Button>
             <Button variant="contained" onClick={handleOpenEditDialog}>
-              Quản lí tap
+              {t('tapForm.tapManager')}
             </Button>
           </Box>
         </Stack>
@@ -214,7 +217,7 @@ export default function ResearchMain() {
       {research && research.length === 0 && (
         <Card sx={{ pt: 3, px: 5, minHeight: 100, mt: 3 }}>
           <Typography textAlign={'center'} variant="h6">
-            Không có tap
+            {t('tapForm.errorTap')}
           </Typography>
         </Card>
       )}
