@@ -194,6 +194,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 1 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('research.tab1')}</Typography>
             </Button>
@@ -209,6 +210,7 @@ export default function ResearchNewPostForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 2 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('research.tab2')}</Typography>
             </Button>

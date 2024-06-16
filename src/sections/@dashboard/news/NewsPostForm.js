@@ -180,6 +180,7 @@ export default function NewsNewPostForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 1 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('news.tab1')}</Typography>
             </Button>
@@ -195,6 +196,7 @@ export default function NewsNewPostForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 2 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('news.tab2')}</Typography>
             </Button>

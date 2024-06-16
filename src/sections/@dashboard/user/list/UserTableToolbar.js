@@ -10,12 +10,25 @@ UserTableToolbar.propTypes = {
   changeLanguageFunc: PropTypes.func,
   filterName: PropTypes.string,
   filterRole: PropTypes.string,
+  filterTypeUser: PropTypes.string,
   onFilterName: PropTypes.func,
   onFilterRole: PropTypes.func,
+  onFilterTypeUser: PropTypes.func,
   optionsRole: PropTypes.arrayOf(PropTypes.string),
+  optionsTypeUser: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default function UserTableToolbar({ filterName, filterRole, onFilterName, onFilterRole, optionsRole , changeLanguageFunc }) {
+export default function UserTableToolbar({
+  filterName,
+  filterRole,
+  filterTypeUser,
+  onFilterName,
+  onFilterRole,
+  onFilterTypeUser,
+  optionsRole,
+  optionsTypeUser,
+  changeLanguageFunc,
+}) {
   const { t } = useLocales();
   return (
     <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }} sx={{ py: 2.5, px: 3 }}>
@@ -36,6 +49,39 @@ export default function UserTableToolbar({ filterName, filterRole, onFilterName,
         }}
       >
         {optionsRole.map((option) => (
+          <MenuItem
+            key={option}
+            value={option}
+            sx={{
+              mx: 1,
+              my: 0.5,
+              borderRadius: 0.75,
+              typography: 'body2',
+              textTransform: 'capitalize',
+            }}
+          >
+            {changeLanguageFunc(`user.${option}`)}
+          </MenuItem>
+        ))}
+      </TextField>
+
+      <TextField
+        fullWidth
+        select
+        label="TypeUser"
+        value={filterTypeUser}
+        onChange={onFilterTypeUser}
+        SelectProps={{
+          MenuProps: {
+            sx: { '& .MuiPaper-root': { maxHeight: 260 } },
+          },
+        }}
+        sx={{
+          maxWidth: { sm: 240 },
+          textTransform: 'capitalize',
+        }}
+      >
+        {optionsTypeUser.map((option) => (
           <MenuItem
             key={option}
             value={option}

@@ -18,6 +18,7 @@ import RHFTextField from '../../components/hook-form/RHFTextField';
 import useLocales from '../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../routes/paths';
 import { passWord, RoleId } from '../../constant';
+import RHFNumberField from '../../components/hook-form/RHFNumberField';
 
 const CREATE_USER = loader('../../graphql/mutations/users/createdUsers.graphql');
 const UPDATE_USER = loader('../../graphql/mutations/users/updUserForAdmin.graphql');
@@ -31,9 +32,14 @@ OtherUser.propTypes = {
 export default function OtherUser({ isEdit, currentUser }) {
   const [createNewuser] = useMutation(CREATE_USER);
   const [updateUser] = useMutation(UPDATE_USER);
+  const { t } = useLocales();
+
   const [uploadFile, setUploadFile] = useState(null);
 
-  const { t } = useLocales();
+  const TypeUser = [
+    { value: 2, label: t('user.oldMember') },
+    { value: 3, label: t('user.cooperator') },
+  ];
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -62,17 +68,13 @@ export default function OtherUser({ isEdit, currentUser }) {
       phoneNumber: currentUser?.phoneNumber || '',
       role: RoleId.user,
       avatarUrl: currentUser?.avartaURL || null,
-      typeUser: currentUser?.type_user || 0,
+      typeUser: currentUser?.type_user || 2,
       userName: currentUser?.userName || '',
       status: currentUser?.status,
     }),
     [currentUser]
   );
 
-  const TypeUser = [
-    { value: 2, label: t('user.oldMember') },
-    { value: 3, label: t('user.cooperator') },
-  ];
   const methods = useForm({
     resolver: !isEdit ? yupResolver(NewUserSchema) : yupResolver(UpdateUserSchema),
     defaultValues,
@@ -233,7 +235,12 @@ export default function OtherUser({ isEdit, currentUser }) {
                       </option>
                     ))}
                   </RHFSelect>
-                  <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
+                  <RHFNumberField
+                    setValue={setValue}
+                    name="phoneNumber"
+                    label={t('user.PhoneNumber')}
+                    InputLabelProps={{ shrink: true }}
+                  />
                 </Box>
               ) : (
                 <Box
@@ -247,7 +254,12 @@ export default function OtherUser({ isEdit, currentUser }) {
                   <RHFTextField name="firstName" label={t('user.FirstName')} />
                   <RHFTextField name="lastName" label={t('user.LastName')} />
                   <RHFTextField name="email" label={t('user.EmailAddress')} />
-                  <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
+                  <RHFNumberField
+                    setValue={setValue}
+                    name="phoneNumber"
+                    label={t('user.PhoneNumber')}
+                    InputLabelProps={{ shrink: true }}
+                  />
                 </Box>
               )}
               <Stack alignItems="flex-end" sx={{ mt: 3 }}>

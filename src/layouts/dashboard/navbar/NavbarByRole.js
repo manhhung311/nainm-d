@@ -85,10 +85,7 @@ export const adminNavConfig = [
         title: 'People',
         path: PATH_DASHBOARD.profile.root,
         icon: ICONS.menu,
-        children: [
-          { title: 'list', path: PATH_DASHBOARD.profile.list },
-          { title: 'create', path: PATH_DASHBOARD.profile.new },
-        ],
+        children: [{ title: 'list', path: PATH_DASHBOARD.profile.list }],
       },
     ],
   },
@@ -157,10 +154,7 @@ export const managerNavConfig = [
         title: 'People',
         path: PATH_DASHBOARD.profile.root,
         icon: ICONS.menu,
-        children: [
-          { title: 'list', path: PATH_DASHBOARD.profile.list },
-          { title: 'create', path: PATH_DASHBOARD.profile.new },
-        ],
+        children: [{ title: 'list', path: PATH_DASHBOARD.profile.list }],
       },
     ],
   },

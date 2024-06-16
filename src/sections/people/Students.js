@@ -91,14 +91,32 @@ export default function Students({ typeUser }) {
                   <Typography variant="h6">{item?.fullName}</Typography>
                 </Link>
                 <Box sx={{ m: 3, ml: 0 }}>
-                  <Typography>
-                    ★ {t('people.email')}: {item?.email}
-                  </Typography>
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${item?.email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Typography>
+                      ★ {t('people.email')}: {item?.email}
+                    </Typography>
+                  </a>
                 </Box>
                 <Box>
-                  <Typography>
-                    ★ {t('people.phone')}: {item?.phoneNumber}
-                  </Typography>
+                  <a
+                    href={`tel:${item?.phoneNumber}`}
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Typography>
+                      ★ {t('people.phone')}: {item?.phoneNumber}
+                    </Typography>
+                  </a>
                 </Box>
               </Grid>
             </Grid>

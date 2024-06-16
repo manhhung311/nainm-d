@@ -101,51 +101,57 @@ export default function UserTableRow({ row, selected, onEditRow, onActiveStatus,
             onClose={handleCloseMenu}
             actions={
               <>
-                {(typeUser === TypeUser.professor || typeUser === TypeUser.member) && (
-                  <>
-                    {status === true ? (
-                      <MenuItem
-                        onClick={() => {
-                          onLockStatus();
-                          handleCloseMenu();
-                        }}
-                        sx={{ color: 'error.main' }}
-                      >
-                        <Iconify icon={'mdi:user-lock-outline'} />
-                        {t('user.LockAccount')}
-                      </MenuItem>
-                    ) : (
-                      <MenuItem
-                        onClick={() => {
-                          onActiveStatus();
-                          handleCloseMenu();
-                        }}
-                        sx={{ color: 'success.main' }}
-                      >
-                        <Iconify icon={'mdi:user-lock-open-outline'} />
-                        {t('user.ActiveAccount')}
-                      </MenuItem>
-                    )}
-                  </>
+                {Number(user?.id) !== Number(row?.id) &&
+                  (typeUser === TypeUser.professor || typeUser === TypeUser.member) && (
+                    <>
+                      {status === true ? (
+                        <MenuItem
+                          onClick={() => {
+                            onLockStatus();
+                            handleCloseMenu();
+                          }}
+                          sx={{ color: 'error.main' }}
+                        >
+                          <Iconify icon={'mdi:user-lock-outline'} />
+                          {t('user.LockAccount')}
+                        </MenuItem>
+                      ) : (
+                        <MenuItem
+                          onClick={() => {
+                            onActiveStatus();
+                            handleCloseMenu();
+                          }}
+                          sx={{ color: 'success.main' }}
+                        >
+                          <Iconify icon={'mdi:user-lock-open-outline'} />
+                          {t('user.ActiveAccount')}
+                        </MenuItem>
+                      )}
+                    </>
+                  )}
+
+                {Number(user?.id) !== Number(row?.id) && (
+                  <MenuItem
+                    onClick={() => {
+                      onEditRow();
+                      handleCloseMenu();
+                    }}
+                  >
+                    <Iconify icon={'eva:edit-fill'} />
+                    {t('user.Edit')}
+                  </MenuItem>
                 )}
 
-                <MenuItem
-                  onClick={() => {
-                    onEditRow();
-                    handleCloseMenu();
-                  }}
-                >
-                  <Iconify icon={'eva:edit-fill'} />
-                  {t('user.Edit')}
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    openDialog();
-                  }}
-                >
-                  <LockResetIcon />
-                  {t('user.ResetPassword')}
-                </MenuItem>
+                {(typeUser === TypeUser.professor || typeUser === TypeUser.member) && (
+                  <MenuItem
+                    onClick={() => {
+                      openDialog();
+                    }}
+                  >
+                    <LockResetIcon />
+                    {t('user.ResetPassword')}
+                  </MenuItem>
+                )}
               </>
             }
           />

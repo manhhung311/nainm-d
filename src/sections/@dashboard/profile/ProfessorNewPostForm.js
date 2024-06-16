@@ -150,6 +150,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 1 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('facility.tab1')}</Typography>
             </Button>
@@ -165,6 +166,7 @@ export default function ProfessorNewPostForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 2 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('facility.tab2')}</Typography>
             </Button>

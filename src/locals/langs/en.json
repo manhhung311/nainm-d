@@ -236,5 +236,9 @@
     "close": "Close",
     "cfDelete": "Confirm deletion",
     "notiDelete": "Are you sure you want to delete this topic?"
+  },
+  "url": {
+    "error1": "Path is required",
+    "error2": "This must be a valid path"
   }
 }

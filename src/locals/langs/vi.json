@@ -86,7 +86,7 @@
     "online": "Đang hoạt động",
     "LockAccount": "Khóa",
     "ActiveAccount": "Mở",
-    "ResetPassword": "Cài Lại Mật Khẩu",
+    "ResetPassword": "Cài Lại MK",
     "FirstName": "Họ",
     "LastName": "Tên",
     "EmailAddress": "Địa Chỉ email",
@@ -95,7 +95,7 @@
     "CreateUser": "Tạo Người Dùng",
     "SaveChanges": "Lưu Thay Đổi",
     "PROCCEFER": "Trưởng nhóm",
-    "Student": "Sinh Viên",
+    "Student": "Thành viên",
     "oldMember": "Cựu Thành Viên",
     "cooperator": "Hợp tác",
     "Active": "Hoạt Động",
@@ -120,7 +120,7 @@
   "management": "quản lý",
   "research": {
     "title": "Nghiên cứu",
-    "tab1": "Việt Nam",
+    "tab1": "Tiếng Việt",
     "tab2": "Tiếng Anh",
     "post1": "Tạo mới Tiếng Việt",
     "post2": "Tạo mới Tiếng Anh",
@@ -128,7 +128,7 @@
   },
   "facility": {
     "title": "Thiết bị",
-    "tab1": "Việt Nam",
+    "tab1": "Tiếng Việt",
     "tab2": "Tiếng Anh",
     "post1": "Tạo mới Tiếng Việt",
     "post2": "Tạo mới Tiếng Anh",
@@ -137,7 +137,7 @@
 
   "driver": {
     "title": "Drive",
-    "tab1": "Việt Nam",
+    "tab1": "Tiếng Việt",
     "tab2": "Tiếng Anh",
     "post1": "Tạo mới Tiếng Việt",
     "post2": "Tạo mới Tiếng Anh",
@@ -235,5 +235,9 @@
     "close": "Đóng",
     "cfDelete": "Xác nhận xoá",
     "notiDelete": "Bạn có chắc chắn muốn xoá đề mục này không?"
+  },
+  "url": {
+    "error1": "Đường dẫn là bắt buộc",
+    "error2": "Đây phải là một đường dẫn hợp lệ"
   }
 }

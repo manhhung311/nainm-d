@@ -36,13 +36,14 @@ import { TableEmptyRows, TableHeadCustom, TableNoData, TableSelectedActions } fr
 import UserTableToolbar from '../../../sections/@dashboard/user/list/UserTableToolbar';
 import UserTableRow from '../../../sections/@dashboard/user/list/UserTableRow';
 import { useLocales } from '../../../locals';
-import { roleChangeNumber, RoleId, TypeUser } from '../../../constant';
+import { roleChangeNumber, RoleId, TypeUser, typeUserChangeNumber } from '../../../constant';
 // ----------------------------------------------------------------------
 
 const ListUsers = loader('../../../graphql/queries/user/ListUsers.graphql');
 const EDIT_STATUS_USER = loader('../../../graphql/mutations/users/updUserForAdmin.graphql');
 
 const ROLE_OPTIONS = ['All', 'Admin', 'Manager', 'User'];
+const TYPE_USER_OPTIONS = ['All', 'PROCCEFER', 'Student', 'oldMember', 'cooperator'];
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', align: 'left' },
@@ -91,6 +92,8 @@ export default function UserList() {
 
   const [filterRole, setFilterRole] = useState('All');
 
+  const [filterTypeUser, setFilterTypeUSer] = useState('All');
+
   const { data: allUsers, refetch } = useQuery(ListUsers);
 
   useEffect(() => {
@@ -132,6 +135,10 @@ export default function UserList() {
     setFilterRole(event.target.value);
   };
 
+  const handleFilterTypeUser = (event) => {
+    setFilterTypeUSer(event.target.value);
+  };
+
   const handleDeleteRow = (id) => {
     const deleteRow = tableData.filter((row) => row.id !== id);
     setSelected([]);
@@ -157,6 +164,7 @@ export default function UserList() {
     comparator: getComparator(order, orderBy),
     filterName,
     filterRole,
+    filterTypeUser,
   });
 
   const denseHeight = dense ? 52 : 72;
@@ -193,10 +201,13 @@ export default function UserList() {
           <UserTableToolbar
             filterName={filterName}
             filterRole={filterRole}
+            filterTypeUser={filterTypeUser}
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
+            onFilterTypeUser={handleFilterTypeUser}
             changeLanguageFunc={t}
             optionsRole={ROLE_OPTIONS}
+            optionsTypeUser={TYPE_USER_OPTIONS}
           />
 
           <Scrollbar>
@@ -284,16 +295,16 @@ export default function UserList() {
   );
 }
 
-function applySortFilter({ tableData, comparator, filterName, filterRole }) {
+function applySortFilter({ tableData, comparator, filterName, filterRole, filterTypeUser }) {
   const stabilizedThis = tableData.map((el, index) => [el, index]);
 
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-
-  tableData = stabilizedThis.map((el) => el[0]);
+  // stabilizedThis.sort((a, b) => {
+  //   const order = comparator(a[0], b[0]);
+  //   if (order !== 0) return order;
+  //   return a[1] - b[1];
+  // });
+  //
+  // tableData = stabilizedThis.map((el) => el[0]);
 
   if (filterName) {
     tableData = tableData.filter((item) => item.fullName.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
@@ -301,6 +312,10 @@ function applySortFilter({ tableData, comparator, filterName, filterRole }) {
 
   if (filterRole !== 'All') {
     tableData = tableData.filter((item) => roleChangeNumber(item.role) === filterRole);
+  }
+
+  if (filterTypeUser !== 'All') {
+    tableData = tableData.filter((item) => typeUserChangeNumber(item.type_user) === filterTypeUser);
   }
 
   return tableData;

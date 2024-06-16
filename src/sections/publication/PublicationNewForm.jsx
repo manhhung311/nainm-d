@@ -86,13 +86,17 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
   const values = watch();
 
   // useEffect(() => {
-  //   if (values.tapENG) {
-  //     setValue('tapVN.name', values.tapENG.nameElg);
+  //   if (values?.tapVN?.id !== undefined && values.tapVN.id !== values.tapENG.id) {
+  //     setValue('tapENG.id', values.tapVN.id, { shouldValidate: false, shouldDirty: false });
   //   }
-  //   if (values.tapVN) {
-  //     setValue('tapENG.nameElg', values.tapVN.name);
+  // }, [values?.tapVN?.id, values?.tapENG?.id, setValue]);
+  //
+  // // Sử dụng useEffect để cập nhật id của tapVN khi id của tapENG thay đổi
+  // useEffect(() => {
+  //   if (values?.tapENG?.id !== undefined && values.tapENG.id !== values.tapVN.id) {
+  //     setValue('tapVN.id', values.tapENG.id, { shouldValidate: false, shouldDirty: false });
   //   }
-  // }, [setValue, values.tapENG, values.tapVN]);
+  // }, [values?.tapENG?.id, values?.tapVN?.id, setValue]);
 
   useEffect(() => {
     if (isEdit && dataPostUpdate) {
@@ -212,6 +216,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 1 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('news.tab1')}</Typography>
             </Button>
@@ -227,6 +232,7 @@ export default function PublicationNewForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 2 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">{t('news.tab2')}</Typography>
             </Button>

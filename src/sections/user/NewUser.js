@@ -17,6 +17,8 @@ import RHFSelect from '../../components/hook-form/RHFSelect';
 import RHFTextField from '../../components/hook-form/RHFTextField';
 import useLocales from '../../locals/useLocals';
 import { PATH_DASHBOARD } from '../../routes/paths';
+import { TypeUser } from '../../constant';
+import RHFNumberField from '../../components/hook-form/RHFNumberField';
 
 const CREATE_USER = loader('../../graphql/mutations/users/createdUsers.graphql');
 const UPDATE_USER = loader('../../graphql/mutations/users/updUserForAdmin.graphql');
@@ -58,7 +60,7 @@ export default function NewUser({ isEdit, currentUser }) {
       email: currentUser?.email || '',
       password: currentUser?.password || '',
       lastName: currentUser?.lastName || '',
-      phoneNumber: currentUser?.phoneNumber || '',
+      phoneNumber: currentUser?.phoneNumber || null,
       role: currentUser?.role || 0,
       avatarUrl: currentUser?.avartaURL || null,
       typeUser: currentUser?.type_user || 0,
@@ -74,10 +76,6 @@ export default function NewUser({ isEdit, currentUser }) {
     { value: 2, label: t('user.User') },
   ];
 
-  const TypeUser = [
-    { value: 0, label: t('user.PROCCEFER') },
-    { value: 1, label: t('user.Student') },
-  ];
   const methods = useForm({
     resolver: !isEdit ? yupResolver(NewUserSchema) : yupResolver(UpdateUserSchema),
     defaultValues,
@@ -113,7 +111,7 @@ export default function NewUser({ isEdit, currentUser }) {
               email: values?.email,
               password: values?.password,
               role: Number(values?.role),
-              type_user: Number(values?.typeUser),
+              type_user: TypeUser.member,
               avartaURL: uploadFile,
               phoneNumber: values?.phoneNumber,
             },
@@ -239,22 +237,12 @@ export default function NewUser({ isEdit, currentUser }) {
                       </option>
                     ))}
                   </RHFSelect>
-                  <RHFSelect
-                    // value={defaultValues.typeUser}
-                    label={t('user.PerSonNel')}
-                    name="typeUser"
-                    onChange={(event) => {
-                      setValue('typeUser', event.target.value);
-                    }}
+                  <RHFNumberField
+                    setValue={setValue}
+                    name="phoneNumber"
+                    label={t('user.PhoneNumber')}
                     InputLabelProps={{ shrink: true }}
-                  >
-                    {TypeUser.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </RHFSelect>
-                  <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
+                  />
                 </Box>
               ) : (
                 <Box
@@ -268,7 +256,12 @@ export default function NewUser({ isEdit, currentUser }) {
                   <RHFTextField name="firstName" label={t('user.FirstName')} />
                   <RHFTextField name="lastName" label={t('user.LastName')} />
                   <RHFTextField name="email" label={t('user.EmailAddress')} />
-                  <RHFTextField name="phoneNumber" label={t('user.PhoneNumber')} />
+                  <RHFNumberField
+                    name="phoneNumber"
+                    label={t('user.PhoneNumber')}
+                    setValue={setValue}
+                    InputLabelProps={{ shrink: true }}
+                  />
 
                   <RHFSelect
                     // value={defaultValues.role}

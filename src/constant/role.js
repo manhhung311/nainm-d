@@ -28,6 +28,13 @@ export const TypeUser = {
   cooperator: 3,
 };
 
+export const TypeUserName = {
+  professor: 'PROCCEFER',
+  member: 'Student',
+  oldMember: 'oldMember',
+  cooperator: 'cooperator',
+};
+
 export const RoleNumberList = {
   director: 999,
   admin: 99,
@@ -57,6 +64,21 @@ export const roleChangeNumber = (roleType) => {
       return Role.manager;
     case RoleId.user:
       return Role.user;
+    default:
+      return '';
+  }
+};
+
+export const typeUserChangeNumber = (id) => {
+  switch (id) {
+    case TypeUser.professor:
+      return TypeUserName.professor;
+    case TypeUser.member:
+      return TypeUserName.member;
+    case TypeUser.oldMember:
+      return TypeUserName.oldMember;
+    case TypeUser.cooperator:
+      return TypeUserName.cooperator;
     default:
       return '';
   }

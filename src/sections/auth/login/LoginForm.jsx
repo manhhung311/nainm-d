@@ -44,7 +44,6 @@ export default function LoginForm() {
   });
 
   const {
-    reset,
     setError,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -55,7 +54,6 @@ export default function LoginForm() {
       await login(data.email, data.password);
     } catch (error) {
       console.error(error);
-      reset();
       if (isMountedRef.current) {
         setError('afterSubmit', { ...error, message: error.message });
       }

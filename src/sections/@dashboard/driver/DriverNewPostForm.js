@@ -36,23 +36,12 @@ export default function DriverNewPostForm({ isEdit, dataPostUpdate }) {
 
   const { t } = useLocales();
 
-  const NewQuotationSchema = Yup.object()
-    .shape({
-      title: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
-      titleEnglish: Yup.string().max(200, t('message.Titles have a maximum number of 200 characters!')),
-    })
-    .test('titleEnglish', null, (obj) => {
-      if (obj.title.length !== 0 || obj.titleEnglish.length !== 0) {
-        return true;
-      }
-
-      return new Yup.ValidationError(
-        t('message.You must fill in at least 1 of 2 Vietnamese or English sections!'),
-        null,
-        'titleEnglish'
-      );
-    });
-
+  const NewQuotationSchema = Yup.object().shape({
+    title: Yup.string()
+      .max(200, t('message.Titles have a maximum number of 200 characters!'))
+      .required(t('url.error1')),
+    description: Yup.string().url(t('url.error2')).required(t('url.error1')),
+  });
   const defaultValues = {
     id: dataPostUpdate?.id || null,
     title: dataPostUpdate?.title || '',
@@ -130,11 +119,9 @@ export default function DriverNewPostForm({ isEdit, dataPostUpdate }) {
               // check chuẩn kiểu dữ liệu của input
               id: Number(values?.id),
               title: values?.title,
-              collection_Vietnamese: values?.content,
               description: values?.description,
-              title_english: values?.titleEnglish,
-              collection_English: values?.contentEnglish,
-              description_english: values?.descriptionEnglish,
+              title_english: values?.title,
+              description_english: values?.description,
             },
           },
         });
@@ -175,6 +162,7 @@ export default function DriverNewPostForm({ isEdit, dataPostUpdate }) {
                   : { backgroundColor: '#fff', color: '#000' }
               }
               className={currentTab === 2 ? 'active' : ''}
+              disabled
             >
               <Typography variant="h5">Drive</Typography>
             </Button>

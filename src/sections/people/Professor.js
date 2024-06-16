@@ -67,7 +67,7 @@ export default function Professor({ idProfessor }) {
       {isDashboard ? (
         <Grid container>
           <Grid item xs={12} sx={{ justifyContent: 'right', alignItems: 'right', display: 'flex' }}>
-            {user?.role === RoleId.admin && (
+            {user?.role === RoleId.admin && !isStudent && (
               <Tooltip title={t('people.edit')} placement="top">
                 <IconButton color="success" component={RouterLink} to={PATH_DASHBOARD.profile.edit(idProfessor)}>
                   <EditSharpIcon sx={{ width: 20, height: 20 }} />
@@ -93,9 +93,15 @@ export default function Professor({ idProfessor }) {
                   <Typography variant="h2">{userDetail?.fullName}</Typography>
                 </Box>
                 <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
-                  <Typography>
-                    ★ {t('people.email')}: {userDetail?.email}
-                  </Typography>
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${userDetail?.email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Typography>
+                      ★ {t('people.email')}: {userDetail?.email}
+                    </Typography>
+                  </a>
                 </Box>
                 <Box sx={{ pl: { xs: 1, md: 6 } }}>
                   <Typography>
@@ -167,14 +173,32 @@ export default function Professor({ idProfessor }) {
                   <h2>{userDetail?.fullName}</h2>
                 </Box>
                 <Box sx={{ p: 3, pl: { xs: 1, md: 6 } }}>
-                  <Typography>
-                    ★ {t('people.email')}: {userDetail?.email}
-                  </Typography>
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${userDetail?.email}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Typography>
+                      ★ {t('people.email')}: {userDetail?.email}
+                    </Typography>
+                  </a>
                 </Box>
                 <Box sx={{ pl: { xs: 1, md: 6 } }}>
-                  <Typography>
-                    ★ {t('people.phone')}: {userDetail?.phoneNumber}
-                  </Typography>
+                  <a
+                    href={`tel:${userDetail?.phoneNumber}`}
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <Typography>
+                      ★ {t('people.phone')}: {userDetail?.phoneNumber}
+                    </Typography>
+                  </a>
                 </Box>
                 {!isStudent && (
                   <Stack direction="row">

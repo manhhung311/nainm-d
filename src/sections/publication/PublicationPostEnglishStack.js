@@ -27,7 +27,11 @@ PublicationPostEnglishStack.propTypes = {
 export default function PublicationPostEnglishStack({ onBack, onDrop, isEdit }) {
   const {
     formState: { isSubmitting },
+    watch,
   } = useFormContext();
+
+  const values = watch();
+
   const { t } = useLocales();
 
   return (
@@ -59,7 +63,14 @@ export default function PublicationPostEnglishStack({ onBack, onDrop, isEdit }) 
           <Button fullWidth variant="contained" size="medium" onClick={() => onBack(1)}>
             {t('news.trolai')}
           </Button>
-          <LoadingButton fullWidth type="submit" variant="contained" size="medium" loading={isSubmitting}>
+          <LoadingButton
+            fullWidth
+            type="submit"
+            variant="contained"
+            size="medium"
+            loading={isSubmitting}
+            disabled={values?.tapVN?.id === 0 && values?.tapENG?.id === 0}
+          >
             {t('news.post')}
           </LoadingButton>
         </Stack>
