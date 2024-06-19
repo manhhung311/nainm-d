@@ -1,0 +1,3 @@
+mutation deleteCollection($input: deleteCollection!) {
+    deleteCollection(input: $input)
+}

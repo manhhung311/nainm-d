@@ -1,0 +1,243 @@
+{
+  "menu": {
+    "People": "Nhân lực",
+    "Research": "Nghiên cứu",
+    "Publication": "Công bố khoa học",
+    "Facility": "Thiết bị",
+    "News": "Tin tức",
+    "Login": "Đăng nhập"
+  },
+  "navTitle": {
+    "management": "Quản lý",
+    "User": "Người dùng",
+    "Publication": "Công bố khoa học",
+    "Research": "Nghiên cứu",
+    "Facility": "Thiết bị",
+    "News": "Tin tức",
+    "Drive": "Drive",
+    "People": "Nhân lực"
+  },
+  "navItem": {
+    "list": "Danh Sách",
+    "create": "Tạo mới",
+    "update": "Cập nhật",
+    "otherCreate": "Tạo người dùng khác"
+  },
+  "create": {
+    "researchCreate": "Tạo mới nghiên cứu",
+    "researchList": "Danh sách nghiên cứu",
+    "facilityCreate": "Tạo mới thiết bị",
+    "facilityList": "Danh sách thiết bị",
+    "createNewPost": "Tạo mới bài viết",
+    "updateNewPost": "Chỉnh sửa bài viết",
+    "postTitle": "Tiêu đề bài đăng",
+    "description": "Mô tả",
+    "content": "Content"
+  },
+
+  "card": {
+    "publish": "Công bố",
+    "waitForApproval": "Chờ duyệt",
+    "hidden": "Ẩn",
+    "createNew": "Tạo mới",
+    "noPostsYet": "Chưa có bài viết nào",
+    "Examine": "Duyệt",
+    "Erase": "Xóa",
+    "Draft": "Nháp",
+    "Edit information": "Sửa thông tin",
+    "standOut": "Ghim",
+    "unStandOut": "Bỏ ghim",
+    "cancel": "Hủy"
+  },
+  "message": {
+    "Successful deletion of news": "Xóa tin tức thành công",
+    "Deleting news failed. Cause": "Xóa tin tức không thành công. Nguyên nhân",
+    "Successful status update!": "Cập nhật trạng thái thành công!",
+    "Status update failed!. Cause:": "Cập nhật trạng thái không thành công!. Nguyên nhân:",
+    "Titles have a maximum number of 200 characters!": "Tiêu đề có số kí tự tối đa là 200 kí tự!",
+    "You must fill in at least 1 of 2 Vietnamese or English sections!": "Bạn phải điền nội dung của ít nhất 1 trong 2 phần Việt hoặc Anh!",
+    "Successfully edited!": "Sửa bài thành công!",
+    "Successful post!": "Đăng bài thành công!",
+    "Failed post fix!": "Sửa bài không thành công!",
+    "Post failed!": "Đăng bài không thành công!"
+  },
+  "user": {
+    "pageList": "Danh Sách Người Dùng",
+    "pageCreate": "Tạo Mới Người Dùng",
+    "pageUpdate": "Cập Nhật Người Dùng",
+    "pageNew": "Người Dùng Mới",
+    "Management": "Quản Lý",
+    "User": "Người Dùng",
+    "List": "Danh Sách",
+    "Name": "Họ Tên ",
+    "Role": "Vai Trò",
+    "Email": "Email",
+    "PhoneNumber": "Số Điện Thoại",
+    "Status": "Trạng Thái",
+    "StatusActive": "Đang hoạt động",
+    "StatusLock": "Đang khóa",
+    "Search": "Tìm Kiếm Người Dùng",
+    "Dense": "Thu Nhỏ",
+    "Delete": "Xóa",
+    "Edit": "Chỉnh Sửa",
+    "Admin": "Quản Trị Viên",
+    "Manager": "Quản Lý Bài Viết",
+    "All": "Tất Cả",
+    "online": "Đang hoạt động",
+    "LockAccount": "Khóa",
+    "ActiveAccount": "Mở",
+    "ResetPassword": "Cài Lại MK",
+    "FirstName": "Họ",
+    "LastName": "Tên",
+    "EmailAddress": "Địa Chỉ email",
+    "PassWord": "Mật Khẩu",
+    "PerSonNel": "Nhân lực",
+    "CreateUser": "Tạo Người Dùng",
+    "SaveChanges": "Lưu Thay Đổi",
+    "PROCCEFER": "Trưởng nhóm",
+    "Student": "Thành viên",
+    "oldMember": "Cựu Thành Viên",
+    "cooperator": "Hợp tác",
+    "Active": "Hoạt Động",
+    "Banned": "Đã Khóa",
+    "FirstNames": "Họ là bắt buộc",
+    "LastNames": "Tên là bắt buộc",
+    "Emails": "email là bắt buộc",
+    "Passwords": "Mật khẩu là bắt buộc",
+    "RoleNumber": "Vai trò là bắt buộc",
+    "Created": "Tạo mới thành công",
+    "CreateFailed": "Tạo mới không thành công ",
+    "Updates": "Cập nhật thành công ",
+    "UpdatesFailed": "Sửa thông tin cá nhân không thành công. Nguyên nhân: ",
+    "MoreView": "Xem Thêm",
+    "SelectUser": "Chọn Người Dùng",
+    "contentProfile": "Nội dung mô tả không được để trống",
+    "": ""
+  },
+  "list": "danh sách",
+  "edit": "chỉnh sửa",
+  "details": "chi tiết",
+  "management": "quản lý",
+  "research": {
+    "title": "Nghiên cứu",
+    "tab1": "Tiếng Việt",
+    "tab2": "Tiếng Anh",
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh",
+    "page1": "Chi tiết nghiên cứu"
+  },
+  "facility": {
+    "title": "Thiết bị",
+    "tab1": "Tiếng Việt",
+    "tab2": "Tiếng Anh",
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh",
+    "page1": "Chi tiết thiết bị"
+  },
+
+  "driver": {
+    "title": "Drive",
+    "tab1": "Tiếng Việt",
+    "tab2": "Tiếng Anh",
+    "post1": "Tạo mới Tiếng Việt",
+    "post2": "Tạo mới Tiếng Anh",
+    "page1": "Chi tiết drive"
+  },
+  "home": {
+    "title": "Trang chủ",
+    "arrIteam": {
+      "Artificial": "Cơ bắp nhân tạo và Robot mềm"
+    }
+  },
+  "publication": {
+    "publication": "Công bố khoa học",
+    "page1": "Chi Tiết Công Bố Khoa Học",
+    "title": "Công bố khoa học"
+  },
+  "people": {
+    "page": "NHÂN LỰC",
+    "tab1": "TRƯỞNG NHÓM",
+    "tab2": "THÀNH VIÊN",
+    "tab3": "CỰU THÀNH VIÊN",
+    "tab4": "HỢP TÁC",
+    "phone": "Liên Hệ",
+    "email": "E-mail",
+    "edit": "Chỉnh Sửa"
+  },
+  "demo": {
+    "title": "Việt Nam"
+  },
+  "profile": {
+    "page": "Tạo Mới Hồ Sơ",
+    "tab1": "TIẾNG VIỆT",
+    "tab2": "TIẾNG ANH",
+    "post1": "Tạo Hồ Sơ Tiếng Việt",
+    "post2": "Tạo Hồ Sơ Tiếng Anh",
+    "tiep": "Tiếp tục",
+    "anh": "Image",
+    "trolai": "Trở lại",
+    "post": "Đăng",
+    "oldPassWordr": "Mật Khẩu Cũ Là Bắt Buộc",
+    "newPassWordr": "Mật Khẩu Mới Là Bắt Buộc",
+    "oldPassWord": " Mật Khẩu Cũ ",
+    "newPassWord": "Mật Khẩu Mới ",
+    "info": "Thông tin cá nhân",
+    "ChangePassword": "Thay đổi mật khẩu ",
+    "Profile": "Hồ Sơ",
+    "Home": "Trang Chủ",
+    "Logout": "Đăng xuất",
+    "ContentF": "Bạn có chắc chắn muốn reset mật khẩu cho người dùng này không?",
+    "Cancel": "Hủy",
+    "Agree": "Đồng ý",
+    "MK": " Mật khẩu đã được reset thành công về: 'TeamLabServer'",
+    "ER": "Đã xảy ra lỗi khi cố gắng reset mật khẩu: Nguyên nhân:"
+  },
+  "news": {
+    "title": "Tin Tức",
+    "page": "Tạo Mới Tin Tức",
+    "page1": "Chi Tiết Tin Tức",
+    "tab1": "TIẾNG VIỆT",
+    "tab2": "TIẾNG ANH",
+    "post1": "Tạo Tin Tức Tiếng Việt",
+    "post2": "Tạo Tin Tức Tiếng Anh",
+    "tiep": "Tiếp tục",
+    "trolai": "Trở lại",
+    "post": "Đăng"
+  },
+  "error": {
+    "noData": "Không có dữ liệu",
+    "UserNotExit": "Người dùng không tồn tại",
+    "UserNotFound": "Không tìm thấy người dùng",
+    "PassWordErr": "Sai mật khẩu",
+    "UserNotPermission1": "Bạn không có quyền truy cập vào tài khoản",
+    "UserNotPermission2": "Bạn không có quyền xem người dùng này",
+    "UserNotPermission": "Bạn không có quyền thực hiện chức năng này",
+    "EmailPassWordNotNull": "Email và mật khẩu không được để trống",
+    "UserExit": "Người dùng tồn tại",
+    "CollectionNotExit": "Không tìm thấy thông tin"
+  },
+  "footer":{
+    "d1": "Trường ĐH Bách Khoa - ĐHQG TP.HCM",
+    "d2": "286 Lý Thường Kiệt, Phường 14, Quận 10, Tp.Hồ Chí Minh",
+    "d3": "Tel: (+84) 91-155-2201(TS.Bùi Văn Tiến)",
+    "d4": "Email: naimn-d@hcmut.edu.vn"
+  },
+  "tapForm": {
+    "tapManager": "Quản lí đề mục",
+    "ListManager": "Quản lí danh sách",
+    "errorTap": "Không có đề mục",
+    "apply": "Áp dụng",
+    "requiredNameTap": "Bạn phải điền tên đề mục",
+    "requiredDescriptionTap": "Bạn phải điền ghi chú",
+    "deleteSuccess": "Xóa thành công",
+    "deleteFailed": "Xóa không thành công. Nguyên nhân",
+    "updateTap": "Cập nhật đề mục",
+    "close": "Đóng",
+    "cfDelete": "Xác nhận xoá",
+    "notiDelete": "Bạn có chắc chắn muốn xoá đề mục này không?"
+  },
+  "url": {
+    "error1": "Đường dẫn là bắt buộc",
+    "error2": "Đây phải là một đường dẫn hợp lệ"
+  }
+}

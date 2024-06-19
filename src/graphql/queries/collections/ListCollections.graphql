@@ -1,0 +1,18 @@
+query Query($input: Collections_find!) {
+  collections(input: $input) {
+    id
+    type_collection
+    status_collection
+    user_update
+    collection_Vietnamese
+    collection_English
+    createdAt
+    updatedAt
+    title
+    index
+    description
+    description_english
+    title_english
+    imgURL
+  }
+}

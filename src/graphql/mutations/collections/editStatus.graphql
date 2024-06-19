@@ -1,0 +1,3 @@
+mutation EditStatus($input: edit_status!) {
+    edit_status(input: $input)
+}

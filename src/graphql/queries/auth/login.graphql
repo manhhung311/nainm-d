@@ -1,0 +1,22 @@
+query Query($input: UserLoginInput!) {
+  login(input: $input) {
+    token
+    user {
+      avartaURL
+      createdAt
+      email
+      firstName
+      fullName
+      id
+      lastName
+      fullName
+      phoneNumber
+      role
+      status
+      type_user
+      updatedAt
+      user_information_English
+      user_information_Vietnamese
+    }
+  }
+}

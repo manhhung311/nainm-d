@@ -1,0 +1,206 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Collection {
+    collection_English: String
+    collection_Vietnamese: String
+    createdAt: String
+    description: String
+    description_english: String
+    id: ID!
+    imgURL: String
+    index: Int
+    status_collection: Int!
+    title: String
+    title_english: String
+    type_collection: Int!
+    updatedAt: String
+    user_update: Int!
+}
+
+type Collections_find_res_pub {
+    collection: [Collection]
+    description: String
+    descriptionElg: String
+    id: ID!
+    name: String
+    nameElg: String
+    type_collection: Int!
+}
+
+type Mutation {
+    changePassWord(input: ChangePassWord!): SuccessResponse!
+    create_collection(input: Create_collection!): Collection!
+    deleteCollection(input: deleteCollection!): SuccessResponse!
+    edit_TypeCollection(input: editTypeCollection!): SuccessResponse!
+    edit_collection(input: Edit_collection!): SuccessResponse!
+    register(input: CreateUserInput!): User!
+    updateUserForAdmin(input: UpdateUserForAdminInput!): SuccessResponse!
+    updateUserForUser(input: UpdateUserForUserInput!): SuccessResponse!
+}
+
+type PageInfo {
+    endCursor: Cursor
+    hasNextPage: Boolean!
+}
+
+type Query {
+    collection(id: ID!): Collection!
+    collections(input: Collections_find!): [Collection]
+    collections_research_publication(input: Collections_find_research_publication!): [Collections_find_res_pub]
+    greeting: String!
+    login(input: UserLoginInput!): UserLoginResponse!
+    me: User!
+    publicUser(id: ID!): User!
+    publicUsers: [User]
+    user(id: ID!): User!
+    users: [User]
+}
+
+type User {
+    avartaURL: String
+    createdAt: String!
+    email: String!
+    firstName: String
+    fullName: String!
+    id: Int!
+    lastName: String
+    phoneNumber: String
+    role: Int!
+    status: Boolean!
+    type_user: Int!
+    updatedAt: String!
+    user_information_English: String
+    user_information_Vietnamese: String
+}
+
+type UserLoginResponse {
+    token: String!
+    user: User!
+}
+
+enum SuccessResponse {
+    success
+}
+
+scalar Cursor
+
+scalar Date
+
+scalar JSON
+
+scalar Upload
+
+input ChangePassWord {
+    newPassWord: String!
+    oldPassWord: String!
+}
+
+input Collections_find {
+    limit: Int
+    page: Int
+    stand_out: Boolean
+    status_collection: Int!
+    type_collection: Int!
+}
+
+input Collections_find_research_publication {
+    limit: Int
+    page: Int
+    stand_out: Boolean
+    status_collection: Int!
+    type_collection: Int!
+}
+
+input CreateUserInput {
+    avartaURL: Upload
+    email: String!
+    firstName: String!
+    lastName: String!
+    password: String!
+    phoneNumber: String
+    role: Int!
+    type_user: Int!
+}
+
+input Create_collection {
+    collection_English: String
+    collection_Vietnamese: String
+    description: String
+    description_english: String
+    description_type_collection: String
+    description_type_collectionElg: String
+    imgURL: Upload
+    name: String
+    nameElg: String
+    title: String
+    title_english: String
+    type_collection: Int!
+}
+
+input Edit_collection {
+    collection_English: String
+    collection_Vietnamese: String
+    description: String
+    description_english: String
+    id: ID!
+    imgURL: Upload
+    stand_out: Boolean
+    status: Int
+    title: String
+    title_english: String
+}
+
+input PaginationInput {
+    after: Cursor
+    before: Cursor
+    first: Int
+    last: Int
+}
+
+input UpdateUserForAdminInput {
+    PassWordNewUser: Boolean
+    Role: Int
+    avartaURL: Upload
+    email: String
+    firstName: String
+    id: Int!
+    lastName: String
+    phoneNumber: String
+    status: Boolean
+    user_information_English: String
+    user_information_Vietnamese: String
+}
+
+input UpdateUserForUserInput {
+    avartaURL: Upload
+    firstName: String
+    lastName: String
+    phoneNumber: String
+    status: Boolean
+    user_information_English: String
+    user_information_Vietnamese: String
+}
+
+input UserLoginInput {
+    email: String!
+    password: String!
+}
+
+input deleteCollection {
+    id: ID
+    id_tap: ID
+}
+
+input editTypeCollection {
+    description_type_collection: String
+    description_type_collectionElg: String
+    id: Int!
+    index: [Int!]
+    name: String
+    nameElg: String
+}
