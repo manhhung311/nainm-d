@@ -69,7 +69,7 @@ export default function PublicationPostEnglishStack({ onBack, onDrop, isEdit }) 
             variant="contained"
             size="medium"
             loading={isSubmitting}
-            disabled={values?.tapVN?.id === 0 && values?.tapENG?.id === 0}
+            disabled={values?.tapVN?.id === 0 && values?.tapENG?.id === 0 && !isEdit}
           >
             {t('news.post')}
           </LoadingButton>

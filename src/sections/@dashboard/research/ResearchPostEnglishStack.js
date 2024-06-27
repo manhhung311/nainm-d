@@ -4,7 +4,6 @@ import { useFormContext } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
 import { Button, Grid, Stack, Typography } from '@mui/material';
-// routes
 // components
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -12,7 +11,6 @@ import { RHFEditor, RHFTextField } from '../../../components/hook-form';
 import { useLocales } from '../../../locals';
 import RHFAutocompleteTapENG from '../../../components/hook-form/RHFAutocompleteTapENG';
 import { StatusCollection, TypeCollection } from '../../../constant';
-//
 
 // ----------------------------------------------------------------------
 
@@ -69,7 +67,7 @@ export default function ResearchPostEnglishStack({ onBack, isEdit }) {
             variant="contained"
             size="medium"
             loading={isSubmitting}
-            disabled={values?.tapVN?.id === 0 && values?.tapENG?.id === 0}
+            disabled={values?.tapVN?.id === 0 && values?.tapENG?.id === 0 && !isEdit}
           >
             {t('news.post')}
           </LoadingButton>
